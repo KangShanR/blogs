@@ -16,7 +16,7 @@ tags:
 
 - 切面Aspect:可以理解为模块，比如，读写数据库、权限检查、异常情况记录；
 - Advice,增强：拦截器实现增强接口Advisor，不同的拦截器实现不同的增强接口，比如：方法前拦截器
-			MethodBeforeInterceptor implements MethodBeforeAdvice｛
+			MethodBeforeInterceptor implements MethodBeforeAdvice{
 				//方法前拦截器
 				//调用对象的方法前将执行该方法。参数分别为被调用的方法、参数、对象
 				public void before(Method method, Object[] args, Object instance) throws Throwable{
@@ -24,12 +24,12 @@ tags:
 					//如果是Service
 					if(instance instanceof WaiterServiceImpl)
 						String name = ((AopServiceImpl) instance).geName();
-							if （name == null)//检查是否为空
+							if(name == null)//检查是否为空
 								throw new NullPointerException("name属性不能为null");
 					}
 					method.invoke(instance,args);
-				｝
-			｝
+				}
+			}
 - 拦截器，interceptor，也是pointcut的核心:
 	- spring拦截器的配置实现，通过增加配置：
 				<bean id="aopMethodBeforeInterceptor" class="org.springframework.aop.supoort.NameMatchMethodPointcutAdvisor">
@@ -95,7 +95,56 @@ tags:
 						return null;
 					}
 				}
-	- 从上述代码例子中可以看出：
-		- 查询R、创建C都由父类HibernateDaoSupport提供的getHibernateTemplate方法获取到实例并执行实例的方法来实现，其中查询使用实例方法find(String sql, Stirng 拼接String），而save则用持久化方法persist(Object user);
+	- ***从上述代码例子中可以看出：***
+		- 查询(Read)、创建(Create)都由父类HibernateDaoSupport提供的getHibernateTemplate方法获取到实例并执行实例的方法来实现，其中查询使用实例方法find(String sql, Stirng 拼接String），而save则用持久化方法persist(Object user);
 		- 当要涉及到数据库计算时，则用getSession获取到与数据库的会话对象，让会话对象执行sql统计语句；
-	- 
+		- 同时，所有sql语言的操作对象都指向实体类，而没有对数据库中的表进行组织sql语句；
+	- **个人理解：**spring通过封装Hibernate在框架中，让DAO接口的实现类继承HibernateDaoSupport尖，就将Hibernate对象创建出来，而直接操作这个对象的方法来获取session/Hibernate对象直接与数据库交互，而就节省了操作JDBC的代码；
+
+#### 配置集成Hibernate ####
+- 在spring的bean.xml文件中配置集成hibernate到目前这一步只需要***配置三个bean***：
+	- 数据源datasource，这是一切的基础，所有的操作最终都会落到对数据库的操作上；
+			<bean id="datasource" class="org.apache.commonsdbcp.BasicDataSource">
+				<property name="driverClassName" class="org.gjt.mm.mysql.Driver"></property>
+				<property name="url" value="jdbc\:mysql\://localhost\:3306/ssh"></property>
+				<property name="username" value="root"></property>
+				<propery name="password" value=""></property>
+			</bean>
+		*- 数据源的配置就是用依赖包中的一个封装好的类（这儿就是BasicDataSource）的对象，并将这个对象的属性值配置好，这些属性就包括了数据库的驱动、连接的url、连接数据库的用户名、密码。可以想象的是，这个处理数据库的对象封装了所有的连接数据库的方法，使用密码与用户名，交给驱动对象，这个驱动对象就按照提供的url连接到主机上的数据库，并登录到数据库；*
+	- 有了数据源，就可以将关联连接库的数据源配置到sessionFactory中去：
+			<bean id="sessionFactory" class="org.springframework.orm.hibernate4.annotation.AnnotationSessionFactoryBean" destroy-method="destroy">
+				<property name="dataSource">
+					<ref bean="dataSource"/>
+				<property/>
+				<property name="annotatedClasses">
+					<list>
+						<value>com.woniuxy.orm.class_qulified_name</value>
+					</list>
+				<property/>
+				<property name="hibernateProperties">
+					<pros>
+						<pro key="hibernate.dialect">
+							org.hibernate.dialect.MySQLDialect
+						</pro>
+						<pro key="hibernate.show_sql">true</pro>
+						<pro key="hibernate.format_sql">true</pro>
+						<pro key="hibernate.hbm2ddl.auto">create</pro>
+					</pros>
+				</property>
+			</bean>
+		- *配置会话工厂（因为我们的实体类使用的注解映射，所以就使用注解会话工厂AnnotationSessionFatoryBean)其中包括了：数据源、实体类还有hibernate,而hibernate的配置就包括了方言、输出sql语句、格式化sql语句、创建表结构*
+	- 有了会话工厂，距离操作数据库就只有让Dao配置为bean，而操作代码就getBean来获取到这个Dao的实例，让这个实例来操作数据库：
+			<bean id="userDao" class="daoImpl_qualified_name">
+				<property name="sessionfactory" ref="sessionFactory" />
+			</bean>
+		- *在Dao的bean中，将前面配置好的sessionFactory装配到其中*
+	- 以上情况是实体类User是使用注解来配置的，这种情况下，使用的sessionFactory是AnnotationSessionFactoryBean,但当实体类是使用xml文件来配置时，使用的配置bean应该是LocalSessionFactoryBean。同时，sessionFactory中配置实体的方式也变成：
+			<property name="mappingDirectoryLocations">
+				<list>
+					<value>classpath:entiteis_配置文件的路径</value>
+				</list>
+			</property>
+
+#### Hibernate的事务管理 ####
+- **分层的做法：应用层调用Service层，Service层对数据进行检查（是否重复之类），然后Service层（注入一个Dao属性）调用Dao层，Dao层调用Hibernate实现数据的操作。原则上不允许跨层访问，业务层次分明。**
+- 
