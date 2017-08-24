@@ -1,4 +1,8 @@
-# spring #
+---
+title: spring框架的学习
+date: 2017-08-15 12:14:38
+tags:
+---
 >spring配置beans的底层原理就在于通过封装好的解析xml类，将xml文件中配置好的bean实例出一个对象来，再通过配置实现bean之间的相互引用，而实现将要用到的bean（实用类）实例化并使用；
 
 ## Core模块 ##
@@ -36,7 +40,7 @@
 				</bean>
 	- 从上面的代码可以看出：
 		- spring实现拦截器都是通过增强器Advisor，而这个增强器是一个代理，将参数（自定义的Advice）作为参数传入其中；
-		- 同进mappedName属性用来指定拦截的方法，这个方法并不是增加类中的方法，而是到时要执行到的所有的匹配方法名字段的方法；
+		- 同时mappedName属性用来指定拦截的方法，这个方法并不是增加类中的方法，而是到时要执行到的所有的匹配方法名字段的方法；
 		- 同时：spring支持由正则表达式配置切入点：
 					<property name="patterns">      <!-- 正则表达式配置切入点-->
 						<list>
@@ -44,14 +48,12 @@
 							<value>.*absquatulate</value>  <!--包含absquatutulat字段的方法被拦截>
 						</list>
 					</property>
-
 ## ORM模块 ##
 >Object RelativeDatabase Mapping,对象关系型数据库映射
 - 简介：
 	- 此模块对Hibernate/JDO/TopLink、iBatis等ORM框架提供支持；
 	- Spring提供在DAO层提供HibernateDaoSupport类与JDBCTemplate类；
 	- 在Spring里，Hibernate与SessionFactory等只是Spring一个特殊的Bean，由Spring负责实例化与销毁；所以也就不需要与Hibernate的API打交道，不需要开启关闭Hibernate的Session、Transaction，Spring自动维护这些对象；
-
 
 #### 实体类 ####
 这儿用User类举例：
