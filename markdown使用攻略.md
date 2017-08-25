@@ -35,6 +35,15 @@ Syntax highlighted code block
 
 [Link](url) and ![Image](src)
 ```
+**Shortcut:**
+- **Bold** (`Ctrl+B`) and *Italic* (`Ctrl+I`)
+- Quotes (`Ctrl+Q`)
+- Code blocks (`Ctrl+K`)
+- Headings 1, 2, 3 (`Ctrl+1`, `Ctrl+2`, `Ctrl+3`)
+- Lists (`Ctrl+U` and `Ctrl+Shift+O`)
+- Timestamp(`Ctrl+T`)
+- Horizontal Rule(`Ctrl+R`)
+
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
