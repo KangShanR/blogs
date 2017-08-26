@@ -1,7 +1,7 @@
 ---
 title: hexo常用命令
 date: 2017-01-23 02:04:38
-tags:
+tags: hexo
 ---
 在学习使用hexo过程中的笔记，大部分来自于[hexo官方网站](https://hexo.io/docs/ "hexo Docs")的文档介绍；
 - hexo generate

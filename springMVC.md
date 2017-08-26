@@ -1,7 +1,7 @@
 ---
 title: springMVC
 date: 2016-08-20 13:29:17
-tags:
+tags: framework
 ---
 ## 核心对象： ##
 ### 中央处理器：在web.xml中配置springmvc的servlet ###
