@@ -50,3 +50,4 @@ description: 使用hexo与github搭建个人网站中的小点子
 			- 所以，还是用最暴力的方法更新，每次重新生成整个仓库的资源，将整个仓库资源deploy到github上；
 	- 调整整个背景颜色与图片的信息：
 		- 进入到相关的主题folder中，再依次进入`source-->css-->style.styl`，打开这个文件，找到`body`在这个级别下就有各种配置参数可以调整，包括了`background: color_value url(图片路径)`
+	- 每新建一个hexo目录（也就是说当你在其它托管网站上新建一个项目时）在这个hexo目录中依然要执行上面安装所有的插件到hexo中，比如安部署器deployer：`npm install hexo-deployer-git --save`
