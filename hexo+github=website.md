@@ -7,6 +7,8 @@ description: 使用hexo与github搭建个人网站中的小点子
 ---
 在学习使用hexo过程中的笔记，大部分来自于[hexo官方网站](https://hexo.io/docs/ "hexo Docs")的文档介绍；
 还有搭建网站过程中，参考了不少其他站主的文章：[小茗的搭建网站博客](http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html "小茗")
+[使用blueLake的教程](http://chaoo.oschina.io/2016/12/29/BlueLake%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E7%9A%84%E8%AF%A6%E7%BB%86%E9%85%8D%E7%BD%AE.html "BlueLake使用教程")
+[生成新浪微博秀；](http://app.weibo.com/tool/weiboshow "新浪微博秀")
 - hexo generate
 	- 根据已提供的md文件资料生成静态网页，放在public文件夹中；
 	- hexo generate --watch
