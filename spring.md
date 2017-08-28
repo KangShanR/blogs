@@ -196,8 +196,38 @@ description:
 		    </session-factory>
 		</hibernate-configuration>
 		- 其中配置了部分的Hibernate属性，同时也可以配置c3p0的属性在其中；
-		- ![](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1503928293675&di=e8b9087d3b9cddf24ff72ce03f934385&imgtype=0&src=http%3A%2F%2Fimg4.160.com%2Fsoft%2F4%2F2e%2Fproject_20161116103912.png)
-		- ![](https://git.oschina.net/kangshan/myblogs/blob/master/pictures/balloonl_girl.JPG?raw=true)
-		- ![](https://github.com/KangShanR/blogs/blob/master/pictures/bg.jpg?raw=true)
-		- ![](https://github.com/KangShanR/blogs/blob/master/pictures/balloonl_girl.JPG?raw=true)
-		- 
+- 第三个配置：事务管理器transactionManager
+	- 将前面配置好的sessionFactory装配到这个bean中，作为sessionFactory属性值；
+- 第四个配置：tx:advice，配置事务的传播特性，指定具备事务的方法名；
+		<!-- 事务配置增强 -->
+		<tx:advice id="txAdvice" transaction-manager="txMng">
+	 		<tx:attributes>
+	 			<tx:method name="save*" isolation="DEFAULT" propagation="REQUIRED"/>
+	 			<tx:method name="update*" isolation="DEFAULT" propagation="REQUIRED"/>
+	 			<tx:method name="delete*" isolation="DEFAULT" propagation="REQUIRED"/>
+	 			<tx:method name="batch*" isolation="DEFAULT" propagation="REQUIRED"/>
+	 			
+	 			<tx:method name="get*" isolation="DEFAULT" propagation="REQUIRED" read-only="true"/>
+	 			<tx:method name="load*" isolation="DEFAULT" propagation="REQUIRED" read-only="true"/>
+	 			<tx:method name="find*" isolation="DEFAULT" propagation="REQUIRED" read-only="true"/>
+	 			
+	 			<!-- 统配 -->
+	 			<tx:method name="*" isolation="DEFAULT" propagation="REQUIRED" read-only="true"/>
+	 		</tx:attributes>
+ 		</tx:advice>
+	- 最后一行统配就指定了所有的方法都配置上事务，同时isolation指此事务的隔离级别，propagation指事务的传播属性，read-only指是否为只读；
+- 第五个配置aop:config，配置事务的切入点，以及被管理的对象
+		<aop:config>
+			<aop:pointcut id="interceptorPointCuts" expression="execution(* com.woniuxy.sshdemo.service.impl.*(..))"/>
+			<aop:advisor advice-ref="txAdvice" pointcut-ref="interceptorPointCuts"/>
+		</aop:config>
+	- 先将切面的切点配置进来，也就是各个service的执行对象。再将这此切点配置到advisor中
+- 其它的配置：
+	- dao的执行类，配置一个id加上sessionFactory;
+	- service的执行类,配置上dao这个属性的对象；
+- **使用注解来实现事务的配置**
+	- 这时bean.xml：
+		- 数据源不变
+		- sessionFactory不变；
+		- 事务管理器trasactionManager依然不变；
+		- 变的是：添加一个事务注解驱动`tx:annotation-driven trasaction-manager="transactionManager"/>`，添加这个驱动配置后，对产生事务的类添加注解`@Transactional`，标记这个类为事务类，对其中的事务方法添加注解`@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED)`注解（标明了这个方法的隔离水平与传播水平）。这样的注解就取代了上面例子中tx:advice与aop:config两个配置节点的功能；
