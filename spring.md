@@ -149,4 +149,55 @@ description:
 
 #### Hibernate的事务管理 ####
 - **分层的做法：应用层调用Service层，Service层对数据进行检查（是否重复之类），然后Service层（注入一个Dao属性）调用Dao层，Dao层调用Hibernate实现数据的操作。原则上不允许跨层访问，业务层次分明。**
-- 
+- 事务管理transaction，对应的层为Service层；
+
+#### spring的bean.xml配置文件的理解 ####
+- 所有的操作都基于对数据库的crud，所以所有的配置都围绕着操作数据库；
+- 所以，第一个bean的是数据源：dataSource
+	- 其中的属性就包括：
+		- 连接数据库的驱动：driverClassName
+		- 数据库连接url:url
+		- 数据库连接用户名：username
+		- 数据库连接密码：password
+	- 通常情况下，我们把数据源信息都单独分离在jdbc.properties文件中，并在要用到的配置文件中将其配置为上下文`<context:property-placeholder> location="classpath:jdbc.properties/>`，之后就可以在数据源dataSource中配置其中的属性：`<property name="driverClass" value="${driver}"></property>`
+- 第二个配置的bean：sessionFactory
+	- 这儿就把上一次配置好的dataSource数据源装配到sessionFactory的属性中：
+			<!-- 配置本地会话工厂bean -->
+			<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+				<!-- 配置数据源 -->
+				<property name="dataSource" ref="dataSource"/>
+				<!-- 指定hibernate配置文件-->
+				<property name="configLocations" value="classpath:hibernate.cfg.xml"/>
+				<!-- 指定hibernate映射文件-->
+				<property name="mappingDirectoryLocations">
+					<list>
+						<value>classpath:mappings/*.xml</value>
+					</list>
+				</property>
+			</bean>
+		- Note:*这儿配置spring的sessionFactory属性就会把Hibernatek r sessionFactory属性覆盖；*
+		- configLocations属性：*将指定路径的配置文件都加载进去，相应的LocalSessionFactoryBean中的的此属性的setter方法的参数为可变参数:*
+				public void setConfigLocations(Resource... configLocations) {
+					this.configLocations = configLocations;
+				}
+	- 而在上述代码中，hibernate的配置文件也直接引入到sessionFatory中来，而在外部的hibernate配置文件：
+		<hibernate-configuration>
+		    <session-factory>
+		    	<!-- 配置方言 -->
+				<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+				<!-- session上下文控制权:交给session来控制 -->
+				<property name="hibernate.current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext</property>
+				<!-- 格式化sql语句 -->
+				<property name="format_sql">true</property>
+				<!-- 显示sql语句 -->
+				<property name="show_sql">true</property>
+				<!-- 表的生成策略 -->
+				<property name="hbm2ddl.auto">update</property>
+		    </session-factory>
+		</hibernate-configuration>
+		- 其中配置了部分的Hibernate属性，同时也可以配置c3p0的属性在其中；
+		- ![](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1503928293675&di=e8b9087d3b9cddf24ff72ce03f934385&imgtype=0&src=http%3A%2F%2Fimg4.160.com%2Fsoft%2F4%2F2e%2Fproject_20161116103912.png)
+		- ![](https://git.oschina.net/kangshan/myblogs/blob/master/pictures/balloonl_girl.JPG?raw=true)
+		- ![](https://github.com/KangShanR/blogs/blob/master/pictures/bg.jpg?raw=true)
+		- ![](https://github.com/KangShanR/blogs/blob/master/pictures/balloonl_girl.JPG?raw=true)
+		- 
