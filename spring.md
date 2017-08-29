@@ -50,6 +50,7 @@ description: spring框架的学习与理解
 							<value>.*absquatulate</value>  <!--包含absquatutulat字段的方法被拦截>
 						</list>
 					</property>
+
 ## ORM模块 ##
 >Object RelativeDatabase Mapping,对象关系型数据库映射
 - 简介：
@@ -147,11 +148,11 @@ description: spring框架的学习与理解
 				</list>
 			</property>
 
-#### Hibernate的事务管理 ####
+### Hibernate的事务管理 ###
 - **分层的做法：应用层调用Service层，Service层对数据进行检查（是否重复之类），然后Service层（注入一个Dao属性）调用Dao层，Dao层调用Hibernate实现数据的操作。原则上不允许跨层访问，业务层次分明。**
 - 事务管理transaction，对应的层为Service层；
 
-#### spring的bean.xml配置文件的理解 ####
+### spring的bean.xml配置文件的理解 ###
 - 所有的操作都基于对数据库的crud，所以所有的配置都围绕着操作数据库；
 - 所以，第一个bean的是数据源：dataSource
 	- 其中的属性就包括：
