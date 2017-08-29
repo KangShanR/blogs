@@ -55,5 +55,124 @@
 		</dependency>
 	 	 </dependencies>
 1. 引入相关的jar包后，就可以对mybatis进行配置：
-	1. 
-  
+	1. mybatis.xml文件中，配置mybatis的标签是：
+			<?xml version="1.0" encoding="UTF-8" ?>  
+			<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+				"http://mybatis.org/dtd/mybatis-3-config.dtd">
+			
+			<configuration>
+			
+				<!-- 引入配置文件 -->
+				<properties resource="jdbc.properties" />
+			
+				<!--自定义别名 -->
+				<typeAliases>
+					<!--定义单个别名 ,不区别大小写 -->
+					<!-- <typeAlias type="com.woniuxy.mybatis.entity.User" alias="user"/> -->
+					<!-- 批量定义别名，该包内所有的类的类名直接作为别名，不区分大小写 -->
+					<package name="com.woniuxy.mybatis.entity" />
+				</typeAliases>
+			
+				<!-- jdbc的配置信息 -->
+				<environments default="development">
+					<environment id="development">
+						<!-- 配置事务管理器 -->
+						<transactionManager type="JDBC" />
+						<!-- 数据库连接池 -->
+						<dataSource type="POOLED">
+							<property name="driver" value="${jdbc.driver}" />
+							<property name="url" value="${jdbc.url}" />
+							<property name="username" value="${jdbc.username}" />
+							<property name="password" value="${jdbc.password}" />
+						</dataSource>
+					</environment>
+				</environments>
+			
+				<!-- 映射资源 -->
+				<mappers>
+					<mapper resource="mappings/Users.xml" />
+					<mapper resource="mappings/UserMapper.xml" />
+				</mappers>
+				
+			</configuration>
+		- 其根标签是：`<configuration>`
+		- 解析上述各标签：
+			- properties:属性文件的引入，将java属性文件引入到该配置文件中，如上所述：引入了jdbc.properties文件，就可以在配置数据源属性时，通过点位符&｛｝来获取到装配进来的属性文件中的属性值；
+			- typeAliases:别名的设定，可以指定单个类的别名，也可以使用子标签`package` 指定整个包的别名为类的simpleName;
+			- environments配置中，除了配置了JDBC数据库连接信息(数据源类型：POOLED)外,还得设定事务管理器类型：JDBC；
+			- mappers:映射各个实体类或映射类配置文件到此配置文件中去；
+	- mappers中的配置文件：
+		- Users.xml文件是指定了这个user类与数据库中操作的方法，包括这些方法的参数与返回值类型；
+				<?xml version="1.0" encoding="UTF-8" ?>
+				<!DOCTYPE mapper
+					PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+					"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+					
+				<mapper namespace="test2">
+				
+					<!-- 根据id获取用户信息 -->
+					<select id="findUserById" parameterType="int" resultType="User">
+						SELECT * FROM t_user WHERE ID = #{id}
+					</select>
+					
+					<!-- 根据用户名获取用户列表 -->
+					<select id="findUserByUsername" parameterType="string" resultType="User">
+						SELECT * FROM t_user WHERE user_name like '%${value}%'
+					</select>
+					
+					<!-- 添加用户数据 -->
+					<insert id="saveUserInfo" parameterType="User">
+						<!-- 使用selectkey返回插入数据的id -->
+						<selectKey keyColumn="id" keyProperty="id" resultType="int" order="AFTER">
+							SELECT LAST_INSERT_ID()
+						</selectKey>
+						<!-- 如果主键使用uuid，则可以通过下面方法把id转出 -->
+						<!-- <selectKey keyProperty="id" resultType="string" order="BEFORE">
+							SELECT UUID()
+						</selectKey> -->
+						INSERT INTO t_user(user_name,cnname,sex,mobile,email,note) VALUES 
+						(#{user_name},#{cnname},#{sex},#{mobile},#{email},#{note})
+					</insert>
+					
+					<!-- 删除数据 -->
+					<delete id="deleteUserById" parameterType="int">
+						DELETE from t_user where id=#{value}
+					</delete>
+					
+					<!-- 更新数据 -->
+					<update id="updateUserInfo" parameterType="User">
+						UPDATE t_user SET
+						user_name=#{user_name},cnname=#{cnname},sex=#{sex},mobile=#{mobile},email=#{email},note=#{note} 
+						WHERE id=#{id}
+					</update>
+					
+				</mapper>
+			- 文档头可以看出这是mabatis3映射的定义文档类型，所以其根标签为`mapper`，其中各子标签或属性：
+				- namespace属性，指定其命名空间，这样在其它地方要调用此配置文件中的各语句时，就需要通过这个命名空间来访问到此文档中定义id的各个语句，通过session对象的方法来调用时，这些语句就作为参数执行方法：`session.selectOne("findUserById()",user)；
+				- session的来源：
+						/**
+						 * 测试前的预备工作
+						 */
+						@Before
+						public void before(){
+							System.out.println(Before.class);
+					
+							try {
+								// 读入mybatis配置文件到输入流中
+								is = Resources.getResourceAsStream("mybatis.xml");
+								factoryBuilder = new SqlSessionFactoryBuilder();
+								//使用输入流创建sqlSessionFactory
+								factory = factoryBuilder.build(is);
+								//打开sqlSession
+								session = factory.openSession();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+					- 上述代码是利用junit包实现了测试功能，@Before注解标这个方法在@Test方法之前运行，从该方法就可以看出myBaitis的运行流程：
+						- 将mybatis.xml配置文件读放流中，再使用sessionFactoryBuilder对该流进行创建工厂（抽象工厂模式）；
+						- 调用工厂的openSession()方法打开会话，获得sesison实例；
+						- 操作数据库最后一步就是调用session对象的方法：`List<User> users = session.selectList("test.findUserByUsername", "k");`
+							- 这儿的test就是之前指定的namespace，这儿指定的id的语句执行，并将另外的参数传入，形成完整的sql语句；
+					- 这个流程是最初级的，而我们现实中常常不使用这样的形式，而使用接口来将所有方法的调用都交由接口来实现：
+						- 在获取到session时，就通过session.getMapper(Class<T> mapper)方法来获取到相关的mapper接口的对象，而在使用过程中，就直接调用这个接口对象的方法（方法执行时就调用相应的语句执行），这个方法与语句之间映射就由指定了nameSpace的xml配置文件来实现；
