@@ -147,6 +147,15 @@
 					</update>
 					
 				</mapper>
+
+			- #｛｝与￥｛｝的区别：
+				- `#{}`
+					- 表示占位符号，相当于实现了JDBC中的paparedStatement占位符的作用，也就实现了防止sql注入；
+					- 同时实现了java类型与jdbc类型转换，可以接收简单类型值与pojo属性值；
+					- 如果传输单个简单类型值，｛｝中可以是value或其它名称；
+				- `${}`
+					- 表示sql字符串拼接，也就是将｛｝中的内容拼接在sql中且不进行jdbc类型转换；
+					- 可以接收简单类型值或pojo值，如果是简单类型值｛｝中只能是'value';
 			- 文档头可以看出这是mabatis3映射的定义文档类型，所以其根标签为`mapper`，其中各子标签或属性：
 				- namespace属性，指定其命名空间，这样在其它地方要调用此配置文件中的各语句时，就需要通过这个命名空间来访问到此文档中定义id的各个语句，通过session对象的方法来调用时，这些语句就作为参数执行方法：`session.selectOne("findUserById()",user)；
 				- session的来源：
@@ -175,4 +184,23 @@
 						- 操作数据库最后一步就是调用session对象的方法：`List<User> users = session.selectList("test.findUserByUsername", "k");`
 							- 这儿的test就是之前指定的namespace，这儿指定的id的语句执行，并将另外的参数传入，形成完整的sql语句；
 					- 这个流程是最初级的，而我们现实中常常不使用这样的形式，而使用接口来将所有方法的调用都交由接口来实现：
-						- 在获取到session时，就通过session.getMapper(Class<T> mapper)方法来获取到相关的mapper接口的对象，而在使用过程中，就直接调用这个接口对象的方法（方法执行时就调用相应的语句执行），这个方法与语句之间映射就由指定了nameSpace的xml配置文件来实现；
+						- 在获取到session时，就通过session.getMapper(Class<T> mapper)方法来获取到相关的mapper接口的对象，而在使用过程中，就直接调用这个接口对象的方法（方法执行时就调用相应的语句执行），这个方法与语句之间映射就由指定了nameSpace的xml配置文件来实现，这种方法实现原理叫Mapper动态代理；
+- **从上面的例子就可以看出Mybatis解决了的jdbc的问题：**
+	- 数据库的链接的创建与释放者造成系统资源的浪费，而使用数据库连接池就可以此问题，在Mybatis的配置中设置；
+	- sql语句写在java代码中造成的不易维护，而Mybatis就将这些sql语句配置在相应的配置文件中，这样就与java代码实现了分离；
+	- 使用映射好的java对象来作为sql语句的statemente的参数，而不用像在jdbc的执行方法中定义输入参数的类型；
+	- 对于结果集的解析在JDBC中需要一层层遍历，并将各个属性封装到entity中再装入集合中。Mybatis将这些封装好，直接将结果映射到java对象中；
+- 同时，上面例子并没有在持久层操作，也就是DAO层并没有进行开发，直接使用在TEST中进行调用抽象工厂的构造方法来构造工厂与sqlSession，再用sqlSession对象的方法，sqlSession的方法中调用配置好的sql语句与参数；
+- 如果要实现持久层的开发不过是把上面构造SqlSessionFactory/SqlSession的方法封装进Dao类中实现；
+
+----------
+### 使用Mapper代理开发 
+#### 概述：
+- 动态代理开发，就是让生成Mapper对象的这个过程交给SqlSession对象的getMapper（Class<T> mapper)方法，这时的SqlSession就是代理，也就是通过了代理来构造获取Mapper接口的对象；
+- Mapper对象就是Mapper接口的实例，这个接口与写好相关的mapper.xml配置文件相关联，Mybatis就用这个接口来构造对象，这个对象的方法执行时就与相关联的Mapper.xml配置文件里的sql语句来执行sql方法；
+- Mapper接口与Mapper.xml配置文件相关联的规则（此规则由Mybatis规定，符合此规则便形成关联）：
+	- Mapper.xml文件中的namespce与mapper接口的类路径相同；
+	- Mapper接口方法名和Mapper.xml中定义的每个statement的id相同；
+	- 接口方法的输入参数类型和配置文件中的sql的parameterType的类型相同；
+	- 接口方法的返回数据类型与配置文件中的resultType类型相同的；
+- 实现代理开发就意味着之前的session方法执行都交给这个Mapper对象，所有的操作方法都由这个接口定义，调用这个方法就只用传入定义的参数类型，这也就**实现了由Mapper对象的方法来代理SqlSession对象中的操作数据库的方法**(*这儿涉及到代理[设计模式](http://kangshan.oschina.io/2016/06/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/ "设计模式")的理解*)，相对于直接使用SqlSession的各种执行方法更为简便；
