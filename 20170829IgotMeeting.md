@@ -1,6 +1,6 @@
 ---
 title: 得到例会：关于找工作
-date: 2017-01-23 02:04:38
+date: 2017-08-29 02:04:38
 categories: job
 tags: job
 description: 得到例会，脱不花和快刀青衣的干货

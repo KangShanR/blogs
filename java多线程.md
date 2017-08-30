@@ -1,7 +1,7 @@
 ---
 title: Java多线程 
 date: 2017-07-14 12:04:38
-tags: java 单例模式
+tags: [java,单例模式]
 categories: 
 description: java多线程的实现与单例模式中的理解
 ---

@@ -1,7 +1,7 @@
 ---
 title: JDBC的理解
 date: 2016-07-24 12:14:32
-tags: java 数据库
+tags: [java,数据库]
 categories: 
 description: java数据库连接的基础实现
 ---
