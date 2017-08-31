@@ -1,7 +1,7 @@
 ---
 title: hexo+github=your website
 date: 2017-01-23 02:04:38
-categories: 个人网站搭建
+categories: [个人网站搭建,hexo]
 tags: [hexo,github]
 description: 使用hexo与github搭建个人网站中的小点子
 ---
@@ -37,6 +37,17 @@ description: 使用hexo与github搭建个人网站中的小点子
 			description: 附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面
 			---
 		</pre>
+	- Hexo默认的文件头只有title、date、tags属性，生成的html会缺少Meta信息，不利于搜索引擎收录。建议自行在文件头中添加keywords和description属性。categories属性可自行选择是否添加。标准包含全部meta信息的头应该是：
+			---
+			title: ##文章标题
+			date: ##时间，格式为 YYYY-MM-DD HH:mm:ss
+			categories: ##分类
+			tags: ##标签，多标签格式为 [tag1,tag2,...]
+			keywords: ##文章关键词，多关键词格式为 keyword1,keywords2,...
+			description: ##文章描述
+			---
+			正文
+
 
 - 生成md文档还有另外一个命令：`hexo new page newpage`
 	- 与上一个命令不同之处在于：生成的md文件放在了根目录而不会放在source/_post中，而会在source文件夹中生在一个newpage的folder，并在其中生一个index.md，且这个md文档的title会被设置成newpage，也就是生成了这样一个页面，而这个页面并未在网页目录中，但我们就可以好好地设置这个页面用于在其他的文档引用；

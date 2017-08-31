@@ -1,3 +1,10 @@
+---
+title: java内部类
+date: 2017-04-29 13:04:38
+categories: java
+tags: [java,java内部类，访问修辞符，迭代器]
+description: java内部类的使用与迭代器的实现
+---
 ### java内部类 ###
 
 

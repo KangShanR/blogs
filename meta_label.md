@@ -1,9 +1,10 @@
 ---
 title: meta标签.md
 date: 2015-03-23 14:41:48
-tags: html
-categories: 
-description: 
+tags: [html5,jsp]
+categories: 前端
+keywords: meta,标签
+description: 关于常在各类文档文件头部标签中出现的meta标签的知识点
 ---
 
 ###  标签简介：

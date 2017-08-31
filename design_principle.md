@@ -1,6 +1,6 @@
 ---
 title: 设计原则
-date: 2017-06-13 12:32:48
+date: 2017-05-13 12:32:48
 tags: [programming,设计原则]
 categories: 面向对象
 description: 对于面向对象设计原则
