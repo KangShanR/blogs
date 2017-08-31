@@ -148,7 +148,7 @@
 					
 				</mapper>
 
-			- #｛｝与￥｛｝的区别：
+			- `#{}`与`${}`的区别：
 				- `#{}`
 					- 表示占位符号，相当于实现了JDBC中的paparedStatement占位符的作用，也就实现了防止sql注入；
 					- 同时实现了java类型与jdbc类型转换，可以接收简单类型值与pojo属性值；
@@ -196,7 +196,7 @@
 ----------
 ### 使用Mapper代理开发 
 #### 概述：
-- 动态代理开发，就是让生成Mapper对象的这个过程交给SqlSession对象的getMapper（Class<T> mapper)方法，这时的SqlSession就是代理，也就是通过了代理来构造获取Mapper接口的对象；
+- **动态代理开发**，就是让生成Mapper对象的这个过程交给SqlSession对象的getMapper（Class<T> mapper)方法，这时的SqlSession就是代理，也就是通过了代理来构造获取Mapper接口的对象；
 - Mapper对象就是Mapper接口的实例，这个接口与写好相关的mapper.xml配置文件相关联，Mybatis就用这个接口来构造对象，这个对象的方法执行时就与相关联的Mapper.xml配置文件里的sql语句来执行sql方法；
 - Mapper接口与Mapper.xml配置文件相关联的规则（此规则由Mybatis规定，符合此规则便形成关联）：
 	- Mapper.xml文件中的namespce与mapper接口的类路径相同；
@@ -204,4 +204,4 @@
 	- 接口方法的输入参数类型和配置文件中的sql的parameterType的类型相同；
 	- 接口方法的返回数据类型与配置文件中的resultType类型相同的；
 - 实现代理开发就意味着之前的session方法执行都交给这个Mapper对象，所有的操作方法都由这个接口定义，调用这个方法就只用传入定义的参数类型，这也就**实现了由Mapper对象的方法来代理SqlSession对象中的操作数据库的方法**(*这儿涉及到代理[设计模式](http://kangshan.oschina.io/2016/06/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/ "设计模式")的理解*)，相对于直接使用SqlSession的各种执行方法更为简便；
--  
+- 
