@@ -38,6 +38,7 @@ description: 使用hexo与github搭建个人网站中的小点子
 			---
 		</pre>
 	- Hexo默认的文件头只有title、date、tags属性，生成的html会缺少Meta信息，不利于搜索引擎收录。建议自行在文件头中添加keywords和description属性。categories属性可自行选择是否添加。标准包含全部meta信息的头应该是：
+			
 			---
 			title: ##文章标题
 			date: ##时间，格式为 YYYY-MM-DD HH:mm:ss
