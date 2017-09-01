@@ -2,7 +2,8 @@
 title: java内部类
 date: 2017-04-29 13:04:38
 categories: java
-tags: [java,java内部类,访问修辞符,迭代器]
+tags: [java,java内部类,访问修辞符,迭代器,匿名内部类,programming]
+keywords: 内部类,匿名内部类,迭代器,私有化内部类
 description: java内部类的使用与迭代器的实现
 ---
 ### java内部类 ###
@@ -58,3 +59,36 @@ description: java内部类的使用与迭代器的实现
 				- 先构造一个外部类的对象：`	Repository rep = new Repository();`
 				- 再来构造内部类对象：`DoIterator ite2 = rep.new DoIterator();`
 		- 当这个内部类的修辞符为private时，这时在其他非相关的外部类中就不能导入此类，更名别说构造对象了；
+
+
+### 匿名内部类： ###
+- 这种情况多数用于一个抽象的类或者接口想要生成一个对象，这时不得不用一个子类来实现其抽象方法或新产品才能实现，但如果这个子类只用一次的话，专门创建一个子类来装载时会造成系统资源的浪费，那么这时使用匿名内部类会更合理：
+	- 接口定义
+		public interface Draw {
+			void draw(String name);
+		}
+	- 这时我们只想实现一次特殊的draw()方法，而且只用得到一次，如果创建一个类实现这个接口（或者抽象父类），就会造成系统资源的浪费，所以就使用匿名内部类实现：
+	- main方法中测试：
+			public static void main(String[] args) {
+				Draw draw = new Draw(){
+					@Override
+					public void draw(String name) {
+						System.out.println("Draw.Draw...."+name);
+					}
+				};
+				draw.draw("test");
+			}
+		- 测试结果：
+				Draw.Draw....test
+		- 其中先用接口new一个对象出来，再在这个对象中创建一个匿名的内部类并实现其draw()方法，因为是匿名的类，所以只能看到其方法在对象体`{}`中。
+		- 同时要实现这个匿名内部类的效果，不一定要在接口中或抽象类的抽象方法中，普通类的普通方法也一样可以实现这样的重写方法，再一次调用：
+				//实现类的匿名内部类，这个类不一定抽象类方法也不一定是抽象方法，一样都可以实现
+				ProxyDraw proxy = new ProxyDraw(draw){
+					@Override
+					public void draw(String name){
+						System.out.println("anonymity"+name);
+					}
+				};
+				proxy.draw("");
+			- 测试结果：
+					anonymity
