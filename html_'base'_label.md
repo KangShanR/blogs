@@ -2,7 +2,7 @@
 title: html_base标签
 date: 2015-03-25 15:39:42
 tags: html
-categories: LeadingEnd
+categories: programming
 description: html中base标签的使用与理解 
 ---
 简介：用于规定页面上所有的链接的默认URL和默认目标：

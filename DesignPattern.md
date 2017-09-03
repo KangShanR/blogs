@@ -71,8 +71,23 @@ Gang of Four，四人帮提出设计模式的设计原则：
 	- 静态代理：
 		- 可以让代理类同时实现真正想的对象的类实现的接口，而在代理类中有一个真正类的属性，当想要这个真正类时，对上述属性判空，再实例化，这样通过代理类执行接口中的方法时就是执行的真正想要的类的方法了；
 		- 简单地讲，代理就是将其他的类的各种实现方法，交由代理来实现。而要达到这种效果，就可以让代理与其他的类实现同一个接口，再在代理中实现接口方法中去实现这个类的方法。这也是代理的核心，一般代理中要注入一个代理对象，调用代理方法时，就对此对象初始化并调用其相关的方法；
-		- 静态代理的局限性：
 	- 动态代理：
+		- 代理不用继承接口，代理由java内置的java.lang.reflect包中的Proxy类生成：
+		- 其中生成代理静态的方法：`static Object newProxyInstance(ClassLoader loader,Class<?>[] interfaces,InvocationHandler handler)`；
+			- 此方法的三个参数：
+				- loader：代理目标的类加载器；
+				- interfaces：代理目标实现的接口；
+				- handler：执行处理器，指调用此代理实现接口的处理器，此处理器必须实现InvocationHandler接口，并实现其`public Object invoke(Object proxy, Method method, Object[] args)`方法;
+	- cglib代理（子类代理）：
+		- - 此类型代理需要用到spring核心包推荐使用spring-core 3.2.5版本及以上；
+		- 动态代理与静态代理都是向上抽取依赖，要求实现接口，而cglib代理则是通过目标对象子类来实现对目标对象功能的扩展；
+		- 其实现方法：
+			- 引入的功能包能够动态地在内在中构造子类；
+			- cglib的强大在于高效生成代码，在运行期扩展java类与接口，spring赖以生存的AOP拦截的就是大量地使用了cglib的强大功能；
+			- cglib的底层：使用字节码处理框架ASM转换字节码并生成新的类（并没有弄的懂的地方，涉及JVM中内部结构，诸如：class文件的格式秘指令集）
+		- 注意：cglib的实现是依赖于代理的扩展子类，需要对代理目标进行扩展
+			- 也就是说代理类不能为final修辞；
+			- 同时，目标对象的方法不能为final/static所修辞；
 
 ### 工厂模式 ###
 - 生成一个类交由相关的工厂类实现，而不由直接的类来实现；
@@ -190,6 +205,50 @@ Gang of Four，四人帮提出设计模式的设计原则：
 			mcd
 
 ### 适配器模式 ###
+
+- 适配器是行为型模式，将原有的行为经过组合进行扩展；
+- 顾名思义，适配器就是将原本不适的接口或功能适配到目标对象上。
+- 最简单的理解类型是缺省型适配器：将各个接口实现在一个适配器上，再让目标继承这个适配器（可省，直接用这个适配器new出对象来也一样可以实现），想扩展什么接口功能就重写相应的方法，就实现了适配器的扩展功能；
+- 而比起缺省型适配器，还有类的适配器和对象适配器：
+	- 类适配器：将目标功能的接口执行并继承被适配者
+		- 被适配者：想在此类上扩展目标接口的功能（适配器的设计初衷在于，被适配者并不能直接实现目标接口）
+				public class Adaptee {
+					void run(){
+						System.out.println("Adaptee.run..........");
+					}
+				}
+		- 目标接口：
+				public interface Target {
+					void fly();
+				}
+		- 适配器：
+				public class Adapter extends Adaptee implements Target {
+					@Override//继承父类被适配者，并能方便地扩展其方法
+					public void run() {
+						super.run();
+						System.out.println("Adapter.run.......");
+					}
+					//实现目标接口的方法
+					@Override
+					public void fly() {
+						System.out.println("Adapter.fly...........");
+					}
+				}
+		- 测试：
+				public static void main(String[] args) {
+					Adapter adaptee = new Adapter();
+					adaptee.fly();
+					adaptee.run();
+				}
+		- 测试结果：
+				Adapter.fly...........
+				Adaptee.run..........
+				Adapter.run.......
+		- **note:**这样的一个适配器在某种程度上来说与缺省的适配器并没有什么本质上的区别，都是将各种功能行为通过继承或实现聚合到同一个适配器上；
+	- 对象适配器模式：
+		- 
+
+
 
 ### 装饰器模式 ###
 

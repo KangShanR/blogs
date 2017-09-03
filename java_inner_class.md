@@ -92,3 +92,85 @@ description: java内部类的使用与迭代器的实现
 				proxy.draw("");
 			- 测试结果：
 					anonymity
+	- 在动态代理模式中，匿名内部类会有很好的体现，共具体实现：
+		- 接口：
+				public interface Draw {
+					void draw(String name);
+				}
+		- 被代理的类：
+				public class RealDraw implements Draw {
+					@Override
+					public void draw(String name) {
+						System.out.println("RealDraw.draw"+name);
+					}
+				}
+		- 代理（使用了匿名内部类）：
+				public class ProxyDraw {
+					Object target;
+					public ProxyDraw(Object target){
+						this.target = target;
+					}
+					/* 
+					 * 获取代理实例
+					 * @see designpatrern.dynamicproxy.Draw#draw(java.lang.String)
+					 */
+					public Object getProxyIns() {
+						return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(),
+								new InvocationHandler() {
+									@Override
+									public Object invoke(Object proxy, Method method, Object[] args)
+											throws Throwable {
+										System.out.println("Porxy_start");
+										Object returnValue = method.invoke(target, args);
+										System.out.println("Porxy_end");
+										return returnValue;
+									}
+								});
+					}
+				}
+		- 测试：
+				public static void main(String[] args) {
+					//动态代理的实现
+					Draw realDraw = new RealDraw();
+					Draw proxyDraw = (Draw)new ProxyDraw(realDraw).getProxyIns();
+					proxyDraw.draw("....test.end");
+				}
+		- 测试结果：
+				Porxy_start
+				RealDraw.draw....testend
+				Porxy_end
+		- 上面代理的实现中，new一个代理实例的handler参数使用了匿名内部类，如果不使用匿名内部类，其实现过程：
+			- 将代理中匿名内部类的实现提取出来：
+					public class InvokeHandler implements InvocationHandler {
+						//在构造函数中就注入要调用方法的对象
+						Object obj;
+						public InvokeHandler(Object obj){
+							this.obj = obj;
+						}
+						/* 
+						 * 实现InvocationHandler接口（其中只有一个invoke方法）
+						 */
+						@Override
+						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+							System.out.println("invoke.start....");
+							Object resultValue = method.invoke(obj, args);
+							System.out.println("invoke.end....");
+							return resultValue;
+						}
+					}
+			- 而代理类中获取代理的方法就应该是：
+					public Object getProxyIns2() {
+						return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(),
+								new InvokeHandler(this.target)); 
+					}
+			- 测试：
+					public static void main(String[] args) {
+						//动态代理的实现
+						Draw realDraw = new RealDraw();
+						Draw proxyDraw = (Draw)new ProxyDraw(realDraw).getProxyIns2();
+						proxyDraw.draw("....test.end");
+					}
+			- 测试结果：
+					invoke.start....
+					RealDraw.draw....test.end
+					invoke.end....

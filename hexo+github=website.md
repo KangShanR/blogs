@@ -1,7 +1,7 @@
 ---
 title: hexo+github=your website
 date: 2017-01-23 02:04:38
-categories: 个人网站搭建
+categories: programming
 tags: [hexo,github]
 description: 使用hexo与github搭建个人网站中的小点子
 ---
