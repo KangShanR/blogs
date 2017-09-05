@@ -1,8 +1,8 @@
 ---
 title: 设计原则
 date: 2017-05-13 12:32:48
-tags: [programming,设计原则]
-categories: 面向对象
+tags: [programming,设计原则,面向对象]
+categories: programming
 description: 对于面向对象设计原则
 ---
 ### 设计模式的六大原则 ###

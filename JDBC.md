@@ -1,8 +1,8 @@
 ---
 title: JDBC的理解
 date: 2016-07-24 12:14:32
-tags: [java,数据库]
-categories: java
+tags: [java,数据库,programming]
+categories: programming
 keywords: jdbc,持久层,数据库,连接,状态,会话
 description: java数据库连接的基础实现
 ---

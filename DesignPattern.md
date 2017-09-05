@@ -1,8 +1,8 @@
 ---
 title: 设计模式
 date: 2016-06-13 12:14:38
-tags: [programming,设计模式]
-categories: 面向对象
+tags: [programming,设计模式,面向对象]
+categories: programming
 keywords: 设计模式,单例模式,代理模式,工厂模式,迭代器模式
 description: 对于面向对象设计模式的理解与简单分析，文中使用开发语言：java
 ---

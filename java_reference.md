@@ -1,8 +1,8 @@
 ---
 title: java底层之引用
 date: 2017-08-13 12:04:38
-tags: [java,JVM,跨平台]
-categories: java
+tags: [java,programming]
+categories: programming
 description: java的底层代码运行时，在栈内存里实现对堆内存中数据的引用，以及引用在跨平台中的实现
 ---
 #### 直接引用与符号引用 ####

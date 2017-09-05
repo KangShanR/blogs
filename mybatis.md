@@ -1,8 +1,8 @@
 ---
 title: Mybatis框架的应用与理解
 date: 2017-08-31 13:12:34
-categories: java
-tags: [java,Mybatis]
+categories: programming
+tags: [java,programming]
 description: Mybatis框架的基本实现与应用
 ---
 ## mybatis框架的使用与理解 

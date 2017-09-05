@@ -1,8 +1,8 @@
 ---
 title: java枚举
 date: 2017-07-29 12:04:38
-categories: java
-tags: [java,enum]
+categories: programming
+tags: [java,programming]
 description: java枚举的使用
 ---
 ### java枚举 ###

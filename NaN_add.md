@@ -2,7 +2,7 @@
 title: 今天总结小tips
 date: 2016-04-13 22:02:53
 categories: programming
-tags: programming
+tags: [programming,java]
 description: 写测试代码过程中，遇到的小bug解决后的总结，对我自己有一点用，对大家可能只是多余
 ---
 #### NaN ####

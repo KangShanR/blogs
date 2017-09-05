@@ -1,8 +1,8 @@
 ---
 title: java编程中你不知道的一两点
 date: 2016-11-23 12:04:38
-categories: java
-tags: java
+categories: programming
+tags: [java,programming]
 keywords: java运算符
 description: java初学者常常忘记的一些小知识点，记得这些点可能会在某个时候帮到你
 ---

@@ -1,8 +1,8 @@
 ---
 title: spring框架的学习
 date: 2017-08-15 12:14:38
-tags: framework
-categories: java
+tags: [framework,java]
+categories: programming
 description: spring框架的学习与理解
 ---
 >spring配置beans的底层原理就在于通过封装好的解析xml类，将xml文件中配置好的bean实例出一个对象来，再通过配置实现bean之间的相互引用，而实现将要用到的bean（实用类）实例化并使用；

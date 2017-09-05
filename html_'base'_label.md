@@ -1,7 +1,7 @@
 ---
 title: html_base标签
 date: 2015-03-25 15:39:42
-tags: html
+tags: html5
 categories: programming
 description: html中base标签的使用与理解 
 ---

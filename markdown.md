@@ -1,7 +1,7 @@
 ---
 title: markdownPad使用攻略
 date: 2015-04-29 12:54:38
-tags: 
+tags: tips
 categories: 
 description: 
 ---

@@ -1,8 +1,8 @@
 ---
 title: 每天的问题与更新的答案
 date: 2017-09-01 13:04:38
-categories: java
-tags: [java,java内部类,访问修辞符,迭代器,匿名内部类,programming]
+categories: programming
+tags: [java,programming]
 keywords: 内部类,匿名内部类,迭代器,私有化内部类
 description: 在学习过程中遇到的问题与自己的思考过程，答案持续更新
 ---

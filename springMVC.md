@@ -1,9 +1,9 @@
 ---
 title: springMVC
 date: 2016-08-20 13:29:17
-tags: framework
-categories: 
-description: 
+tags: [java,framework]
+categories: programming
+description: springMVC框架的认识与理解
 ---
 ## 核心对象： ##
 ### 中央处理器：在web.xml中配置springmvc的servlet ###

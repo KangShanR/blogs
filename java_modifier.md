@@ -1,8 +1,8 @@
 ---
 title: java访问修辞符
 date: 2017-01-31 13:12:34
-categories: java
-tags: [java,访问修辞符]
+categories: programming
+tags: [java,programming]
 description: java访问修辞符与类的修辞符
 ---
 ### 访问修辞符 ###

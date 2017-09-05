@@ -2,7 +2,7 @@
 title: 环境变量的配置
 date: 2016-05-13 09:53:42
 categories: programming
-tags: [programming,操作技巧]
+tags: [programming,tips]
 description: windows系统下对于安装软件的环境变量配置，实现环境变量的配置后即可以实现在各种路径下启动软件命令的
 ---
 ### 环境变量配置 ###

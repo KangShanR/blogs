@@ -2,7 +2,7 @@
 title: 设计模式之代理模式
 date: 2017-06-13 12:14:12
 tags: [programming,设计模式,java]
-categories: 面向对象
+categories: programming
 keywords: 设计模式,单例模式,代理模式
 description: 代理设计模式的理解与简单分析，文中使用开发语言：java
 ---
