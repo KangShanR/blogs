@@ -1,8 +1,8 @@
 ---
 title: Hibernate
 date: 2017-05-23 02:04:38
-tags: [framework,java]
-categories: java
+tags: [framework,java,programming]
+categories: programming
 description: 关于Hibernate框架的基本使用与理解
 ---
 - Hibernate是一种ORM（Object Relative-Database Mapping)框架，用于与各种数据库、SQL语句打交道，是数据持久化的一咱解决方案；

@@ -2,7 +2,7 @@
 title: 设计模式之单例模式
 date: 2017-08-29 12:54:30
 categories: programming
-tags: [java,programming]
+tags: [java,programming,设计模式]
 keywords: 懒汉式,饿汉式,双检锁,静态内部类,枚举
 description: 关于设计模型中单例模式中的多线程安全问题以及相关解决方案
 ---
