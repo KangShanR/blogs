@@ -68,7 +68,9 @@ description: xml的使用与理解
 - xml属性值必须加引号
 - 从上面的xml中，我们可以看到根元素是user，其中又有两个子元素：id/username；而id这个元素有一个属性value这个属性值为“1”，而另外一个子元素username有内容“kfc”；
 
+
 ##xml文档的生成与解析方式:##
+
 
 - 共4种方式：
 
@@ -136,12 +138,12 @@ description: xml的使用与理解
 		</bean>
 
 	- 利用元素的可扩展性就可以让我们这们来写：
-		<bean>
-			<date>
-				<year>2017</year>
-				<month>7</month>
-				<date>30</date>
-			</date>
-		</bean>
+			<bean>
+				<date>
+					<year>2017</year>
+					<month>7</month>
+					<date>30</date>
+				</date>
+			</bean>
 
-	- 这样我们的数据的扩展性变得极性；
+	- 这样我们的数据的扩展性变得更大哥；
