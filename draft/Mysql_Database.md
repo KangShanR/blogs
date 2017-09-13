@@ -4,9 +4,9 @@ date: 2017-09-01 12:23:30
 categories: programming
 tags: [programming,java,database,mysql]
 keywords: 
-description: 关于数据库的引擎的认识与理解
+
 ---
-### Mysql数据库 ###
+# Mysql数据库
 - mysql数据库引擎类别有：
 	- ISAM：
 		- 读取速度很快，不占用大量内存资源；
@@ -20,7 +20,7 @@ description: 关于数据库的引擎的认识与理解
 		- HEAP表格在你需要使用SELECT表达式来选择和操控数据的时候非常有用。要记住，在用完表格之后就删除表格；
 	- INNODB和BEAKLEYDB（BDB)：
 		- INNODB和BERKLEYDB（BDB）数据库引擎都是造就MYSQL灵活性的技术的直接产品，这项技术就是MYSQL++ API。
-		- 在使用MYSQL的时候，你所面对的每一个挑战几乎都源于ISAM和MYISAM数据库引擎不支持事务处理也不支持外来键。
+		- 在使用MYSQL的时候，你所面对的每一个挑战几乎都源于ISAM和MYISAM数据库引擎不支持事务处理也不支持外键。
 		- 尽管要比ISAM和MYISAM引擎慢很多，但是INNODB和BDB包括了对事务处理和外来键的支持，这两点都是前两个引擎所没有的。
 
 #### 关于INNODB引擎： ####
