@@ -1,3 +1,13 @@
+---
+title: jsp的认识
+date: 2017-09-14 13:04:38
+categories: programming
+tags: [java,jsp,programming]
+keywords: 
+
+---
+
+
 # JSP #
 
 > 概念：Java Server Pages；
@@ -5,7 +15,7 @@
 > jsp是一个特殊的servlet,它最终被执行成一个java的class文件并置入内存，当响应开始后会利用输出流生成一个Html页面传送给请求方；
 
 ## Jsp的工作原理 ##
-1. 当请求方请求一个jsp页面时，jsp先被服务器中的**Servlet引擎转换成一个java源文件**，这个过程会对jsp页面中的**语法进行检查**，如果页面语法没有错则转换成功，这时Jsp引擎再利用**javac**将java源文件**编译成class文件加载到内存中**；
+1. 当请求方请求一个jsp页面时，jsp先被服务器中的**Servlet引擎转换成一个java源文件**，这个过程会对jsp页面中的**语法进行检查**，如果页面语法没有错则转换成功，这时Jsp引擎再利用**javac**将java源文件**编译成class文件加载到内存中**；<!--more-->
 2. 其次再创建一个**Servlet的对象**，并执行该对你的`jspInit()`方法，与Servlet生命周期中一致这个`jspInit()`方法在其生成周期中只被执行一次；
 3. **创建并启动一个线程**，线程来调用对象的`jspService()`方法（如果有多个请求同时请求一个jsp，则jsp引擎**会创建多个线程来请求**）；
 4. Servlet容器将**请求方的参数封装到HttpServletRequest对象**中并再生成一个HttpServletResponse对象，将这两个对象作为参数传给`jspService()`方法；

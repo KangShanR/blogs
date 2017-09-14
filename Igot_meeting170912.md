@@ -1,3 +1,13 @@
+---
+title: 得到例会
+date: 2016-09-12 22:04:38
+categories: 心得笔记
+tags: [igot,]
+keywords: 
+description: 适配器设计模式的理解
+---
+
+
 # 得到例会 #
 
 ## 快刀： ##
