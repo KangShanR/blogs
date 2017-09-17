@@ -1,6 +1,6 @@
 ---
-title: spring bean的理解
-date: 2017-05-23 02:04:38
+title: spring bean中属性覆盖器
+date: 2017-09-14 02:04:38
 tags: [framework,java,programming]
 categories: programming
 
@@ -9,7 +9,7 @@ categories: programming
 # javabean配置中的属性覆盖器 #
 
 > 我们常常使用property属性文件来配置某些固定的属性值（比如，jdbc数据源、c3p0连接池），这样当多个配置文件使用到这些属性时也更方便我们统一修改；
-> 
+> <!--more-->
 > 在配置文件中使用属性文件的流程是：
 1. 先用一个属性配置器将这个属性文件(eg:jdbc.properties)读入；
 2. 后面在配置数据源这些属性时直接使用${jdbc.url}字符串来代替；
