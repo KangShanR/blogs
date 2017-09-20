@@ -1,5 +1,13 @@
+---
+title: Mybatis中的动态代理
+date: 2017-08-29 13:04:38
+categories: programming
+tags: [java,framework,programming]
+keywords: 
+---
+
 # Mybatis中动态代理的运用 #
-> 在Mybatis框架中，实现sql语句的与接口的映射用到的就是动态代理。下面简要地分析下动态代理模式的实现在这其中的运用。
+> 在Mybatis框架中，实现sql语句的与接口的映射用到的就是动态代理。下面简要地分析下动态代理模式的实现在这其中的运用。<!--more-->
 
 ## Mapper动态代理的原理 ##
 
