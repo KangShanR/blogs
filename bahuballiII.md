@@ -4,10 +4,11 @@ date: 2017-08-25 22:04:38
 categories: 观影无感
 tags: movie
 keywords: 宝莱坞,视觉效果
-description: 印度神片是怎么刺激你的荷尔蒙的
 ---
 今天晚上撸了一印度神片电影《巴霍巴利王II》，一部刺激荷尔蒙狂飙的电影，
-一部用视觉效果与背景音乐带着剧情与逻辑飞的电影，让人看了想谈恋爱想战斗想改变全世界。<!--more-->
+一部用视觉效果与背景音乐带着剧情与逻辑飞的电影，让人看了想谈恋爱想战斗想改变全世界。
+
+<!--more-->
  
  ![3d scence](https://github.com/KangShanR/blogs/blob/master/pictures/baahuballi/11221463.png?raw=true)
 
