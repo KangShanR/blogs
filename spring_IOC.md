@@ -8,7 +8,9 @@ categories: programming
 
 ## Spring的反向控制思想 ##
 
-> Spring说到底就是一个轻量级的容器，让它来负责各个实例的生产、管理、维护，而这些实例的参数与依赖关系都交由spring的配置文件来设置；<!--more-->
+> Spring说到底就是一个轻量级的容器，让它来负责各个实例的生产、管理、维护，而这些实例的参数与依赖关系都交由spring的配置文件来设置；
+
+<!--more-->
 
 ### 反向控制（Inverse of Control) ###
 > 概念：也可以叫依赖注入（Dependency Injection)，是spring的核心思想。通俗地理解就是将原本正向流程走的程序让其反向执行。

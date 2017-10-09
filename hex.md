@@ -5,7 +5,8 @@ categories: programming
 tags: programming
 description: 计算机语言中十六进制的使用
 ---
-### 十六进制 ###
+# 十六进制
+
 - 在数字前直接加0x就可以使用，所用字符：
 	- 0，1，2，3，4，5，6，7，8，9，a,b,c,d,e,f
 - 两个byte的字符共占16位，因此我们看到unicode 码时，表示字符常用4位的十六进制数字来表现：

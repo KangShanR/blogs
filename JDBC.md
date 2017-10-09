@@ -4,11 +4,14 @@ date: 2016-07-24 12:14:32
 tags: [java,数据库,programming]
 categories: programming
 keywords: jdbc,持久层,数据库,连接,状态,会话
-description: java数据库连接的基础实现
+description: 
 ---
-#### JDBC ####
-全称：fava database connectivity,专用于java数据库连接，其中封装了基本的连接数据库的API,数据库连接的高级框架（诸如：Mybatis/Hibernate)的使用都基于JDBC的原理，也就是理解了JDBC对于我们更理解各种持久层数据连接层的框架很有帮助；
-#### 一个简单的JDBC实现 ####
+# JDBC
+> 全称：fava database connectivity,专用于java数据库连接，其中封装了基本的连接数据库的API,数据库连接的高级框架（诸如：Mybatis/Hibernate)的使用都基于JDBC的原理，也就是理解了JDBC对于我们更理解各种持久层数据连接层的框架很有帮助；
+
+<!--more-->
+
+## 一个简单的JDBC实现
 	/**
 	 * 获取数据库连接的方法
 	 * @return

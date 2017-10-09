@@ -11,8 +11,9 @@ description: 关于Hibernate框架的基本使用与理解
 > 
 > 关于ORM：
 > 数据持久化核心技术之一，在JDBC开发中，大量重复性高的sql语句在DAO层中，而ORM就实现了根据POJO属性来拼装SQL语句，读取时，用SQL语句将各种属性从数据库中读取出来，再拼装为POJO对象返回给业务层，这样来实现数据表与POJO、数据表中列与POJO属性之间的映射关系；ORM框架就实现通过映射关系自动生成sql语句的强大强大功能；
-> <!--more-->
 > ORM框架与MVC框架不同，使用范围也截然不同，类似功能的框架还有SUN的JDO、Apache的Mybatis与OpenJPA等；
+
+<!--more-->
 
 ## Hibernate的原理 ##
 

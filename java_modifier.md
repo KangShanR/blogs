@@ -3,9 +3,9 @@ title: java访问修辞符
 date: 2017-01-31 13:12:34
 categories: programming
 tags: [java,programming]
-description: java访问修辞符与类的修辞符
+description: 
 ---
-### 访问修辞符 ###
+# 访问修辞符
 
 
 - java的访问修辞符包括了四个等级：Public,protected,(default/friendly),private;
@@ -14,6 +14,8 @@ description: java访问修辞符与类的修辞符
 	- protected:受保护权限，只有在同包中或者在不同包的子类可以访问；
 	- default/friendly:默认的权限，不写出来。只有在同包中可以访问；
 	- private:私有权限，只有在同类中可以被访问，也就是在哪儿被声明就只有在哪儿可以被访问；
+
+<!--more-->
 
 ----------
 #### Note: ####

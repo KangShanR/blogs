@@ -3,15 +3,16 @@ title: 今天总结小tips
 date: 2016-04-13 22:02:53
 categories: programming
 tags: [programming,java]
-description: 写测试代码过程中，遇到的小bug解决后的总结，对我自己有一点用，对大家可能只是多余
+description: 
 ---
-#### NaN ####
+# NaN
 
-
+> 
 - NaN:Not a Number
 	- 非数值的数值，当计算中出现诸如：除数为0的除法、求负数的平方根之类的运算时，这时返回的结果就只能是一个`NaN`；
 
 <!--more-->
+
 - 当这样一行代码出现时：
 		int a = 1; 
 

@@ -3,10 +3,12 @@ title: Mybatis框架的应用与理解
 date: 2017-08-31 13:12:34
 categories: programming
 tags: [java,programming]
-description: Mybatis框架的基本实现与应用
+description: 
 ---
-## mybatis框架的使用与理解 
-#### Mybatis与JDBC ####
+# mybatis框架的使用与理解 
+
+## Mybatis与JDBC
+
 **概述：**
 1. MyBatis是一个半自动的面向sql的orm框架；
 2. JDBC全称：java database connectivity，是java封装在在java.sql包里的API，其设计目的在于连接数据库，通过java语言实现sql查询语言在数据库中的操作；
@@ -24,6 +26,8 @@ description: Mybatis框架的基本实现与应用
 		1. jdbc的硬编码不方便维护，需要不停地连接、释放数据库资源；
 		2. 参数绑定在硬编码中，查询条件不定，修改语句也不方便；
 	3. 所以，就有了MyBatis存在的必要；
+
+<!--more-->
 
 ----------
 ### MyBatis的实现 ###
@@ -163,7 +167,7 @@ description: Mybatis框架的基本实现与应用
 				- `${}`
 					- 表示sql字符串拼接，也就是将｛｝中的内容拼接在sql中且不进行jdbc类型转换；
 					- 可以接收简单类型值或pojo值，如果是简单类型值｛｝中只能是'value';
-			- 文档头可以看出这是mabatis3映射的定义文档类型，所以其根标签为`mapper`，其中各子标签或属性：
+			- 文档头可以看出这是mybatis3映射的定义文档类型，所以其根标签为`mapper`，其中各子标签或属性：
 				- namespace属性，指定其命名空间，这样在其它地方要调用此配置文件中的各语句时，就需要通过这个命名空间来访问到此文档中定义id的各个语句，通过session对象的方法来调用时，这些语句就作为参数执行方法：`session.selectOne("findUserById()",user)；
 				- session的来源：
 						/**

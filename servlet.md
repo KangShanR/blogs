@@ -11,6 +11,8 @@ keywords:
 
 > Servlet是javaWeb中处理Http请求的核心技术，众多的处理web框架都是对它的封装而来。
 
+<!--more-->
+
 ## Servlet的生命周期 ##
 
 1. `init()`，生命周期中，只执行一次，当服务器装入servlet时，便执行此方法完成初始化。

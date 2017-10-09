@@ -11,6 +11,7 @@ keywords:
 
 > facebook的开源框架有很多，在github上都公布了[各个框架的库](https://github.com/facebook "github_facebook")，分下面几个方面来介绍：
 
+<!--more-->
 
 ## 在移动开发方面： ##
 

@@ -4,10 +4,15 @@ date: 2015-03-23 14:41:48
 tags: [programming,leadingEnd]
 categories: programming
 keywords: meta,标签
-description: 关于常在各类文档文件头部标签中出现的meta标签的知识点
+description: 
 ---
 
-###  标签简介：
+# <meta>标签 #
+> 关于常在各类文档文件头部标签中出现的meta标签的知识点
+
+<!--more-->
+
+##  标签简介：
 
 
 - 位于文档的头部<head>标签之中，不包含任何内容；

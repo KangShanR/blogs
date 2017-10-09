@@ -5,7 +5,7 @@ categories: programming
 tags: [programming,C#,C]
 description: 转义字符的实现与意义
 ---
-### 在C语言中： ###
+### 在C语言中:
 
 
 - \ 是转义标识符

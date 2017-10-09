@@ -3,8 +3,13 @@ title: html_base标签
 date: 2015-03-25 15:39:42
 tags: html5
 categories: programming
-description: html中base标签的使用与理解 
+description: 
 ---
+# <base>标签 #
+> html中base标签的使用与理解 
+
+<!--more-->
+
 简介：用于规定页面上所有的链接的默认URL和默认目标：
 `<base href="http://……“ target="_blank">`
 - base标签放在<head>标签之中;

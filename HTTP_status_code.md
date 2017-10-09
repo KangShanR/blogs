@@ -4,9 +4,11 @@ date: 2017-04-13 12:14:12
 tags: [programming,HTTP]
 categories: programming
 keywords: 
-description: 关于HTTP协议使用过程中
+description: 
 ---
-### HTTP状态码（HTTP status code) ###
+# HTTP状态码（HTTP status code)
+> 关于HTTP协议使用过程中常遇到的状态码与其代表的意义
+
 **常见的4个HTTP的状态码：**
 - 200：请求成功
 - 301：资源被永久地转移到其他URL

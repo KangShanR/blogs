@@ -7,7 +7,9 @@ keywords:
 ---
 
 # Mybatis中的缓存 #
-> 在Mybatis查询中通过配置文件Mapper.xml中的建立的Session执行sql语句查询出的结果，一般会存放在Mybatis缓存中，在被清除之前再次执行相同的查询时，Mybatis不只用直接调用缓存中的结果，而不用再次执行一次查询语句以提高效率。<!--more-->
+> 在Mybatis查询中通过配置文件Mapper.xml中的建立的Session执行sql语句查询出的结果，一般会存放在Mybatis缓存中，在被清除之前再次执行相同的查询时，Mybatis只用直接调用缓存中的结果，而不用再次执行一次查询语句以提高效率。
+
+<!--more-->
 
 **分类：**
 - Mybatis的缓存分为两种：
