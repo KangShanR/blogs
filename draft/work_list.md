@@ -36,3 +36,5 @@
 	    1. **answer:**刚才在oschina码云上看到答案：`贡献度的统计数据包括代码提交、创建 Issue、合并请求，其中代码提交的次数需本地配置的 git 邮箱与码云账号邮箱一致才会被统计。`这就了然了，在公司的git配置里设置的是企业邮箱，明天去改过来应该就可以实现被统计了。![](./imgs/git_comtribute_statistics.png)
     3. 画流程图没有用Windows的`visio`，用的开源的`yEd Graph Editor`软件；
     4. md文档编写使用Atom，开源并与github关联紧密，比起MarkdownPad2更轻量且对软件开发者更为友好；
+5. 10/19/2017 1:21:39 AM 
+	1. 测试得出：hexo不能将引入相对路径的本地图片的md文档正确地编译成html文档；要在md文档中实现插入图片并正确生成html文档，就得引用网络图片；
