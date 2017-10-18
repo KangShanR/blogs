@@ -33,5 +33,6 @@
 2. 10/18/2017 11:11:43 AM
     1. 想将xml提示文件（dtd）放入eclipse的workplace，但没有找到之前的预设的路径。只将配置文件中dtd文件的路径改正确。猜想是不是刚安装eclipse没有用到xml文件，便在workspace中还没有生成相关的路径？
     2. 这两天在公司push到github与oschina上的仓库都没有在profileContribution上看到结果，但在相应的repository中却可以看到这些contribution。这是为什么呢？
+	    1. **answer:**刚才在oschina码云上看到答案：`贡献度的统计数据包括代码提交、创建 Issue、合并请求，其中代码提交的次数需本地配置的 git 邮箱与码云账号邮箱一致才会被统计。`这就了然了，在公司的git配置里设置的是企业邮箱，明天去改过来应该就可以实现被统计了。![](./imgs/git_comtribute_statistics.png)
     3. 画流程图没有用Windows的`visio`，用的开源的`yEd Graph Editor`软件；
     4. md文档编写使用Atom，开源并与github关联紧密，比起MarkdownPad2更轻量且对软件开发者更为友好；
