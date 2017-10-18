@@ -32,3 +32,6 @@
     1. 重新部署项目时，当某个接口没有上线时，整个项目中会出现系统消息乱弹的情况：比如今天的重新部署中，一个接口没有上线，导致之前不存在的bug出现了，多个页面在点击不同地方弹出“与服务器通信失败”“系统错误”的消息；
 2. 10/18/2017 11:11:43 AM
     1. 想将xml提示文件（dtd）放入eclipse的workplace，但没有找到之前的预设的路径。只将配置文件中dtd文件的路径改正确。猜想是不是刚安装eclipse没有用到xml文件，便在workspace中还没有生成相关的路径？
+    2. 这两天在公司push到github与oschina上的仓库都没有在profileContribution上看到结果，但在相应的repository中却可以看到这些contribution。这是为什么呢？
+    3. 画流程图没有用Windows的`visio`，用的开源的`yEd Graph Editor`软件；
+    4. md文档编写使用Atom，开源并与github关联紧密，比起MarkdownPad2更轻量且对软件开发者更为友好；
