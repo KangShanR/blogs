@@ -9,7 +9,7 @@ keywords: 宝莱坞,视觉效果
 一部用视觉效果与背景音乐带着剧情与逻辑飞的电影，让人看了想谈恋爱想战斗想改变全世界。
 
 <!--more-->
-
+ 
  ![3d scence](https://github.com/KangShanR/blogs/blob/master/pictures/baahuballi/11221463.png?raw=true)
 
 ![3d scence_2](https://github.com/KangShanR/blogs/blob/master/pictures/baahuballi/11182994.png?raw=true)
@@ -21,12 +21,12 @@ keywords: 宝莱坞,视觉效果
 
 ![beautiful eyes](https://github.com/KangShanR/blogs/blob/master/pictures/baahuballi/17645928.png?raw=true)
  各种虚光焦（妹子眼睛太好看了，忍不住再放一张），
-
+  
  ![beautiful eyes](https://github.com/KangShanR/blogs/blob/master/pictures/baahuballi/17502766.png?raw=true)
 
 ![beautiful eyes](https://github.com/KangShanR/blogs/blob/master/pictures/baahuballi/17655319.png?raw=true)
  各种慢镜头，
-
+ 
  ![beautiful eyes](https://github.com/KangShanR/blogs/blob/master/pictures/baahuballi/17705988.png?raw=true)
 
 ![beautiful eyes](https://github.com/KangShanR/blogs/blob/master/pictures/baahuballi/a81563ee-ec3a-417e-8089-e1bb5b0a3fcd.png?raw=true)
@@ -43,7 +43,7 @@ keywords: 宝莱坞,视觉效果
 
  ![beautiful eyes](https://github.com/KangShanR/blogs/blob/master/pictures/baahuballi/18542294.png?raw=true)
  各种秀肌肉，
-
+ 
 
  ![beautiful eyes](https://github.com/KangShanR/blogs/blob/master/pictures/baahuballi/18601933.png?raw=true)
  各种经典画面构图。
