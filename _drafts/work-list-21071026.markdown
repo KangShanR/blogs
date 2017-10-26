@@ -6,7 +6,18 @@ date: "2017-10-25 10:25"
 # 工作记录
 > 记录最近一周的工作要点，方便后期核查与对比
 
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:1 -->
 
+1. [工作记录](#工作记录)
+	1. [2017-10-25](#2017-10-25)
+		1. [要点](#要点)
+			1. [Atom 安装packages 出现的问题](#atom-安装packages-出现的问题)
+	2. [2017-10-26](#2017-10-26)
+		1. [要点](#要点)
+			1. [markdown-writer 的热键修改](#markdown-writer-的热键修改)
+			2. [windows 系统下 .NET framework](#windows-系统下-net-framework)
+
+<!-- /TOC -->
 
 
 ## 2017-10-25
@@ -38,3 +49,10 @@ date: "2017-10-25 10:25"
 ### 要点
 #### markdown-writer 的热键修改
 1. 修改`markdown-writer`的快捷键，需要将其命令写成全小写，不然无效。如：`markdown-writer:toggle-blockquote`，通常找命令时看到查找出来的命令的使用的大驼峰，我们习惯写成首字母大写，结果保存无效；
+
+#### windows 系统下 .NET framework
+> 关于 windows 系统下， .NET framework 框架是自动安装的，但虽然安装好，但并没有配置到系统环境变量中，所以我们使用 .NET 编译我们写好的 C# 程序时需要将其配置到环境变量中。
+
+**需要注意的点：**
+1. 系统自带的 .NET framework 版本并不是最新，对 C# 的支持也有版本限制。如：办公室电脑是 win10 系统，其最高的 .NET framework 版本是 `v4.0.30319`，能支持最高的 C# 版本是 C#5；
+2. 配置环境变量时要用到的路径一般情况是： `C:\Windows\Microsoft.NET\Framework`，进入到此目录可以看到多个版本，其中最高的就是最终版，进入到其中就可以看到 `csc.exe` 执行程序（若需要不配置环境变量执行 `csc` 命令，就需要 `cmd.exe` 进入到此目录）。
