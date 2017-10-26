@@ -3,7 +3,17 @@
 
 ## 记录点 ##
 
-1. 10/13/2017 4:44:59 PM 
+### 办公室host配置
+
+10.0.4.34 rap.yz.local
+10.0.4.34 wiki.yz.local
+10.0.4.34 git.yz.local
+10.0.4.34 sftp.yz.local
+10.0.4.34 jenkins.yz.local
+10.0.4.38 test.yz01.com
+10.0.4.38 h5.yz01.com
+
+1. 10/13/2017 4:44:59 PM
     2. 真伪随机码生成
     2. redis cache
     3. Hbase
@@ -33,21 +43,27 @@
 2. 10/18/2017 11:11:43 AM
     1. 想将xml提示文件（dtd）放入eclipse的workplace，但没有找到之前的预设的路径。只将配置文件中dtd文件的路径改正确。猜想是不是刚安装eclipse没有用到xml文件，便在workspace中还没有生成相关的路径？
     2. 这两天在公司push到github与oschina上的仓库都没有在profileContribution上看到结果，但在相应的repository中却可以看到这些contributions。这是为什么呢？
-	    1. **answer:**刚才在oschina码云上看到答案：`贡献度的统计数据包括代码提交、创建 Issue、合并请求，其中代码提交的次数需本地配置的 git 邮箱与码云账号邮箱一致才会被统计。`这就了然了，在公司的git配置里设置的是企业邮箱，明天去改过来应该就可以实现被统计了。![](./imgs/git_comtribute_statistics.png)
+	    1. **answer**:刚才在oschina码云上看到答案：`贡献度的统计数据包括代码提交、创建 Issue、合并请求，其中代码提交的次数需本地配置的 git 邮箱与码云账号邮箱一致才会被统计。`这就了然了，在公司的git配置里设置的是企业邮箱，明天去改过来应该就可以实现被统计了。
     3. 画流程图没有用Windows的`visio`，用的开源的`yEd Graph Editor`软件；
     4. md文档编写使用Atom，开源并与github关联紧密，比起MarkdownPad2更轻量且对软件开发者更为友好；
-5. 10/19/2017 1:21:39 AM 
+5. 10/19/2017 1:21:39 AM
 	1. 测试得出：hexo不能将引入相对路径的本地图片的md文档正确地编译成html文档；要在md文档中实现插入图片并正确生成html文档，就得引用网络图片；
 	2. 写wiki文档：
     	1. 怎么按照文档目录结构生成类似office word中的带序号的目录（1.1;1.2;1.3)？
+        	1. **Answer**:head上的序号可以用vsc的toc插件生成，而生成toc直接使用markdown编辑器TOC插件，vsc中也有，Atom中也有；
     	2. 目标：先将整个大致的框架在markdownPad中写出来，今天先将主页面的结构先写出来；
 	3. 车辆管理的操作角色？？
     	1. 计调
-2. 10/23/2017 4:03:33 PM 
+2. 10/23/2017 4:03:33 PM
     1. 文档修改问题:
-        1. 薪资管理少了修改说明；陈涛
+        1. - [ ] 薪资管理少了修改说明；陈涛
         2. 排班模块结构说明有误：许庆
         3. 操作环境：Google Chrome 31及以上
         4. 没加上图的加上说明：薪资（结合第一条，联合修改）
         5. 业务规则简单说明一下。陈旭
 
+![](/test_files/imgs/baoxiao1.png)
+~~fsdfsfsdfsadfsafsdfsafd~~
+> ~~dsfsfssdfs~~
+
+# dsfsfssdfs
