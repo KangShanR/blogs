@@ -56,14 +56,8 @@
     	1. 计调
 2. 10/23/2017 4:03:33 PM
     1. 文档修改问题:
-        1. - [ ] 薪资管理少了修改说明；陈涛
+        1. 薪资管理少了修改说明；陈涛
         2. 排班模块结构说明有误：许庆
         3. 操作环境：Google Chrome 31及以上
         4. 没加上图的加上说明：薪资（结合第一条，联合修改）
         5. 业务规则简单说明一下。陈旭
-
-![](/test_files/imgs/baoxiao1.png)
-~~fsdfsfsdfsadfsafsdfsafd~~
-> ~~dsfsfssdfs~~
-
-# dsfsfssdfs

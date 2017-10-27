@@ -18,6 +18,7 @@ date: "2017-10-25 10:25"
 			2. [windows 系统下 .NET framework](#windows-系统下-net-framework)
 	3. [2017-10-27](#2017-10-27)
 		1. [java 静态导入](#java-静态导入)
+		2. [关于 `hosts` 文件的修改](#关于-hosts-文件的修改)
 
 <!-- /TOC -->
 
@@ -28,20 +29,18 @@ date: "2017-10-25 10:25"
 ### 要点
 #### Atom 安装packages 出现的问题
 
-- Atom安装插件markdown-preview-plus，可以实现预览本地图片，但目前还没有实现预览窗口与编辑窗口的同步滚动；
+- Atom安装插件markdown-preview-plus，可以实现预览本地图片，但目前还**没有实现预览窗口与编辑窗口的同步滚动**；
 - preview-plus等packages可以在packages-management中设置其属性，包括其快捷键的绑定；
-- - 插入**勾选项**
+- 插入**勾选项**
     - [ ]选项一
     - [ ]选项二
-    - [ ]选项三
-
+    - [ ]选项三，**目前的问题**就在于：`markdown-preview-plus`这个md预览包时可以预览到图片，但不能预览到`勾选项`；而使用 Atom 自带的核心包`markdown-preview`，正好相反，可以预览到`勾选项`不能预览到图片；
 - 使用Atom-markdown-writer实现多行编辑：`ctrl+alt+up/down`选择多行，再直接进行编辑；
-- [ ]选项三![test](/blogs/pictures/graduate/graduate(1).jpg)
+- [ ]选项三![test](/pictures/graduate/graduate(1).jpg)
   - [ ] 像上一项这种，图片名中包含一个字符`()`，怎么写在路径中呢？
     - [ ] 一样的使用，上面没有出现结果仅仅是因为这张图片的命名中有` `（空格）字符出现。
   - [ ] 按照项目路径写一个图片的路径来如上；
 - [ ] 修改Atom的`shortcut`快捷键：修改`keysmap`CSON文件，将快捷键与操作映射为键值对，修改之后重启Atom才能生效；
-- [ ] 当使用`markdown-preview-plus`这个md预览包时可以预览到图片，但不能预览到`勾选项`；而使用 Atom 自带的核心包`markdown-preview`，正好相反，可以预览到`勾选项`不能预览到图片；
 
 ## 2017-10-26
 > 周四
@@ -67,4 +66,8 @@ date: "2017-10-25 10:25"
 - 我们常用的导入： `import java.lang;`，调用其中的方法： `System.out.println("static importence");`
 - 静态导入： `import stastic java.lang.System.out;`，调用其中的方法： `println("static importance");`
 - 静态导入一般说为： `import static`，而不是 `static import`；
-- 使用静态导入多个类，比如：Integer 与 Long 这两个包装类时，调用 `MAX_VALUE` 这一常量时，会引起编译错误，因为这两个类中都有常量 `MAX_VALUE` ，这就导致 java 不知道到底调用哪一个类的值；
+- 使用静态导入多个类，比如：Integer 与 Long 这两个包装类时，调用 `MAX_VALUE` 这一常量时，会引起编译错误，因为这两个类中都有常量 `MAX_VALUE` ，这就导致 java 不知道到底调用哪一个类的值。
+
+### 关于 `hosts` 文件的修改
+
+今天出现过一次情况，在 Atom 中打开了 hosts 文件，里面配置好了相关的网址，但访问不了这些网站，通过地址 ping 能通，但 ping 域名不能通过。之后陈涛过来帮忙，将 hosts 用另外的编辑器（EditPlus）找开修改一次后，就可以了。昨天在 hosts 中加了一句被注释过的中文，今天删除后就可以了，但在 `EditPlus` 中加一句注释过的中文却不影响，这说明 hosts 配置的问题在于：要么 Atom 没有将注释码编译好，要么是当时正在用 Atom 打开这个文件，影响了对注释的解析；

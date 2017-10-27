@@ -66,14 +66,18 @@
 | move-line-down | alt-down arrow  |将选中行或光标所在行向下行移动|
 | **multi-line-select** | ctrl-alt-up/down arrow  |选择定位多行同一行进行编辑|
 
-### 不能使用热键的命令
-> 可能会用到但是不能使用热键的命令
+### 不常使用热键的命令
+> 可能会用到但是不常使用热键的命令
 
 **命令列表：**
 
 - horizontal rule：使用三个或三个以上的连字符号即可实现`---`
 - `markdown-writer: correct order list numbers`：此命令可以将所有有误的列表编号校正
-- `markdown-writer: insert footnote`，插入脚注说明[^001][^label2]
+- `markdown-writer: insert footnote`，插入脚注说明[^label2]
+- `markdown-writer: insert footnote``，插入脚[^003]
+- ~~This is a examle of strikethrough~~，shortcut：ctrl-h
+
+[^004]: 这是一个插入脚注的示例，标签为 003
 
 [^label2]: crazy footnote: R U OK ?
 
