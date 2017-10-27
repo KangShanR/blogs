@@ -16,7 +16,7 @@
 ## 各个标记的 md 的格式
 
 - 插入本地**相对路径**的图片：
-    - ![加载不出来时的alt文字说明](/pictures/ex-gf.png)
+    - ![加载不出来时的alt文字说明](/img/ex-gf.png)
     - ![testImg](http://github.com/KangShanR/blogs/blob/master/pictures/baahuballi/17655319.png?raw=true)
     - **Answer:插入本地图片**，再生成html文件一样是引用同样的url，所以用远程的url或者本地的相对url路径可以加载出图片。如果用本地的相对url，就得将本地的图片一起部署到资源库中。
         - 但使用hexo生成html时，会将不同的日期的博客生生成一个文件夹，文件夹中再放入一个index.html文件，访问时按路径来访问这个index.html。所以，在写博客markdown时，就将图片路径全写成项目的绝对路径；
