@@ -2,10 +2,12 @@
 layout: "post"
 title: "work-list"
 date: "2017-10-25 10:25"
+categories: job
 ---
 # 工作记录
 > 记录最近一周的工作要点，方便后期核查与对比
 
+<!--more-->
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:1 -->
 
 1. [工作记录](#工作记录)

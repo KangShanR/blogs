@@ -1,7 +1,17 @@
-# markdown笔记 #
+---
+title: markdown 笔记
+date: 2017-10-28 04:29:38
+categories: 心得笔记
+tags: essay
+keywords: markdown
+---
+
+# markdown 笔记
 
 > 浏览公司md文档时看到的些之前没有学到的markdown编辑技巧；
 > 按时间记录；
+
+<!--more-->
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:1 -->
 
@@ -20,7 +30,8 @@
     - ![testImg](http://github.com/KangShanR/blogs/blob/master/pictures/baahuballi/17655319.png?raw=true)
     - **Answer:插入本地图片**，再生成html文件一样是引用同样的url，所以用远程的url或者本地的相对url路径可以加载出图片。如果用本地的相对url，就得将本地的图片一起部署到资源库中。
         - 但使用hexo生成html时，会将不同的日期的博客生生成一个文件夹，文件夹中再放入一个index.html文件，访问时按路径来访问这个index.html。所以，在写博客markdown时，就将图片路径全写成项目的绝对路径；
-- 插入表格：
+- 插入表格，
+	- 方式一：
     <table>
       <tr>
         <th></th>
@@ -39,6 +50,11 @@
         <td colspan="3">200元/天</td>
       </tr>
     </table>
+	- 方式二：
+	- 单程|返程|套班
+--|---|--
+  100元/套|200元/套|50元/套
+
 
 - **注意**：第三行中第二列加入了属性`colspan="3"`，此属性值决定了这一列要占用三列；
 - 这样的表格就比之前使用的方式可订制性更强；
@@ -47,6 +63,8 @@
     - [ ]选项二
     - [ ]选项三
 - 插入链接的格式：[显示字符](url地址)
+
+![ef](http://kangshan.oschina.io/img/ex-gf.png)
 
 ## Atom 编辑 markdown 的技巧
 > 在使用 Atom 来编写 markdown 时，安装相关的 package(markdown-writer)，更改其`keymap`，实现快捷操作；
