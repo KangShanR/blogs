@@ -16,6 +16,8 @@ date: "2017-10-25 10:25"
 		1. [要点](#要点)
 			1. [markdown-writer 的热键修改](#markdown-writer-的热键修改)
 			2. [windows 系统下 .NET framework](#windows-系统下-net-framework)
+	3. [2017-10-27](#2017-10-27)
+		1. [java 静态导入](#java-静态导入)
 
 <!-- /TOC -->
 
