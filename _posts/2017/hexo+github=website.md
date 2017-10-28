@@ -3,7 +3,6 @@ title: hexo+github=your website
 date: 2017-01-23 02:04:38
 categories: programming
 tags: github
-description:
 ---
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:1 -->
@@ -32,7 +31,7 @@ description:
 <!--more-->
 
 ## hexo 命令使用
-### hexo generage 转换命令
+### `hexo generage` 转换命令
 - hexo generate
 	- 根据已提供的md文件资料生成静态网页，放在public文件夹中；
 	- hexo generate --watch
@@ -40,7 +39,7 @@ description:
 	- hexo generate --deploy与hexo deploy --generate
 		- 两者效果一样都在generate后执行布置命令deploy
 
-### hexo new <dir> filename 新建 md 文档
+### `hexo new <dir> filename` 新建 md 文档
 - 新建md文档：`hexo new [dir] filename`
 	- 使用这个命令生成md文档时，当指定其生成的目录为`_draft`时，hexo会自动将文档的头加上：
 		- <pre>---
@@ -88,7 +87,9 @@ description:
 			- 所以，还是用最暴力的方法更新，每次重新生成整个仓库的资源，将整个仓库资源deploy到github上；
 
 ## hexo-theme 模板设置
+
 ### 调整整个背景颜色与图片的信息
+
 - 进入到相关的主题folder中，再依次进入`source-->css-->style.styl`，打开这个文件，找到`body`在这个级别下就有各种配置参数可以调整，包括了`background: color_value url(图片路径)`
 - 每新建一个hexo目录（也就是说当你在其它托管网站上新建一个项目时）在这个hexo目录中依然要执行上面安装所有的插件到hexo中，比如安部署器deployer：`npm install hexo-deployer-git --save`
 
