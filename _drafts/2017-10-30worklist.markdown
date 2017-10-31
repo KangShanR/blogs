@@ -72,10 +72,77 @@ sdk：sorftware deveplopment kit，软件开发工具包
   - 文档声明 `<!doctype html>`
   - `<head>` 文档的头部信息，包括但不限于：页面总体设置、标题、CSS样式、JS代码
   - `<a>` 超链接中没注意到的属性：
-    - target="_blank"，当我们想设置此链接在新页面中打开时就将此属性值设置为： `_blank`
+    - target="\_blank"，当我们想设置此链接在新页面中打开时就将此属性值设置为： `_blank`
   - 在html页面中，可以实现**多个标签套用** `<a><b><i><p>测试段落粗斜体链接</p></i></b></a>`
 
 ### 拓展点
 
 - jquery的使用，在 wxml 中大量使用到的 jquery 语言
--
+
+## 2017-10-31（周二）
+
+### javascript(js) 的复查点
+
+#### html 页面的脚本
+
+html 中现各协会默认的脚本语言是 js，执行脚本的是浏览器，  html 页面中插入 js 脚本：
+- 在 `<head>`/ `<body>` 标签中插入，使用标签 `<script>`，在标签中写入脚本；
+	- 在这两个**不同地方插入脚本的区别**在于： `<head>` 标签元素的加载会先于页面 body 的渲染，这就导致，一个要在页面渲染时执行的脚本写在 `<head>` 中会无效；
+- 引入外链，在 `<head>` 中使用标签 `<script src="js's url"></script>`，在外部脚本中，不使用标签 `<script>`
+
+#### json(javascript object notation)
+
+json是js的子集。其格式为： `"name":"value"`，等同于： `name=value`;
+json 语法：
+- 用 `{}` 写对象，一个对象可以有多个`名/值对`：`{"name":"百度","name":"谷歌"}`；
+- `[]` 里写数组，一个数组里可以写多个对象： `{"sites:[{"name":"百度","url":"www.baidu.com"},{"name":"google","url":"www.google.com"}]}`
+
+##### json 对象
+json 对象类型有：string（字符串）/boolean（布尔型）/Object（对象）/Array（数组）/null/数字
+
+- 对象
+	- 写在 `{}` 中，每个键值对的形式： `key:value`，其中，key必须是 string 用 `""`引起来；
+	- 访问对象中的值的方法：
+		- `["name"]`，当使用 `for-in` 循环遍历对象名来获取值时，只能使用这种方法来获取，不能使用下面的方法（ _猜想：因为使用循环遍历获取到的这个对象名是带上引号的_）
+		- `object.name`
+	- 可以删除对象的数据： `delete obj.name`
+
+##### json 数组
+
+	- 定在 `[]` 中，
+	- 访问数组中的数据：
+		- `[index]`： `site[0]`
+	- 删除数组数据： `delete array[0]`
+- json 中不能包含的数据，比如：日期、函数等，先相关的字符串信息写入 json 中，再通过方法将其转换成指定类型的数据；
+	- 日期：
+	 ```
+	 var text = '{ "name":"Runoob", "initDate":"2013-12-14", "site":"www.runoob.com"}';
+		var obj = JSON.parse(text);
+		obj.initDate = new Date(obj.initDate);
+
+		document.getElementById("demo").innerHTML = obj.name + "创建日期: " + obj.initDate;```
+- 函数：
+	```
+	var text = '{ "name":"Runoob", "alexa":"function () {return 10000;}", "site":"www.runoob.com"}';
+	var obj = JSON.parse(text);
+	obj.alexa = eval("(" + obj.alexa + ")");//注意这儿将函数字符串数据用括号包裹起来了再用 eval 将其转换为函数
+
+	document.getElementById("demo").innerHTML = obj.name + " Alexa 排名：" + obj.alexa();
+	```
+
+##### JSON.parse(text[, reviver]) 方法
+
+- 将 json 文本转换成 js 对象；
+- 参数：
+ 	- text，必需的 json 文本
+	- reviver 执行函数可选的，将 json 文本中的数据都执行此函数
+		```
+			var text = '{ "name":"Runoob", "initDate":"2013-12-14", "site":"www.runoob.com"}';
+		var obj = JSON.parse(text, function (key, value) {//匿名函数，对 key 进行判定并根据结果返回 value
+		    if (key == "initDate") {
+		        return new Date(value);
+		    } else {
+		        return value;
+		}});
+
+		document.getElementById("demo").innerHTML = obj.name + "创建日期：" + obj.initDate;```
