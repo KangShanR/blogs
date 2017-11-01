@@ -20,6 +20,55 @@ categories: job
 			1. [读取网页信息命令](#读取网页信息命令)
 			2. [html 页面中忘记的点](#html-页面中忘记的点)
 		6. [拓展点](#拓展点)
+	2. [2017-10-31（周二）](#2017-10-31周二)
+		1. [javascript(js) 的复查点](#javascriptjs-的复查点)
+			1. [html 页面的脚本](#html-页面的脚本)
+			2. [json(javascript object notation)](#jsonjavascript-object-notation)
+				1. [json 对象](#json-对象)
+				2. [json 数组](#json-数组)
+				3. [JSON.parse(text[, reviver]) 方法](#jsonparsetext-reviver-方法)
+				4. [eval(string) 方法](#evalstring-方法)
+	3. [21017-11-1](#21017-11-1)
+		1. [JSON 的常用方法](#json-的常用方法)
+			1. [JSON.stringify(value[,replacer[, space]])](#jsonstringifyvaluereplacer-space)
+		2. [JS 中的对象](#js-中的对象)
+		3. [JS 中的类](#js-中的类)
+			1. [js 中的基础类](#js-中的基础类)
+			2. [类中定义静态成员](#类中定义静态成员)
+			3. [创建对象](#创建对象)
+			4. [js 中定义对象的方式](#js-中定义对象的方式)
+
+<!-- /TOC -->!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:1 -->
+
+1. [新一周记录](#新一周记录)
+	1. [2017-10-30（周一）](#2017-10-30周一)
+		1. [关于项目中使用到的 java 工具类： `DateFormat`](#关于项目中使用到的-java-工具类-dateformat)
+		2. [项目中 RAP 的使用](#项目中-rap-的使用)
+		3. [微信小程序开发](#微信小程序开发)
+			1. [微信小程序开发全局结构](#微信小程序开发全局结构)
+			2. [小程序项目文件结构](#小程序项目文件结构)
+		4. [微信 js-sdk](#微信-js-sdk)
+		5. [散点](#散点)
+			1. [读取网页信息命令](#读取网页信息命令)
+			2. [html 页面中忘记的点](#html-页面中忘记的点)
+		6. [拓展点](#拓展点)
+	2. [2017-10-31（周二）](#2017-10-31周二)
+		1. [javascript(js) 的复查点](#javascriptjs-的复查点)
+			1. [html 页面的脚本](#html-页面的脚本)
+			2. [json(javascript object notation)](#jsonjavascript-object-notation)
+				1. [json 对象](#json-对象)
+				2. [json 数组](#json-数组)
+				3. [JSON.parse(text[, reviver]) 方法](#jsonparsetext-reviver-方法)
+				4. [eval(string) 方法](#evalstring-方法)
+	3. [21017-11-1](#21017-11-1)
+		1. [JSON 的常用方法](#json-的常用方法)
+			1. [JSON.stringify(value[,replacer[, space]])](#jsonstringifyvaluereplacer-space)
+		2. [JS 中的对象](#js-中的对象)
+		3. [JS 中的类](#js-中的类)
+			1. [js 中的基础类](#js-中的基础类)
+			2. [类中定义静态成员](#类中定义静态成员)
+			3. [创建对象](#创建对象)
+			4. [js 中定义对象的方式](#js-中定义对象的方式)
 
 <!-- /TOC -->
 
@@ -144,5 +193,92 @@ json 对象类型有：string（字符串）/boolean（布尔型）/Object（对
 		    } else {
 		        return value;
 		}});
-
 		document.getElementById("demo").innerHTML = obj.name + "创建日期：" + obj.initDate;```
+
+##### eval(string) 方法
+
+**将字符串转成 js 代码。**
+- 其中参数需要用 `()` 包裹起来；否则，浏览器会将字符串识别为执行代码；
+
+## 21017-11-1
+
+### JSON 的常用方法
+
+#### JSON.stringify(value[,replacer[, space]])
+
+将对象转换成字符串的方法；
+- 参数说明：
+	- value，一个必需的有效的 JSON 字符串
+	- replacer，非必需，一个转换结果的函数或数组；
+		- 如果是一个函数，将对 json 数据进行解析并返回一定结果，返回 `undefined` 就排除成员，根对象的键是 `""` 空字符串
+		- 如果是一个数组，则只转换键值在数组中的成员，则转换顺序与数组顺序一样。但当 `value` 也是一个数组时，将会忽略这个参数；
+	- space，可选的文本添加缩进、空格、换行符参数（？），如果是数字就表示在每个级别缩进的空格数，最大为 `10` 。非数字可以使用 `\t` ；
+
+### JS 中的对象
+
+javascript 是并不是一门纯粹的面向对象（OO）的编程语言，这也就意味着它是一门弱类型语言，数据类型不需要提前编译，在使用过程中能真正做到 `一切皆对象`。
+定义对象（属性）：
+```
+var myObj = {name:"kk",
+	age:24,
+	sex:1
+}
+```
+访问对象（属性）：
+```
+myObj.name = "ss";
+myObj["age"] = 25;
+```
+`for-in` 遍历对象属性：
+```
+for(temp in myObj){
+	console.log(temp);//注意：这儿只是将对象属性名给遍历出来，如果要访问属性值： `console.log(myObj[temp]);`
+}
+```
+定义**对象方法**：
+```
+personDetail : function(){
+	return "name:" + this.name + "age: " + this.age;
+}
+```
+调用对象方法：
+```
+myObj.personDetail();
+```
+
+### JS 中的类
+
+js 作为一种面向对象的语言，其面向对象基于 `prototype(原型)`。js 中，有类但界限不如强语言（java 等）明显。
+js 中定义类：
+- funciotn Person(){}
+- Person = function(){}
+
+#### js 中的基础类
+js 中定义好的基础类有：Object、Function、String、Array，这些类都有静态方法 ，调用静态方法 ： `className.methodName()`
+
+#### 类中定义静态成员
+
+- 静态属性：
+	- `className.propertyName = xxx;`
+- 静态方法：
+	- `className.methodName = xxx;`
+
+#### 创建对象
+
+- 通过类创建对象：
+```
+obj = new className;
+//或者：
+obj = new className();
+```
+- 不通过类创建对象：
+	- `var obj = {}`
+	- note:_在 js 这门弱语言中，通过识别 `{}` 而将对象创建，通过类创建就是 `new` 了一个类（类的定义还是以 `{}` 包裹的）对象，而直接创建对象也同样是识别到 `{}` 进行创建对象的。_
+	- 使用这种方法定义对象的好处：动态地为对象添加成员，在定义好这个对象后，直接为其添加属性：`obj.name="jack";`(在 chrome 浏览器中，不允许为类添加 `name` 属性)
+
+#### js 中定义对象的方式
+
+- 三个关键字都可以用于定义对象：
+	- var，最常用的方式： `var obj = {};`
+	- const，用于定义常量对象，不能改变对象的值，若强改，则运行时报错；
+	- let，在方法体内使用这个关键字改变变量的值，在方法体外无效，而在方法体内有效，作用域在使用域内（在哪儿使用，就在哪儿生效，出了这个域内就无效）
