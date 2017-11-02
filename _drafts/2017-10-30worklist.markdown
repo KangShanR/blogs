@@ -38,38 +38,6 @@ categories: job
 			3. [创建对象](#创建对象)
 			4. [js 中定义对象的方式](#js-中定义对象的方式)
 
-<!-- /TOC -->!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:1 -->
-
-1. [新一周记录](#新一周记录)
-	1. [2017-10-30（周一）](#2017-10-30周一)
-		1. [关于项目中使用到的 java 工具类： `DateFormat`](#关于项目中使用到的-java-工具类-dateformat)
-		2. [项目中 RAP 的使用](#项目中-rap-的使用)
-		3. [微信小程序开发](#微信小程序开发)
-			1. [微信小程序开发全局结构](#微信小程序开发全局结构)
-			2. [小程序项目文件结构](#小程序项目文件结构)
-		4. [微信 js-sdk](#微信-js-sdk)
-		5. [散点](#散点)
-			1. [读取网页信息命令](#读取网页信息命令)
-			2. [html 页面中忘记的点](#html-页面中忘记的点)
-		6. [拓展点](#拓展点)
-	2. [2017-10-31（周二）](#2017-10-31周二)
-		1. [javascript(js) 的复查点](#javascriptjs-的复查点)
-			1. [html 页面的脚本](#html-页面的脚本)
-			2. [json(javascript object notation)](#jsonjavascript-object-notation)
-				1. [json 对象](#json-对象)
-				2. [json 数组](#json-数组)
-				3. [JSON.parse(text[, reviver]) 方法](#jsonparsetext-reviver-方法)
-				4. [eval(string) 方法](#evalstring-方法)
-	3. [21017-11-1](#21017-11-1)
-		1. [JSON 的常用方法](#json-的常用方法)
-			1. [JSON.stringify(value[,replacer[, space]])](#jsonstringifyvaluereplacer-space)
-		2. [JS 中的对象](#js-中的对象)
-		3. [JS 中的类](#js-中的类)
-			1. [js 中的基础类](#js-中的基础类)
-			2. [类中定义静态成员](#类中定义静态成员)
-			3. [创建对象](#创建对象)
-			4. [js 中定义对象的方式](#js-中定义对象的方式)
-
 <!-- /TOC -->
 
 ## 2017-10-30（周一）
@@ -282,3 +250,28 @@ obj = new className();
 	- var，最常用的方式： `var obj = {};`
 	- const，用于定义常量对象，不能改变对象的值，若强改，则运行时报错；
 	- let，在方法体内使用这个关键字改变变量的值，在方法体外无效，而在方法体内有效，作用域在使用域内（在哪儿使用，就在哪儿生效，出了这个域内就无效）
+
+## 21017-11-2(周四)
+
+### wxml(weixin markup language) 语法
+#### template 模板的使用
+将一个视图的模板写在页面中，而其他地方要使用时直接调用模板，就可以多次使用而减少代码量。
+- 格式：`<template></template>` 在这个标签中写 `<view>` 等标签，调用时： 直接写 `<template>` 标签，再通过其 `is=""`属性指定调用哪个模板；
+- `<template>` 中的 `data="{{...staffC}}"` 属性来抓取 `js` 中的数据，注意 `data` 属性中的格式，有三个点 `...`；
+
+### 在页面脚本文件 js 的规则
+
+#### js 脚本的大体规则
+
+- `Page` 是页面的全局对象，它定义了整个页面的脚本数据，第一项是 `data` ，这个对象中的数据全部可以被绑定到页面中去。
+- 可以在 `Page({})` 外定义全局的变量： `var globalData = {}`，可以在 `page` 中让 `data` 获取到全局变量的数据 `data:globalData`
+
+### 内置框架的 redirectTo 与 request 两个方法的区别
+
+- `wx.redirectTo`指转发到页面中，指向整个APP的页面。而 `wx.request` 是请求网络数据，指向 `网络url`
+
+### 小程序中做 Ajax 请求
+
+[参考文档][7c11aea7]
+
+  [7c11aea7]: http://www.51xuediannao.com/xiaochengxu/wx_request.html "Fetch 请求 Ajax"
