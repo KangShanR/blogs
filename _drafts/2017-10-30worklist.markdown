@@ -270,7 +270,9 @@ obj = new className();
 
 - `wx.redirectTo`指转发到页面中，指向整个APP的页面。而 `wx.request` 是请求网络数据，指向 `网络url`
 
-### 小程序中做 Ajax 请求
+### 小程序中做网络请求、 Ajax 请求
+
+回调 callback
 
 [参考文档][7c11aea7]
 
