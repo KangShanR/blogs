@@ -18,7 +18,7 @@
     2. redis cache
     3. Hbase
     4. N/A:not applicable，填写表格中表示`此本栏目(对我)不适用`。
-    5. ETL:extract原始数据抽取 tranform数据转化 load加载层，后面还有一个持久层
+    5. ETL: extract 原始数据抽取 tranform 数据转化 load 加载层，后面还有一个持久层
 6. 10/16/2017 10:28:17 AM
     1. 测试git与gitlab内网的网络连接时并不是与github与oschina上所用的用户一致，而是使用`ssh -T gitlab@git.yz.local`;github与oschina的测试地址命令都是`ssh -T git@github.com`或`ssh -T git@gitee.com`;
     2. 全局配置文件config的格式与信息如下：
