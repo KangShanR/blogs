@@ -36,8 +36,8 @@ categories: job
 - 插入**勾选项**
     - [ ]选项一
     - [ ]选项二
-    - [ ]选项三，**目前的问题**就在于：`markdown-preview-plus`这个md预览包时可以预览到图片，但不能预览到`勾选项`；而使用 Atom 自带的核心包`markdown-preview`，正好相反，可以预览到`勾选项`不能预览到图片；
-- 使用Atom-markdown-writer实现多行编辑：`ctrl+alt+up/down`选择多行，再直接进行编辑；
+    - [ ]选项三，**目前的问题**：`markdown-preview-plus`这个md预览包时可以预览到图片，但不能预览到`勾选项`；而使用 Atom 自带的核心包`markdown-preview`，正好相反，可以预览到`勾选项`不能预览到图片；
+- 使用 Atom-markdown-writer 实现多行编辑：`ctrl+alt+up/down`选择多行，再直接进行编辑；
 - [ ]选项三![test](/pictures/graduate/graduate(1).jpg)
   - [ ] 像上一项这种，图片名中包含一个字符`()`，怎么写在路径中呢？
     - [ ] 一样的使用，上面没有出现结果仅仅是因为这张图片的命名中有` `（空格）字符出现。
@@ -54,7 +54,7 @@ categories: job
 #### windows 系统下 .NET framework
 > 关于 windows 系统下， .NET framework 框架是自动安装的，但虽然安装好，但并没有配置到系统环境变量中，所以我们使用 .NET 编译我们写好的 C# 程序时需要将其配置到环境变量中。
 
-**需要注意的点：**
+**Note：**
 1. 系统自带的 .NET framework 版本并不是最新，对 C# 的支持也有版本限制。如：办公室电脑是 win10 系统，其最高的 .NET framework 版本是 `v4.0.30319`，能支持最高的 C# 版本是 C#5；
 2. 配置环境变量时要用到的路径一般情况是： `C:\Windows\Microsoft.NET\Framework`，进入到此目录可以看到多个版本，其中最高的就是最终版，进入到其中就可以看到 `csc.exe` 执行程序（若需要不配置环境变量执行 `csc` 命令，就需要 `cmd.exe` 进入到此目录）。
 

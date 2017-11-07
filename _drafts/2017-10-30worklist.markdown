@@ -65,12 +65,12 @@ categories: job
 
 #### 小程序项目文件结构
 
-在小程序项目中，程序由各个页面构成，每个页面基本由三个文件共同构建 pagename.wxml/pagename.json/pagename.wxss：
+在小程序项目中，程序由各个页面构成，每个页面基本由三个文件共同构建 `pagename.wxml/pagename.json/pagename.wxss`：
 - 每个页面都必须添加到配置文件 app.json 的 pages 中，在此配置中，排在第一的页面为小程序的首页；
 - 基本上的规则：非必要的页面文件（json/wxss）不指定出来，基本就会默认使用全局的 app.json/app.wxss；
 - 这三个文件相互关联，每一个页面都有这三个文件，三个文件都同名而后缀不一样，
   -  pagename.wxss 是样式表文件，用来指定页面布局样式（类似 css 文件）非必要，页面的样式表文件会覆盖 app.wxss 中的规则，也可以在结构文件中指定页面样式为全局配置 app.wxss 中的样式规则；
-  - pagename.json 是页面配置文件，
+  - pagename.json 是页面配置文件
 
 ### 微信 js-sdk
 
