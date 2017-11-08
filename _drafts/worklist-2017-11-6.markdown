@@ -45,7 +45,6 @@ date: "2017-11-06 13:12"
 3. 域名解析
 4. hexo 博客生成时的第三方评论系统
 
-## 2017-11-07
 
 ## 整理点
 
@@ -85,6 +84,8 @@ date: "2017-11-06 13:12"
 
  js 中常用到的表达式： `(x) => x + 3` 。其实它就等价于： `function method(x) {return x +3;}`
 
+## 2017-11-07
+
 ### 今日待办事项
 
 #### 社保卡
@@ -94,3 +95,29 @@ date: "2017-11-06 13:12"
 	 - [ ] 拍照备份到
 	 - [ ] 绑定到支付宝上
 	 - [ ] 20栋拿快递
+
+## 2017-11-8
+
+不要自己攻击自己。
+
+### 不知所云小点点
+
+#### 所谓：ES6 与 ES5
+
+ES6 是指 javascript 版本是6；
+
+ES 的全称是 ECMA Script。而 ECMA 的全称为：European Computer Manufactures Association ，欧洲计算机制造协会，类似于 ISO（International Standardization Organization）国际标准化组织与 IEC（International Electrotechnical Commission）国际电工技术委员会性质类似，三者都旨在建立统一的电脑格式操作标准。
+
+而 ECMAScript ECMA 就是基于 Netscape Script 标准上的一种标准语言。它往往被称为 javascript，实际上前者是后者的规格，后者是前者的实现。
+
+##### ES6 与 ES5 的区别
+
+babel 是 ES 的转译器，可以将 ES6 编译成 ES5。相对于 ES5 ，ES6 有更多优越的地方。详见网上各种博客。
+
+##### 阮一峰关于 ES6 的书
+
+[ECMAScript6 入门][a4569515]
+
+  [a4569515]: http://es6.ruanyifeng.com/#docs/intro "阮一峰 著"
+
+### 今日计划
