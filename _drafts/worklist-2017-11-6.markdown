@@ -121,3 +121,22 @@ babel 是 ES 的转译器，可以将 ES6 编译成 ES5。相对于 ES5 ，ES6 �
   [a4569515]: http://es6.ruanyifeng.com/#docs/intro "阮一峰 著"
 
 ### 今日计划
+
+
+## 2017-11-09
+
+### 未完成事项
+
+1. 更新操作手册里权限不对的地方；
+2. 思维脑图的制作
+3. 看是否需要将 pdf 手册的目录制作出来 [pdf 制作目录](https://jingyan.baidu.com/article/d2b1d102a262ac5c7e37d43d.html)
+
+
+
+
+
+
+
+
+
+  
