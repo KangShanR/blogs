@@ -12,5 +12,6 @@ tag: miniprogram
 ### 基本的语法
 
 使用模板有两种方式：
-- 使用 <template> 标签
-- 使用 <include> 标签引入外部标签
+- 使用 `<template>` 标签
+- 使用 `<include>` 标签引入外部
+- 
