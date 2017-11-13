@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<head>
+
+</head>
+
+<body>
+
+    <!-- <script src="scripts/jquery.min.js"></script> -->
+<div class="top">
+  hello
+</div>
+    <script language="javascript">
+
+        window.console.log("=================================");
+
+        var p0 = function (e) {
+            window.console.log("self:" + e);
+        };
+
+        p0("outp0");
+
+        var A = new p0("p0");
+
+        window.console.log("=================================");
+
+        var p00 = function (e) {
+            window.console.log("self:" + e);
+            return function f(m) {
+                window.console.log("newo:" + m);
+            };
+        };
+
+        var B = new p00("outp00B");
+
+        B("BB");
+
+        var C = new B("outp00C");
+
+
+        window.console.log("=================================");
+
+        var p01 = function (e) {
+            window.console.log("self:" + e);
+            return (function f(m) {
+                window.console.log("newo:" + m);
+            })("p01");
+        };
+
+        var D = new p01("outp01D");
+
+        window.console.log("=================================");
+
+        var p1 = (function (e) {
+            window.console.log("self:" + e);
+        })("p1");
+
+
+
+        window.console.log("=================================");
+
+        var p11 = (function (e) {
+            window.console.log("self:" + e);
+            return function (m) {
+                window.console.log("newo:" + m + e);
+            };
+        })("p11");
+
+        p11("outp11_2");
+
+        var E = new p11("outp11");
+
+        window.console.log("=================================");
+
+        var p12 = (function (e) {
+            window.console.log("self:" + e);
+            return {
+                p121: function (m) { window.console.log("newo:" + m); },
+                p122: function (options, fn) {
+                    fn(e + options);
+                }
+            };
+        })("p12");
+
+        p12.p121("outp121");
+
+        p12.p122("outp122", function (e) {
+            window.console.log("invoker:" + e)
+        });
+
+    </script>
+
+</body>
+
+</html>
