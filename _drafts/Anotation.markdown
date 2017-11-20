@@ -1,5 +1,5 @@
 ---
-title: "@Autowired" 注解的使用
+title: 项目中注解的使用
 date: "2017-11-17 11:44"
 categories: programming
 tag: [java,programming]
@@ -23,3 +23,7 @@ tag: [java,programming]
 
 - 此注解将请求的 body 部分数据使用 converter 解析并将相应的数据绑定到要返回的对象上；
 - 使用 converter 解析的结果绑定到 controller 中的方法的参数上；
+
+## @RequiresPermissions
+
+shiro 框架中的权限验证注解，用于验证是否拥有某权限。
