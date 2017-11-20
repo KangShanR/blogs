@@ -17,8 +17,7 @@ date: "2017-11-13 14:52"
 - 被：91984551405032192
 
 
-####
-司机请假：人事
+#### 司机请假：人事
 
 #### 有座平台系统的模块权限 yml 文件
 
@@ -32,3 +31,4 @@ https://git.yz.local/backend/webservice/blob/master/mysql/role-module-resource.y
 - 没有使用视图解析器请求结果是怎么接收的？
   - 所有请求经过 controller 处理后都返回的自定义的数据类型 YzResult<T data>；
 - mybatis 中接口与数据请求之间的实现
+- webapp 下某个类的全限定名：/yzbus_webapp/src/main/java/com/yzbus/backend/webapp/interceptor/UserAndPermissionCheckInterceptor.java
