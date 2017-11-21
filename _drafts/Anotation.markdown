@@ -27,3 +27,84 @@ tag: [java,programming]
 ## @RequiresPermissions
 
 shiro 框架中的权限验证注解，用于验证是否拥有某权限。
+
+## @PathVariable
+用于将方法参数绑定到请求路径中去
+```
+@Controller  
+@RequestMapping("/owners/{ownerId}")  
+public class RelativePathUriTemplateController {  
+
+  @RequestMapping("/pets/{petId}")  
+  public void findPet(@PathVariable String ownerId, @PathVariable String petId, Model model) {      
+    // implementation omitted   
+  }  
+}  
+```
+### @RequestHeader、@CookieValue
+
+```
+@RequestMapping("/displayHeaderInfo.do")  
+public void displayHeaderInfo(@RequestHeader("Accept-Encoding") String encoding,  
+                              @RequestHeader("Keep-Alive") long keepAlive)  {  
+}  
+```
+上面的代码就参数 encoding 与 keepAlive 分别绑定到了请求的 Header 中去。
+```
+@RequestMapping("/displayHeaderInfo.do")  
+public void displayHeaderInfo(@CookieValue("JSESSIONID") String cookie)  {  
+}
+```
+而这一段代码就将参数 cookie 绑定到 JSESSIONID 上。
+
+_note:关于这儿的请求是将请求的 header/cookie 中的值绑定到请求方法参数中还是将请求时的参数绑定到 header/cookie 中是一个未搞清的问题。查找上说是将 header/cookie 值绑定到请求方法参数中，但如果是这样就没必要设置这个参数了，直接获取这些值在方法中调用就是，而后者却更有必要，调用方法时参数就直接当作 header/cookie 值去请求了看来也更合理_
+
+## 注解的定义与使用
+
+注解是 JAVA5.0 之后的高级特性。可以使用自定义注解来使用。
+
+### 四个元注解
+
+注解的注解，用于标注该注解的基本属性。
+- @Documented 注解是否包含在 JavaDoc 中
+- @Retention 什么时候使用该注解，定义该注解的生命周期
+  - RetentionPolicy.SOURCE
+  - RetentionPolicy.CLASS
+  - RetentionPolicy.RUNTIME
+- @Target 定义该注解使用的地方
+  - ElementType.TYPE 类、接口、枚举等
+  - ElementType.FIELD 字段属性
+  - ElementType.METHOD 方法
+  - ElementType.PARAMETER 方法参数
+  - ElementType.CONSTRUCTOR 构造函数
+  - ElementType.LOCAL_VARIABLE 本地变量
+  - ElementType.PACKAGE 包
+- @Inherited 是否允许子类继承该注解
+
+### 注解的定义
+
+注解定义中的属性只能是 String、Enum、及基本数据类型
+
+```
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@interface Todo {
+  public enum Priority {LOW, MEDIUM, HIGH}
+  public enum Status {STARTED, NOT_STARTED}
+  String author() default "Yash";
+  Priority priority() default Priority.LOW;
+  Status status() default Status.NOT_STARTED;
+}
+```
+如果注解中属性只有一个，那么使用时不需要写属性名，直接写值即可：
+
+```
+@Target(ElementType.TYPE)
+@interface Remark{
+  String author() default "kfc";
+}
+
+@Remark("jfk")
+public class Change{
+}
+```
