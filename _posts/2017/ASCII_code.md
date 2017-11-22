@@ -2,14 +2,16 @@
 title: ASCII编码
 date: 2017-04-23 15:02:43
 categories: programming
-tags: programming
+tags: [programming,ASCII]
 description: 计算机语言中ASCII码的使用
 ---
-### ASCII码 ###
+
+# ASCII码
 
 
 > （American Standard Code for Information Interchange，美国信息交换标准代码）是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。它是现今最通用的单字节编码系统，并等同于国际标准ISO/IEC 646。
 
+<!--more-->
 
 - 关键字符ASCII值：
 	- 0:46 0~9的ASCII码值就是48~57，习惯于在代码函数中用左闭右开的区间来表示：[48,58)

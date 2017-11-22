@@ -26,3 +26,35 @@ date: "2017-11-20 17:45"
 
 - 之前一直没想到直接 copy md 渲染出来的页面，所有格式都存在，只是图片需要调整。而调整图片可以尝试着是否可以批量调整。
 - 上次一直只想到将 pdf 文件使用转换工具进行转换，结果不仅要收费而且格式问题很多。居然没想到直接 copy 渲染之后的页面数据，当时思维一直在格式转换这个沟里。
+
+#### dict 这个表是干嘛用的？
+
+sql 代码：
+
+```
+    CREATE TABLE `mgm_dict` (
+      `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '唯一标识符',
+      `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      `modified_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+      `code` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '枚举代码',
+      `family` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '枚举所属分组',
+      `show_text` varchar(191) COLLATE utf8mb4_bin DEFAULT NULL,
+      `comment` varchar(191) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+      PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=268 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='字典表，保存全局枚举信息';
+```
+## 2017-11-22
+
+### 有座客运平台新需求
+
+#### 司机
+
+司机的安全教育
+
+司机的车辆事故、违章处理
+
+司机的奖励
+
+#### 车辆
+
+发车前后的车辆检查，需要司机在 App 上【发车】前确认检查无误。

@@ -2,7 +2,7 @@
 title: "ASCII&Unicode&UTF-8"
 date: "2017-10-29 00:51"
 categories: programming
-tags: ASCII,Unicode,UTF-8
+tags: [ASCII,Unicode,UTF-8]
 ---
 
 # ASCII 码Unicode 码还有 UTF-8 之间的恩怨
