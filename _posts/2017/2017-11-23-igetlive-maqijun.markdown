@@ -64,7 +64,7 @@ tacit code
 - vanity fair，名利场
 - fair & square,光明正大
 - play fair，公平竞争
-- Scarborough Fair
+- Scarborough Fair，斯卡布罗集市
   - Parsley,sage,rosemary and thyme
 
 ## 新策略
