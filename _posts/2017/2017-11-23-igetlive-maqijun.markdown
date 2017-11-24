@@ -15,6 +15,8 @@ tag: [IGet,English]
 - 点赞：Like
 - 秀恩爱：PDA(Public Display of Affection)
 - 老铁：Bro-mance
+
+
 ### 感恩节：Thanksgiving
 - 火鸡：Turkey，土耳其国家名也叫这个，为什么？
 - 赦免：pardon
