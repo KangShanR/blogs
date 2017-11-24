@@ -16,7 +16,7 @@ tag: [mockingbot,原型图]
 ## 快捷键
 
 - 打组快捷键：ctr +l g
-- 解组：ctrl + u
+- 解组：ctrl + ud
 - 界面缩放： ctrl  +/-
 - 页面收展： ctrl +  ; 或 '
 
