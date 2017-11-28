@@ -12,6 +12,8 @@ object CMain {
   val UserAgents = Seq(
     "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
   )
+
+  // 主函数请求50次
   def main(args: Array[String]): Unit = {
     for (i ← 0 until 50) {
       println(s"========================== $i =========================")
@@ -19,6 +21,7 @@ object CMain {
     }
   }
 
+// 请求方法
   def openEntry(): Unit = {
     val conn = new URL(EntryUrl).openConnection().asInstanceOf[HttpURLConnection]
     setCommonHeaders(conn)
@@ -33,13 +36,14 @@ object CMain {
     println(cookiesVal)
 
     println("res: ")
+    // 提取响应内容中指定元素的值
     val content = Source.fromInputStream(is, "UTF-8").getLines().filter(_.contains("hiddenTimeStampEncodeString")).mkString
     println(content)
     val begin = content.indexOf("value=\"") + "value=\"".size
     val end   = content.indexOf("\" />")
-    val timestamp = content.substring(begin, end)
+    val timestamp = content.substring(begin, end)//截取value
     println(timestamp)
-
+// 将抽取出来的时间戳内容进行编码并格式化
     val tsParam = URLEncoder.encode(timestamp, "UTF-8")
     val url = AjaxUrl.format(tsParam)
     println(tsParam)
@@ -58,6 +62,7 @@ object CMain {
 
   }
 
+// 设置URL公有属性
   private def setCommonHeaders(conn: HttpURLConnection) = {
     conn.addRequestProperty("Accept-Language", "zh-CN,en-US;q=0.8,en;q=0.6,zh;q=0.4,zh-TW;q=0.2,ja;q=0.2")
     conn.addRequestProperty("Upgrade-Insecure-Requests", "1")
