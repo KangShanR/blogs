@@ -33,7 +33,7 @@ categories: programming
 		1. 当为负数时，只有第一次使用时才会初始化，这也就带来一个问题，第一次访问时就会慢一些；
 		2. 当为非负数时，中央处理器会在servlet容器启动时初始化，而这个数值就是初始化的顺序；
 
-## 核心对象： 
+## 核心对象：
 
 1. **中央分发控制器**（在springMVC框架中，它是核心的核心，所有的分发都由它处理，所以也叫**中央处理器**），处理请求并给出响应；
 2. **处理器映射器**HandlerMapping：设置handler处理器与url资源的映射
@@ -86,7 +86,7 @@ categories: programming
 		<context:component-scan base-package="com.woniuxy.springdemo.controller,
 		com.woniuxy.springdemo.service">
 			<!-- 指定注解过滤器 -->
-			<context:include-filter type="annotation" 
+			<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller"/>
 		</context:component-scan>
 	- **注解映射器：**注解式映射器配置可以直接将使用过注解`@RequestMapping`的方法进行映射，而直接在处理器中寻到相关的处理方法；
@@ -128,6 +128,19 @@ categories: programming
 			1. 响应jason数据：`response.setCharacterEncoding("utf-8");`
 			2. `response.getWriter().write(String "jason格式的字符串");`
 
+## springmvc 的高级应用
+
+### LocalResolver 区域解析器
+
+在 springmvc 中配置这个解析器，用于国际化。其中解析器常用的有：
+- cookie ，根据 CookieLocaleResolver 来选择区域；
+  - 这个区域解析器所采用的Cookie可以通过cookieName和cookieMaxAge属性进行定制。cookieMaxAge属性表示这个Cookie应该持续多少秒，-1表示这个Cookie在浏览器关闭之后就失效。
+- SessionLocaleResolver
+  - 它通过检验用户会话中预置的属性来解析区域。如果该会话属性不存在，它会根据accept-language HTTP头部确定默认区域。
+
+### 多部件解析器 MultipartResolver
+
+用于图片上传，需要引入包：commons-fileupload 与 commons-io
 
 ### Restful架构 ###
 - 只是一种规范，终极的目标是资源URI
