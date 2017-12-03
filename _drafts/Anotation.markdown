@@ -59,6 +59,11 @@ public void displayHeaderInfo(@CookieValue("JSESSIONID") String cookie)  {
 
 _note:关于这儿的请求是将请求的 header/cookie 中的值绑定到请求方法参数中还是将请求时的参数绑定到 header/cookie 中是一个未搞清的问题。查找上说是将 header/cookie 值绑定到请求方法参数中，但如果是这样就没必要设置这个参数了，直接获取这些值在方法中调用就是，而后者却更有必要，调用方法时参数就直接当作 header/cookie 值去请求了看来也更合理_
 
+
+### @Repository
+
+对应 dao 层的数据
+
 ## 注解的定义与使用
 
 注解是 JAVA5.0 之后的高级特性。可以使用自定义注解来使用。
