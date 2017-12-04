@@ -142,5 +142,13 @@ categories: programming
 
 用于图片上传，需要引入包：commons-fileupload 与 commons-io
 
+### json 数据交互
+
+使用两个注解：
+- @RequestBody
+  - 用于将请求的字符串使用 converter 转换成 json/xml 等格式并绑定到 controller 参数上去
+- @ResponseBody
+  - 用于将 controller 招行的结果 使用 controller 转换成 json/xml 格式直接 response 给浏览器
+
 ### Restful架构 ###
 - 只是一种规范，终极的目标是资源URI
