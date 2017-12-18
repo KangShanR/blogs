@@ -22,7 +22,7 @@ public Message<List<GameLeaseView>> getGameLeases(@ApiParam(required = true,valu
 ## 总结
 
 初级使用，注意这几个注解的使用：
-@ApiModel(required=boolean, notes="")
-@ApiModelProperty(required=boolean,notes="")
-@ApiOperation(value="",notes="")
-@ApiParam(required=boolean, value="参数说明")
+- @ApiModel(required=boolean, notes="")
+- @ApiModelProperty(required=boolean,notes="")
+- @ApiOperation(value="",notes="")
+- @ApiParam(required=boolean, value="参数说明")
