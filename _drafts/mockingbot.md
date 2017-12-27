@@ -17,6 +17,10 @@ tag: [mockingbot,原型图]
 
   [1ad0f896]: https://modao.cc/posts/1789 "使用窍门"
 
+[官方使用文档][70cfa3a0] 其中包括了进阶的使用技巧（诸如：母版、页面状态、各类动态特效）
+
+  [70cfa3a0]: https://pro.modao.cc/tutorials/%E4%BD%BF%E7%94%A8%E7%8A%B6%E6%80%81%E5%88%B6%E4%BD%9CFAB%E6%95%88%E6%9E%9C "MockingBott Turious"
+
 - 打组之后不能单独地使用单个组元进行链接，而只能将整个组链接到其他页面。
 
 ## 快捷键
