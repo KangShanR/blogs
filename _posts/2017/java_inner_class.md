@@ -4,7 +4,7 @@ date: 2017-04-29 13:04:38
 categories: programming
 tags: [java,programming]
 keywords: 内部类,匿名内部类,迭代器,私有化内部类
-description: 
+description:
 ---
 # java内部类
 
@@ -20,6 +20,7 @@ description:
 		- 有了以上一点，那在类中定义内部类就会在很多时候有用了，比如：静态内部类的单例模式中，将单例通过静态内部私有类的方法来获取，这样利用外部其它的类不能访问这个私有的内部类而达到控制内部类的初始化类加载，这样只有在这个相关外部类中调用时才会调用到内部类，在这样一个单例模式中就实现了单例的懒加载；
 	- 在迭代器模式中，在迭代器容器中创建了个内部类：
 			- 容器实现类：
+				- ```
 				public class Repository implements Container {
 					String elements[] = {"kfc","jfk","mcd"};
 					/**
@@ -57,14 +58,17 @@ description:
 							return null;
 						}
 					}
-			- 最后在外部其他的类中来构造一个此内部类：
-				- 先引入此内部类的包：`import designpatrern.iteratorpattern.Repository.DoIterator;`
-				- 先构造一个外部类的对象：`	Repository rep = new Repository();`
-				- 再来构造内部类对象：`DoIterator ite2 = rep.new DoIterator();`
-		- 当这个内部类的修辞符为private时，这时在其他非相关的外部类中就不能导入此类，更名别说构造对象了；
+			```
+
+	- 最后在外部其他的类中来构造一个此内部类：
+		- 先引入此内部类的包：`import designpatrern.iteratorpattern.Repository.DoIterator;`
+		- 先构造一个外部类的对象：`	Repository rep = new Repository();`
+		- 再来构造内部类对象：`DoIterator ite2 = rep.new DoIterator();`
+- 当这个内部类的修辞符为private时，这时在其他非相关的外部类中就不能导入此类，更名别说构造对象了；
 
 
-### 匿名内部类： ###
+### 匿名内部类：
+
 - 这种情况多数用于一个抽象的类或者接口想要生成一个对象，这时不得不用一个子类来实现其抽象方法或新产品才能实现，但如果这个子类只用一次的话，专门创建一个子类来装载时会造成系统资源的浪费，那么这时使用匿名内部类会更合理：
 	- 接口定义
 		public interface Draw {
@@ -72,6 +76,7 @@ description:
 		}
 	- 这时我们只想实现一次特殊的draw()方法，而且只用得到一次，如果创建一个类实现这个接口（或者抽象父类），就会造成系统资源的浪费，所以就使用匿名内部类实现：
 	- main方法中测试：
+		```
 			public static void main(String[] args) {
 				Draw draw = new Draw(){
 					@Override
@@ -81,10 +86,13 @@ description:
 				};
 				draw.draw("test");
 			}
+			```
+
 		- 测试结果：
 				Draw.Draw....test
 		- 其中先用接口new一个对象出来，再在这个对象中创建一个匿名的内部类并实现其draw()方法，因为是匿名的类，所以只能看到其方法在对象体`{}`中。
 		- 同时要实现这个匿名内部类的效果，不一定要在接口中或抽象类的抽象方法中，普通类的普通方法也一样可以实现这样的重写方法，再一次调用：
+		```
 				//实现类的匿名内部类，这个类不一定抽象类方法也不一定是抽象方法，一样都可以实现
 				ProxyDraw proxy = new ProxyDraw(draw){
 					@Override
@@ -93,6 +101,7 @@ description:
 					}
 				};
 				proxy.draw("");
+			```
 			- 测试结果：
 					anonymity
 	- 在动态代理模式中，匿名内部类会有很好的体现，共具体实现：
@@ -108,12 +117,13 @@ description:
 					}
 				}
 		- 代理（使用了匿名内部类）：
+		```
 				public class ProxyDraw {
 					Object target;
 					public ProxyDraw(Object target){
 						this.target = target;
 					}
-					/* 
+					/*
 					 * 获取代理实例
 					 * @see designpatrern.dynamicproxy.Draw#draw(java.lang.String)
 					 */
@@ -131,6 +141,7 @@ description:
 								});
 					}
 				}
+				```
 		- 测试：
 				public static void main(String[] args) {
 					//动态代理的实现
@@ -144,13 +155,14 @@ description:
 				Porxy_end
 		- 上面代理的实现中，new一个代理实例的handler参数使用了匿名内部类，如果不使用匿名内部类，其实现过程：
 			- 将代理中匿名内部类的实现提取出来：
+			```
 					public class InvokeHandler implements InvocationHandler {
 						//在构造函数中就注入要调用方法的对象
 						Object obj;
 						public InvokeHandler(Object obj){
 							this.obj = obj;
 						}
-						/* 
+						/*
 						 * 实现InvocationHandler接口（其中只有一个invoke方法）
 						 */
 						@Override
@@ -161,18 +173,23 @@ description:
 							return resultValue;
 						}
 					}
+					```
 			- 而代理类中获取代理的方法就应该是：
+					```
 					public Object getProxyIns2() {
 						return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(),
-								new InvokeHandler(this.target)); 
+								new InvokeHandler(this.target));
 					}
+					```
 			- 测试：
+			```
 					public static void main(String[] args) {
 						//动态代理的实现
 						Draw realDraw = new RealDraw();
 						Draw proxyDraw = (Draw)new ProxyDraw(realDraw).getProxyIns2();
 						proxyDraw.draw("....test.end");
 					}
+					```
 			- 测试结果：
 					invoke.start....
 					RealDraw.draw....test.end
