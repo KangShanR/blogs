@@ -1,0 +1,241 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link href="http://zujuan.zxls.com/Scripts/dialog/skins/discuz.css" rel="stylesheet" id="lhgdialoglink">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>
+	唐小仙女儿的组卷中心
+</title>
+<link href="styles/reset_css.css?v=20140911" type="text/css" rel="stylesheet"><link href="styles/shijuan.css?v=20150707" type="text/css" rel="stylesheet">
+	 <script src="Scripts/jquery-1.8.2.min.js" type="text/javascript"></script>
+	  <script src="jsadd/function.js?v=20140920" type="text/javascript"></script>
+	 <script src="Scripts/dialog/lhgdialog.js?skin=discuz&amp;v=3" type="text/javascript"></script>
+	 <style type="text/css">
+       .optable { width:780px; font-family:Times New Roman; }
+       .optable td{padding-bottom:5px; }
+       .sstd{width:180px;}
+       .ddtd{width:380px;}
+
+.table {
+  width: 100%;
+  /*margin-bottom: 20px;*/
+  background-color: #ffffff;
+}
+
+.table td {
+  padding: 1px;
+  line-height: 20px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+}
+
+
+.table-bordered {
+  border: 1px solid #dddddd;
+  border-collapse: separate;
+  *border-collapse: collapse;
+  border-left: 0;
+}
+
+
+.table-hover tbody tr:hover > td,
+.table-hover tbody tr:hover > th {
+  background-color: #f5f5f5;
+}
+       .input
+       {
+           width: 400px;
+           height: 20px;
+           padding: 4px 6px;
+           /*margin-bottom: 10px;*/
+           font-size: 14px;
+           line-height: 20px;
+           color: #555555;
+       }
+
+   </style>
+</head>
+<body><div style="left: 0px; top: 0px; visibility: hidden; position: absolute;" class="">
+	<table class="ui_border ui_state_tips">
+		<tbody>
+			<tr>
+				<td class="ui_lt">
+				</td>
+		<td class="ui_t"></td>
+		<td class="ui_rt"></td>
+	</tr>
+	<tr>
+		<td class="ui_l"></td>
+		<td class="ui_c">
+			<div class="ui_inner"><table class="ui_dialog"><tbody><tr><td colspan="2"><div class="ui_title_bar">
+				<div class="ui_title" unselectable="on" style="cursor: move; display: none;"></div><div class="ui_title_buttons"><a class="ui_min" href="javascript:void(0);" title="最小化" style="display: none;"><b class="ui_min_b"></b></a><a class="ui_max" href="javascript:void(0);" title="最大化" style="display: none;"><b class="ui_max_b"></b></a><a class="ui_res" href="javascript:void(0);" title="还原"><b class="ui_res_b"></b><b class="ui_res_t"></b></a><a class="ui_close" href="javascript:void(0);" title="关闭(esc键)" style="display: none;">×</a></div></div></td></tr>
+				<tr><td class="ui_icon"></td>
+					<td class="ui_main" style="width: 200px; height: auto;">
+						<div class="ui_content" style="padding: 10px;"></div>
+					</td></tr><tr><td colspan="2"><div class="ui_buttons" style="display: none;"></div></td></tr></tbody></table></div></td>
+					<td class="ui_r"></td></tr><tr><td class="ui_lb"></td><td class="ui_b"></td><td class="ui_rb" style="cursor: auto;"></td></tr></tbody></table>
+				</div>
+    <form method="post" action="./PaperCenter.aspx?pid=bk" id="form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTkzNTg3MzU0OWRk7aXpK4EcD+VRTn49dHw3MzHaU9xp/jrIjBAeuyxbWiE=">
+</div>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="7281C530">
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAAVGdoTFDuIJ36RBZT2nP2IcJ3gtU76sqDODI/nU1kxcGBTIqpGJU9zKGFx1Zcq4nDHveVojE0q3xdPOi4bTjFyWXYDH5waVSg903GO6yvKVD6qjav7azzGkmK2n+iH8SuWHPaKbauxW8NXcZEPUCT3v">
+</div>
+
+<div id="container">
+    <div id="sjyl">
+  <div id="shijuan_seal" style="display: none;">
+    <div id="shijuan_sealinput">
+      <table width="100%" cellspacing="0" cellpadding="0" border="0">
+        <tbody>
+          <tr>
+
+            <td align="center"><div id="shijuan_sealinputtext" style="font-size:14px;">县（市、区）：<span class="line"></span>学校：<span class="line"></span>班级：<span class="line"></span>考生号：<span class="line"></span>姓名：<span class="line"></span></div></td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="shijuan_sealline">……………………………<span style="font-size:14px;">装</span>…………………………………<span style="font-size:14px;">订</span>…………………………………<span style="font-size:14px;">线</span>………………………………</div>
+  </div>
+  <!--试卷 -->
+  <div id="main"><div id="title"><input type="hidden" id="defaulttit" value="xx中学2017—2018学年度第二学期高*年级*月份月考试题"><h1 style="padding-top:5px;">xx中学2017—2018学年度第二学期高*年级*月份月考试题</h1><h3 style="display: none;">试卷副标题</h3></div><div id="note" style="display: none;">考试范围：xxx；考试时间：100分钟；命题人：xxx</div><div id="notestu" style="display: block;">学校：___________姓名：___________班级：___________考号：___________</div><div id="score" style="display: none;"> <table border="0" cellspacing="0" cellpadding="0" align="center">  <tbody><tr>   <td align="center" valign="middle">题号</td>  <td align="center" valign="middle">一</td>  <td align="center" valign="middle">二</td>  <td align="center" valign="middle">三</td>  <td align="center" valign="middle">四</td>  <td align="center" valign="middle">五</td>  <td align="center" valign="middle">六</td>  <td align="center" valign="middle">七</td> <td align="center" valign="middle">总分</td> </tr> <tr>   <td align="center" valign="middle">得分</td>  <td align="center" valign="middle">&nbsp;</td>  <td align="center" valign="middle">&nbsp;</td>  <td align="center" valign="middle">&nbsp;</td>  <td align="center" valign="middle">&nbsp;</td>  <td align="center" valign="middle">&nbsp;</td>  <td align="center" valign="middle">&nbsp;</td>  <td align="center" valign="middle">&nbsp;</td>  <td align="center" valign="middle">&nbsp;</td> </tr></tbody></table></div><dl id="zysx" style="display: none;"><dt>注意事项：</dt><dd>1．答题前填写好自己的姓名、班级、考号等信息<br>2．请将答案正确填写在答题卡上</dd></dl><dl class="volume" style="display: none;"><dt>第I卷（选择题）</dt><dd>请点击修改第I卷的文字说明</dd><dd><span class="contro2"><a href="javascript:void(0);" class="delsegment">删除</a><a href="javascript:void(0);" onclick="paperformatset();">设置</a></span></dd> </dl><div class="sjlist"><div class="topic" style="display: block;"> <div class="df" style="display: none;">   <table width="100%" border="0" cellspacing="0" cellpadding="0">     <tbody><tr>      <td width="50%" align="center" valign="middle">评卷人</td>      <td width="50%" align="center" valign="middle">得分</td>     </tr>    <tr>      <td align="center" valign="middle">&nbsp;</td>      <td align="center" valign="middle">&nbsp;</td>   </tr>  </tbody></table>  </div> <div class="tx"><span>一、</span><span>单选题</span><span>（题型注释）</span></div> <input type="hidden" value="1" class="hftxnum"> <div class="clear"></div>  </div> <div class="list"> <span style="display:none;" class="kns_id">13,3570</span>  <table width="100%" border="0" cellspacing="0" cellpadding="0">   <tbody><tr>   <td width="2%" align="center" valign="top"><em class="num">1</em>．</td> <td width="98%"><div class="cnt"><span class="questid" style="display:none;">156870</span>  <p>(2018·江苏南通学业水平测试·2)秦朝在郡一级地方，除了郡守以外，设有郡尉和郡监两个郡一级长官。郡尉和郡监与郡守平级，可自行任命署吏，直接听命于中央。与此相似的是，在一县之内，亦分别设置令(长)、尉、监。由此可见，秦朝(　　)</p><table class="optable"><tbody><tr><td class="ddtd">A．地方所有署吏均由中央任命</td><td class="ddtd">B．中央尚未实现权力高度集中</td></tr><tr><td class="ddtd">C．形成了中央垂直管理地方的体系</td><td class="ddtd">D．中央军政大权均掌握在皇帝手中</td></tr></tbody></table> </div></td> </tr> </tbody></table>  </div> <div class="list"> <span style="display:none;" class="kns_id">13,3570</span>  <table width="100%" border="0" cellspacing="0" cellpadding="0">   <tbody><tr>   <td width="2%" align="center" valign="top"><em class="num">2</em>．</td> <td width="98%"><div class="cnt"><span class="questid" style="display:none;">148067</span>  <p>(2018·湖北重点高中联考协作体高三第一学期期中·2)秦王赢政统一中国，认为自己“德兼三皇、功盖五帝”，创“皇帝”一词作为华夏最高统治者的正式称号。对此理解正确的是(　　)</p><table class="optable"><tbody><tr><td class="ddtd">A．突出了君主专制的政治追求</td><td class="ddtd">B．对西周政治观念的彻底舍弃</td></tr><tr><td class="ddtd">C．皇帝家族垄断国家政治权力</td><td class="ddtd">D．强调了“君权神授”的合理性</td></tr></tbody></table> </div></td> </tr> </tbody></table>  </div> <div class="list"> <span style="display:none;" class="kns_id">14,2370,3571</span>  <table width="100%" border="0" cellspacing="0" cellpadding="0">   <tbody><tr>   <td width="2%" align="center" valign="top"><em class="num">3</em>．</td> <td width="98%"><div class="cnt"><span class="questid" style="display:none;">147996</span>  <p>(2018·广东湛江高三11月调研·25)西汉初，皇后名义上可以参与国家事务，并在宫中设立专门机构，有一系列官吏。到了东汉，这些机构和官吏多被裁撤，剩余官员也改由宦官担任。这种变化说明汉朝(　　)</p><table class="optable"><tbody><tr><td class="ddtd">A．道德因素影响了权力分配</td><td class="ddtd">B．君主权力逐渐转移至外朝</td></tr><tr><td class="ddtd">C．避免了外戚干政的可能性</td><td class="ddtd">D．统治者更加重视行政效率</td></tr></tbody></table> </div></td> </tr> </tbody></table>  </div> <div class="list"> <span style="display:none;" class="kns_id">14,2370,3571</span>  <table width="100%" border="0" cellspacing="0" cellpadding="0">   <tbody><tr>   <td width="2%" align="center" valign="top"><em class="num">4</em>．</td> <td width="98%"><div class="cnt"><span class="questid" style="display:none;">147814</span>  <p>(2018·河北石家庄二中高三第一学期期中·24) <br>
+</p><div align="center">
+	<table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;mso-table-layout-alt:fixed;border:none;mso-border-alt:solid windowtext .5pt;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid windowtext;">
+		<tbody>
+			<tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;">
+				<td width="181" style="width:135.65pt;border:solid windowtext 1.0pt;mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;">
+					<p class="MsoNormal" align="center" style="text-align:center;line-height:150%;mso-layout-grid-align:auto;text-autospace:ideograph-numeric ideograph-other;">
+						<span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">《汉书</span><span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-hansi-font-family:&quot;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">·</span><span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">武帝纪》</span><span lang="EN-US" style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-hansi-font-family:&quot;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;"><o:p></o:p></span>
+					</p>
+				</td>
+				<td width="312" valign="top" style="width:233.85pt;border:solid windowtext 1.0pt;border-left:none;mso-border-top-alt:solid windowtext .5pt;mso-border-bottom-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;">
+					<p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;line-height:150%;mso-layout-grid-align:auto;text-autospace:ideograph-numeric ideograph-other;">
+						<span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">元光元年冬十一月，初令郡国举孝廉各一人。</span><span lang="EN-US" style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-hansi-font-family:&quot;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;"><o:p></o:p></span>
+					</p>
+				</td>
+			</tr>
+			<tr style="mso-yfti-irow:1;">
+				<td width="181" style="width:135.65pt;border:solid windowtext 1.0pt;border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;">
+					<p class="MsoNormal" align="center" style="text-align:center;line-height:150%;mso-layout-grid-align:auto;text-autospace:ideograph-numeric ideograph-other;">
+						<span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">《后汉书</span><span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-hansi-font-family:&quot;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">·</span><span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">左雄列传》</span><span lang="EN-US" style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-hansi-font-family:&quot;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;"><o:p></o:p></span>
+					</p>
+				</td>
+				<td width="312" valign="top" style="width:233.85pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;mso-border-bottom-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;">
+					<p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;line-height:150%;mso-layout-grid-align:auto;text-autospace:ideograph-numeric ideograph-other;">
+						<span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">雄又上言：</span><span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-hansi-font-family:&quot;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">“……</span><span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">请自今孝廉年不满四十，不得察举</span><span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-hansi-font-family:&quot;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">……”</span><span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;"> 帝从之。</span><span lang="EN-US" style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-hansi-font-family:&quot;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;"><o:p></o:p></span>
+					</p>
+				</td>
+			</tr>
+			<tr style="mso-yfti-irow:2;mso-yfti-lastrow:yes;">
+				<td width="181" style="width:135.65pt;border:solid windowtext 1.0pt;border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;">
+					<p class="MsoNormal" align="center" style="text-align:center;line-height:150%;mso-layout-grid-align:auto;text-autospace:ideograph-numeric ideograph-other;">
+						<span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">《三国志</span><span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-hansi-font-family:&quot;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">·</span><span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">魏书</span><span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-hansi-font-family:&quot;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">·</span><span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">武帝纪》</span><span lang="EN-US" style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-hansi-font-family:&quot;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;"><o:p></o:p></span>
+					</p>
+				</td>
+				<td width="312" valign="top" style="width:233.85pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;mso-border-bottom-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;">
+					<p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;line-height:150%;mso-layout-grid-align:auto;text-autospace:ideograph-numeric ideograph-other;">
+						<span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">太祖<span lang="EN-US">(</span>曹操<span lang="EN-US">)</span>少机警，有权数，而任侠放荡，不治行业</span><span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-hansi-font-family:&quot;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">……</span><span style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;">年二十，举孝廉为郎。</span><span lang="EN-US" style="font-size:10.5pt;line-height:150%;font-family:宋体;mso-hansi-font-family:&quot;mso-bidi-font-family:宋体;mso-font-kerning:1.0pt;font-weight:normal;"><o:p></o:p></span>
+					</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+以上为不同史籍关于汉代察举制的历史叙述。据此能够被认定的是(　　)<p></p><table class="optable"><tbody><tr><td class="ddtd">A．孝廉成为两汉时期选官的唯一标准</td><td class="ddtd">B．增加选官的限制以保障贵族政治的稳定</td></tr><tr><td class="ddtd">C．两汉到魏晋时期察举制度不断完善</td><td class="ddtd">D．东汉末年选官实践与制度设计出现背离</td></tr></tbody></table> </div></td> </tr> </tbody></table>  </div> <div class="list"> <span style="display:none;" class="kns_id">14,2370,3571</span>  <table width="100%" border="0" cellspacing="0" cellpadding="0">   <tbody><tr>   <td width="2%" align="center" valign="top"><em class="num">5</em>．</td> <td width="98%"><div class="cnt"><span class="questid" style="display:none;">147281</span>  <p>(2018·河北石家庄高三9月模拟·25)西汉宣帝时曾颁布诏令：“父子之亲，夫妇之道，天性也。……自今子首匿父母，妻匿夫，孙匿大父母，皆勿坐。其父母匿子，夫匿妻，大父母匿孙，罪殊死，皆上请廷尉以闻。”这表明汉代法律(　　)</p><table class="optable"><tbody><tr><td class="sstd">A．人情大于法制</td><td class="sstd">B．以礼入法伦理关怀</td><td class="sstd">C．凸显皇权专制</td><td class="sstd">D．深受豪强地主影响</td></tr></tbody></table> </div></td> </tr> </tbody></table>  </div> <div class="list"> <span style="display:none;" class="kns_id">17,20,3571</span>  <table width="100%" border="0" cellspacing="0" cellpadding="0">   <tbody><tr>   <td width="2%" align="center" valign="top"><em class="num">6</em>．</td> <td width="98%"><div class="cnt"><span class="questid" style="display:none;">157431</span>  <p>(2018·广东湛江二模·25)西汉初年，汉高祖刘邦颁布新规：兵士罢归家乡，在战乱中聚保山泽的人各归本土，恢复官爵、田宅；因饥饿自卖为奴婢的人，一律免为庶人；抑制商人，或轻田租，十五税。这些规定旨在(　　)</p><table class="optable"><tbody><tr><td class="sstd">A．限制土地兼并</td><td class="sstd">B．恢复农业生产</td><td class="sstd">C．增加赋税收入</td><td class="sstd">D．加强中央集权</td></tr></tbody></table> </div></td> </tr> </tbody></table>  </div> <div class="list"> <span style="display:none;" class="kns_id">17,3571</span>  <table width="100%" border="0" cellspacing="0" cellpadding="0">   <tbody><tr>   <td width="2%" align="center" valign="top"><em class="num">7</em>．</td> <td width="98%"><div class="cnt"><span class="questid" style="display:none;">157077</span>  <p>(2018·百校联盟全国Ⅰ卷4月联考·25)下表是汉代有关农业生产的文献记述。据此可认定的历史事实是 (　　)<br>
+</p><div align="center">
+	<table class="MsoNormalTable" style="border-top:medium none;border-right:medium none;width:360.45pt;border-collapse:collapse;border-bottom:medium none;border-left:medium none;mso-table-layout-alt:fixed;mso-padding-alt:0.0000pt 5.4000pt 0.0000pt 5.4000pt;mso-border-left-alt:0.5000pt solid windowtext;mso-border-top-alt:0.5000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;mso-border-insideh:0.5000pt solid windowtext;mso-border-insidev:0.5000pt solid windowtext;" cellspacing="0" border="1">
+		<tbody>
+			<tr>
+				<td style="border-top:windowtext 1pt solid;border-right:windowtext 1pt solid;width:249.65pt;border-bottom:windowtext 1pt solid;padding-bottom:0pt;padding-top:0pt;padding-left:5.4pt;border-left:windowtext 1pt solid;padding-right:5.4pt;mso-border-left-alt:0.5000pt solid windowtext;mso-border-top-alt:0.5000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;" valign="top" width="332">
+					<p class="MsoNormal" style="text-align:center;line-height:150%;" align="center">
+						<span style="font-size:10.5pt;font-family:宋体;mso-spacerun:'yes';mso-font-kerning:1.0000pt;">记述</span><span style="font-size:10.5pt;font-family:宋体;mso-font-kerning:1.0000pt;"><!--?xml:namespace prefix = "o" /--><o:p></o:p></span>
+					</p>
+				</td>
+				<td style="border-top:windowtext 1pt solid;border-right:windowtext 1pt solid;width:110.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0pt;padding-top:0pt;padding-left:5.4pt;border-left:medium none;padding-right:5.4pt;mso-border-left-alt:none;mso-border-top-alt:0.5000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;" valign="top" width="147">
+					<p class="MsoNormal" style="text-align:center;line-height:150%;" align="center">
+						<span style="font-size:10.5pt;font-family:宋体;mso-spacerun:'yes';mso-font-kerning:1.0000pt;">出处</span><span style="font-size:10.5pt;font-family:宋体;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border-top:medium none;border-right:windowtext 1pt solid;width:249.65pt;border-bottom:windowtext 1pt solid;padding-bottom:0pt;padding-top:0pt;padding-left:5.4pt;border-left:windowtext 1pt solid;padding-right:5.4pt;mso-border-left-alt:0.5000pt solid windowtext;mso-border-top-alt:0.5000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;" valign="top" width="332">
+					<p class="MsoNormal" style="line-height:150%;">
+						<span style="font-size:10.5pt;font-family:宋体;mso-font-kerning:1.0000pt;">“</span><span style="font-size:10.5pt;font-family:宋体;mso-spacerun:'yes';mso-font-kerning:1.0000pt;">是故身率妻子，戮力耕桑，灌园治产，以给公上</span><span style="font-size:10.5pt;font-family:宋体;mso-font-kerning:1.0000pt;">”</span><span style="font-size:10.5pt;font-family:宋体;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
+					</p>
+				</td>
+				<td style="border-top:medium none;border-right:windowtext 1pt solid;width:110.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0pt;padding-top:0pt;padding-left:5.4pt;border-left:medium none;padding-right:5.4pt;mso-border-left-alt:none;mso-border-top-alt:0.5000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;" valign="top" width="147">
+					<p class="MsoNormal" style="line-height:150%;">
+						<span style="font-size:10.5pt;font-family:宋体;mso-spacerun:'yes';mso-font-kerning:1.0000pt;">《汉书</span><span style="font-size:10.5pt;font-family:宋体;mso-font-kerning:1.0000pt;">·</span><span style="font-size:10.5pt;font-family:宋体;mso-spacerun:'yes';mso-font-kerning:1.0000pt;">杨恽传》</span><span style="font-size:10.5pt;font-family:宋体;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border-top:medium none;border-right:windowtext 1pt solid;width:249.65pt;border-bottom:windowtext 1pt solid;padding-bottom:0pt;padding-top:0pt;padding-left:5.4pt;border-left:windowtext 1pt solid;padding-right:5.4pt;mso-border-left-alt:0.5000pt solid windowtext;mso-border-top-alt:0.5000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;" valign="top" width="332">
+					<p class="MsoNormal" style="line-height:150%;">
+						<span style="font-size:10.5pt;font-family:宋体;mso-font-kerning:1.0000pt;">“</span><span style="font-size:10.5pt;font-family:宋体;mso-spacerun:'yes';mso-font-kerning:1.0000pt;">因释耕于陇上，而妻子耘于前。</span><span style="font-size:10.5pt;font-family:宋体;mso-font-kerning:1.0000pt;">”</span><span style="font-size:10.5pt;font-family:宋体;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
+					</p>
+				</td>
+				<td style="border-top:medium none;border-right:windowtext 1pt solid;width:110.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0pt;padding-top:0pt;padding-left:5.4pt;border-left:medium none;padding-right:5.4pt;mso-border-left-alt:none;mso-border-top-alt:0.5000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;" valign="top" width="147">
+					<p class="MsoNormal" style="line-height:150%;">
+						<span style="font-size:10.5pt;font-family:宋体;mso-spacerun:'yes';mso-font-kerning:1.0000pt;">《后汉书</span><span style="font-size:10.5pt;font-family:宋体;mso-font-kerning:1.0000pt;">·</span><span style="font-size:10.5pt;font-family:宋体;mso-spacerun:'yes';mso-font-kerning:1.0000pt;">逸民传》</span><span style="font-size:10.5pt;font-family:宋体;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border-top:medium none;border-right:windowtext 1pt solid;width:249.65pt;border-bottom:windowtext 1pt solid;padding-bottom:0pt;padding-top:0pt;padding-left:5.4pt;border-left:windowtext 1pt solid;padding-right:5.4pt;mso-border-left-alt:0.5000pt solid windowtext;mso-border-top-alt:0.5000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;" valign="top" width="332">
+					<p class="MsoNormal" style="line-height:150%;">
+						<span style="font-size:10.5pt;font-family:宋体;mso-font-kerning:1.0000pt;">“</span><span style="font-size:10.5pt;font-family:宋体;mso-spacerun:'yes';mso-font-kerning:1.0000pt;">立春东耕，为土牛象人，男女各二人。</span><span style="font-size:10.5pt;font-family:宋体;mso-font-kerning:1.0000pt;">”</span><span style="font-size:10.5pt;font-family:宋体;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
+					</p>
+				</td>
+				<td style="border-top:medium none;border-right:windowtext 1pt solid;width:110.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0pt;padding-top:0pt;padding-left:5.4pt;border-left:medium none;padding-right:5.4pt;mso-border-left-alt:none;mso-border-top-alt:0.5000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;" valign="top" width="147">
+					<p class="MsoNormal" style="line-height:150%;">
+						<span style="font-size:10.5pt;font-family:宋体;mso-font-kerning:1.0000pt;">(</span><span style="font-size:10.5pt;font-family:宋体;mso-spacerun:'yes';mso-font-kerning:1.0000pt;">东汉</span><span style="font-size:10.5pt;font-family:宋体;mso-font-kerning:1.0000pt;">)</span><span style="font-size:10.5pt;font-family:宋体;mso-spacerun:'yes';mso-font-kerning:1.0000pt;">王充《论衡》</span><span style="font-size:10.5pt;font-family:宋体;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
+					</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div><p></p><table class="optable"><tbody><tr><td class="ddtd">A．汉代铁犁牛耕技术已推广</td><td class="ddtd">B．精耕细作农业得到发展</td></tr><tr><td class="ddtd">C．家庭农业生产模式已形成</td><td class="ddtd">D．男耕女织生产形式确立</td></tr></tbody></table> </div></td> </tr> </tbody></table>  </div> <div class="list"> <span style="display:none;" class="kns_id">17,3062,3570</span>  <table width="100%" border="0" cellspacing="0" cellpadding="0">   <tbody><tr>   <td width="2%" align="center" valign="top"><em class="num">8</em>．</td> <td width="98%"><div class="cnt"><span class="questid" style="display:none;">147388</span>  <p>(2018·四川成都新都高三摸底·25)史载秦朝规定“子壮则出分”，结果民间多数为父子两代三口家庭；汉朝稍改其制，提倡“父母在不分异”，即父母亡后再分家，这样便形成了三代五口之家。这一变化说明(　　)</p><table class="optable"><tbody><tr><td class="ddtd">A．精耕细作生产模式的形成</td><td class="ddtd">B．商品经济发展冲击家庭结构</td></tr><tr><td class="ddtd">C．牛耕技术支配家庭的规模</td><td class="ddtd">D．大土地所有制开始逐步形成</td></tr></tbody></table> </div></td> </tr> </tbody></table>  </div> <div class="list"> <span style="display:none;" class="kns_id">17,3062,3570</span>  <table width="100%" border="0" cellspacing="0" cellpadding="0">   <tbody><tr>   <td width="2%" align="center" valign="top"><em class="num">9</em>．</td> <td width="98%"><div class="cnt"><span class="questid" style="display:none;">145576</span>  <p>(2018·浙江嘉兴高三基础测试·2)古代中国有很多水利工程福泽久远。古人有诗云：分为两道开，南漓北湘水。至今舟楫利，楚粤径万里。此诗描述的水利工程是(　　)</p><table class="optable"><tbody><tr><td class="sstd">A．都江堰</td><td class="sstd">B．郑国渠</td><td class="sstd">C．坎儿井</td><td class="sstd">D．灵渠</td></tr></tbody></table> </div></td> </tr> </tbody></table>  </div> <div class="list"> <span style="display:none;" class="kns_id">19,3571</span>  <table width="100%" border="0" cellspacing="0" cellpadding="0">   <tbody><tr>   <td width="2%" align="center" valign="top"><em class="num">10</em>．</td> <td width="98%"><div class="cnt"><span class="questid" style="display:none;">148096</span>  <p>(2018·山东滨州高三第一学期期中·2)西汉桑弘羊主持的盐铁官营，在各郡设盐铁官署，严禁私人生产，“敢私铸铁器，煮盐者，钛左趾，没人其器物”。这反映了汉武帝时期政府增加财政收入的迫切需要。构成这段文字的是(　　)</p><table class="optable"><tbody><tr><td class="sstd">A．历史观点和历史解释</td><td class="sstd">B．历史观点和历史结论</td><td class="sstd">C．历史结论和历史解释</td><td class="sstd">D．历史叙述和历史解释</td></tr></tbody></table> </div></td> </tr> </tbody></table>  </div> <div class="list"> <span style="display:none;" class="kns_id">8,3570</span>  <table width="100%" border="0" cellspacing="0" cellpadding="0">   <tbody><tr>   <td width="2%" align="center" valign="top"><em class="num">11</em>．</td> <td width="98%"><div class="cnt"><span class="questid" style="display:none;">146053</span>  <p>(2018·广东深圳宝安高三9月调研·1)“云梦秦简”是指1975年12月在湖北省云梦县睡虎地秦墓中出土的大量竹简(文字)其中，《为吏之道》说：“以此为人君则鬼(读为怀，和柔的意思)，为人臣则忠；为人父则茲(慈)，为人子则孝……君鬼臣忠，父茲(慈)子孝，政之本(也)”材料可以证明秦朝(　　)</p><table class="optable"><tbody><tr><td class="ddtd">A．“以吏为师，以法为教”</td><td class="ddtd">B．并没有完全排斥儒家思想</td></tr><tr><td class="ddtd">C．官吏注重修身养性</td><td class="ddtd">D．主要是竹简与毛笔书写文字</td></tr></tbody></table> </div></td> </tr> </tbody></table>  </div> <div class="list"> <span style="display:none;" class="kns_id">22,3571</span>  <table width="100%" border="0" cellspacing="0" cellpadding="0">   <tbody><tr>   <td width="2%" align="center" valign="top"><em class="num">12</em>．</td> <td width="98%"><div class="cnt"><span class="questid" style="display:none;">156819</span>  <p>(2018·云南一模·25)汉武帝中期，董仲舒针对当时频繁发生的火灾，起草了一份奏章，用天人感应理论来批评汉武帝的过失。汉武帝大怒，欲将董仲舒斩首，旋又下诏赦免，但董仲舒江都王相的王相被罢免。这表明(　　)</p><table class="optable"><tbody><tr><td class="sstd">A．统治者放弃儒家学说</td><td class="sstd">B．迷信思想已日渐式微</td><td class="sstd">C．皇权受到儒学的影响</td><td class="sstd">D．皇权与相权继续冲突</td></tr></tbody></table> </div></td> </tr> </tbody></table>  </div> <div class="list"> <span style="display:none;" class="kns_id">22,3571</span>  <table width="100%" border="0" cellspacing="0" cellpadding="0">   <tbody><tr>   <td width="2%" align="center" valign="top"><em class="num">13</em>．</td> <td width="98%"><div class="cnt"><span class="questid" style="display:none;">148619</span>  <p>(2018·河南豫南豫北名校高三精英联赛·4)董仲舒曾说“春秋之义。国有大丧者，止宗庙之条，而不止郊祭(古代帝王在郊外祭把天地的典礼)，不政以父母之丧。废事天地之礼也。”董仲舒此言的主要目的是(　　)</p><table class="optable"><tbody><tr><td class="sstd">A．强调尊天地而贵君权</td><td class="sstd">B．说明等级礼仪的重要性</td><td class="sstd">C．直传儒学的独尊地位</td><td class="sstd">D．阐述君主专制需要神学</td></tr></tbody></table> </div></td> </tr> </tbody></table>  </div> <div class="list"> <span style="display:none;" class="kns_id">22,3571</span>  <table width="100%" border="0" cellspacing="0" cellpadding="0">   <tbody><tr>   <td width="2%" align="center" valign="top"><em class="num">14</em>．</td> <td width="98%"><div class="cnt"><span class="questid" style="display:none;">148476</span>  <p>(2018·湖南长郡中学高三月考四A卷·2)董仲舒说：“民受未能善之性于天，而退受成性之教于王。王承天意，以成民之性为任者也。”材料反映出董仲舒(　　)</p><table class="optable"><tbody><tr><td class="ddtd">A．强调“君权神授”的正当性</td><td class="ddtd">B．教化民众有利于维护社会稳定</td></tr><tr><td class="ddtd">C．论证“天人感应”的合理性</td><td class="ddtd">D．主张天子显德以示民的重要性</td></tr></tbody></table> </div></td> </tr> </tbody></table>  </div> <div class="list"> <span style="display:none;" class="kns_id">28,3571,624,1930</span>  <table width="100%" border="0" cellspacing="0" cellpadding="0">   <tbody><tr>   <td width="2%" align="center" valign="top"><em class="num">15</em>．</td> <td width="98%"><div class="cnt"><span class="questid" style="display:none;">156649</span>  <p>(2018·山西太原二模·25)据《汉书》载，海昏侯刘贺不学无术、不尊礼仪、掠取女子，终被霍光所废；近年对刘贺墓考古出土了《论语》《礼记》等儒家简书，及绘有孔子图像、载其传记的矩形铜镜。有人据此判断，刘贺是一个有着深厚文化素养的宗室贵胄，《汉书》中对刘贺的记载不足为信。据此可知(　　)</p><table class="optable"><tbody><tr><td class="ddtd">A．出土文物最接近于真实的历史</td><td class="ddtd">B．文献记载具有主观性不足为信</td></tr><tr><td class="ddtd">C．史料实证需要科学严谨的态度</td><td class="ddtd">D．历史叙述相互印证可还原真相</td></tr></tbody></table> </div></td> </tr> </tbody></table>  </div> </div><dl class="volume" style="display: none;"><dt>第II卷（非选择题）</dt><dd>请点击修改第II卷的文字说明</dd><dd><span class="contro2"><a href="javascript:void(0);" class="delsegment">删除</a><a href="javascript:void(0);" onclick="paperformatset();">设置</a></span></dd> </dl> <div class="sjlist"><div class="topic" style="display: block;"> <div class="df" style="display: none;"> <table width="100%" border="0" cellspacing="0" cellpadding="0"> <tbody><tr>  <td width="50%" align="center" valign="middle">评卷人</td>  <td width="50%" align="center" valign="middle">得分</td> </tr> <tr>  <td align="center" valign="middle">&nbsp;</td>  <td align="center" valign="middle">&nbsp;</td> </tr> </tbody></table></div> <div class="tx"><span>二、</span><span>材料阅读</span><span>（题型注释）</span></div> <input type="hidden" value="2" class="hftxnum"> <div class="clear"></div></div><div class="list"> <span style="display:none;" class="kns_id">14,2370,3571,36,1803</span>  <table width="100%" border="0" cellspacing="0" cellpadding="0"> <tbody><tr> <td width="2%" align="center" valign="top"><em class="num">16</em>．</td> <td width="98%"><div class="cnt"><p>(2017·四川泸州高考冲刺诊断·40)(25分)阅读材料，完成下列要求。 <br>
+<span style="font-family:黑体;">材料一</span> 《汉书·地理志》说：“武帝攘却胡、越，开地斥境，南置交阯，北置朔方之州，兼徐、梁、幽，并夏、周之制，改雍曰凉，改梁曰益，凡十三部，置刺史。”武帝置十三部刺史在元封五年，把全国分为十三个监察区域，叫十三州部，每州部设刺史一人。刺史每年八月巡视所部郡国，“省察治状，黜陟能否，断治冤狱，以六条问事”。这六条详细规定了刺史监察的范围，其中一条是督察强宗豪右，五条是督察郡国守相。……刺史由丞相派属员分任，秩六百石，但出刺时代表朝廷，故“位卑而权重”。十三部刺史的设立，加强了朝廷对地方的控制。 <br>
+</p><p style="text-align:right;font-family:Times New Roman;">
+	——摘自白寿彝《中国通史》
+</p>
+<span style="font-family:黑体;">材料二</span> 1809年，瑞典议会认为由司法总监对行政官员的监察并没有充分保障公民的权利，需要建立一项独立于政府的、监察行政官员的制度。1918年，芬兰建立议会监察专员制度及司法监督制度。芬兰司法总监和议会督查员是芬兰政府机关中的最高监察官，他们根据宪法监督各机关及官员是否遵守法律、履行职责。这两种监察官一般由著名法学家担任，每年都要到全国各地巡视，倾听公民意见，接受和审理普通公民对官员和公务员的举报。 <br>
+<p style="text-align:right;font-family:Times New Roman;">
+	——摘编自王明高《国内外巡视监察制度之借鉴》
+</p>
+(1)据材料一，概括汉武帝建立刺史制度的背景及该制度的特点。(13分) <br>
+(2) 根据材料二和所学知识，分析西方近代监察制度发展的原因和成功的经验。(12分)<p></p><span class="questid" style="display:none;">139430</span> </div></td></tr> </tbody></table> </div><div class="list"> <span style="display:none;" class="kns_id">19,3571,3573,1836</span>  <table width="100%" border="0" cellspacing="0" cellpadding="0"> <tbody><tr> <td width="2%" align="center" valign="top"><em class="num">17</em>．</td> <td width="98%"><div class="cnt"><p>(2017·贵州贵阳一模·40)(25分)建设“丝绸之路经济带”的构想，成为当下中国的国家战略和外交战略。阅读材料，回答下列问题。 <br>
+<span style="font-family:黑体;">材料一</span> “丝绸之路”始通于西汉张骞“凿空”、在西域设置行政管理机构之时。当时的道路由东而西：自长安经河西走廊通向中亚。经这条路运往西方的商品有蚕丝、丝织品、铁器等，从西方输进中国的商品有良马、葡萄、石榴等。汉代丝绸之路引发了各国互相接触的强烈愿望。 <br>
+</p><p style="text-align:right;font-family:Times New Roman;">
+	——摘编自《中华文明史·卷2》
+</p>
+<span style="font-family:黑体;">材料二</span> 唐朝丝绸之路畅通，“伊吾之右，波斯以东，职贡不绝，商旅相继”的局面形成后，丝绸大量输往许多国家，外来物品也纷纷涌入。丝绸是唐朝赋税的重要来源，也是政治外交的主要礼物，唐初赠帛与彩缎予突厥，稳定边疆形势。“秦汉以来，唐马最盛”，“绢马贸易”满足了西域各国渴望得到的丝绸，西域骏马也极大地改善了唐朝的军队装备，成为中西交通的重要工具。外来物品如金银带把杯、彩釉玻璃等器皿传入中原，激发了唐朝工匠的仿制兴趣和创新热情，工艺技术的模仿和审美情趣的启示，最终使唐代手工业品的制作风格发生了改变。 <br>
+商贸活动带来了文化融合的多元格局。西域音乐、舞蹈、绘画，给传统文化注入清新的气息，以外来乐舞为参照，中国古代“功成作乐”的礼仪制度进行了更新改造。敦煌壁画描绘出只交纳商税、不承担政府义务、定居唐朝境内创业的外国商旅，莫高窟珍藏的大量佛门经文，以及融合西方艺术创造出崭新东方美的造像，将人类共同的美、共同的人性经过潜移默化的整合后以艺术形式再现出来。在不同文明的碰撞过程中，唐朝文化得到了极大的补充和发展，并汇集为开创新时代的动力，最终形成了以唐为核心向四周辐射的文化圈。 <br>
+<p style="text-align:right;font-family:Times New Roman;">
+	——摘编自《中华文明史·卷3》
+</p>
+(1)比较材料一、二，指出汉、唐丝绸之路的变化。结合材料二和所学知识，说明唐朝丝绸之路对中外文明发展的影响。(15分) <br>
+(2)根据上述材料并结合所学知识，分析汉唐丝绸之路绵延不衰的原因。(10分)<p></p><span class="questid" style="display:none;">134294</span> </div></td></tr> </tbody></table> </div> </div></div>
+  <div class="clear"></div>
+         </div>
+    <div class="yinying3"></div>
+</div>
+      <input type="hidden" name="hfanasy1" id="hfanasy1" value="0.50">
+        <input type="hidden" name="hfanasy2" id="hfanasy2" value="0.20">
+        <input type="hidden" name="hfUserPoints" id="hfUserPoints" value="450">
+         <input type="hidden" name="hfpptt" id="hfpptt" value="0">
+        <script src="js/zjfunction.js?v=20140920" type="text/javascript"></script>
+        <script src="js/pcenterop.js?v=201507260" type="text/javascript"></script>
+        <script src="js/rvplate.js" type="text/javascript"></script>
+    </form>
+
+
+<div id="ldg_lockmask" style="position: fixed; left: 0px; top: 0px; width: 100%; height: 100%; overflow: hidden; z-index: 1976; display: none;"></div><div id="y-request" style="display:none" key="yapi"></div></body></html>
