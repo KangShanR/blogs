@@ -20,9 +20,11 @@
     - [ ] Enum 的 jdbcType不能被 识别，不能启动项目，已更改为 VARCHAR
   - [ ] haveParkingLock 的 jdbcType 写的 TINYINT  本来是个 boolean 值 ，其中的 javaType 写的 byte（自动生成)
 
+## 电枪相关
+- [ ] 充电桩与电枪状态之间有必然的联系,电桩在离线状态，其相关的电枪是不是也应该被忽略
+
 ## 请求路径
 
 - 其中加上 v 就访问不到但返回为 200 状态码
   - [ ] config 中的文件配置实现了没有 token 被拦截
   - [ ] 但是和 `v` 字没有关系啊？
-  - [ ] 
