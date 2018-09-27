@@ -10,4 +10,6 @@ date: "2018-09-26 17:03"
 
 ## 待解决问题
 
-- [ ] 在写 mapper `<if test="id != null">` 的条件语句时，加上 and 条件（ `<if id != null AND id > 0`）时启动时就会报错
+- [x] 在写 mapper `<if test="id != null">` 的条件语句时，加上 and 条件（ `<if id != null AND id > 0`）时启动时就会报错
+  - 将 `AND` 改成 小写即可
+- [x] 使用分页数据 `limit n,m` 同时使用 `ORDER BY columnName DESC/ASC` 需要先排序再进行分页

@@ -14,6 +14,7 @@
   - 编号直接取 桩系统编号 与枪的 code
   - SiteDTO 继承自 SiteDO ，重写了其 position 字段，用了 @Data 标签 @EqualsAndHashcode 标签
 - [ ] 场站状态字段的逻辑 当为 维护中时，个数怎么显示（APP)
+  - [x] 以 web 为优先，维护中状态存在，不存在告警
 - 电桩：
   - 相关的 series 与 type 字段 vendor 字段 在几张表之间有  id 冗余
   - [ ] vendor 的 qr_path 还未生成相关的 mg
