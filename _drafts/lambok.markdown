@@ -1,6 +1,6 @@
 ---
 layout: "post"
-title: "@lambok"
+title: "@lombok"
 date: "2018-09-29 11:34"
 ---
 
