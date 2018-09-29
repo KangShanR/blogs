@@ -11,7 +11,7 @@ date: "2018-09-26 17:03"
 ## 待解决问题
 
 - [x] 在写 mapper `<if test="id != null">` 的条件语句时，加上 and 条件（ `<if id != null AND id > 0`）时启动时就会报错
-  - 将 `AND` 改成 小写 `and` 即可
+  - 将 `AND` 改成小写 `and` 即可
 - [x] 使用分页数据 `limit n,m` 同时使用 `ORDER BY columnName DESC/ASC` 需要先排序再进行分页
 - [x] baseResultMap 继承有两层时，中间层的字段不能被继承，只 WithBlobs 层的 加密字段不能被读取到，这个时候不得不写一次加密的字段映射栏
   - [x] 解决办法：继承多层并没有错误，错误在于，继承时没有依次继承， 第三层（最外层） 的 ResulMap 应该继承 DOMapper 的 ResulMapWithBlobs 这个 ResulMap ，而不是 BaseResultMap
