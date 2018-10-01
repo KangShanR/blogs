@@ -16,3 +16,11 @@ value
 	"NORMAL",'KKD'
 );
 ```
+
+更新语句：
+```
+UPDATE ev_site
+SET
+`position`	 = PointFromText('Point(104.067923462 30.6799428455)')
+WHERE id in(4,5,6)
+```
