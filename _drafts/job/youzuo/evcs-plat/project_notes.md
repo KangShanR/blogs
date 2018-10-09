@@ -39,7 +39,7 @@
 - [ ] getCompanyByCityId()
 
 ## 电桩：
-  - 相关的 series 与 type 字段 vendor 字段 在几张表之间有  id 冗余
+  - 相关的 series 与 type 字段 vendor 字段 在几张表之间有 id 冗余
   - [ ] vendor 的 qr_path 还未生成相关的 mg
   - [x] ExtendSIteDOMapper 中station result map 映射的 status 两个  枚举字段的 jdbcType 写的 ENUM 不是 varchar
     - [ ] Enum 的 jdbcType不能被 识别，不能启动项目，已更改为 VARCHAR
