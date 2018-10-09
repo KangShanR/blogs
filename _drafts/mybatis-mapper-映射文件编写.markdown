@@ -23,3 +23,59 @@ date: "2018-09-26 17:03"
 `resultMap can't be java.lang.Integer` 。
     - 实际上，我们的查询方法中，根据整个 mapper 定义：resultMap 是将映射到 已经写的 resultMap 中的（诸如：BaseResultMap 。甚至我在想，这个一样可以写个全路径的 resultMap ,直接利用外面已经写好的)
   - `resultType` 是指将结果直接映射成一个 java 类型，比如 使用 COUNT() 函数查询出一个数量来，这个时候会返回一个 Integer 就好，所以， `resultType="java.lang.Integer"`
+
+
+## mapper 查询语句要点
+
+>  mapper 查询时，使用 Map 作为参数进行条件映射有诸多方便之处：
+> 可以加上很多的 `<where>` 语句配上 `<if test="list != null and list.size > 0 ">` 可以在 Service 层去配自己想要的查询条件，结合使用方便很多。
+> 而且，如上示例，在 Map 参数中，使用列表作为参数，同样可以在查询语句中进行列表（是否为空、列表长度）判定。
+
+ **具体使用中，可以参照下面查询语句：**
+
+```
+<select id="selectSitesByParam" resultMap="ExtendBaseResultMap"
+    parameterType="map">
+
+    SELECT
+        <include refid="site_column"/>,
+        <include refid="site_tag_column"/>
+    FROM ev_site AS s
+    LEFT JOIN ev_site_tag AS t ON t.`site_id` = s.id
+    <where>
+        <if test="companyIds != null and companyIds.size &gt; 0">
+            and s.`branch_company_id` IN
+            <foreach collection="companyIds" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="siteName != null">
+            and s.`site_name` LIKE CONCAT('%',#{siteName},'%')
+        </if>
+        <if test="orAddr != null">
+            OR s.`addr` LIKE CONCAT('%',#{orAddr},'%')
+        </if>
+        <if test="andAddr != null">
+            AND s.`addr` LIKE CONCAT('%',#{andAddr},'%')
+        </if>
+        <if test="statusList != null">
+            and s.`status` IN
+            <foreach collection="statusList" item="item" index="index"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="siteTypeList != null">
+            and s.`site_type` IN
+            <foreach collection="siteTypeList" item="item" index="index"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </where>
+    ORDER BY s.id DESC
+    <if test="startNo != null and endNo != null">
+        LIMIT #{startNo},#{endNo}
+    </if>
+</select>
+```
