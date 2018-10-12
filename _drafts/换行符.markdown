@@ -4,7 +4,7 @@ title: "换行符"
 date: "2018-10-12 10:32"
 ---
 
-# notes for CR LF
+# notes for CRLF
 
 > 关于换行符的笔记
 
