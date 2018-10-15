@@ -20,9 +20,9 @@
 - [x] 搜索 API 不分页，+ 地址
 - [x] 场站电枪数量 快充与 慢充数量放反 : 格式化代码出错
 - [ ] 查找两个接口 将 快充慢充单拎出来
-- [ ] 场站详情 枪 数量 与 列表 数据不匹配
+- [x] 场站详情 枪 数量 与 列表 数据不匹配:service 接口先取了桩的状态再取了枪的状态导致两个接口不一致的数据源
 - [x] 格式化 distance 单位、小数保留 、soc 小数保留
-- [ ] 提醒 app 同事：场站详情 页面接口更改数据结构
+- [x] 提醒 app 同事：场站详情 页面接口更改数据结构:改回来了
 
 ## 设置
 
@@ -47,12 +47,12 @@
   - 相关的 series 与 type 字段 vendor 字段 在几张表之间有 id 冗余
   - [ ] vendor 的 qr_path 还未生成相关的 mg
   - [x] ExtendSIteDOMapper 中station result map 映射的 status 两个  枚举字段的 jdbcType 写的 ENUM 不是 varchar
-    - [ ] Enum 的 jdbcType不能被 识别，不能启动项目，已更改为 VARCHAR
+    - [x] Enum 的 jdbcType不能被 识别，不能启动项目，已更改为 VARCHAR
   - [ ] haveParkingLock 的 jdbcType 写的 TINYINT  本来是个 boolean 值 ，其中的 javaType 写的 byte（自动生成)
 
 ## 电枪相关
 - [ ] 充电桩与电枪状态之间有必然的联系,电桩在离线状态，其相关的电枪是不是也应该被忽略
-- [ ] 电枪 状态 未放回时被当作是有空闲的元素。是可以让用户继续操作的。
+- [x] 电枪 状态 未放回时被当作是有空闲的元素。是可以让用户继续操作的。
 - [x] 电枪状态一直从 redisData 中获取吗？
     - yes 所有的都从这 redis 里去取
 - [ ] 电流类型当前只有两种，如果出现 交流直流一体，怎么决定电枪的快慢格式化
