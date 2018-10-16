@@ -86,3 +86,12 @@
     - [ ] SOC 相关的接口
         - [ ] 电枪列表
         - [ ] 等待充电
+
+```
+        public static final int                         IDLE                                =1;                     //空闲
+        public static final int                         LINKED                              =2;                     //已连接
+        public static final int                         CHARGING                            =3;                     //充电中
+        public static final int                         RETURNING                           =4;                     //返回充电枪中
+        public static final int                         EXCEPTION                           =5;                     //异常
+        public static final int                         OFFLINE                             =6;                     //离线
+```
