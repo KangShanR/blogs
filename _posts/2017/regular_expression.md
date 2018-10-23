@@ -3,10 +3,12 @@ title: 正则表达式
 date: 2017-01-13 12:22:23
 categories: programming
 tags: programming
-description: 
+description:
 ---
-### 正则表达式的使用 ###
-> 
+
+# 正则表达式
+
+>
 - 对字符串进行验证
 	- 各个语言中提供专门的方法与接口来执行正则表达式（比如:Java中的boolean String.matches(String regex)将其作为一个参数,返回这个字符串是否匹配得上这个正则表达式）；
 	- 正则表达式是对字符串进行逐个字符验证，从第一个字符开始，依次往后匹配，有一个不匹配就可以Over了跳出循环;
