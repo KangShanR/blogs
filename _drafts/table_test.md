@@ -1,6 +1,6 @@
-# table标签测试 #
+# table标签测试
 
-在markdown文档中，<table>这个标签的使用
+> 在markdown文档中， <table> 这个标签的使用。分别使用 table tr th 三个标签可以实现复杂表格的绘制。
 
 
 统计信息内容如下：
@@ -24,5 +24,10 @@
     </th>
     <th>事故损失（万元）</th>
     <th>备注</th>
+  </tr>
+  <tr>
+    <th>
+
+    </th>
   </tr>
 </table>
