@@ -6,17 +6,17 @@ categories: programming
 
 ---
 
-## Spring的反向控制思想 ##
+# Spring的反向控制思想
 
 > Spring说到底就是一个轻量级的容器，让它来负责各个实例的生产、管理、维护，而这些实例的参数与依赖关系都交由spring的配置文件来设置；
 
 <!--more-->
 
-### 反向控制（Inverse of Control) ###
+## 反向控制（Inverse of Control)
 > 概念：也可以叫依赖注入（Dependency Injection)，是spring的核心思想。通俗地理解就是将原本正向流程走的程序让其反向执行。
 > 之所以也叫依赖注入，是因为在实现反向控制的过程中是将原本要在后面实例化的属性提前注入到自己的实例中。这样**把离散的组件在运行时组装到一块**，实现程序流程在运行时组装，这样就可以很方便地添加功能，比如：拦截器；
 
-#### 举例： ####
+### 举例：
 - 当我们要通过 DAO 层的 dao 与 Service 层的 service 对象来实现分业务层的访问数据库操作：
 	- **正向思维**：是先实例化一个 Service 对象，再在这个 Service 对象中实例一个 Dao 对象来，在 Service 方法中执行这个 Dao 对象的方法来访问数据库。
 	- **反向控制**：Service 与 Dao 都抽象出各自的接口，而在 Service 实现类中约定一个 Dao 接口的属性，service 方法中再来调用这个 Dao 的方法；而在 Spring 中，这个属性的实现就叫注入，而这个注入是通过 spring 配置文件中的 bean 实现，在 Service 的 bean 中，有一个 `<property>` 的标签，这个标签中配置相关的 dao 的 bean 。
