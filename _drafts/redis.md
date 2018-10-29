@@ -82,4 +82,11 @@ string 的存取
 > 针对 redis 的键的操作命令。当 redis 中的键不存在时，其值也不能通过 `get key` 来得到。执行 `FLUDHDB` 命令后，将会让 redis 中的 **数据清空** 。
 
 命令：
-- 
+- `ttl keyName` ttl(time to life) 键存活时间，单位秒。用于查找 key 的生命时间。
+- `TYPE keyName` 查看 键 类型
+- `expire second` 指定 key 生命长度，单位：秒
+- `persist key` 持久化 key，将 key 的生命长度移除
+- `dump key` 序列化 key 。_note:不知其意义_
+- `randomkey` 随机返回一个 key
+- `rename key newKey` 更名 key 为 newkey
+- `renamenx key newkey` 当 newkey 不存在时，才 将 key rename 为 newkey。
