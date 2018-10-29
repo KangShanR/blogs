@@ -119,3 +119,9 @@
     public static final int                         EXCEPTION                           =5;                     //异常
     public static final int                         OFFLINE                             =6;                     //离线
 ```
+
+统一一下：
+DEV = 开发、测试人员用的开发测试环境
+FAT = 测试人员用的测试环境
+UAT = 预发环境
+PRO = 线上环境
