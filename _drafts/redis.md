@@ -30,6 +30,11 @@ string 的存取
 
 - 存命令： `SET key value`
 - 读命令： `GET key`
+- `append key value` 将 value 追加到 key 对应的 value 后面
+- `decr key` 将 key 对应的数值减小 1 。如果非 数字型 value 会报错。
+- `incr key` 加 1
+- `mset key1 value1 key2 value2 [key value] ` 设置多个 单个键值对存储
+- `msetnx key1 value1 [key value]` 当所有的 key 不存在时才进行存储
 
 ### hash
 
@@ -80,6 +85,7 @@ string 的存取
 ## redis key
 
 > 针对 redis 的键的操作命令。当 redis 中的键不存在时，其值也不能通过 `get key` 来得到。执行 `FLUDHDB` 命令后，将会让 redis 中的 **数据清空** 。
+> _nx_ 在命令后面加上 nx 表示 不存在 no exist，通常用于不存在时再进行保存
 
 命令：
 - `ttl keyName` ttl(time to life) 键存活时间，单位秒。用于查找 key 的生命时间。
