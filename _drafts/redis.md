@@ -15,8 +15,10 @@ date: "2018-10-25 12:23"
 
 ## redis key
 
-> 针对 redis 的键的操作命令。当 redis 中的键不存在时，其值也不能通过 `get key` 来得到。执行 `FLUDHDB` 命令后，将会让 redis 中的 **数据清空** 。
-> _nx_ 在命令后面加上 nx 表示 不存在 no exist，通常用于不存在时再进行保存
+> 针对 redis 的键的操作命令。_不管这个 key 是 string 类型的 key 还是 hash list 等的 key 都同样地使用这些命令进行执行。_
+-  当 redis 中的键不存在时，其值也不能通过 `get key` 来得到。
+- 执行 `FLUDHDB` 命令后，将会让 redis 中的 **数据清空** 。
+- `nx`： 在命令后面加上 `nx` 表示 不存在 not exist，用于安全型保存（当 key 不存在时再进行保存或者重命名）
 
 命令：
 - `ttl keyName` ttl(time to life) 键存活时间，单位秒。用于查找 key 的生命时间。
@@ -56,7 +58,7 @@ string 的存取
 常用命令：
 - `strlen key` from `string length` 获取字符串长度
 - `setrange key offset value` 从指定偏移量开始覆写 value 到指定 key 的 value 中。offset 从 0 开始计算
--
+- `mget key [key]` 获取多个 key 的 value
 
 ### hash
 
@@ -70,7 +72,7 @@ string 的存取
 
 常用命令
 - `hgetall key` 获取 hash 表中的所有的键值对
--
+- `HEXISTS key field` 查询 hash 字段 是否存在
 
 ### List
 
