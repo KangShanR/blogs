@@ -17,14 +17,17 @@ date: "2018-10-25 12:23"
 
 > 针对 redis 的键的操作命令。_不管这个 key 是 string 类型的 key 还是 hash list 等的 key 都同样地使用这些命令进行执行。_
 -  当 redis 中的键不存在时，其值也不能通过 `get key` 来得到。
-- 执行 `FLUDHDB` 命令后，将会让 redis 中的 **数据清空** 。
+- 执行 `FLUDHDB` 命令后，将会让 redis 中当前 db 的 **数据清空** 。
 - `nx`： 在命令后面加上 `nx` 表示 不存在 not exist，用于安全型保存（当 key 不存在时再进行保存或者重命名）
 
 命令：
+- `del key` key 存在时删除 key
+- `exists key` key 是否存在
 - `ttl keyName` ttl(time to life) 键存活时间，单位秒。用于查找 key 的生命时间。
 - `TYPE keyName` 查看 键 类型
-- `expire second` 指定 key 生命长度，单位：秒
-- `persist key` 持久化 key，将 key 的生命长度移除
+- `keys pattern` 查看当前库所有符合 pattern 的 key。`keys *` 表示获取所有的 key
+- `expire key second` 指定 key 生命长度，单位：秒
+- `persist key` 持久化 key，将 key 的生命长度属性移除
 - `dump key` 序列化 key 。_note:不知其意义_
 - `randomkey` 随机返回一个 key
 - `rename key newKey` 更名 key 为 newkey
@@ -68,21 +71,47 @@ string 的存取
 - 存：
     - 单个字段值对存储 `HSET key field value`
     - 多个字段值对存储 `HMSET key field value [field value]`
-- 读： `HGET key field`
+- 读：
+    - `HGET key field` hash表中单个字段 value 的读取
+    - `hmget key field [field]` 获取 hash 表中多个字段的 value
 
 常用命令
 - `hgetall key` 获取 hash 表中的所有的键值对
 - `HEXISTS key field` 查询 hash 字段 是否存在
+- `Hlen key` 哈希表中字段的数量
+- `hkeys key` hash 表中的所有的 key
+- `hvals key`获取 hash 表中所有 value
+- `hsetnx key field value` 只有当字段 field 不存在时才进行存储
+- `hincrby key field increment` 在指定的整数字段上加上增加值 increment
+- `hincrbyfloat key field increment` 在指定的浮点数值字段上加上增值 increment
 
 ### List
 
-> 使用起来像栈一样，先进后出 FILO
+> 使用起来像栈一样，先进后出 FILO。但在这儿的先后概念换为 左右 `LR`。先进为左，后入为右。
+- `l` left 表示列表左部，即头部
+- `r` right 表示列表右部，即尾部
+- `x`exist 表示已存在的
 
 存读命令
-- 存：`LPUSH listKey listField1 listValue1 listField2 listValue2 ...`
-    - 存入单个键值对时会返回当前键值对的排序号，从 1 开始
-- 读：`LRANGE listKey startNo endNo`
-    - 此处与存入不同之处在于：开始序号从 0 开始
+- 存：
+    - `LPUSH listKey listField1 listValue1 [listField listValue]` 从左开始存
+        - 返回当前 list 的 length
+    - `Rpush key value [value]` 在 list 尾部插入数据
+- 读：
+    - `Lindex key index` 通过 index (从 0 开始)读取 list value
+    - `LRANGE listKey startNo endNo`
+        - 此处与存入不同之处在于：开始序号从 0 开始
+
+常用命令：
+- `lpushx key value [value]` 将 values 追加到一个 **已存在** 的列表头部
+- `rpushx key value  [value]` 追加 values 到 **已存在** 列表尾部
+- `linsert key BEFORE|AFTER pivot value` 在元素 pivot 前|后 插入 value（note：不要想了，没有 rinsert 的命令）
+- `lrem key count value` 移除 list 中的等于 value 的 |count| 个元素，当 count 为正数时，从左往右计数，当 count 为负数时，从右往左计数
+- `llen key` 获取列表长度
+- `lpop key` 弹出第一个元素（返回此值 并 删除）
+- `rpop key` 弹出最后一个元素
+- ``
+
 
 ### set
 
@@ -109,3 +138,24 @@ string 的存取
 
 - 如果开户客户端连接主机时出现 中文乱码。可以在命令后加上参数： `--raw` ，即可解决。
     - `redis-cli -h host -p port -a password --raw`
+
+
+## redis config
+
+> redis 配置相关。使用 redis-server 启动时，就需要指定其配置文件，一般在路径下（redis.windows.conf 文件）可以直接打开 配置文件进行更改，也可以在使用 redis-cli 客户端连接后使用命令进行查看/更改。
+
+config 命令：
+- `config get key` 查看 key 配置，如： `config get loglevel` 查看日志级别
+- `config set key value` 配置相关 redis 配置。 `config set loglevel debug` 设置日志记录级别为 debug
+- `config get *` 查看所有配置
+- `config get databases` 查看数据库数量
+
+
+## redis db
+
+> redis db 指 redis 数据库，通常默认一个 redis 实例中有 16 个 db ，index  从 0 到 15 ，每个 db 之间不相互干扰。
+
+命令：
+- `select index` 命令行切换 db，当在命令行中切换到非 db0 的库时，命令行中可以直接看到库编号 `redis[1]` ，在 api jedis 中有相应的 api 来查询当前 db 编号。`jedis.getDB()`
+- `flushdb` 清除当前 db 的所有数据，不会清除其他 db 的数据。
+- `flushall` 清除当前 redis 实例的所有数据（慎用）。
