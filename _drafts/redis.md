@@ -13,6 +13,23 @@ date: "2018-10-25 12:23"
 > [first study reference](http://www.runoob.com/redis/redis-data-types.html)
 
 
+## redis key
+
+> 针对 redis 的键的操作命令。当 redis 中的键不存在时，其值也不能通过 `get key` 来得到。执行 `FLUDHDB` 命令后，将会让 redis 中的 **数据清空** 。
+> _nx_ 在命令后面加上 nx 表示 不存在 no exist，通常用于不存在时再进行保存
+
+命令：
+- `ttl keyName` ttl(time to life) 键存活时间，单位秒。用于查找 key 的生命时间。
+- `TYPE keyName` 查看 键 类型
+- `expire second` 指定 key 生命长度，单位：秒
+- `persist key` 持久化 key，将 key 的生命长度移除
+- `dump key` 序列化 key 。_note:不知其意义_
+- `randomkey` 随机返回一个 key
+- `rename key newKey` 更名 key 为 newkey
+- `renamenx key newkey` 当 newkey 不存在时，才 将 key rename 为 newkey。
+
+
+
 ## 数据类型
 
 redis 支持数据类型包括：
@@ -33,18 +50,27 @@ string 的存取
 - `append key value` 将 value 追加到 key 对应的 value 后面
 - `decr key` 将 key 对应的数值减小 1 。如果非 数字型 value 会报错。
 - `incr key` 加 1
-- `mset key1 value1 key2 value2 [key value] ` 设置多个 单个键值对存储
+- `mset key1 value1 [key value] ` 设置多个 单个键值对存储
 - `msetnx key1 value1 [key value]` 当所有的 key 不存在时才进行存储
+
+常用命令：
+- `strlen key` from `string length` 获取字符串长度
+- `setrange key offset value` 从指定偏移量开始覆写 value 到指定 key 的 value 中。offset 从 0 开始计算
+-
 
 ### hash
 
-> 常用的数据类
+> 常用的数据类型，一个 hashkey 中可以存储多个 键值对 作为其 hash 表的值
 
 存读命令
 - 存：
-    - 单个键值对存储 `HSET hashName keyName value`
-    - 多个键值对存储 `HMSET hashName keyName1 value1 keyName2 value2 ...`
-- 读： `HGET hashName keyName`
+    - 单个字段值对存储 `HSET key field value`
+    - 多个字段值对存储 `HMSET key field value [field value]`
+- 读： `HGET key field`
+
+常用命令
+- `hgetall key` 获取 hash 表中的所有的键值对
+-
 
 ### List
 
@@ -81,18 +107,3 @@ string 的存取
 
 - 如果开户客户端连接主机时出现 中文乱码。可以在命令后加上参数： `--raw` ，即可解决。
     - `redis-cli -h host -p port -a password --raw`
-
-## redis key
-
-> 针对 redis 的键的操作命令。当 redis 中的键不存在时，其值也不能通过 `get key` 来得到。执行 `FLUDHDB` 命令后，将会让 redis 中的 **数据清空** 。
-> _nx_ 在命令后面加上 nx 表示 不存在 no exist，通常用于不存在时再进行保存
-
-命令：
-- `ttl keyName` ttl(time to life) 键存活时间，单位秒。用于查找 key 的生命时间。
-- `TYPE keyName` 查看 键 类型
-- `expire second` 指定 key 生命长度，单位：秒
-- `persist key` 持久化 key，将 key 的生命长度移除
-- `dump key` 序列化 key 。_note:不知其意义_
-- `randomkey` 随机返回一个 key
-- `rename key newKey` 更名 key 为 newkey
-- `renamenx key newkey` 当 newkey 不存在时，才 将 key rename 为 newkey。
