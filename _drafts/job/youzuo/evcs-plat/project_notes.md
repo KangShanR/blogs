@@ -125,3 +125,21 @@ DEV = 开发、测试人员用的开发测试环境
 FAT = 测试人员用的测试环境
 UAT = 预发环境
 PRO = 线上环境
+
+
+token:
+APP
+
+ASmdlx+8dOPr1ODlleTPpetyhp5J+at7pUcVXogN/fnoUFhRAIe2knnHUBU3FGhglZu5K3Pm92uwusmRZlYqKkE3DOx3Sw50b7sAe6TdK8QD
+
+web
+
+ASmdlx9KAKAHXDp29R5t+ZHZtwJ7eb2svg7VttWNPkHDT6UFyblvGwaCi3Ty3VmetAkC/lis8iVsOptl6OJOGU0=
+
+模拟器启动命令：
+java -Devcs.sim.rpc.server.host=10.28.6.14 -Devcs.sim.client.mac=D89C672E5CB6 -jar evcs-sim-jiedian-gui-1.3-SNAPSHOT.jar
+
+redis 查询命令：
+
+HEXISTS EVCS:EP:HEAD_STATIONS 201
+HGET EVCS:EP:HEAD_STATIONS 201
