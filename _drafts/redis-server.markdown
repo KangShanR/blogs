@@ -45,3 +45,14 @@ date: "2018-10-31 11:07"
 
 恢复：
 - 将 dump.rdb 重新拷到 redis 安装 目录，即恢复了数据。
+
+
+## redis client
+
+> redis 客户端
+
+常用命令
+- `CLIENT LIST` 查看当前连接的客户端列表
+- `CLIENT SETNAME name` 设置当前 client 的名
+- `CLIENT GETNAME`获取当前 client 的 name
+- `CLIENT PAUSE milisecond` 挂起当前 client
