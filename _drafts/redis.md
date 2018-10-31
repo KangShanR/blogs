@@ -174,11 +174,14 @@ config 命令：
 - `config get databases` 查看数据库数量
 
 
-## redis db
+## redis db connnection
 
 > redis db 指 redis 数据库，通常默认一个 redis 实例中有 16 个 db ，index  从 0 到 15 ，每个 db 之间不相互干扰。
 
 命令：
+- `PING` 测试 redis db 是否接通。接通将返回 `PONG`
+- `QUIT` 关闭连接
+- `AUTH password` 验证 password 是否正确，不正确将不能再执行命令
 - `select index` 命令行切换 db，当在命令行中切换到非 db0 的库时，命令行中可以直接看到库编号 `redis[1]` ，在 api jedis 中有相应的 api 来查询当前 db 编号。`jedis.getDB()`
 - `flushdb` 清除当前 db 的所有数据，不会清除其他 db 的数据。
 - `flushall` 清除当前 redis 实例的所有数据（慎用）。
