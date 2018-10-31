@@ -121,10 +121,10 @@
 ```
 
 统一一下：
-DEV = 开发、测试人员用的开发测试环境
-FAT = 测试人员用的测试环境
-UAT = 预发环境
-PRO = 线上环境
+DEV = 开发、测试人员用的开发测试环境 develop
+FAT = 测试人员用的测试环境 f~ acceptance testing
+UAT = 预发环境 user acceptance testing
+PRO = 线上环境 product
 
 
 token:
