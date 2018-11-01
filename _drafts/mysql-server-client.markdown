@@ -72,3 +72,14 @@ INSERT INTO user
    ```
 
    _note: user 表中所有的以 `_priv` 结尾的字段都是表示相关的权限（privilege），`Y` 表示有， `N` 表示无此权限。_
+
+
+
+### 创建表
+
+```
+create table if not exists `user`(`id` int unsigned auto_increment not null,
+    `username` varchar(30),
+    `remark` varchar(50)
+    )engine= innodb default charset = utf8mb4;
+```
