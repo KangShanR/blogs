@@ -11,7 +11,6 @@ date: "2018-10-17 14:37"
 ipconfig/flushdns
 ```
 
-
 查看电脑网络端口使用情况：
 - `netstat -ano` 命令行命令可以看到各个进程 pid 与 address 占用情况
 - `netstat -ano|findstr portNum` 查看指定端口占用情况，这儿查看的端口占用包括了本地地址的占用与外部地址的占用
