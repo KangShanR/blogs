@@ -78,8 +78,9 @@ INSERT INTO user
 ### 创建表
 
 ```
-create table if not exists `user`(`id` int unsigned auto_increment not null,
-    `username` varchar(30),
-    `remark` varchar(50)
-    )engine= innodb default charset = utf8mb4;
+create table if not exists `user`(
+    `id` int unsigned  not null auto_increment,`username` varchar(20) NOT null,
+    `remark` varchar(30), primary key (`id`)
+    ) 
+    engine=innodb default charset=utf8mb4;
 ```
