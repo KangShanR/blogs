@@ -7,7 +7,7 @@ description:
 ---
 # java枚举
 
-> java枚举的使用
+> java 枚举 的使用
 
 <!--more-->
 

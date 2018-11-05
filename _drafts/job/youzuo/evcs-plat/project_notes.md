@@ -96,6 +96,8 @@
         - [x] 等待充电
             - [x] kw 格式化
     - [ ] 确认获取不到 redis 数据时，业务系统如何处理
+        - [x] 当枪获取不到时，确认为离线
+        - [ ] 当正在充电订单获取不到时，日志记录并确认 bug
     - [x] 获取枪的状态切换
         - siteServiceImpl.convertStationToHeads() line 507
 
