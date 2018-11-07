@@ -6,6 +6,8 @@ date: "2018-09-27 17:22"
 
 # Maven struct
 
+> maven 基于 项目对象模型构建（POM Project Object Model）。
+
 > 后台项目 maven 构建
 
 ## Questions
