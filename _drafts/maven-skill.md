@@ -1,16 +1,18 @@
 ---
 layout: "post"
-title: "maven skill"
+title: "maven"
 date: "2018-09-27 17:22"
 ---
 
-# Maven struct
+# Maven
 
 > maven 基于 项目对象模型构建（POM Project Object Model）。
 
 > 后台项目 maven 构建
 
-## Questions
+
+
+## skills
 
 - 新加了 maven 依赖，并依赖于内网的仓库，拉不下来包
   1. 将内网仓库 添加 到 host 中
