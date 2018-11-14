@@ -69,7 +69,35 @@ date: "2018-09-27 17:22"
         - <plugins> 插件列表与上面 <pluginManagement> 子元素一样
             - <plugin>
     - <profiles> 在列的项目构建profile，如果被激活，会修改构建处理
-        - <profile> _need update_
+        - <profile> _need update_ 根据环境参数或命令行参数激活某个构建处理： 其中的元素与外部的 project 一致
+            - <activation> 自动触发profile的条件逻辑。Activation是profile的开启钥匙。profile的力量来自于它 能够在某些特定的环境中自动使用某些特定的值；这些环境通过activation元素指定。activation元素并不是激活profile的唯一方式。 _什么情况下需要激活这个 profile 呢？_
+                - <activeByDefault> 默认激活
+                - <jdk> 匹配的 jdk 被检测到则激活 profiles
+                - <os> 匹配的 操作系统 属性被检查到则激活 profile 。属性如下：
+                    - <name>
+                    - <family>
+                    - <arch>
+                    - <version>
+                - <property>  如果Maven检测到某一个属性（其值可以在POM中通过${名称}引用），其拥有对应的名称和值， Profile 就会被激活。如果值 字段 是 **空** 的，那么存在属性名称字段就会激活 profile ，否则按区分大小写方式匹配属性值字段
+                    - <name>
+                    - <value>
+                - <file> 提供一个文件名，通过检测该文件的存在或不存在来激活profile。missing检查文件是否存在，如果不存在则激活 profile。另一方面，exists则会检查文件是否存在，如果存在则激活profile。
+                    - <exists>
+                    - <missing>
+                - </file>
+            - </activation>
+            - <build> 参照外部 build 标签，所有元素一致。表示激活时使用的 build
+            - <modulds>
+            - <repositories>
+                - <repository>
+            - </repositories>
+            - <dependencies>
+            - <reporting>
+            - <dependencyManagement>
+            - <distributionManagement>
+            - <properties>
+        - </profile>
+    - </profiles>
     - <modules> 被构建成项目的一部分
         - <module> 子模块
     - <dependencies> 项目依赖
