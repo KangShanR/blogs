@@ -1,12 +1,10 @@
 ---
 layout: "post"
-title: "maven"
+title: "maven POM"
 date: "2018-09-27 17:22"
 ---
 
-# Maven
-
-## Maven POM
+# Maven POM
 
 > maven 基于 项目对象模型构建（POM Project Object Model）。
 
