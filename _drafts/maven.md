@@ -87,6 +87,55 @@ date: "2018-09-27 17:22"
                 - </file>
             - </activation>
             - <build> 参照外部 build 标签，所有元素一致。表示激活时使用的 build
+                - <defaultGoal>
+                - <resources>
+                    - <resource>
+                        - <targetPath />
+                        - <filtering />
+                        - <directory />
+                        - <includes />
+                        - <excludes />
+                - </resources>
+                - <testResources>
+                    - <testResource>
+                - </testResources>
+                - <directory />
+                - <finalName />
+                - <filters />
+                - <pluginManagement>
+                    - <plugins>
+                        - <plugin>
+                            - <groupId />
+                            <artifactId />
+                            <version />
+                            <extensions />
+                            <executions>
+                                <execution>
+                                    <id />
+                                    <phase />
+                                    <goals />
+                                    <inherited />
+                                    <configuration />
+                                </execution>
+                            </executions>
+                            <dependencies>
+                                <!--参见dependencies/dependency元素 -->
+                                <dependency>
+                                    ......
+                                </dependency>
+                            </dependencies>
+                            <goals />
+                            <inherited />
+                            <configuration />
+                        - </plugin>
+                    - </plugins>
+                - </pluginManagement>
+                - <plugins>
+                    - <plugin>
+                        - _and so on_
+                    - </plugin>
+                - </plugins>
+            - </build>
             - <modulds>
             - <repositories>
                 - <repository>
