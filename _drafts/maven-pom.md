@@ -59,13 +59,14 @@ date: "2018-09-27 17:22"
                             - <phase> 绑定了目标的构建生命周期阶段，如果省略，目标会被绑定到源数据里配置的默认阶段
                             - <goals> 配置执行目标
                             - <inherited> 配置是否传送到子 POM
-                            - <comfiguration> 作为 POM 对象的配置
+                            - <comfiguration> 作为 DOM 对象的配置
                     - <dependencies> 插件所需要的额外依赖
                         - <dependency>
                     - <inherited>  任何配置是否要直播到子项目
                     - <configuration>
         - <plugins> 插件列表与上面 <pluginManagement> 子元素一样
             - <plugin>
+        - </plugins>
     - <profiles> 在列的项目构建profile，如果被激活，会修改构建处理
         - <profile> _need update_ 根据环境参数或命令行参数激活某个构建处理： 其中的元素与外部的 project 一致
             - <activation> 自动触发profile的条件逻辑。Activation是profile的开启钥匙。profile的力量来自于它 能够在某些特定的环境中自动使用某些特定的值；这些环境通过activation元素指定。activation元素并不是激活profile的唯一方式。 _什么情况下需要激活这个 profile 呢？_
