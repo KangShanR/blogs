@@ -58,6 +58,7 @@ date: "2018-09-27 17:22"
                             - <id> 执行目标的 id
                             - <phase> 绑定了目标的构建生命周期阶段，如果省略，目标会被绑定到源数据里配置的默认阶段
                             - <goals> 配置执行目标
+                                - <goal>run</goal> 配置成 run 就会在此阶段运行此插件，不配置这个 goal 就不会在这个 excution s配置的 phase 阶段里运行插件
                             - <inherited> 配置是否传送到子 POM
                             - <comfiguration> 作为 DOM 对象的配置
                     - <dependencies> 插件所需要的额外依赖
