@@ -16,15 +16,16 @@
     <version>1.0</version>
     <build>
         <plugins>
-            <plugin>   
-                <groupId>org.apache.maven.plugins</groupId>   
+           <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
+                <!-- 使用 site 插件时，此插件必须存在，不然会抛出 NoClassDefFoundError-->
                 <version>2.7</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.1</version>
+                <version>1.1</version><!-- antrun 版本不能过高，如果使用 3.3 会出错 -->
                 <executions>
                     <!--clean 生命周期 打印信息-->
                     <execution>
@@ -38,7 +39,7 @@
                                 <echo>pre-clean phase</echo>
                                 <echo>nothing about the echo</echo>
                             </tasks>
-                            
+
                         </configuration>
                     </execution>
                     <execution>
@@ -48,8 +49,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <target>
-                                
+                            <target><!-- target 不知道在 execution 中有什么用？？？ -->
                                 <echo message = "nothing but pretty"/>
                             </target>
                             <tasks>
@@ -72,7 +72,7 @@
                         <phase>post-clean</phase>
                         <goals>
                             <goal>run</goal>
-                        </goals> 
+                        </goals>
                         <configuration>
                             <tasks>
                                 <echo>post-clean phase</echo>
@@ -85,7 +85,7 @@
                         <phase>validate</phase>
                         <goals>
                             <goal>run</goal>
-                        </goals> 
+                        </goals>
                         <configuration>
                             <tasks>
                                 <echo>build-validate phase</echo>
@@ -97,7 +97,7 @@
                         <phase>test</phase>
                         <goals>
                             <goal>run</goal>
-                        </goals> 
+                        </goals>
                         <configuration>
                             <tasks>
                                 <echo>build-test phase</echo>
@@ -160,5 +160,5 @@
 
     </build>
 
-    
+
 </project>
