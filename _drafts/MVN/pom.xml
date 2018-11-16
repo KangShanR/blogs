@@ -222,6 +222,12 @@
             </profile>
             <profile>
                 <id>prd</id>
+                <activation>
+                    <file>
+                        <exists>src/main/resources/env.prd.properties</exists>
+                        <missing>src/main/resources/env.prd.properties</missing>
+                    </file>
+                </activation>
                 <build>
                     <plugins>
                         <plugin>
@@ -236,7 +242,7 @@
                                   </goals>
                                   <configuration>
                                       <tasks>
-                                         <echo>Using env.prd.properties</echo>
+                                         <echo>Using env.prd.properties dddddddddddddddddddddddddddddddddd</echo>
                                          <copy file="src/main/resources/env.prd.properties" tofile="${project.build.outputDirectory}/env.prd.properties" overwrite="true"/>
                                       </tasks>
                                   </configuration>
