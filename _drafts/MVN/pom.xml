@@ -39,7 +39,6 @@
                                 <echo>pre-clean phase</echo>
                                 <echo>nothing about the echo</echo>
                             </tasks>
-
                         </configuration>
                     </execution>
                     <execution>
@@ -159,6 +158,93 @@
         </plugins>
 
     </build>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-
+    <profiles>
+        <profile>
+            <id>test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                           <execution>
+                              <phase>test</phase>
+                              <goals>
+                                 <goal>run</goal>
+                              </goals>
+                              <configuration>
+                                  <tasks>
+                                     <echo>Using env.test.properties testtttttttttt</echo>
+                                     <copy file="src/main/resources/env.test.properties" tofile="${project.build.outputDirectory}/env.test.properties" overwrite="true"/>
+                                  </tasks>
+                              </configuration>
+                           </execution>
+                        </executions>
+                     </plugin>
+                  </plugins>
+              </build>
+          </profile>
+          <profile>
+              <id>dev</id>
+              <build>
+                  <plugins>
+                      <plugin>
+                          <groupId>org.apache.maven.plugins</groupId>
+                          <artifactId>maven-antrun-plugin</artifactId>
+                          <version>1.8</version>
+                          <executions>
+                             <execution>
+                                <phase>test</phase>
+                                <goals>
+                                   <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <tasks>
+                                       <echo>Using env.dev.properties</echo>
+                                       <copy file="src/main/resources/env.dev.properties" tofile="${project.build.outputDirectory}/env.dev.properties" overwrite="true"/>
+                                    </tasks>
+                                </configuration>
+                             </execution>
+                          </executions>
+                       </plugin>
+                    </plugins>
+                </build>
+            </profile>
+            <profile>
+                <id>prd</id>
+                <build>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-antrun-plugin</artifactId>
+                            <version>1.8</version>
+                            <executions>
+                               <execution>
+                                  <phase>test</phase>
+                                  <goals>
+                                     <goal>run</goal>
+                                  </goals>
+                                  <configuration>
+                                      <tasks>
+                                         <echo>Using env.prd.properties</echo>
+                                         <copy file="src/main/resources/env.prd.properties" tofile="${project.build.outputDirectory}/env.prd.properties" overwrite="true"/>
+                                      </tasks>
+                                  </configuration>
+                               </execution>
+                            </executions>
+                         </plugin>
+                      </plugins>
+                  </build>
+              </profile>
+          </profiles>
 </project>
