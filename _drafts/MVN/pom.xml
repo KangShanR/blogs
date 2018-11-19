@@ -224,8 +224,7 @@
                 <id>prd</id>
                 <activation>
                     <file>
-                        <exists>src/main/resources/env.prd.properties</exists>
-                        <missing>src/main/resources/env.prd.properties</missing>
+                        
                     </file>
                 </activation>
                 <build>

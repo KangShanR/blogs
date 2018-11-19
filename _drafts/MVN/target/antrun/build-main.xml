@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<project name="maven-antrun-" default="main"  >
-<target name="main">
-  <echo>Using env.prd.properties dddddddddddddddddddddddddddddddddd</echo>
-  <copy file="src/main/resources/env.prd.properties" tofile="D:\mine\github\blogs\_drafts\MVN\target\classes/env.prd.properties" overwrite="true"/>
-</target>
-</project>
