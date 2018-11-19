@@ -15,5 +15,5 @@ maven 仓库分为三种：
 3. 远程仓库(remote)
 
 **note:**
-- maven 查找构件的顺序是依次是 local -> central -> remote 。所以，如果 本地仓库的构件版本过期了，需要删除重新从中央/远程仓库拉新版本的构件下来。
+- maven 查找构件的顺序是依次是 local -> central -> remote 。所以，如果本地仓库的构件版本过期了，需要删除重新从中央/远程仓库拉新版本的构件下来。
 - 本地仓库可以在 settings 文件中设置 `<localRepository>`，默认在 `%USUER_HOME%/.m2/localRepository`
