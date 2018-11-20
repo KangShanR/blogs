@@ -34,6 +34,8 @@ maven 有三个标准生命周期：
 2. clean 移除上一次构建生成的文件
 3. post-clean 执行一些需要在 clean 之后完成的工作
 
+**note:**
+clean 并不会将 localRepository 中 installed 的包清除，所以本地的包过期后需要手动删除。
 
 
 ### defalut(build) lifecycle
