@@ -7,7 +7,7 @@ date: "2018-10-19 11:06"
 
 ```
 游茜:
-同学们注意哈， Git参数的设置( git config --global merge.ff no )，，， ，，， 有个坑，
+同学们注意哈， Git参数的设置( git config --global merge.ff no )， 有个坑。
 
 冬:
 what？
@@ -19,7 +19,7 @@ git config --global merge.commit no
 git config --global pull.ff yes
 
 游茜:
-如果不设置 merge.commit 为no ， 那么每次pull代码的话会自动给你commit， 会导致多一次无用的提交记录
+如果不设置 merge.commit 为 no ， 那么每次 pull 代码的话会自动给你commit， 会导致多一次无用的提交记录
 
 游茜:
 还需要同时设置 pull.ff  为yes
