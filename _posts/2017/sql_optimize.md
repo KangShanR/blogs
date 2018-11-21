@@ -1,18 +1,18 @@
 ---
-title: sql优化
+title: sql 优化
 date: 2017-08-31 12:04:38
 categories: programming
 tags: [programming,database]
 ---
 
-# sql优化 #
+# sql 优化
 
 > 当数据库的数据量达到一定级别时，sql优化对于一个项目的数据访问尤其重要。
 > 本文就对于一个项目的数据库的sql优化作出一些归纳。
 
 <!--more-->
 
-## sql优化可以考虑的点： ##
+## sql优化可以考虑的点
 
 1. 在复杂查询中**少用模糊匹配**`LIKE '%param%'`，`%`会**导致相关的索引无法使用**。
 	1. 解决办法：

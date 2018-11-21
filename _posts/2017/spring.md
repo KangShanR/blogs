@@ -1,32 +1,36 @@
 ---
-title: spring框架的学习
+title: spring 框架的学习
 date: 2017-08-15 12:14:38
 tags: [framework,java]
 categories: programming
 description: spring框架的学习与理解
 ---
 
->spring配置beans的底层原理就在于通过封装好的解析xml类，将xml文件中配置好的bean实例出一个对象来，再通过配置实现bean之间的相互引用，而实现将要用到的bean（实用类）实例化并使用；
+# spring framework
+
+> spring 配置 beans 的底层原理就在于通过封装好的解析 xml 类，将 xml 文件中配置好的 bean 实例出一个对象来，再通过配置实现 bean 之间的相互引用，而实现将要用到的 bean （实用类）实例化并使用；
 
 <!--more-->
 
-## Core模块 ##
+## Core 模块
+
 - bean标签：
 	- id属性指定这个实例的唯一标识；
 	- class属性，用来指定这个实例的类定义；
 	- property子元素，指定这个对象的属性，比如：user对象中有属性name,那么这个这个user的bean对象就应该有一个子元素标签property，同时如果这个属性是另外一个本地的bean，name属性指向这个属性：`<property name="advice" id="beanId">`直接使用id属性来引用到其他的bean的id就行；
 
-## AOP模块 ##
->Aspect Oriented Programming,面向切面编程
+## AOP模块
 
-- 切面Aspect:可以理解为模块，比如，读写数据库、权限检查、异常情况记录；
-- Advice,增强：拦截器实现增强接口Advisor，不同的拦截器实现不同的增强接口，比如：方法前拦截器
+> Aspect Oriented Programming , 面向切面编程
+
+- 切面 Aspect :可以理解为模块，比如，读写数据库、权限检查、异常情况记录；
+- Advice ，增强：拦截器实现增强接口 Advisor ，不同的拦截器实现不同的增强接口，比如：方法前拦截器
 			MethodBeforeInterceptor implements MethodBeforeAdvice{
 				//方法前拦截器
 				//调用对象的方法前将执行该方法。参数分别为被调用的方法、参数、对象
 				public void before(Method method, Object[] args, Object instance) throws Throwable{
 					System.out.println("即将要执行的方法：“+method.getName());
-					//如果是Service
+					//如果是 Service
 					if(instance instanceof WaiterServiceImpl)
 						String name = ((AopServiceImpl) instance).geName();
 							if(name == null)//检查是否为空
@@ -57,7 +61,7 @@ description: spring框架的学习与理解
 			```
 
 
-## ORM 模块 ###
+## ORM 模块
 
 >Object RelativeDatabase Mapping,对象关系型数据库映射
 - 简介：
@@ -65,7 +69,7 @@ description: spring框架的学习与理解
 	- Spring提供在DAO层提供HibernateDaoSupport类与JDBCTemplate类；
 	- 在Spring里，Hibernate与SessionFactory等只是Spring一个特殊的Bean，由Spring负责实例化与销毁；所以也就不需要与Hibernate的API打交道，不需要开启关闭Hibernate的Session、Transaction，Spring自动维护这些对象；
 
-### 实体类 ###
+### 实体类
 
 这儿用User类举例：
 - 使用注解来让User中属性与数据库中表的列相关联；
@@ -116,7 +120,8 @@ description: spring框架的学习与理解
 		- 同时，所有sql语言的操作对象都指向实体类，而没有对数据库中的表进行组织sql语句；
 	- **个人理解：**spring通过封装Hibernate在框架中，让DAO接口的实现类继承HibernateDaoSupport尖，就将Hibernate对象创建出来，而直接操作这个对象的方法来获取session/Hibernate对象直接与数据库交互，而就节省了操作JDBC的代码；
 
-#### 配置集成Hibernate ####
+#### 配置集成Hibernate
+
 - 在spring的bean.xml文件中配置集成hibernate到目前这一步只需要***配置三个bean***：
 	- 数据源datasource，这是一切的基础，所有的操作最终都会落到对数据库的操作上；
 	```
@@ -166,11 +171,12 @@ description: spring框架的学习与理解
 
 ---
 
-### Hibernate的事务管理 ###
+### Hibernate的事务管理
+
 - **分层的做法：应用层调用Service层，Service层对数据进行检查（是否重复之类），然后Service层（注入一个Dao属性）调用Dao层，Dao层调用Hibernate实现数据的操作。原则上不允许跨层访问，业务层次分明。**
 - 事务管理transaction，对应的层为Service层；
 
-### spring的bean.xml配置文件的理解 ###
+### spring的bean.xml配置文件的理解
 
 - 所有的操作都基于对数据库的crud，所以所有的配置都围绕着操作数据库；
 - 所以，第一个bean的是数据源：dataSource
