@@ -157,4 +157,4 @@ categories: programming
 
 ### Restful架构
 
-- 只是一种规范，终极的目标是资源URI
+- 只是一种规范，终极的目标是资源 URI

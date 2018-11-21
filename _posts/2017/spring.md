@@ -14,12 +14,12 @@ description: spring框架的学习与理解
 
 ## Core 模块
 
-- bean标签：
-	- id属性指定这个实例的唯一标识；
-	- class属性，用来指定这个实例的类定义；
-	- property子元素，指定这个对象的属性，比如：user对象中有属性name,那么这个这个user的bean对象就应该有一个子元素标签property，同时如果这个属性是另外一个本地的bean，name属性指向这个属性：`<property name="advice" id="beanId">`直接使用id属性来引用到其他的bean的id就行；
+- bean 标签：
+	- id 属性指定这个实例的唯一标识；
+	- class 属性，用来指定这个实例的类定义；
+	- property 子元素，指定这个对象的属性，比如：user 对象中有属性 name ，那么这个这个 user 的 bean 对象就应该有一个子元素标签 property ，同时如果这个属性是另外一个本地的 bean ， name 属性指向这个属性：`<property name="advice" id="beanId">` 直接使用 id 属性来引用到其他的 bean 的 id 就行；
 
-## AOP模块
+## AOP 模块
 
 > Aspect Oriented Programming , 面向切面编程
 
@@ -29,17 +29,17 @@ description: spring框架的学习与理解
 				//方法前拦截器
 				//调用对象的方法前将执行该方法。参数分别为被调用的方法、参数、对象
 				public void before(Method method, Object[] args, Object instance) throws Throwable{
-					System.out.println("即将要执行的方法：“+method.getName());
+					System.out.println("即将要执行的方法：" + method.getName());
 					//如果是 Service
 					if(instance instanceof WaiterServiceImpl)
-						String name = ((AopServiceImpl) instance).geName();
+						String name = ((AopServiceImpl) instance).getName();
 							if(name == null)//检查是否为空
-								throw new NullPointerException("name属性不能为null");
+								throw new NullPointerException("name 属性不能为 null");
 					}
 					method.invoke(instance,args);
 				}
 			}
-- 拦截器，interceptor，也是pointcut的核心:
+- 拦截器，interceptor，也是 pointcut 的核心:
 	- spring拦截器的配置实现，通过增加配置：
 				<bean id="aopMethodBeforeInterceptor" class="org.springframework.aop.supoort.NameMatchMethodPointcutAdvisor">
 					<property name="advice">
@@ -63,11 +63,13 @@ description: spring框架的学习与理解
 
 ## ORM 模块
 
->Object RelativeDatabase Mapping,对象关系型数据库映射
+> Object RelativeDatabase Mapping,对象关系型数据库映射
+
+
 - 简介：
-	- 此模块对Hibernate/JDO/TopLink、iBatis等ORM框架提供支持；
-	- Spring提供在DAO层提供HibernateDaoSupport类与JDBCTemplate类；
-	- 在Spring里，Hibernate与SessionFactory等只是Spring一个特殊的Bean，由Spring负责实例化与销毁；所以也就不需要与Hibernate的API打交道，不需要开启关闭Hibernate的Session、Transaction，Spring自动维护这些对象；
+	- 此模块对 Hibernate/JDO/TopLink、iBatis 等 ORM 框架提供支持；
+	- Spring 提供在 DAO 层提供 HibernateDaoSupport 类与 JDBCTemplate 类；
+	- 在 Spring 里，Hibernate 与 SessionFactory 等只是 Spring 一个特殊的 Bean ，由 spring 负责实例化与销毁；所以也就不需要与 Hibernate 的 API 打交道，不需要开启关闭 Hibernate 的 Session/Transaction ， Spring 自动维护这些对象；
 
 ### 实体类
 
