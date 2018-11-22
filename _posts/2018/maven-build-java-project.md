@@ -21,3 +21,8 @@ date: "2018-11-19 18:31"
 `mvn archetype:generate -DgroupId=com.companyname.bank -DartifactId=consumerBanking -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false`
 
 注意这儿构建项目命令与上面项目的不同在于其 `archetypeArtifactId` 值为： `maven-archetype-webapp`。如果不指定这些参数，那么在只单纯执行 `mvn archtype:generate` 命令后指定其 DarchetypeArtifactId
+
+
+note:
+1. _将普通的 java 项目转成 maven 项目_
+  1. 在 idea 中可以直接添加 pom 文件后，右键 - add to maven project 即可实现。
