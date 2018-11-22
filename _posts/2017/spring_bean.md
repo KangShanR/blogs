@@ -6,10 +6,10 @@ categories: programming
 
 ---
 
-# Spring 中的 bean 配置
+# bean in spring
 
 > **前言：**
-> Spring中的bean配置就是将各个类配置在 bean.xml 文件中，成为一个个的组件，方便实现各个组件之间的重新装配，这也是实现 spring 的依赖注入的方便法门；
+> Spring 中的 bean 配置就是将各个类配置在 bean.xml 文件中，成为一个个的组件，方便实现各个组件之间的重新装配，这也是实现 spring 的依赖注入的方便法门；
 >
 > 因此就可以理解，一个个的 bean 就是一个个的类的实例，但在 spring 运行时，spring 容器装配各个组件时初始化这些类实例时，也就会涉及到类的构造函数，装配各个组件时会涉及到各种类型参数；
 >
@@ -34,7 +34,7 @@ categories: programming
 	2. 两者检查其引用对象bean是否存在：**ref** 只有在第一次调用时会检查，也就是在 **程序运行中才会抛出错误** ，而 **idref 在程序启动时就会抛出错误** ；
 	3. **idref只有bean、local属性，没有parent属性** ，而 ref 三个属性都有。（ local 表示就在当前配置文件中查找相关的 id，而 parent 表示在父配置文件中找。而 bean 则不会限制，可以在其本身找也可以在其父配置文件中找）；
 8. depends-on，设置依赖对象：
-	1. 当我们设置的 bean 实例 a 之前要确保另外一个一 bean 实例先实例化，这时就可以使用 `depends-on` 属性：
+	1. 当我们设置的 bean 实例 a 之前要确保另外一个 bean 实例先实例化，这时就可以使用 `depends-on` 属性：
 			<bean id="a" class="com.snail.springdemo.A" depends-on="b"></bean>
 			<bean id="b" class="com.snail.springdemo.B"></bean>
 
@@ -56,7 +56,7 @@ categories: programming
 - `constructor`  匹配 bean 的构造器与 setter 方法形参的构造器是否相同。同样如果找不到会拋出异常。
 - `autodetect` spring 根据 bean 的内部结构自行决定采用 byType 策略还是用 constructor 策略。
 
-_当一个Bean既使用自动装配依赖，又使用 ref 显式指定依赖时，则**显式指定的依赖覆盖自动装配依赖**；对于大型的应用，不鼓励使用自动装配。虽然使用自动装配可减少配置文件的工作量，但大大将死了依赖关系的清晰性和透明性。依赖关系的装配依赖于源文件的属性名和属性类型，导致Bean与Bean之间的耦合降低到代码层次，不利于高层次解耦。_
+_当一个 Bean 既使用自动装配依赖，又使用 ref 显式指定依赖时，则**显式指定的依赖覆盖自动装配依赖**；对于大型的应用，不鼓励使用自动装配。虽然使用自动装配可减少配置文件的工作量，但大大降低了依赖关系的清晰性和透明性。依赖关系的装配依赖于源文件的属性名和属性类型，导致Bean与Bean之间的耦合降低到代码层次，不利于高层次解耦。_
 
 - 通过设置可以将 Bean 排除在自动装配之外
 
@@ -67,3 +67,10 @@ _当一个Bean既使用自动装配依赖，又使用 ref 显式指定依赖时�
 <!--除此之外，还可以在beans元素中指定，支持模式字符串，如下所有以abc结尾的Bean都被排除在自动装配之外-->
 <beans default-autowire-candidates="*abc"/>
 ```
+
+## 创建 bean 的方式
+
+> 共 3 种
+
+创建 bean 的三种方式：
+1.
