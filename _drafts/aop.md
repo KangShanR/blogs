@@ -28,6 +28,7 @@ aspcetj 是基于 java 语言的 aop 框架，提供了强大的 aop 功能，�
 - Advice 增强：AOP 框架支持在特定的切入点执行的增加处理。类型有：Before Around After
 - Pointcut 切入点：中以插入增强处理的连接点。当连接点满足指定要求时，该连接点将被添加增加处理，该连接点也就说变成了切点。
 
+
 ## spring aop
 
 - Spring AOP 代理由 IoC 容器负责生成、管理，其依赖关系也由 IoC 窗口负责管理。
