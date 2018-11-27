@@ -4,7 +4,7 @@ date: 2017/8/26 22:19:02
 categories: 心得笔记
 tags: [essay,movie]
 keywords: 当幸福来敲门,行酒令
-description: 
+description:
 ---
 
 刚才重看了一遍《当幸福来敲门》，看到Chris在实习期间，为了促进与客户的联系与第一个客户去包厢看football game，这就便结识了一众上流的客户。
@@ -35,4 +35,4 @@ description:
 明月几时有，把酒问青天。
 ……
 实在想不起其他的了：”九九女儿红“……
-收工！！！
+收工。
