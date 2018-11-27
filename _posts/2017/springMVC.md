@@ -107,7 +107,7 @@ categories: programming
 
 
 
-### springMVC中的处理器
+### springMVC 中的处理器
 
 1. 通过上一步实现来自前端请求必须都通过 web.xml 文件中指定的 servlet 处理，也就是大部分请求都是交给了 springmvc，所有的 springmvc 的配置都在 springmvc.xml 文件中，在这个文件中，我们常常通过注解来实现请求与处理器（处理器中的方法）的映射。
 2. springmvc.xml 配置中就指定了适配器映射，使用 `@Controller` 注解就让该类成为处理器
@@ -153,7 +153,7 @@ categories: programming
 - @RequestBody
   - 用于将请求的字符串使用 converter 转换成 json/xml 等格式并绑定到 controller 参数上去
 - @ResponseBody
-  - 用于将 controller 招行的结果 使用 controller 转换成 json/xml 格式直接 response 给浏览器
+  - 用于将 controller 返回的结果 使用 converter 转换成 json/xml 格式直接 response 给浏览器
 
 ### Restful架构
 
