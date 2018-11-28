@@ -12,7 +12,7 @@ categories: programming
 
 <!--more-->
 
-- **中央处理器的配置**：在web.xml中配置springmvc的servlet
+- **中央处理器的配置**：在web.xml中配置 springmvc 的 servlet
 
 ```
 <servlet>
@@ -29,7 +29,7 @@ categories: programming
   	<url-pattern>*.do</url-pattern>
   </servlet-mapping>
 ```
-- 中央处理器DispatcherServlet在web.xml中被配置成一个servlet,并通过初始化上下文配置参数springmvc.xml的路径与设置其启动时机与该servlet初始化时机；
+- 中央处理器 DispatcherServlet 在web.xml中被配置成一个 servlet ,并通过初始化上下文配置参数 springmvc.xml 的路径与设置其启动时机与该servlet初始化时机；
 	1. 其中 load-on-startup 这个属性来指定这个中央处理器被初始化的时机：
 		1. 当为负数时，只有第一次使用时才会初始化，这也就带来一个问题，第一次访问时就会慢一些；
 		2. 当为非负数时，中央处理器会在servlet容器启动时初始化，而这个数值就是初始化的顺序；
