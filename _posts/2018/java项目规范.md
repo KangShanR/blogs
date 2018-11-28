@@ -22,29 +22,29 @@
    如：UserDO,  XXXDO（XXX是数据库表名）UserVO（返回给前端的对象）
 
 5. 各层命名规约
-	* A) Service/DAO 层方法命名规约
-		  *  1） 获取单个对象的方法用 get 做前缀。
-	  	  *  2） 获取多个对象的方法用 list 做前缀。
-		  *  3） 获取统计值的方法用 count 做前缀。
-		  * 4） 插入的方法用 save（推荐） 或 insert 做前缀。
-		  *	5） 删除的方法用 remove（推荐） 或 delete 做前缀。
-		  * 6） 修改的方法用 update 做前缀。
-  * B) 领域模型命名规约
-		*  1） 数据对象： xxxDO， xxx 即为数据表名。
-		* 2） 数据传输对象： xxxDTO， xxx 为业务领域相关的名称。
-		* 3） 展示对象： xxxVO， xxx 一般为网页名称。
-		* 4） POJO 是 DO/DTO/BO/VO 的统称，禁止命名成 xxxPOJO。
+	1. Service/DAO 层方法命名规约
+		1. 获取单个对象的方法用 get 做前缀。
+		2. 获取多个对象的方法用 list 做前缀。
+		3. 获取统计值的方法用 count 做前缀。
+		4. 插入的方法用 save（推荐） 或 insert 做前缀。
+		5. 删除的方法用 remove（推荐） 或 delete 做前缀。
+		6. 修改的方法用 update 做前缀。
+	2. 领域模型命名规约
+		1. 数据对象： xxxDO， xxx 即为数据表名。
+		2. 数据传输对象： xxxDTO， xxx 为业务领域相关的名称。
+		3. 展示对象： xxxVO， xxx 一般为网页名称。
+		4. POJO 是 DO/DTO/BO/VO 的统称，禁止命名成 xxxPOJO。
 
-7. 	扩展mybatis的xml文件以Extend开头，如com.yzbus.dao.mysql.UserMapper扩展为com.yzbus.dao.mysql.extend.ExtendUserMapper
+6. 	扩展mybatis的xml文件以Extend开头，如com.yzbus.dao.mysql.UserMapper扩展为com.yzbus.dao.mysql.extend.ExtendUserMapper
 <br>
-8. DAO类以DAO结尾，实现类在DAO后面加Impl，Service类以Service结尾，实现类为XXXServiceImpl
+7. DAO类以DAO结尾，实现类在DAO后面加Impl，Service类以Service结尾，实现类为XXXServiceImpl
 9. 枚举类以Enum结尾，枚举成员名称需要全大写，单词间用下划线隔开
 	如：ResultEnum，枚举中的参数，成员名称： SUCCESS / NO_RESULT
 
 ## 2、代码规范
-1. 缩进采用 4 个空格，禁止使用 tab 字符	
+1. 缩进采用 4 个空格，禁止使用 tab 字符
 	示例：
-	
+
     public static void main(String args[]) {
 		// 缩进 4 个空格
         String say = "hello";
@@ -63,14 +63,14 @@
 		    // 在右大括号后直接结束，则必须换行
 		}
 	}
-	
+
 2. 每行代码的长度不要超过一个屏幕（尽量控制在80个字符），超出时需要换行，换行时遵循如下原则：
 	1） 第二行相对第一行缩进 4 个空格，从第三行开始，不再继续缩进，参考示例。
 	2） 运算符与下文一起换行。
 	3） 方法调用的点符号与下文一起换行。
 	4） 在多个参数超长，逗号后进行换行。
 	5） 在括号前不要换行
-	
+
 	示例：
 		StringBuffer sb = new StringBuffer();
 		//超过 80 个字符的情况下，换行缩进 4 个空格，并且方法前的点符号一起换行
@@ -79,11 +79,11 @@
 		    .append("market")...
 		    .append("fgh");
 3. 方法参数在定义和传入时，多个参数逗号后边必须加空格。
-	
+
 	示例：
 	public List<UserDO> listUser(String name, String other){}
 	listUser("abc", "asd")
-	
+
 4. 方法体内的执行语句组、变量的定义语句组、不同的业务逻辑之间或者不同的语义
 之间插入一个空行。相同业务逻辑和语义之间不需要插入空行。
 
@@ -105,8 +105,7 @@
 
 PS： service层中不能注入Mapper来访问数据库，必须通过dao层访问数据库
 	如：在UserServiceImpl中，只能注入一个UserDAO，不能在Service中注入一个UserMapper
-	
+
 ### 3.2工具类存放目录
 1. 常用工具类统一放到tools包下面
 2. 定义的枚举类统一放到enums包下面
-
