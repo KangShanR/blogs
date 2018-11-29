@@ -145,3 +145,14 @@ spring 提供两种后处理器：
 现个注解实现(javax.anotation 包)：
 - `@PostConstruct` 顾名思义，是在 bean 构造之后执行，修辞的是 bean 的初始化方法；
 - `@PreDestroy` 修辞 bean 销毁之前执行的方法
+
+## spring 容器中的 bean 实现不同方法
+
+[参考](https://www.cnblogs.com/duanxz/p/7493276.html)
+
+可以通过 java 配置类来实现 spring beans 的配置：
+- @Configuation等价于<Beans></Beans>
+- @Bean等价于<Bean></Bean>
+- @ComponentScan等价于<context:component-scan base-package="com.dxz.demo"/>
+
+[获取 xml applicationContext 方法参考](https://www.cnblogs.com/yjbjingcha/p/6752265.html)
