@@ -55,3 +55,27 @@ Ah, so share yours and I'm looking forward to reading those and going over them 
 - bunny person
 - moderate
 - so i see what you mean very much.
+
+
+
+## time
+
+> Nov 29th, 2018
+
+- American Time
+  - Hawaii-Aleutian Standard time  Honolulu(GMT-10)
+  - Alaska Standard Time anchorage(GMT-9)
+  - Pacific Standard Time Los Angeles(GMT-8)
+  - Mountain Standard time
+  - Central Standard time
+  - Eastern Standard Time(Washington,DC GMT-5)
+- morning person
+- nap
+- take a nap
+- daybeak
+- humorous
+- make sense
+- smart phone
+- punctual person
+- miliraty Time
+- 
