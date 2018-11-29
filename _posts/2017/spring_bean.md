@@ -154,3 +154,5 @@ spring 提供两种后处理器：
 - @Configuation等价于<Beans></Beans>
 - @Bean等价于<Bean></Bean>
 - @ComponentScan等价于<context:component-scan base-package="com.dxz.demo"/>
+
+[获取 xml applicationContext 方法参考](https://www.cnblogs.com/yjbjingcha/p/6752265.html)
