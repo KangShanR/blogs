@@ -78,4 +78,10 @@ Ah, so share yours and I'm looking forward to reading those and going over them 
 - smart phone
 - punctual person
 - miliraty Time
-- 
+
+
+## review of this weeek
+
+> Nov 30th, 2018
+
+- hey, there.
