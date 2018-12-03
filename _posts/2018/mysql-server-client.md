@@ -25,7 +25,7 @@ localhost 的 testing 尝试：
 - 删除 mysql 服务（需要先停止服务）： `mysqld -remove`
     - 以上添加 mysql 到电脑服务系统步骤可以不用做一样可以启动 mysql 服务：
         - 需要的操作是：控制台进入到 mysql 安装目录 bin 中
-            - 直接启动 mysqld.exe `mysqld --console` --console 打开日志记录
+            - **直接启动** mysqld.exe `mysqld --console` --console 打开日志记录
             - 关闭服务：`mysqladmin -uroot shutdown`
 - 查看当前 mysql server 连接情况命令： `show processlist` 将会看到当前 mysql server 连接的各个 client 的 ip/port/status/user/db 等
 
