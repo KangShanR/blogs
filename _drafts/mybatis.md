@@ -19,6 +19,7 @@ date: "2018-12-04 10:24"
 ## sql 实现
 
 - 动态 sql 实现 [动态 sql 参考](http://www.mybatis.org/mybatis-3/zh/dynamic-sql.html)
+  - 其中包括 if/where/choose(when/otherwise)/foreach/trim/set/ 诸多方法
 - 使用 java 注解写 sql 语句（如： @Select("select * from t_user where t_user.name like concat(#{username}, '%')")
   - 使用这种方法实现 sql 也可以，但这样实现需要保证 entity 对象与数据库表数据 字段映射有所实现（在其他的 mapper.xml 中已经实现并注册到 mybatis 中）。如果没有映射需要保证表中字段与 entity 字段一致（大多数情况下命名规则会有出入）[参考](http://www.mybatis.org/mybatis-3/zh/getting-started.html)此文档有涉及到使用 注解实现写 sql 语句。
   - 对于简单语句来说，注解使代码显得更加简洁，然而 Java 注解对于稍微复杂的语句就会力不从心并且会显得更加混乱。因此，如果你需要做很复杂的事情，那么最好使用 XML 来映射语句。

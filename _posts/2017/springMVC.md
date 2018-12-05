@@ -38,7 +38,7 @@ categories: programming
 
 > 各个核心对象都有默认值，也就是说如果没有手动配置这些， springmvc 会按默认配置进行构建窗口。默认配置文件：spring-webmvc 包中 org.springframework.web.servlet 中的 DispatcherServlet.properties 。
 
-1. **中央分发控制器**（在springMVC框架中，它是核心的核心，所有的分发都由它处理，所以也叫 **中央处理器** ），处理请求并给出响应；
+1. **中央分发控制器**（在springMVC框架中，它是核心的核心，所有的分发都由它处理，所以也叫 **中央处理器** ），处理请求并给出响应（下面的三个关键组件就是装配在 springmvc 中的，但中央处理器是装配在 web.xml 中作为一个 servlet 的）
 2. **处理器映射器** HandlerMapping ：设置 handler 处理器与 url 资源的映射
 	1. 使用 BeanNameUrlHandlerMapping 这个类时，就会将 handler 的 name 属性值作为 url 映射，访问这个处理器就填写其 name 属性值:
 			<bean id="login" name="loginController.do" class="com.woniuxy.springdemo.controller.LoginController"/>
@@ -59,8 +59,8 @@ categories: programming
   ```
 	3.  使用注解实现处理器与 url 的映射
 			<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
-		1.  这个配置节点就决定了处理器与其中的方法可以被注解@RequestMapping（"url_name"）映射并指定url
-2.  **处理器适配器** HandlerAdapter，用于规定处理器的编写规则
+		1.  这个配置节点就决定了处理器与其中的方法可以被注解 @RequestMapping("url_name") 映射并指定url
+3.  **处理器适配器** HandlerAdapter，用于规定处理器的编写规则
 	1.  使用接口来配置适配器：
 		1.  当指定为 SimpleControllerHandlerAdapter 时，它就规定了要想成为处理器，就要实现 Controller 这个接口；
 		2.  HttpRequestHandlerAdapter 这个适配器要求所有的 Handler 都必须实现 HttpRequestAdapter 接口；
@@ -70,7 +70,7 @@ categories: programming
 			<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
   ```
 		1. 这个配置节点就决定了，有 `@Controller` 注解的类就是处理器
-2. **视图解析器** 用来解析处理器处理后的逻辑视图，比如：加上前缀后缀，指定到特定的视图。
+4. **视图解析器** 用来解析处理器处理后的逻辑视图，比如：加上前缀后缀，指定到特定的视图。
   ```
 		<!-- 配置视图解析器 -->
 		<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
