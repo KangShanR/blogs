@@ -36,6 +36,8 @@ categories: programming
 
 ## 核心对象：
 
+> 各个核心对象都有默认值，也就是说如果没有手动配置这些， springmvc 会按默认配置进行构建窗口。默认配置文件：spring-webmvc 包中 org.springframework.web.servlet 中的 DispatcherServlet.properties 。
+
 1. **中央分发控制器**（在springMVC框架中，它是核心的核心，所有的分发都由它处理，所以也叫 **中央处理器** ），处理请求并给出响应；
 2. **处理器映射器** HandlerMapping ：设置 handler 处理器与 url 资源的映射
 	1. 使用 BeanNameUrlHandlerMapping 这个类时，就会将 handler 的 name 属性值作为 url 映射，访问这个处理器就填写其 name 属性值:
@@ -56,19 +58,18 @@ categories: programming
 	<bean id="login2" name="loginController2.do" class="com.woniuxy.springdemo.controller.LoginController2"/>
   ```
 	3.  使用注解实现处理器与 url 的映射
-			<!-- 注解映射器 -->
 			<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
 		1.  这个配置节点就决定了处理器与其中的方法可以被注解@RequestMapping（"url_name"）映射并指定url
 2.  **处理器适配器** HandlerAdapter，用于规定处理器的编写规则
-	3.  使用接口来配置适配器：
+	1.  使用接口来配置适配器：
 		1.  当指定为 SimpleControllerHandlerAdapter 时，它就规定了要想成为处理器，就要实现 Controller 这个接口；
 		2.  HttpRequestHandlerAdapter 这个适配器要求所有的 Handler 都必须实现 HttpRequestAdapter 接口；
-	1. 使用注解实现配置适配器：
+	2. 使用注解实现配置适配器：
   ```
 			<!-- 注解适配器 -->
 			<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
   ```
-		1. 这个配置节点就决定了，有@controller注解的类就是处理器
+		1. 这个配置节点就决定了，有 `@Controller` 注解的类就是处理器
 2. **视图解析器** 用来解析处理器处理后的逻辑视图，比如：加上前缀后缀，指定到特定的视图。
   ```
 		<!-- 配置视图解析器 -->
@@ -81,9 +82,9 @@ categories: programming
   ```
   - 如果 springMVC 没有配置视图解析器，如果 接口返回的 字符串（如： "hello"）给的是相对路径（‘jsp’），那么 spring 会把当前路径给配上去（如果 当前的 controller 的 uri 是 “/v1/say” ，那么这时返回的视图 uri 就是 "/v1/say/hello"），这个时候返回的视图就会在 当前的 controller 中去找 hello 方法接口，产生问题。如果返回的字符串是绝对路径（如： "/WEB-INF/jsp/hello.jsp"），那么spring 就会在服务器的此绝对路径里去找这个 jsp 文件并返回给客户端。
 - **Small Notes:**
-	1. 在SpringMVC中这四个核心的对象就已经可以将整个架构支撑起来了，整个**SpringMVC架构流程**：
+	1. 在 SpringMVC 中这四个核心的对象就已经可以将整个架构支撑起来了，整个**SpringMVC架构流程**：
 		2. 中央分发器收到来自客户端的请求时，先将请求分发给处理器映射器，由控制器映射器决定了请求的**处理器**是谁（按面向对象编程思想，这儿一定是生成了映射的处理器对象，同时也**生成拦截器**之类的组件）；
-		3. 同时分发器分发请求给处理器适配器，**适配器对相关的处理器进行适配扩展，并调用处理器对请求进行处理，****处理结果就包括了逻辑视图与其他的响应结果（比如：存放在ModelAndView中），适配器再将这些处理结果返回给中央分发器；
+		3. 同时分发器分发请求给处理器适配器，**适配器对相关的处理器进行适配扩展，并调用处理器对请求进行处理，** 处理结果就包括了逻辑视图与其他的响应结果（比如：存放在ModelAndView中），适配器再将这些处理结果返回给中央分发器；
 		4. 中央分发器将结果分发给**视图解析器**，视图解析器对逻辑视图进行解析（比如：加上前缀后缀），视图解析器再解析之后的具体的view返回给中央分发器；
 		5. 中央分发器收到view后对其进行**渲染**（将数据结果填充至视图中），再把最终结果响应出去；
 
