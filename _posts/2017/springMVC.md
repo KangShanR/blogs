@@ -158,11 +158,48 @@ categories: programming
 
 ### json 数据交互
 
+> 在前后端分离的项目中，特别是存在为移动端提供的接口都应该使用 json 数据的格式对前端提供接口。
+
+渲染 view 是 mappingJakson2JsonView
+
+- 实际使用的是 `MappingJackson2HttpMessageConverter`
+- 添加在 DispatcherServlet 的适配器中的 messageConverters 中：
+  ```
+  <property name="messageConverters">
+    <list>
+      <bean class="org.springframework.http.converter.xml.MappingJackson2HttpMessageConverter" />
+    </list>
+  </property>
+  ```
+
+需要使用的依赖包：
+1. jackson-core
+2. jackson-annotations
+3. jackson-databind
+
 使用两个注解：
 - @RequestBody
   - 用于将请求的字符串使用 converter 转换成 json/xml 等格式并绑定到 controller 参数上去
 - @ResponseBody
   - 用于将 controller 返回的结果 使用 converter 转换成 json/xml 格式直接 response 给浏览器
+
+
+### xml 数据交互
+
+使用的渲染 view 是 mappingJackson2XmlView
+- 实际使用的是 `MappingJackson2XmlHttpMessageConverter`
+- 添加在 DispatcherServlet 的适配器中的 messageConverters 中：
+  ```
+  <property name="messageConverters">
+    <list>
+      <bean class="org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter" />
+    </list>
+  </property>
+  ```
+
+需要的依赖包：
+1. jackson-annotations
+2. jackson-dataformat-xml
 
 ### Restful架构
 
