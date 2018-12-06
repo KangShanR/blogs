@@ -201,6 +201,12 @@ categories: programming
 1. jackson-annotations
 2. jackson-dataformat-xml
 
+
+### 数据校验
+
+springmvc 中可以直接使用 Hibernate 的一个校验框架：hibernate-validator。基于注解实现数据的校验。
+
+
 ### Restful架构
 
 - 只是一种规范，终极的目标是资源 URI
