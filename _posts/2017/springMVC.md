@@ -83,16 +83,16 @@ categories: programming
   - 如果 springMVC 没有配置视图解析器，如果 接口返回的 字符串（如： "hello"）给的是相对路径（‘jsp’），那么 spring 会把当前路径给配上去（如果 当前的 controller 的 uri 是 “/v1/say” ，那么这时返回的视图 uri 就是 "/v1/say/hello"），这个时候返回的视图就会在 当前的 controller 中去找 hello 方法接口，产生问题。如果返回的字符串是绝对路径（如： "/WEB-INF/jsp/hello.jsp"），那么spring 就会在服务器的此绝对路径里去找这个 jsp 文件并返回给客户端。
 - **Small Notes:**
 	1. 在 SpringMVC 中这四个核心的对象就已经可以将整个架构支撑起来了，整个**SpringMVC架构流程**：
-		2. 中央分发器收到来自客户端的请求时，先将请求分发给处理器映射器，由控制器映射器决定了请求的**处理器**是谁（按面向对象编程思想，这儿一定是生成了映射的处理器对象，同时也**生成拦截器**之类的组件）；
-		3. 同时分发器分发请求给处理器适配器，**适配器对相关的处理器进行适配扩展，并调用处理器对请求进行处理，** 处理结果就包括了逻辑视图与其他的响应结果（比如：存放在ModelAndView中），适配器再将这些处理结果返回给中央分发器；
-		4. 中央分发器将结果分发给**视图解析器**，视图解析器对逻辑视图进行解析（比如：加上前缀后缀），视图解析器再解析之后的具体的view返回给中央分发器；
-		5. 中央分发器收到view后对其进行**渲染**（将数据结果填充至视图中），再把最终结果响应出去；
+		1. 中央分发器收到来自客户端的请求时，先将请求分发给处理器映射器，由控制器映射器决定了请求的**处理器**是谁（按面向对象编程思想，这儿一定是生成了映射的处理器对象，同时也**生成拦截器**之类的组件）；
+		2. 同时分发器分发请求给处理器适配器，**适配器对相关的处理器进行适配扩展，并调用处理器对请求进行处理，** 处理结果就包括了逻辑视图与其他的响应结果（比如：存放在ModelAndView中），适配器再将这些处理结果返回给中央分发器；
+		3. 中央分发器将结果分发给**视图解析器**，视图解析器对逻辑视图进行解析（比如：加上前缀后缀），视图解析器再解析之后的具体的view返回给中央分发器；
+		4. 中央分发器收到view后对其进行**渲染**（将数据结果填充至视图中），再把最终结果响应出去；
 
 - 整个SpringMVC流程如上，我们常常使用时并不会完全按照上面四个核心对象进行配置，相对来说有更便利的方法来配置这四个核心对象:
-	- **组件扫描器：**自动扫描`@Controller`标记的控制器，这样省去将各个配置器配置在bean中：
+	- **组件扫描器：**自动扫描 `@Controller` 标记的控制器，这样省去将各个配置器配置在bean中：
 		<!-- 扫描器组件，将指定包中的带有特定注解的类全都扫描进容器可用的controller中 -->
 		<context:component-scan base-package="com.woniuxy.springdemo.controller,
-		com.woniuxy.springdemo.service">
+		                                      com.woniuxy.springdemo.service">
 			<!-- 指定注解过滤器 -->
 			<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller"/>
@@ -134,6 +134,13 @@ categories: programming
 		3. 使用`response`指定响应结果：
 			1. 响应jason数据：`response.setCharacterEncoding("utf-8");`
 			2. `response.getWriter().write(String "jason格式的字符串");`
+
+
+#### @RequestMapping 注解的使用
+
+`@RequestMapping()` 注解指定访问信息。除了可以指定 method 提交方法， path/value 访问路径，还可以指定：
+  	1. consumes 指定提交媒体数据类型 `consumes="text/plain"` `consumes={"!text/plain","application/*"}` ，支持 `!` 排除选择
+  	2. produces 指定返回媒体类型 `produces="text/plain"` `consumes={"!text/plain","application/*"}` `consumes="application/json; charset=UTF-8"` 同样支持使用 `!` 排除选择
 
 ## springmvc 的高级应用
 
