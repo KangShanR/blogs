@@ -36,7 +36,9 @@ categories: programming
 
 ## 核心对象：
 
-1. **中央分发控制器**（在springMVC框架中，它是核心的核心，所有的分发都由它处理，所以也叫 **中央处理器** ），处理请求并给出响应；
+> 各个核心对象都有默认值，也就是说如果没有手动配置这些， springmvc 会按默认配置进行构建窗口。默认配置文件：spring-webmvc 包中 org.springframework.web.servlet 中的 DispatcherServlet.properties 。
+
+1. **中央分发控制器**（在springMVC框架中，它是核心的核心，所有的分发都由它处理，所以也叫 **中央处理器** ），处理请求并给出响应（下面的三个关键组件就是装配在 springmvc 中的，但中央处理器是装配在 web.xml 中作为一个 servlet 的）
 2. **处理器映射器** HandlerMapping ：设置 handler 处理器与 url 资源的映射
 	1. 使用 BeanNameUrlHandlerMapping 这个类时，就会将 handler 的 name 属性值作为 url 映射，访问这个处理器就填写其 name 属性值:
 			<bean id="login" name="loginController.do" class="com.woniuxy.springdemo.controller.LoginController"/>
@@ -56,20 +58,19 @@ categories: programming
 	<bean id="login2" name="loginController2.do" class="com.woniuxy.springdemo.controller.LoginController2"/>
   ```
 	3.  使用注解实现处理器与 url 的映射
-			<!-- 注解映射器 -->
 			<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
-		1.  这个配置节点就决定了处理器与其中的方法可以被注解@RequestMapping（"url_name"）映射并指定url
-2.  **处理器适配器** HandlerAdapter，用于规定处理器的编写规则
-	3.  使用接口来配置适配器：
+		1.  这个配置节点就决定了处理器与其中的方法可以被注解 @RequestMapping("url_name") 映射并指定url
+3.  **处理器适配器** HandlerAdapter，用于规定处理器的编写规则
+	1.  使用接口来配置适配器：
 		1.  当指定为 SimpleControllerHandlerAdapter 时，它就规定了要想成为处理器，就要实现 Controller 这个接口；
 		2.  HttpRequestHandlerAdapter 这个适配器要求所有的 Handler 都必须实现 HttpRequestAdapter 接口；
-	1. 使用注解实现配置适配器：
+	2. 使用注解实现配置适配器：
   ```
 			<!-- 注解适配器 -->
 			<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
   ```
-		1. 这个配置节点就决定了，有@controller注解的类就是处理器
-2. **视图解析器** 用来解析处理器处理后的逻辑视图，比如：加上前缀后缀，指定到特定的视图。
+		1. 这个配置节点就决定了，有 `@Controller` 注解的类就是处理器
+4. **视图解析器** 用来解析处理器处理后的逻辑视图，比如：加上前缀后缀，指定到特定的视图。
   ```
 		<!-- 配置视图解析器 -->
 		<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -81,17 +82,17 @@ categories: programming
   ```
   - 如果 springMVC 没有配置视图解析器，如果 接口返回的 字符串（如： "hello"）给的是相对路径（‘jsp’），那么 spring 会把当前路径给配上去（如果 当前的 controller 的 uri 是 “/v1/say” ，那么这时返回的视图 uri 就是 "/v1/say/hello"），这个时候返回的视图就会在 当前的 controller 中去找 hello 方法接口，产生问题。如果返回的字符串是绝对路径（如： "/WEB-INF/jsp/hello.jsp"），那么spring 就会在服务器的此绝对路径里去找这个 jsp 文件并返回给客户端。
 - **Small Notes:**
-	1. 在SpringMVC中这四个核心的对象就已经可以将整个架构支撑起来了，整个**SpringMVC架构流程**：
-		2. 中央分发器收到来自客户端的请求时，先将请求分发给处理器映射器，由控制器映射器决定了请求的**处理器**是谁（按面向对象编程思想，这儿一定是生成了映射的处理器对象，同时也**生成拦截器**之类的组件）；
-		3. 同时分发器分发请求给处理器适配器，**适配器对相关的处理器进行适配扩展，并调用处理器对请求进行处理，****处理结果就包括了逻辑视图与其他的响应结果（比如：存放在ModelAndView中），适配器再将这些处理结果返回给中央分发器；
-		4. 中央分发器将结果分发给**视图解析器**，视图解析器对逻辑视图进行解析（比如：加上前缀后缀），视图解析器再解析之后的具体的view返回给中央分发器；
-		5. 中央分发器收到view后对其进行**渲染**（将数据结果填充至视图中），再把最终结果响应出去；
+	1. 在 SpringMVC 中这四个核心的对象就已经可以将整个架构支撑起来了，整个**SpringMVC架构流程**：
+		1. 中央分发器收到来自客户端的请求时，先将请求分发给处理器映射器，由控制器映射器决定了请求的**处理器**是谁（按面向对象编程思想，这儿一定是生成了映射的处理器对象，同时也**生成拦截器**之类的组件）；
+		2. 同时分发器分发请求给处理器适配器，**适配器对相关的处理器进行适配扩展，并调用处理器对请求进行处理，** 处理结果就包括了逻辑视图与其他的响应结果（比如：存放在ModelAndView中），适配器再将这些处理结果返回给中央分发器；
+		3. 中央分发器将结果分发给**视图解析器**，视图解析器对逻辑视图进行解析（比如：加上前缀后缀），视图解析器再解析之后的具体的view返回给中央分发器；
+		4. 中央分发器收到view后对其进行**渲染**（将数据结果填充至视图中），再把最终结果响应出去；
 
 - 整个SpringMVC流程如上，我们常常使用时并不会完全按照上面四个核心对象进行配置，相对来说有更便利的方法来配置这四个核心对象:
-	- **组件扫描器：**自动扫描`@Controller`标记的控制器，这样省去将各个配置器配置在bean中：
+	- **组件扫描器：**自动扫描 `@Controller` 标记的控制器，这样省去将各个配置器配置在bean中：
 		<!-- 扫描器组件，将指定包中的带有特定注解的类全都扫描进容器可用的controller中 -->
 		<context:component-scan base-package="com.woniuxy.springdemo.controller,
-		com.woniuxy.springdemo.service">
+		                                      com.woniuxy.springdemo.service">
 			<!-- 指定注解过滤器 -->
 			<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller"/>
@@ -134,6 +135,13 @@ categories: programming
 			1. 响应jason数据：`response.setCharacterEncoding("utf-8");`
 			2. `response.getWriter().write(String "jason格式的字符串");`
 
+
+#### @RequestMapping 注解的使用
+
+`@RequestMapping()` 注解指定访问信息。除了可以指定 method 提交方法， path/value 访问路径，还可以指定：
+  	1. consumes 指定提交媒体数据类型 `consumes="text/plain"` `consumes={"!text/plain","application/*"}` ，支持 `!` 排除选择
+  	2. produces 指定返回媒体类型 `produces="text/plain"` `consumes={"!text/plain","application/*"}` `consumes="application/json; charset=UTF-8"` 同样支持使用 `!` 排除选择
+
 ## springmvc 的高级应用
 
 ### LocalResolver 区域解析器
@@ -150,11 +158,54 @@ categories: programming
 
 ### json 数据交互
 
+> 在前后端分离的项目中，特别是存在为移动端提供的接口都应该使用 json 数据的格式对前端提供接口。
+
+渲染 view 是 mappingJakson2JsonView
+
+- 实际使用的是 `MappingJackson2HttpMessageConverter`
+- 添加在 DispatcherServlet 的适配器中的 messageConverters 中：
+  ```
+  <property name="messageConverters">
+    <list>
+      <bean class="org.springframework.http.converter.xml.MappingJackson2HttpMessageConverter" />
+    </list>
+  </property>
+  ```
+
+需要使用的依赖包：
+1. jackson-core
+2. jackson-annotations
+3. jackson-databind
+
 使用两个注解：
 - @RequestBody
   - 用于将请求的字符串使用 converter 转换成 json/xml 等格式并绑定到 controller 参数上去
 - @ResponseBody
   - 用于将 controller 返回的结果 使用 converter 转换成 json/xml 格式直接 response 给浏览器
+
+
+### xml 数据交互
+
+使用的渲染 view 是 mappingJackson2XmlView
+- 实际使用的是 `MappingJackson2XmlHttpMessageConverter`
+- 添加在 DispatcherServlet 的适配器中的 messageConverters 中：
+  ```
+  <property name="messageConverters">
+    <list>
+      <bean class="org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter" />
+    </list>
+  </property>
+  ```
+
+需要的依赖包：
+1. jackson-annotations
+2. jackson-dataformat-xml
+
+
+### 数据校验
+
+springmvc 中可以直接使用 Hibernate 的一个校验框架：hibernate-validator。基于注解实现数据的校验。
+
 
 ### Restful架构
 
