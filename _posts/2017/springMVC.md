@@ -201,12 +201,15 @@ categories: programming
 1. jackson-annotations
 2. jackson-dataformat-xml
 
+使用：
+ 同样使用两个标签 `@RequestBody` `@ResponseBody` 并联合使用 `@RequestMapping(produces={}, consumes={})` 来确定请求与返回数据的格式。
+
 
 ### 数据校验
 
 springmvc 中可以直接使用 Hibernate 的一个校验框架：hibernate-validator。基于注解实现数据的校验。
 
 
-### Restful架构
+### Restful 架构
 
 - 只是一种规范，终极的目标是资源 URI
