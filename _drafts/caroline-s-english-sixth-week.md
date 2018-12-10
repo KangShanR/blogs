@@ -8,7 +8,7 @@ date: "2018-12-10 21:18"
 
 > Dec 10th, 2018
 
-### vocabulary
+### vocabularies
 
 - risk-averse
 - risk-tolerant
@@ -22,4 +22,4 @@ date: "2018-12-10 21:18"
 - hang out
 - dude
 - punish
--
+- proportion
