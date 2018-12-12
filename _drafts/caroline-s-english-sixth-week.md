@@ -55,4 +55,7 @@ date: "2018-12-10 21:18"
 - to address something = to confront it
 - penguin
 - empathy = understanding someone else's emotions
-- 
+- bystander
+- mean
+- punish
+- kind campaign
