@@ -25,7 +25,7 @@ date: "2018-12-10 21:18"
 - proportion
 
 
-##
+## updating phones
 
 > Dec 11th, 2018
 
@@ -40,3 +40,19 @@ date: "2018-12-10 21:18"
   - I have experience with teaching English for twelve years.
 - headphone adapter
 - Do you have hunting experience?
+
+## bullying
+
+> Dec 12th, 2018
+
+### vocabularies
+
+- crossing the line
+- pick on somebody
+- book a tickat & order a phisical object
+- buy out
+- superior
+- to address something = to confront it
+- penguin
+- empathy = understanding someone else's emotions
+- 
