@@ -17,7 +17,7 @@ date: "2018-10-25 12:23"
 
 > 针对 redis 的键的操作命令。_不管这个 key 是 string 类型的 key 还是 hash list 等的 key 都同样地使用这些命令进行执行。_
 -  当 redis 中的键不存在时，其值也不能通过 `get key` 来得到。
-- 执行 `FLUDHDB` 命令后，将会让 redis 中当前 db 的 **数据清空** 。
+- 执行 `FLUSHDB` 命令后，将会让 redis 中当前 db 的 **数据清空** 。
 - `nx`： 在命令后面加上 `nx` 表示 不存在 not exist，用于安全型保存（当 key 不存在时再进行保存或者重命名）
 
 命令：

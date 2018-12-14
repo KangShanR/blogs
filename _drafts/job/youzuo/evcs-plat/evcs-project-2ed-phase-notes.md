@@ -37,6 +37,9 @@ android 推送请求参数：
                     //   的alias_type必须和接口参数alias_type一致。
                     // 使用文件播需要先调用文件上传接口获取file_id，参照"文件上传"
     "filter":{},    // 当type=groupcast时，必填，用户筛选条件，如用户标签、渠道等，参考附录G。
+
+
+
     "payload": {    // 必填，JSON格式，具体消息内容(Android最大为1840B)
         "display_type":"xx",    // 必填，消息类型: notification(通知)、message(消息)
         "body": {    // 必填，消息体。
@@ -149,6 +152,9 @@ ios 推送请求参数：
                   //   的alias_type必须和接口参数alias_type一致。
                   // 使用文件播需要先调用文件上传接口获取file_id，参照"2.4文件上传接口"
   "filter":{}, // 当type=groupcast时，必填，用户筛选条件，如用户标签、渠道等，参考附录G。
+
+
+
   "payload":   // 必填，JSON格式，具体消息内容(iOS最大为2012B)
   {
     "aps":      // 必填，严格按照APNs定义来填写
