@@ -198,3 +198,9 @@ ios 推送请求参数：
 ```
 
 **两端请求参数有所不同**
+
+当前确定的：
+- Android 确定使用 display_type 为 message
+  - 内容使用 custom key 定制消息内容
+- IOS 使用 静默方式 推送消息
+  - 内容使用 custom 作为 key
