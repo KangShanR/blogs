@@ -142,7 +142,7 @@ PRO = 线上环境 product
 token:
 APP
 
-ASmdlx+8dOPr1ODlleTPpetyhp5J+at7pUcVXogN/fnoUFhRAIe2knnHUBU3FGhglZu5K3Pm92uwusmRZlYqKkE3DOx3Sw50b7sAe6TdK8QD
+ASmdlx+2QgS/0ly5jrMl15ZzgXlztH1xCJDLwKlUrIm2AkWVBbT0Uf1yB74siG2vCfPUhlMHpOClDcDKl3r6jjPxKPk7Ydu/Zk/0OzafOhzp
 
 web
 
