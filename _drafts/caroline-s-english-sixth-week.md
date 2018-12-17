@@ -33,7 +33,7 @@ date: "2018-12-10 21:18"
 
 - It's all in my drawer
 - dissuade from something  : someone or something convince you not to do something
-- persuade  ： do something
+- persuade  : do something
 - spend money on something not spend money for something
 - have experience with something or in, but not about something
   - better: I have 12 years of experience in  teaching english.
