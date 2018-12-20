@@ -210,3 +210,19 @@ ios 推送请求参数：
 - 充满预提醒消息
   - 充满前 10% 时提醒
   - 如果使用心跳包提醒则需要作好标记，是否已经提醒过如果 没有提醒过则发出消息，有过则不再 提醒，必须要给 一个检查。
+
+
+Umeng token:
+- ios 1f39e88eca11d92cdeb62f1b8a615fb274befe61b585e2454d208bc22bfc24ca
+- android ApHwpA4XJtVQoctYV8fS5C9LvhTeiL_SyXeKMMovEC7y
+
+
+友盟消息推送 key：
+  - title             string   标题
+  - content           string   消息内容
+  - time              long     消息发送时间
+  - receiveUid        long     接收用户ID
+  - event             string   事件类型（比如 充电完成"CHARGE_COMPLETE"）
+  - type              string   消息类型（原生"NATIVE"、网页"H5"、无操作"NOTHING"）
+  - resId             long     对应事件类型，只有 NATIVE 类型才需要使用到（比如充电订单ID "123"）
+  - url               string   网页跳转的 url（type=H5时需要）
