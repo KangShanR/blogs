@@ -172,6 +172,7 @@ ios 推送请求参数：
     },
     "key1":"value1",       // 可选，用户自定义内容, "d","p"为友盟保留字段，
                            // key不可以是"d","p"
+                           // value 不能用 json
     "key2":"value2",
     ...
   },
@@ -217,9 +218,23 @@ Umeng token:
 - android ApHwpA4XJtVQoctYV8fS5C9LvhTeiL_SyXeKMMovEC7y
 
 
+token:
+APP
+
+ASmdlx+2QgS/0ly5jrMl15ZzgXlztH1xCJDLwKlUrIm2AkWVBbT0Uf1yB74siG2vCfPUhlMHpOClDcDKl3r6jjPxKPk7Ydu/Zk/0OzafOhzp
+
+web
+
+ASmdlx9KAKAHXDp29R5t+ZHZtwJ7eb2svg7VttWNPkHDT6UFyblvGwaCi3Ty3VmetAkC/lis8iVsOptl6OJOGU0=
+
+
+[Umeng](https://www.umeng.com)
+- account：uz@uzbus.com
+- password：@n9lsX5K^Jge!O92
+
 友盟消息推送 key：
   - title             string   标题
-  - content           string   消息内容
+  - body              string   消息内容
   - time              long     消息发送时间
   - receiveUid        long     接收用户ID
   - event             string   事件类型（比如 充电完成"CHARGE_COMPLETE"）

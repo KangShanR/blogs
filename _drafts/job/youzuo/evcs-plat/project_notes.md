@@ -139,14 +139,7 @@ UAT = 预发环境 user acceptance testing
 PRO = 线上环境 product
 
 
-token:
-APP
 
-ASmdlx+2QgS/0ly5jrMl15ZzgXlztH1xCJDLwKlUrIm2AkWVBbT0Uf1yB74siG2vCfPUhlMHpOClDcDKl3r6jjPxKPk7Ydu/Zk/0OzafOhzp
-
-web
-
-ASmdlx9KAKAHXDp29R5t+ZHZtwJ7eb2svg7VttWNPkHDT6UFyblvGwaCi3Ty3VmetAkC/lis8iVsOptl6OJOGU0=
 
 模拟器启动命令：
 java -Devcs.sim.rpc.server.host=10.28.6.14 -Devcs.sim.client.mac=D89C672E5CB6 -jar evcs-sim-jiedian-gui-1.3-SNAPSHOT.jar
