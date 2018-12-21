@@ -74,3 +74,32 @@ date: "2018-12-17 20:50"
 - all of a sudden
 - feces
   - leftover
+
+## review of this week
+
+### vocabularies
+
+- dispense
+  - water dispenser
+- clarifier
+- fountain
+  - drinking fountain
+- laundry
+- underwear
+- sock
+  - sock in
+- transport
+- wellness retreat
+- roadtrip
+- cruise
+- accommodation
+- backpacking
+- you definitely need to be careful.
+- Portable
+  - portable phone charger
+- attraction
+- steak
+- gracias[西班牙语：谢谢！]
+- de nada[西班牙: 没什么，不客气]
+- roger
+  - roger that.
