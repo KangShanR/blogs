@@ -214,14 +214,14 @@ ios 推送请求参数：
 
 
 Umeng token:
-- ios 1f39e88eca11d92cdeb62f1b8a615fb274befe61b585e2454d208bc22bfc24ca
+- ios 0e51e7da7ee83d1f0a7d5e234af7431c714d8d6aa57eea19239db600e78585ff
 - android ApHwpA4XJtVQoctYV8fS5C9LvhTeiL_SyXeKMMovEC7y
 
 
 token:
 APP
 
-ASmdlx+2QgS/0ly5jrMl15ZzgXlztH1xCJDLwKlUrIm2AkWVBbT0Uf1yB74siG2vCfPUhlMHpOClDcDKl3r6jjPxKPk7Ydu/Zk/0OzafOhzp
+ASmdlx/EhWqwDmvdP4SGWRW3Y/Ql35usyUpnlxUZjQcJ7UemjrUl2MG2ofuUDMKaHus+KwIQDxHGTLZyZxq3vTsjnKvygxxgIW7Z+Z1jARAK
 
 web
 
