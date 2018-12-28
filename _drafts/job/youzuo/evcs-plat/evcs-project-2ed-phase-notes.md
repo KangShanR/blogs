@@ -214,8 +214,11 @@ ios 推送请求参数：
 
 
 Umeng token:
-- ios 0e51e7da7ee83d1f0a7d5e234af7431c714d8d6aa57eea19239db600e78585ff
-- android ApHwpA4XJtVQoctYV8fS5C9LvhTeiL_SyXeKMMovEC7y
+- mine 0e51e7da7ee83d1f0a7d5e234af7431c714d8d6aa57eea19239db600e78585ff
+- mine_production 1c1092eda73ffbba46ae4d74bd4f8dd1ee64bf5460215e401864e0db2cae5772
+- zw 1f39e88eca11d92cdeb62f1b8a615fb274befe61b585e2454d208bc22bfc24ca
+- zw_production bdfe8bc00266949aac6b1c3f2188c02ce30a37771b4a185618e4c0f489684e2f
+- wg ApHwpA4XJtVQoctYV8fS5C9LvhTeiL_SyXeKMMovEC7y
 
 
 token:
@@ -241,3 +244,16 @@ ASmdlx9KAKAHXDp29R5t+ZHZtwJ7eb2svg7VttWNPkHDT6UFyblvGwaCi3Ty3VmetAkC/lis8iVsOptl
   - type              string   消息类型（原生"NATIVE"、网页"H5"、无操作"NOTHING"）
   - resId             long     对应事件类型，只有 NATIVE 类型才需要使用到（比如充电订单ID "123"）
   - url               string   网页跳转的 url（type=H5时需要）
+
+TODO List：
+- [x] ios 正式模式下推送消息（重新获取 token 需要重新上传证书）
+  - [x] 正式模式下使用正式环境证书的 token .测试通过
+
+
+## 二期 移动端 功能更新
+
+TODO list:
+- [ ] 最低价显示当前时段
+  - [ ] 我直接给还是给所有时段让你们判断。如果我给：只给一个 String
+- [ ] 所有开始充电的接口，都判定此用户是否被企业端管理员停用企业账户
+- [ ] 
