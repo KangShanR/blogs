@@ -224,7 +224,7 @@ Umeng token:
 token:
 APP
 
-ASmdlx/EhWqwDmvdP4SGWRW3Y/Ql35usyUpnlxUZjQcJ7UemjrUl2MG2ofuUDMKaHus+KwIQDxHGTLZyZxq3vTsjnKvygxxgIW7Z+Z1jARAK
+ASmdlx+vpuvgo8gVqtCfStpSTknjuV9jlv5JF1rwpfb6N9RMGDq2aHL7yVhX2hH9xk9N2nfcJ00SsPAzRvbF7+A3bOT95x6spplmU7Mit1WS
 
 web
 
@@ -257,7 +257,7 @@ TODO list:
 - [ ] 所有开始充电的接口，都判定此用户是否被企业端管理员停用企业账户
 
 
-## Jan 2ed, 2018 会议
+## Jan 2ed, 2018 移动端评审会议
 
 - [ ] 最低价 改为 当前时间段 的价格
 - [ ] 排序也变为 按当前时间段的价格排序
@@ -268,7 +268,12 @@ TODO list:
   - [ ] 不同项取最小值（电量/soc/电费/时长）
   - [ ] 用户解除与企业关系
     - [ ] 加验证码
+    - [ ] 查看用户充电权限
 - [ ] 企业平台添加用户
   - [ ] 如果 用户存在加入到企业关联中来
   - [ ] 用户不在企业中时，不使用企业钱包时，充电提示
 - [ ] 解除关系：有未完成订单（正在充电订单）不让解除
+  - [ ] 发送短信 确认解除
+  - [ ] 查看充电权限
+- [ ] 充电订单
+  - [ ] 已完成订单接口
