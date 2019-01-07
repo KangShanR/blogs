@@ -80,3 +80,8 @@ IN ("MAINTAINING")          ORDER BY str.id DESC
 
 - IFNULL(filed, default_value) 的使用：使用此函数就用来判定当字段值为空时，给一个 默认值 返回
 	- ```SELECT IFNULL(SUM(use_kwh),0) from ev_billing_record```
+
+
+## mysql 中的日期时间相关
+
+[参考博客](https://www.cnblogs.com/yhtboke/p/5629152.html)

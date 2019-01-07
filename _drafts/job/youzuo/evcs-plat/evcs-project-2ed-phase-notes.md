@@ -224,7 +224,7 @@ Umeng token:
 token:
 APP
 
-ASmdlx/EhWqwDmvdP4SGWRW3Y/Ql35usyUpnlxUZjQcJ7UemjrUl2MG2ofuUDMKaHus+KwIQDxHGTLZyZxq3vTsjnKvygxxgIW7Z+Z1jARAK
+ASmdlx+vpuvgo8gVqtCfStpSTknjuV9jlv5JF1rwpfb6N9RMGDq2aHL7yVhX2hH9xk9N2nfcJ00SsPAzRvbF7+A3bOT95x6spplmU7Mit1WS
 
 web
 
@@ -247,13 +247,33 @@ ASmdlx9KAKAHXDp29R5t+ZHZtwJ7eb2svg7VttWNPkHDT6UFyblvGwaCi3Ty3VmetAkC/lis8iVsOptl
 
 TODO List：
 - [x] ios 正式模式下推送消息（重新获取 token 需要重新上传证书）
-  - [x] 正式模式下使用正式环境证书的 token .测试通过
+  - [x] 正式模式下使用正式环境证书的 token 测试通过
 
 
 ## 二期 移动端 功能更新
 
-TODO list:
-- [ ] 最低价显示当前时段
-  - [ ] 我直接给还是给所有时段让你们判断。如果我给：只给一个 String
-- [ ] 所有开始充电的接口，都判定此用户是否被企业端管理员停用企业账户
-- [ ] 
+
+## Jan 2ed, 2018 移动端评审会议
+
+- [ ] 最低价 改为 当前时间段 的价格
+  - [x] 场站列表
+    - [x] 当前时段的字段的获取
+  - [ ] 场站详情：暂缓，等待确定是否让移动端来显示
+  - [x] 排序也变为 按当前时间段的价格排序
+- [ ] 检查当前用户是否被 企业禁用
+- [ ] 使用企业钱包扣除金额
+- [ ] 企业权限 给用户的权限
+  - [ ] 单项取最大值
+  - [ ] 不同项取最小值（电量/soc/电费/时长）
+  - [ ] 用户解除与企业关系
+    - [ ] 加验证码
+    - [ ] 查看用户充电权限
+- [ ] 企业平台添加用户
+  - [ ] 如果 用户存在加入到企业关联中来
+  - [ ] 用户不在企业中时，不使用企业钱包时，充电提示
+  - [ ] 是否有充电权限的接口
+- [ ] 解除关系：有未完成订单（正在充电订单）不让解除
+  - [ ] 发送短信 确认解除
+  - [ ] 查看充电权限
+- [ ] 充电订单
+  - [ ] 已完成订单接口
