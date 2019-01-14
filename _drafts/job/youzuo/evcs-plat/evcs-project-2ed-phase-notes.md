@@ -224,7 +224,7 @@ Umeng token:
 token:
 APP
 
-ASmdlx+vpuvgo8gVqtCfStpSTknjuV9jlv5JF1rwpfb6N9RMGDq2aHL7yVhX2hH9xk9N2nfcJ00SsPAzRvbF7+A3bOT95x6spplmU7Mit1WS
+ASmdlx+bpy9fuAWSPVIIwg6+jueXJT/twMFAIJN2kOEmVcJ1B1tSJOrrlFgw3WDAalJUo86lfGOIH7BJjqUdbZMKsCqmlx6nEOtH4kdPqm6h
 
 web
 
@@ -283,12 +283,19 @@ TODO List：
   - [x] 已完成订单接口
   - [x] 充电详情 增加字段 ： 功率 outputPower
   - [x] 增加订单状态 预充 PREHEATING
-  - [ ] 充电中查看费率 - 查看该订单的使用的费率
-  - [ ] 各个地方：金额单位保留两位小数，电量保留整数
+  - [ ] 充电中查看费率 - 查看该订单的使用的费率（没找到充电中的费率入口）
+  - [ ] 各个地方：**金额单位保留两位小数，电量保留整数**
 - [x] 充电完成订单列表
   - [x] 开发环境分页的 bug
     - [x] total bug
-
+- [ ] 接口修改
+  - [ ] 带单位的数据 全取消
+    - [ ] 计费规则弹窗
+    - [x] 正在充电订单列表
+    - [ ] 正在充电订单
+      - [ ] service 方法可以重写（更少的数据获取）
+    - [x] 场站列表
+  - [ ] 计费规则增加接口 - 当前订单的计费规则，传订单号（当前没看到此接口的需要）
 
 
 ## new idea
