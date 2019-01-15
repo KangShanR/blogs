@@ -224,7 +224,7 @@ Umeng token:
 token:
 APP
 
-ASmdlx+bpy9fuAWSPVIIwg6+jueXJT/twMFAIJN2kOEmVcJ1B1tSJOrrlFgw3WDAalJUo86lfGOIH7BJjqUdbZMKsCqmlx6nEOtH4kdPqm6h
+ASmdlx+zKtpyOL3BDd8inlvRYT+LXvXSv0dXFqV7Yfh/hGFVJEgknEMT+xJoMKcKXMMwNN7+5zGZEvcMSva/+pqW9i2S/0FT8ksLMQY3lj3K
 
 web
 
@@ -290,12 +290,11 @@ TODO List：
     - [x] total bug
 - [ ] 接口修改
   - [ ] 带单位的数据 全取消
-    - [ ] 计费规则弹窗
+    - [x] 计费规则弹窗
     - [x] 正在充电订单列表
-    - [ ] 正在充电订单
+    - [x] 正在充电订单
       - [ ] service 方法可以重写（更少的数据获取）
     - [x] 场站列表
-  - [ ] 计费规则增加接口 - 当前订单的计费规则，传订单号（当前没看到此接口的需要）
 
 
 ## new idea

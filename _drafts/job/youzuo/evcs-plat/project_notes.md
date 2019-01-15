@@ -141,10 +141,17 @@ PRO = 线上环境 product
 
 
 
-模拟器启动命令：
-java -Devcs.sim.rpc.server.host=10.28.6.14 -Devcs.sim.client.mac=D89C672E5CB6 -jar evcs-sim-jiedian-gui-1.3-SNAPSHOT.jar
+模拟器启动命令：siteId: 1 siteName:蚂蚁园区充电站 309
+java -Devcs.sim.rpc.server.host=10.28.6.14 -Devcs.sim.client.mac=075BCD15FFFF -jar evcs-sim-jiedian-gui-1.7.2-SNAPSHOT.jar
 
-redis 查询命令：
+## redis 查询命令：
 
-HEXISTS EVCS:EP:HEAD_STATIONS 201
+-  查询电枪
+HEXISTS EVCS:EP:HEAD_STATIONS headHardwareCode
 HGET EVCS:EP:HEAD_STATIONS 201
+- 查询电桩登录信息
+hget EVCS:EP:AUTH stationId
+- 查询正在充电实时账单信息
+hget EVCS:EP:ACCOUNTING id
+- 查询 BMS 数据
+hget EVCS:EP:BMS billingId
