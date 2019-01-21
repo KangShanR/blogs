@@ -224,7 +224,7 @@ Umeng token:
 token:
 APP
 
-ASmdlx+zKtpyOL3BDd8inlvRYT+LXvXSv0dXFqV7Yfh/hGFVJEgknEMT+xJoMKcKXMMwNN7+5zGZEvcMSva/+pqW9i2S/0FT8ksLMQY3lj3K
+ASmdlx8rmr5kBx2uks5bUNqxz9ybs+ejR7cHnuHfp2BwWhzJmwMri2PE1Fj2f0zs8D4Tw/iFneyR8k7h2890sGEqrP1HF5gHMKUIG7Ww3ay3
 
 web
 
@@ -285,7 +285,7 @@ TODO List：
   - [x] 增加订单状态 预充 PREHEATING
   - [ ] 充电中查看费率 - 查看该订单的使用的费率（没找到充电中的费率入口）
   - [ ] 各个地方：**金额单位保留两位小数，电量保留整数**
-- [ ] 充电完成接口
+- [x] 充电完成接口
 - [x] 充电完成订单列表
   - [x] 开发环境分页的 bug
     - [x] total bug
@@ -303,3 +303,19 @@ TODO List：
 
 - 项目模块设计为：单个模块为一整个模块，而不是整个 dao service 层成为一个模块
 - 最好不要多表查询，使用 JOIN ，就算有分页查询也先查出所有的数据再在内存来 lambda 来实现分页
+
+
+## 企业端/平台端 测试用例评审
+
+> Jan 17th, 2019
+
+初始化企业管理账号，超管与二级角色同时给。
+- 开始充电：枪 -> 用户权限状态 -> 钱包状态
+
+
+## 企业端相关 数据库设计
+
+待处理：
+- [ ] 生成 model 需要加 en 在前吗？
+- [ ] en_customer_permission 新加 enable 字段来确认些司机是否开启权限 是否不妥？
+- [ ] 是否需要 将 enable 换成 enabled?
