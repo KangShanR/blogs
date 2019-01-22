@@ -318,4 +318,5 @@ TODO List：
 待处理：
 - [ ] 生成 model 需要加 en 在前吗？
 - [ ] en_customer_permission 新加 enable 字段来确认些司机是否开启权限 是否不妥？
-- [ ] 是否需要 将 enable 换成 enabled?
+- [x] 是否需要 将 enable 换成 enabled?
+  - 不需要，此字段不是关键字，delete 是
