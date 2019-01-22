@@ -224,7 +224,7 @@ Umeng token:
 token:
 APP
 
-ASmdlx8rmr5kBx2uks5bUNqxz9ybs+ejR7cHnuHfp2BwWhzJmwMri2PE1Fj2f0zs8D4Tw/iFneyR8k7h2890sGEqrP1HF5gHMKUIG7Ww3ay3
+ASmdlx8n7R0my+x18goVdawP1YskNQjjyP90owAkSgVCynhQJDIvzmdIHQHpqBqCQRFrliJDahW+UFRtdYMytGCoo7amXoTcJXBI1NBNpb1/
 
 web
 
