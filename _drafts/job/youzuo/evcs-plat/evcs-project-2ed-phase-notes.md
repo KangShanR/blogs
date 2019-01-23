@@ -230,6 +230,8 @@ web
 
 ASmdlx9KAKAHXDp29R5t+ZHZtwJ7eb2svg7VttWNPkHDT6UFyblvGwaCi3Ty3VmetAkC/lis8iVsOptl6OJOGU0=
 
+ASmdlx9Lhj5Ow0CFbCTdW1TR0QbwaSH9Q1VxhZhRM2Adu5bS2R1HbDHb7+pG4R7Ce/6Gf4YEkEPM73DUYgyS86A=
+
 
 [Umeng](https://www.umeng.com)
 - account：uz@uzbus.com
@@ -319,4 +321,10 @@ TODO List：
 - [ ] 生成 model 需要加 en 在前吗？
 - [ ] en_customer_permission 新加 enable 字段来确认些司机是否开启权限 是否不妥？
 - [x] 是否需要 将 enable 换成 enabled?
-  - 不需要，此字段不是关键字，delete 是
+  - 不需要，此字段不是关键字，而 delete 改成 deleted
+
+
+@hy
+- [ ] 之前充电管理员的角色还要？保留无限充电枪
+  - [x] （不保留，统一到充电权限里去）
+- [ ] soc 停止 ，发消息？文本要区别于其他停止消息推送
