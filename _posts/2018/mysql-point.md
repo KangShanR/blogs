@@ -81,6 +81,13 @@ IN ("MAINTAINING")          ORDER BY str.id DESC
 - IFNULL(filed, default_value) 的使用：使用此函数就用来判定当字段值为空时，给一个 默认值 返回
 	- ```SELECT IFNULL(SUM(use_kwh),0) from ev_billing_record```
 
+### mysql 字段类型长度
+
+- varchar
+	- 长度限制：不管中文还是英文，长度是多少就是多少字数，不能超过这个数
+- bit 就是二进制的位
+	- 长度 ： 长度多少就是多少个 0|1 ，不能超过
+- 当这个字段是 number 类型的时候，长度这个属性不再像 文本类型（varchar) ，需要配合 autofill zero 这个来使用，当指定了长度为 4 ，但这个 number 是 22 ，这时如果同时指定了 autofill zero ，就会填入数字 `0022`
 
 ## mysql 中的日期时间相关
 
