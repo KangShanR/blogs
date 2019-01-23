@@ -285,8 +285,8 @@ TODO List：
   - [x] 已完成订单接口
   - [x] 充电详情 增加字段 ： 功率 outputPower
   - [x] 增加订单状态 预充 PREHEATING
-  - [ ] 充电中查看费率 - 查看该订单的使用的费率（没找到充电中的费率入口）
-  - [ ] 各个地方：**金额单位保留两位小数，电量保留整数**
+  - [x] 充电中查看费率 - 查看该订单的使用的费率（没找到充电中的费率入口）
+  - [x] 各个地方：**金额单位保留两位小数，电量保留整数**
 - [x] 充电完成接口
 - [x] 充电完成订单列表
   - [x] 开发环境分页的 bug
@@ -299,6 +299,8 @@ TODO List：
     - [x] 正在充电订单
       - [ ] service 方法可以重写（更少的数据获取）
     - [x] 场站列表
+- [ ] 消息推送
+  - [ ] soc max 从 redis 是取 实际 soc
 
 
 ## new idea
@@ -328,3 +330,71 @@ TODO List：
 - [ ] 之前充电管理员的角色还要？保留无限充电枪
   - [x] （不保留，统一到充电权限里去）
 - [ ] soc 停止 ，发消息？文本要区别于其他停止消息推送
+
+
+
+
+
+errorCodeMap.putIfAbsent(0x00, "IC 卡内余额不足");
+errorCodeMap.putIfAbsent(0x01, "账户余额不足");
+errorCodeMap.putIfAbsent(0x02, "用户拔抢操作");
+errorCodeMap.putIfAbsent(0x03, "电池充满电");
+errorCodeMap.putIfAbsent(0x04, "用户第二次刷卡");
+errorCodeMap.putIfAbsent(0x05, "停止按钮按下");
+errorCodeMap.putIfAbsent(0x06, "桩端急停按钮按下");
+errorCodeMap.putIfAbsent(0x07, "时钟故障停止");
+errorCodeMap.putIfAbsent(0x08, "充电机柜门打开停止");
+errorCodeMap.putIfAbsent(0x09, "BRM 报文超时停止");
+errorCodeMap.putIfAbsent(0x0a, "BCP 报文超时停止");
+errorCodeMap.putIfAbsent(0x0b, "BR0 报文超时停止");
+errorCodeMap.putIfAbsent(0x0c, "BCL 报文超时停止");
+errorCodeMap.putIfAbsent(0x0d, "BST 报文超时停止");
+errorCodeMap.putIfAbsent(0x0e, "BSD 报文超时停止");
+errorCodeMap.putIfAbsent(0x0f, "停电");
+errorCodeMap.putIfAbsent(0x10, "绝缘未通过,请检修");
+errorCodeMap.putIfAbsent(0x11, "电池电压过高");
+errorCodeMap.putIfAbsent(0x12, "输入过压停止");
+errorCodeMap.putIfAbsent(0x13, "输入欠压停止");
+errorCodeMap.putIfAbsent(0x14, "电池反接");
+errorCodeMap.putIfAbsent(0x15, "电池电压过低");
+errorCodeMap.putIfAbsent(0x16, "输出电压过高");
+errorCodeMap.putIfAbsent(0x17, "BCS 报文超时停止");
+errorCodeMap.putIfAbsent(0x18, "电子锁未就绪");
+errorCodeMap.putIfAbsent(0x19, "BHM 报文超时停止");
+errorCodeMap.putIfAbsent(0x1a, "绝缘检测前外部电压异常");
+errorCodeMap.putIfAbsent(0x1b, "输出短路保护");
+errorCodeMap.putIfAbsent(0x1c, "反接保护");
+errorCodeMap.putIfAbsent(0x1d, "充电机未就绪");
+errorCodeMap.putIfAbsent(0x1e, "继电器粘连");
+
+appErrorCodeMap.putIfAbsent(0x00, "");
+appErrorCodeMap.putIfAbsent(0x04, "");
+appErrorCodeMap.putIfAbsent(0x01, "余额不足,自动结束");
+appErrorCodeMap.putIfAbsent(0x02, "主动拔枪异常结束");
+appErrorCodeMap.putIfAbsent(0x03, "电池充满,自动结束");
+appErrorCodeMap.putIfAbsent(0x05, "APP端主动结束");
+appErrorCodeMap.putIfAbsent(0x06, "电桩急停按钮按下结束");
+appErrorCodeMap.putIfAbsent(0x07, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x08, "电桩操作异常，自动结束");
+appErrorCodeMap.putIfAbsent(0x09, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x0a, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x0b, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x0c, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x0d, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x0e, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x0f, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x10, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x11, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x12, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x13, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x14, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x15, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x16, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x17, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x18, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x19, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x1a, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x1b, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x1c, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x1d, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x1e, "电桩故障，自动结束");
