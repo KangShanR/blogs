@@ -330,10 +330,22 @@ TODO List：
 - [ ] 之前充电管理员的角色还要？保留无限充电枪
   - [x] （不保留，统一到充电权限里去）
 - [ ] soc 停止 ，发消息？文本要区别于其他停止消息推送
+- [ ] 模拟器能不能按照已经规定的 stopCode 发送，能不能模拟电桩故障
+
+
+## Jan 24th, 2019 产品定档会议
+
+- [ ] 充电列表 预充的状态加上
+- [x] 停止充电，预充状态可以停止
+- [ ] 正在充电 添加 endReason
+  - [ ] 确定 soc 被停止 时可以从 billingRecord 拿到，拿到后去 redis 拿 soc 数据
+- [ ] 开始充电 权限 判定，获取权限充电 BillingRecordServiceImpl    line 400
 
 
 
 
+
+## 远程 stopCode 及对应的描述与归纳
 
 errorCodeMap.putIfAbsent(0x00, "IC 卡内余额不足");
 errorCodeMap.putIfAbsent(0x01, "账户余额不足");
@@ -369,13 +381,13 @@ errorCodeMap.putIfAbsent(0x1e, "继电器粘连");
 
 appErrorCodeMap.putIfAbsent(0x00, "");
 appErrorCodeMap.putIfAbsent(0x04, "");
-appErrorCodeMap.putIfAbsent(0x01, "余额不足,自动结束");
-appErrorCodeMap.putIfAbsent(0x02, "主动拔枪异常结束");
-appErrorCodeMap.putIfAbsent(0x03, "电池充满,自动结束");
 appErrorCodeMap.putIfAbsent(0x05, "APP端主动结束");
+appErrorCodeMap.putIfAbsent(0x01, "余额不足,自动结束");
+appErrorCodeMap.putIfAbsent(0x03, "电池充满,自动结束");
+appErrorCodeMap.putIfAbsent(0x02, "主动拔枪异常结束");
 appErrorCodeMap.putIfAbsent(0x06, "电桩急停按钮按下结束");
-appErrorCodeMap.putIfAbsent(0x07, "电桩故障，自动结束");
 appErrorCodeMap.putIfAbsent(0x08, "电桩操作异常，自动结束");
+appErrorCodeMap.putIfAbsent(0x07, "电桩故障，自动结束");
 appErrorCodeMap.putIfAbsent(0x09, "电桩故障，自动结束");
 appErrorCodeMap.putIfAbsent(0x0a, "电桩故障，自动结束");
 appErrorCodeMap.putIfAbsent(0x0b, "电桩故障，自动结束");
@@ -398,3 +410,12 @@ appErrorCodeMap.putIfAbsent(0x1b, "电桩故障，自动结束");
 appErrorCodeMap.putIfAbsent(0x1c, "电桩故障，自动结束");
 appErrorCodeMap.putIfAbsent(0x1d, "电桩故障，自动结束");
 appErrorCodeMap.putIfAbsent(0x1e, "电桩故障，自动结束");
+
+
+  RemoteChargeEndType:{
+    "insufficientFunds":["1"],
+    "fullChargeAutoStop":["3"],
+    "icCardReason":["0","4"],
+    "terminatedOnApp":["5"],
+    "stationException":["2", "6", "7", "8", "9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"]
+  }
