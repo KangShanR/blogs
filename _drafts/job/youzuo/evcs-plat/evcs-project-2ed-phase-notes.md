@@ -280,8 +280,11 @@ TODO List：
 - [ ] 解除关系：有未完成订单（正在充电订单）不让解除
   - [ ] 发送短信 确认解除 - 使用基础接口 RPC 发送短信 @陈佳 http://misc-uz.uzbus.local/swagger-ui.html#/
     - [ ] 项目 redis 中存放短信信息进行验证
-  - [ ] 查看充电权限
-- [ ] 充电订单
+  - [x] 查看充电权限
+- [ ] 消息推送
+  - [ ] 短信推送
+  - [x] soc max 从 redis 是取 实际 soc
+- [x] 充电订单
   - [x] 已完成订单接口
   - [x] 充电详情 增加字段 ： 功率 outputPower
   - [x] 增加订单状态 预充 PREHEATING
@@ -299,9 +302,6 @@ TODO List：
     - [x] 正在充电订单
       - [ ] service 方法可以重写（更少的数据获取）
     - [x] 场站列表
-- [ ] 消息推送
-  - [ ] 短信推送
-  - [x] soc max 从 redis 是取 实际 soc
 - [ ] evcsApollo 配置未能正常获取并启动 项目
 
 
