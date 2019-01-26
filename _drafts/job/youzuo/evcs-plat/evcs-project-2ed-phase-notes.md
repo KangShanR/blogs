@@ -300,7 +300,9 @@ TODO List：
       - [ ] service 方法可以重写（更少的数据获取）
     - [x] 场站列表
 - [ ] 消息推送
-  - [ ] soc max 从 redis 是取 实际 soc
+  - [ ] 短信推送
+  - [x] soc max 从 redis 是取 实际 soc
+- [ ] evcsApollo 配置未能正常获取并启动 项目
 
 
 ## new idea
@@ -335,11 +337,11 @@ TODO List：
 
 ## Jan 24th, 2019 产品定档会议
 
-- [ ] 充电列表 预充的状态加上
+- [x] 充电列表 预充的状态加上
 - [x] 停止充电，预充状态可以停止
 - [ ] 正在充电 添加 endReason
   - [ ] 确定 soc 被停止 时可以从 billingRecord 拿到，拿到后去 redis 拿 soc 数据
-- [ ] 开始充电 权限 判定，获取权限充电 BillingRecordServiceImpl    line 400
+- [x] 开始充电 权限 判定，获取权限充电 BillingRecordServiceImpl    line 400
 
 
 
