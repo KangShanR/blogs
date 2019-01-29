@@ -155,3 +155,6 @@ hget EVCS:EP:AUTH stationId
 hget EVCS:EP:ACCOUNTING id
 - 查询 BMS 数据
 hget EVCS:EP:BMS billingId
+
+
+开发环境数据库 10.28.6.14 3307 root 123456
