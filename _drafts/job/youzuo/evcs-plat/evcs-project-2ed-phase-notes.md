@@ -224,7 +224,7 @@ Umeng token:
 token:
 APP
 
-ASmdlx8n7R0my+x18goVdawP1YskNQjjyP90owAkSgVCynhQJDIvzmdIHQHpqBqCQRFrliJDahW+UFRtdYMytGCoo7amXoTcJXBI1NBNpb1/
+ASmdlx/7aMHZ3LXmhViQKIc2KsBpaQX9EWR+oJDeYWZ0Kbdw8j7OilUk8OE0q1zSPROh1H5RbwzKyIGZIKRmQkQnexKi9X0JLf7JJI7fE8pE
 
 web
 
@@ -271,7 +271,7 @@ TODO List：
       - [x] 单项取最大值 - shutdown
       - [x] 不同项取最小值（电量/**soc**/电费/时长）- shutdown
   - [ ] 用户解除与企业关系
-    - [ ] 确定解除关系的数据库 数据更新逻辑
+    - [ ] 确定解除关系的数据库 数据逻辑
     - [x] 加验证码
     - [x] 查看用户充电权限
 - [ ] 企业平台添加用户
@@ -314,6 +314,8 @@ TODO List：
     - [x] 场站列表
 - [x] evcsApollo 配置未能正常获取并启动 项目
   - 配置未发布引起
+- [ ] 添加 h5 域名配置并在代码中获取 ping 成 url
+- [ ] 查询/添加充电用户的接口
 
 
 ## new idea
@@ -354,3 +356,27 @@ TODO List：
 - [x] 正在充电 添加 endReason
   - [x] 确定 soc 被停止 时可以从 billingRecord 拿到，拿到后去 redis 拿 soc 数据
 - [x] 开始充电 权限 判定，获取权限充电 BillingRecordServiceImpl    line 400
+
+
+## apollo configuration
+
+h5：
+- key:    evcs.h5.url
+  - dev
+    - billing_record http://mod-h5.evcs.uzbus.local/#/chargeEnd?billingId=
+    - billing_detail http://mod-h5.evcs.uzbus.local/#/costCountDetail?billingId=
+  - test http://test-h5-snxia.uzbus.local/#/
+  - pre  http://pre-snx-h5.snxia.com/#/
+  - prd  https://h5.snxia.com/#/
+
+```
+evcs.h5.url:
+开发环境
+[{"key":"billing_record","url":"http://mod-h5.evcs.uzbus.local/#/chargeEnd?billingId="},{"key":"billing_detail","url":"http://mod-h5.evcs.uzbus.local/#/costCountDetail?billingId="}]
+测试环境
+[{"key":"billing_record","url":"http://test-h5-snxia.uzbus.local/#/chargeEnd?billingId="},{"key":"billing_detail","url":"http://test-h5-snxia.uzbus.local/#/costCountDetail?billingId="}]
+预发布环境
+[{"key":"billing_record","url":"http://pre-snx-h5.snxia.com/#/chargeEnd?billingId="},{"key":"billing_detail","url":"http://pre-snx-h5.snxia.com/#/costCountDetail?billingId="}]
+生产环境
+[{"key":"billing_record","url":"https://h5.snxia.com/#/chargeEnd?billingId="},{"key":"billing_detail","url":"https://h5.snxia.com/#/costCountDetail?billingId="}]
+```
