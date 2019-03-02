@@ -112,11 +112,11 @@
     - [x] 修改 7 日内成功充电 h5 接口 Mapper 查询语句
 
 ## debug
-- [ ] 场站相关
-    - [ ] 场站无计费规则时和处理：过滤掉该场站并日志记录
-        - [ ] 场站列表
-        - [ ] 首页地图场站显示
-        - [ ] 搜索场站
+- [x] 场站相关 - 二期已处理完
+    - [x] 场站无计费规则时和处理：过滤掉该场站并日志记录
+        - [x] 场站列表
+        - [x] 首页地图场站显示
+        - [x] 搜索场站
 - [ ] 充电相关
     - [ ] 开始充电后，偶发场站全部的电枪状态为 故障
 - [ ] 计费相关
@@ -141,10 +141,20 @@ PRO = 线上环境 product
 
 
 
-模拟器启动命令：
-java -Devcs.sim.rpc.server.host=10.28.6.14 -Devcs.sim.client.mac=D89C672E5CB6 -jar evcs-sim-jiedian-gui-1.3-SNAPSHOT.jar
+模拟器启动命令：siteId: 1 siteName:蚂蚁园区充电站 309
+java -Devcs.sim.rpc.server.host=10.28.6.14 -Devcs.sim.client.mac=075BCD15FFFF -jar evcs-sim-jiedian-gui-1.7.2-SNAPSHOT.jar
 
-redis 查询命令：
+## redis 查询命令：
 
-HEXISTS EVCS:EP:HEAD_STATIONS 201
+-  查询电枪
+HEXISTS EVCS:EP:HEAD_STATIONS headHardwareCode
 HGET EVCS:EP:HEAD_STATIONS 201
+- 查询电桩登录信息
+hget EVCS:EP:AUTH stationId
+- 查询正在充电实时账单信息
+hget EVCS:EP:ACCOUNTING id
+- 查询 BMS 数据
+hget EVCS:EP:BMS billingId
+
+
+开发环境数据库 10.28.6.14 3307 root 123456

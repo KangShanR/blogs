@@ -224,11 +224,13 @@ Umeng token:
 token:
 APP
 
-ASmdlx+bpy9fuAWSPVIIwg6+jueXJT/twMFAIJN2kOEmVcJ1B1tSJOrrlFgw3WDAalJUo86lfGOIH7BJjqUdbZMKsCqmlx6nEOtH4kdPqm6h
+ASmdlx/7aMHZ3LXmhViQKIc2KsBpaQX9EWR+oJDeYWZ0Kbdw8j7OilUk8OE0q1zSPROh1H5RbwzKyIGZIKRmQkQnexKi9X0JLf7JJI7fE8pE
 
 web
 
 ASmdlx9KAKAHXDp29R5t+ZHZtwJ7eb2svg7VttWNPkHDT6UFyblvGwaCi3Ty3VmetAkC/lis8iVsOptl6OJOGU0=
+
+ASmdlx9Lhj5Ow0CFbCTdW1TR0QbwaSH9Q1VxhZhRM2Adu5bS2R1HbDHb7+pG4R7Ce/6Gf4YEkEPM73DUYgyS86A=
 
 
 [Umeng](https://www.umeng.com)
@@ -263,42 +265,129 @@ TODO List：
   - [x] 新增场站末尾时间为 00：00：00 导致时间比较出现 bug：当结束时间比开始时间小时，应该将结束时间中 day +1 再进行比较
   - [x] 首页地图同样给出进行 **价格非空** 筛选后的场站列表
   - [x] 查找场站接口同样进行筛选
-- [ ] 检查当前用户是否被 企业禁用
 - [ ] 使用企业钱包扣除金额
-- [ ] 企业权限 给用户的权限
-  - [ ] 单项取最大值
-  - [ ] 不同项取最小值（电量/**soc**/电费/时长）
-  - [ ] 用户解除与企业关系
-    - [ ] 加验证码
-    - [ ] 查看用户充电权限
+- [x] 企业权限 给用户的权限
+  - 目前用户权限只给一套，不存在单项取最大值。同时，权限 只有 soc 与 枪数量限制，不存在下面的问题
+      - [x] 单项取最大值 - shutdown
+      - [x] 不同项取最小值（电量/**soc**/电费/时长）- shutdown
+  - [x] 用户解除与企业关系
+    - [x] 确定解除关系的数据库 数据逻辑
+    - [x] 加验证码
+    - [x] 查看用户充电权限
+    - [x] 验证是否有使用企业钱包的正在充电订单
 - [ ] 企业平台添加用户
   - [ ] 如果 用户存在加入到企业关联中来
   - [ ] 用户不在企业中时，不使用企业钱包时，充电提示
   - [ ] 是否有充电权限的接口
 - [ ] 解除关系：有未完成订单（正在充电订单）不让解除
-  - [ ] 发送短信 确认解除 - 使用基础接口 RPC 发送短信 @陈佳 http://misc-uz.uzbus.local/swagger-ui.html#/
-    - [ ] 项目 redis 中存放短信信息进行验证
-  - [ ] 查看充电权限
-- [ ] 充电订单
+  - [x] 发送短信 确认解除 - 使用基础接口 RPC 发送短信 @陈佳 http://misc-uz.uzbus.local/swagger-ui.html#/
+    - [x] 项目 redis 中存放短信信息进行验证
+    - [ ] 验证码 单独服务，保留字段：时间/ip（从 request 获取）/code
+      - [ ] 同一 ip 一分钟内取过验证码不再请求成功抛出异常
+      - [ ] redis 事务的实现
+  - [x] 查看充电权限
+- [x] 消息推送
+  - [x] 短信推送
+  - [x] soc max 从 redis 是取 实际 soc
+- [x] 充电接口
+  - [x] 检查当前用户是否被 企业禁用
+  - [x] 检查充电权限是否满足
+- [x] 充电订单
   - [x] 已完成订单接口
   - [x] 充电详情 增加字段 ： 功率 outputPower
   - [x] 增加订单状态 预充 PREHEATING
-  - [ ] 充电中查看费率 - 查看该订单的使用的费率（没找到充电中的费率入口）
-  - [ ] 各个地方：**金额单位保留两位小数，电量保留整数**
+  - [x] 充电中查看费率 - 查看该订单的使用的费率（没找到充电中的费率入口）
+  - [x] 各个地方：**金额单位保留两位小数，电量保留整数**
+- [x] 充电完成接口
+- [ ] 开始充电 - 交 @陈涛
+  - [ ] 权限验证
+  - [ ] 兼容 c 端用户请求
 - [x] 充电完成订单列表
   - [x] 开发环境分页的 bug
     - [x] total bug
 - [ ] 接口修改
-  - [ ] 带单位的数据 全取消
-    - [ ] 计费规则弹窗
+  - [x] 带单位的数据 全取消
+    - [x] 计费规则弹窗
     - [x] 正在充电订单列表
-    - [ ] 正在充电订单
+    - [x] 场站详情
+    - [x] 正在充电订单
       - [ ] service 方法可以重写（更少的数据获取）
     - [x] 场站列表
-  - [ ] 计费规则增加接口 - 当前订单的计费规则，传订单号（当前没看到此接口的需要）
+- [x] evcsApollo 配置未能正常获取并启动 项目
+  - 配置未发布引起
+- [x] 添加 h5 域名配置并在代码中获取 ping 成 url
+- [ ] 企业充电用户管理接口
+  - [x] 添加充电用户
+  - [x] 修改充电用户
+  - [x] 充电用户列表
+  - [x] 查看充电用户 - 将列表信息带入到弹窗，增加一个企业充电权限枚举接口
+  - [x] 获取企业充电权限
+  - [x] 添加充电用户接口/启用充电用户接口验证用户当前没有 **注册** 在其他企业
+  - [ ] 优化获取 entCustomer 充电权限 service
+  - [x] 产品确认，企业管理人员不需要有使用企业钱包充电功能 Mar 1st,2019
+  - [ ] 修改充电用户注册电话号码
+  - [ ] 企业管理员目前没有删除企业充电用户逻辑
 
 
 ## new idea
 
 - 项目模块设计为：单个模块为一整个模块，而不是整个 dao service 层成为一个模块
 - 最好不要多表查询，使用 JOIN ，就算有分页查询也先查出所有的数据再在内存来 lambda 来实现分页
+
+
+## 企业端/平台端 测试用例评审
+
+> Jan 17th, 2019
+
+初始化企业管理账号，超管与二级角色同时给。
+- 开始充电：枪 -> 用户权限状态 -> 钱包状态
+
+
+## 企业端相关 数据库设计
+
+待处理：
+- [ ] 生成 model 需要加 en 在前吗？
+- [ ] en_customer_permission 新加 enable 字段来确认些司机是否开启权限 是否不妥？
+- [x] 是否需要 将 enable 换成 enabled?
+  - 不需要，此字段不是关键字，而 delete 改成 deleted
+
+
+
+
+## Jan 24th, 2019 产品定档会议
+
+@hy
+- [x] 之前充电管理员的角色还要？保留无限充电枪
+- [x] （不保留，统一到充电权限里去）
+- [x] soc 停止 ，发消息？文本要区别于其他停止消息推送
+- [x] 模拟器能不能按照已经规定的 stopCode 发送，能不能模拟电桩故障
+  - [x] 由测试处理
+- [x] 充电列表 预充的状态加上
+- [x] 停止充电，预充状态可以停止
+- [x] 正在充电 添加 endReason
+  - [x] 确定 soc 被停止 时可以从 billingRecord 拿到，拿到后去 redis 拿 soc 数据
+- [x] 开始充电 权限 判定，获取权限充电 BillingRecordServiceImpl    line 400
+
+
+## apollo configuration
+
+h5：
+- key:    evcs.h5.url
+  - dev
+    - billing_record http://mod-h5.evcs.uzbus.local/#/chargeEnd?billingId=
+    - billing_detail http://mod-h5.evcs.uzbus.local/#/costCountDetail?billingId=
+  - test http://test-h5-snxia.uzbus.local/#/
+  - pre  http://pre-snx-h5.snxia.com/#/
+  - prd  https://h5.snxia.com/#/
+
+```
+evcs.h5.url:
+开发环境
+[{"key":"billing_record","url":"http://mod-h5.evcs.uzbus.local/#/chargeEnd?billingId="},{"key":"billing_detail","url":"http://mod-h5.evcs.uzbus.local/#/costCountDetail?billingId="}]
+测试环境
+[{"key":"billing_record","url":"http://test-h5-snxia.uzbus.local/#/chargeEnd?billingId="},{"key":"billing_detail","url":"http://test-h5-snxia.uzbus.local/#/costCountDetail?billingId="}]
+预发布环境
+[{"key":"billing_record","url":"http://pre-snx-h5.snxia.com/#/chargeEnd?billingId="},{"key":"billing_detail","url":"http://pre-snx-h5.snxia.com/#/costCountDetail?billingId="}]
+生产环境
+[{"key":"billing_record","url":"https://h5.snxia.com/#/chargeEnd?billingId="},{"key":"billing_detail","url":"https://h5.snxia.com/#/costCountDetail?billingId="}]
+```
