@@ -1,6 +1,6 @@
 ---
 layout: "post"
-title: "IGet add v verify"
+title: "IGet vip's verification"
 date: "2019-03-02 17:22"
 ---
 
