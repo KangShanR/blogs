@@ -224,13 +224,11 @@ Umeng token:
 token:
 APP
 
-ASmdlx/7aMHZ3LXmhViQKIc2KsBpaQX9EWR+oJDeYWZ0Kbdw8j7OilUk8OE0q1zSPROh1H5RbwzKyIGZIKRmQkQnexKi9X0JLf7JJI7fE8pE
+ASmdlx88eJCVaKgd4itfqK7oMVQB3ZYloaj+m0CE1TXnhXVCfZz1/7RZRSCwp8688U9ilrI6+9CizZhdIAO52oD/EzDxCzVc9mG9Jaob0P39
 
 web
+ASmdlx+/lagr14NYzwkgKAeEpsYvBuETBnBK3iT+6cDXXWKG8RfC6RQyiwHdxz26M7tgIDkZJs2zH5gpW+4U5To=
 
-ASmdlx9KAKAHXDp29R5t+ZHZtwJ7eb2svg7VttWNPkHDT6UFyblvGwaCi3Ty3VmetAkC/lis8iVsOptl6OJOGU0=
-
-ASmdlx9Lhj5Ow0CFbCTdW1TR0QbwaSH9Q1VxhZhRM2Adu5bS2R1HbDHb7+pG4R7Ce/6Gf4YEkEPM73DUYgyS86A=
 
 
 [Umeng](https://www.umeng.com)
@@ -324,11 +322,15 @@ TODO List：
   - [x] 添加充电用户接口/启用充电用户接口验证用户当前没有 **注册** 在其他企业
   - [x] 产品确认，企业管理人员不需要有使用企业钱包充电功能 Mar 1st,2019
   - [x] 修改充电用户注册电话号码
-  - [ ] 企业管理员目前没有删除企业充电用户逻辑
+  - [x] 企业管理员目前没有删除企业充电用户逻辑
+    - [x] Mar 7th, 2019 产品确认可无
   - [x] 等待充电接口 - 国标字段未处理
   - [ ] 消息推送加数据库记录
-  - [ ] 移动端企业充电权限使用字典表数据
-    - [ ] 不限制
+  - [ ] 企业充电权限 不限制 NOT_LIMIT 改为 null
+    - [ ] 不限制 NOT_LIMIT 可能引起的 bug ，不限制改为 null
+    - [x] APP 端展示
+    - [x] web 端添加/详情接口
+  - [ ] APP 我的企业接口 - 添加 电话号码字段
 
 
 ## new idea
