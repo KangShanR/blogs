@@ -139,10 +139,15 @@ UAT = 预发环境 user acceptance testing
 PRO = 线上环境 product
 
 
+## commond
 
-
-模拟器启动命令：siteId: 1 siteName:蚂蚁园区充电站 309
+- 模拟器启动命令：siteId: 1 siteName:蚂蚁园区充电站 309
 java -Devcs.sim.rpc.server.host=10.28.6.14 -Devcs.sim.client.mac=075BCD15FFFF -jar evcs-sim-jiedian-gui-1.7.2-SNAPSHOT.jar
+- 连接测试环境日志信息机器 查看日志
+  - path       /home/admin/logs/java/snxia/snxia-api/2019-03-12
+  - host 10.28.6.50  port 22  loginname loguser   password log123
+  - commond ```tailf [error-log.log]```
+
 
 ## redis 查询命令：
 
