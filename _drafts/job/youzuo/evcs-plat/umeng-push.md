@@ -6,6 +6,30 @@ date: "2019-03-12 15:11"
 
 # Umeng 消息推送
 
+
+
+
+
+[Umeng](https://www.umeng.com)
+- account：uz@uzbus.com
+- password：@n9lsX5K^Jge!O92
+
+友盟消息推送 key：
+  - title             string   标题
+  - body              string   消息内容
+  - time              long     消息发送时间
+  - receiveUid        long     接收用户ID
+  - event             string   事件类型（比如 充电完成"CHARGE_FINISH"）
+  - type              string   消息类型（原生"NATIVE"、网页"H5"、无操作"NOTHING"）
+  - resId             long     对应事件类型，只有 NATIVE 类型才需要使用到（比如充电订单ID "123"）
+  - url               string   网页跳转的 url（type=H5时需要）
+
+TODO List：
+- [x] ios 正式模式下推送消息（重新获取 token 需要重新上传证书）
+  - [x] 正式模式下使用正式环境证书的 token 测试通过
+
+
+
 android 推送请求参数：
 ```
 {

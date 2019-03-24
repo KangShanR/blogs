@@ -27,24 +27,6 @@ ASmdlx+gHSgKLeMZowFoPy0FTB+vowjApqUtbyCBS1TS0cotGuM0IZth+XHKvSnM2tmlgutmGT4QTzIh
 
 
 
-[Umeng](https://www.umeng.com)
-- account：uz@uzbus.com
-- password：@n9lsX5K^Jge!O92
-
-友盟消息推送 key：
-  - title             string   标题
-  - body              string   消息内容
-  - time              long     消息发送时间
-  - receiveUid        long     接收用户ID
-  - event             string   事件类型（比如 充电完成"CHARGE_FINISH"）
-  - type              string   消息类型（原生"NATIVE"、网页"H5"、无操作"NOTHING"）
-  - resId             long     对应事件类型，只有 NATIVE 类型才需要使用到（比如充电订单ID "123"）
-  - url               string   网页跳转的 url（type=H5时需要）
-
-TODO List：
-- [x] ios 正式模式下推送消息（重新获取 token 需要重新上传证书）
-  - [x] 正式模式下使用正式环境证书的 token 测试通过
-
 
 ## 二期 移动端 功能更新
 
@@ -93,9 +75,9 @@ TODO List：
   - [x] 充电中查看费率 - 查看该订单的使用的费率（没找到充电中的费率入口）
   - [x] 各个地方：**金额单位保留两位小数，电量保留整数**
 - [x] 充电完成接口
-- [ ] 开始充电 - 交 @陈涛
-  - [ ] 权限验证
-  - [ ] 兼容 c 端用户请求
+- [x] 开始充电 - 交 @陈涛
+  - [x] 权限验证
+  - [x] 兼容 c 端用户请求
 - [x] 充电完成订单列表
   - [x] 开发环境分页的 bug
     - [x] total bug
@@ -131,29 +113,38 @@ TODO List：
     - [x] APP 端展示
     - [x] web 端添加/详情接口
   - [x] APP 我的企业接口 - 添加 电话号码字段
-  - [ ] @肥头大耳 初始的充电权限 名称/描述/创建人 约定成啥？
-    - [ ] 肥头大耳:初始充电权限 /这是一条初始的充电权限/（超级管理员名称）Mar 12th, 2019
+  - [x] @肥头大耳 初始的充电权限 名称/描述/创建人 约定成啥？
+    - [x] 肥头大耳:初始充电权限 /这是一条初始的充电权限/（超级管理员名称）Mar 12th, 2019
 - [x] 正在充电订单 - 查看订单计算相关电费/服务费 等，使用快照表数据，而不是价格表数据
-- [ ] 开始充电接口
-  - [ ] 企业充电时的权限验证 + 错误提示
+- [x] 开始充电接口
+  - [x] 企业充电时的权限验证 + 错误提示
 - [x] 我的页面 - 加电话号码
-- [ ] 添加企业充电人员
+- [x] 添加企业充电人员
   - [x] 原离开人员再次添加的 bug - fixed
-  - [ ] 原存在人员，此时修改了其姓名要保留吗？ - 目前履盖，需要跟产品确认 - @hy Mar 14th, 2019 final 区分开保存：如果 原customer full_name 为 null 则覆盖
+  - [x] 原存在人员，此时修改了其姓名要保留吗？ - 目前履盖，需要跟产品确认 - @hy Mar 14th, 2019 final 区分开保存：如果 原customer full_name 为 null 则覆盖
     - [x] 添加充电用户接口更新
-    - [ ] 修改充电用户接口更新
-    - [ ] 充电用户列表接口更新
+    - [x] 修改充电用户接口更新
+    - [x] 充电用户列表接口更新
 - [x] 充电人员启停接口修复 - dev fixed
 - [x] 充电权限启停接口修复 - 前端请求参数错误
-- [ ] app 企业界面 增加字段
-- [ ] 企业新加充电人员 - 如果离开过，再次添加时将其有的充电权限先删除再添加
-- [ ] 添加企业充电权限
+- [x] app 企业界面 增加字段
+- [x] 企业新加充电人员 - 如果离开过，再次添加时将其有的充电权限先删除再添加
+  - [x] 初始化其个人钱包
+- [x] 添加企业充电权限
 - [ ] 发短信的功能开关配置
 - [x] 短信验证码的验证 放到业务来处理？ - 已让 exceptionAdvice 处理
 - [x] 企业充电权限关闭时，同样显示 其用户到列表
-  - [ ] 企业充电关闭权限同样提供给前端
-- [ ] 从 redis 拿订单结束 时 soc permissionValue; line 717 BillingRecordServiceImpl
-- [ ] 添加一个继承 RuntimeException 的数据丢失业务异常。
+  - [x] 企业充电关闭权限同样提供给前端
+- [x] 从 redis 拿订单结束 时 soc permissionValue; line 717 BillingRecordServiceImpl
+- [x] 添加一个继承 RuntimeException 的数据丢失业务异常。- 直接修改了 BusinessException 原继承于 UzException
+- [x] 各个环境保持 permissionCharge 中 code 的一致
+- [x] 修改充电人员，电话号码修改验证 - 与原来相同不改，不同则验证是否已存在
+- [x] 删除企业充电权限 - 将相关的充电人员的权限都删除
+- [x] 测试环境 - 查找企业充电人员 系统 错误  - sql concat error
+- [x] 检查修改 充电权限 接口 - 使用了 map 依次检查 permissionItemValue
+- [x] 改 场站 标签 文字来源
+  - [x] 场站筛选标签的动态支持
+- [x] umengToken 为空时照样上传并顶出原 token
 
 
 
@@ -218,3 +209,30 @@ evcs.h5.url:
 生产环境
 [{"key":"billing_record","url":"https://h5.snxia.com/#/chargeEnd?billingId="},{"key":"billing_detail","url":"https://h5.snxia.com/#/costCountDetail?billingId="}]
 ```
+
+
+
+
+
+## mysql 改动
+
+- permission_charge_item permission_value 不能默认为 0
+- permission_charge code 请允许为 空
+- 字典表加数据：充电权限项类型 soc/head
+
+
+- tag 表
+  - 修改字长
+ALTER TABLE `ev_tag`
+MODIFY COLUMN `tag_name`  varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标签名称' AFTER `id`,
+MODIFY COLUMN `tag_code`  varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '标签code' AFTER `modified_time`;
+  - 添加老数据
+INSERT INTO `ev_tag` (`tag_code`, `tag_name`) VALUES ('OPENING', '对外开放');
+INSERT INTO `ev_tag` (`tag_code`, `tag_name`) VALUES ('FREE_CAR_WASH', '免费洗车');
+INSERT INTO `ev_tag` (`tag_code`, `tag_name`) VALUES ('CATERING', '餐饮');
+INSERT INTO `ev_tag` (`tag_code`, `tag_name`) VALUES ('EXCLUSIVE_USE', '专用');
+INSERT INTO `ev_tag` (`tag_code`, `tag_name`) VALUES ('SUPERMARKET', '超市');
+INSERT INTO `ev_tag` (`tag_code`, `tag_name`) VALUES ('LOUNGE', '休息室');
+INSERT INTO `ev_tag` (`tag_code`, `tag_name`) VALUES ('VEHICLE_REPAIRING', '汽修');
+INSERT INTO `ev_tag` (`tag_code`, `tag_name`) VALUES ('PARKING_OPENING', '对外停车');
+INSERT INTO `ev_tag` (`tag_code`, `tag_name`) VALUES ('ENTERTAINMENT', '娱乐');
