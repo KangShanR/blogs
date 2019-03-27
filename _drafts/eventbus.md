@@ -41,7 +41,14 @@ Eventbus.getDefult().post(new MyEvent("eventMessage"));
 > 订阅者线程模式，确定订阅者收到事件的线程模式
 
 1. ThreadMode.POSTING
+  1. `this is default ThreadMode`;
+  1. `Subscribers will be called in the same thread posting the event.`
+  2. 发布线程 相同线程的 订阅者会收到事件(完全避免了线程切换，最小开销)
+  3. 事件同步发布，而订阅者会异步调用在事件发布后（不适用于项目 umeng 消息推送）
+  4. 此种模式下的事件处理需要即时反馈以避免阻塞事件发布线程
 2. ThreadMode.MAIN
+  1. 与 POSTING 模式类似，
 3. ThreadMode.MAIN_ORDERD
 4. ThreadMode.BACKGROUND
+  1.
 5. ThreadMode.ASYNC
