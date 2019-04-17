@@ -64,9 +64,9 @@ date: "2019-03-07 14:35"
   - [ ] 离开企业后 - 刷新缓存中的企业信息（删除）
   - [ ] 结束订单 h5 接口 增加支付方式字段
   - [ ] 确定使用余额支付 是否需要更新远程 redis 账单数据
-  - [x] mu_page 拉回 portrait_address
+  - [x] my_page 拉回 portrait_address
   - [ ] 已完成订单 h5 页面 + 新的出租车字段
-  - [ ] 订单状态的变化 ：订单状态，READY:准备充电状态, FAULT:异常 CHARGEING:充电中，INSETTLEMENT:结算中 UNPAID:待支付 ALIPAYFAIL:支付宝预授权扣款失败 AUTOPAYFAIL:自动扣款失败 PAYFAIL:支付失败，FINISH：完成
+  - [x] 订单状态的变化 ：订单状态，READY:准备充电状态, FAULT:异常 CHARGEING:充电中，INSETTLEMENT:结算中 UNPAID:待支付 ALIPAYFAIL:支付宝预授权扣款失败 AUTOPAYFAIL:自动扣款失败 PAYFAIL:支付失败，FINISH：完成
     - [x] 移动端确认数据： 个人|企业 |钱包自动支付成功|钱包手动支付成功|芝麻信用成功|芝麻信用失败 April 3rd, 2019
     - [ ] 后台支付时需要将此状态写入 @ct
   - [x] 预充状态判定条件：状态如果不在 charging 就不用再取 redis 数据来判定 @lb 确定是否改动
@@ -76,20 +76,30 @@ date: "2019-03-07 14:35"
     - [x] 加字段 额度支付/剩余额度 - 不用加，已跟移动端确认
     - [x] 总金额返回 单位为 分 的数据 integer
   - [x] 未支付订单返回所有的未支付 billingId
-  - [ ] 将字典数据查询接口 copy 到 app 服务来 - 避免引起相互
+  - [x] 将字典数据查询接口 copy 到 app 服务来 - 避免引起相互
     - [x] 将场站标签相关已加
-  - [ ] 待支付消息 的推送
+  - [x] 待支付消息 的推送
+    - [ ] 增加 resId 与 receiveUid 字段
   - [ ] service 不能引用 modules 包引起现不能找到 企业充电权限创建者名
-  - [ ] 初始昵称长度 与 电话号码
+  - [x] 初始昵称长度 与 电话号码 - 长度改成 15 位
 
 
 ### debug
   - [ ] 测试环境 - 注册发送验证码 系统错误
   - [ ] 从缓存获取用户信息的全部修改从数据库获取
-  - [ ] 从 enterprsie_customer 获取 enterprsie_manager 的方法，全部改写  从新表获取企业管理员数据
-  - [ ] 其他企业管理员添加到其他企业为充电人员 - 系统错误2128
+  - [x] 从 enterprsie_customer 获取 enterprsie_manager 的方法，全部改写  从新表获取企业管理员数据
+  - [x] 其他企业管理员添加到其他企业为充电人员 - 系统错误2128
   - [x] unpaid 状态，无金额数据
   - [x] 充电中 - 增加 unpaid 状态
+  - [ ] 登录验证码错误
+  - [x] 手动支付 - 返回自动支付
+    - [x] 手动支付不成功 - finish 接口
+  - [x] 原接口的兼容
+  - [x] 充电中详情的 空指针异常
+  - [ ] 注册用户 autopay false
+  - [x] 原版本订单状态 是归一到原有的状态 - 不用处理，老版本不会使用到新的订单状态
+  - [x] sendVrfCodeToUnregisteredPhone 被改错 - 改为登录注册专用发送验证码 service，返回是否需要注册。只是命名不合理
+
 
 
 ## DB
@@ -109,7 +119,11 @@ date: "2019-03-07 14:35"
     - 黄佳 8
     - 扈丽霞  107
     - 康珊 29
-ASmdlx/Kwh/X5DYy60BBWEyePl87uw6864tyj9FfE2R2CTAfLEL3tjCBvYgReU+gyI/s7eFKL+UAdLVJq5l2VVul2bsNQtD8sqGELvIH9nzf
+      - evcs_client accountId:166
+      - 获取 redis token: hget uz:account:166:0 token
+      - 最后 0 表示channel ,0 表示entpoint_channel, 1 表示 browser_channel
+      - evcs_plat accountId 19
+ASmdlx/touaprrqds04w8ZtwGNTYyvYvJQ5v5uE31YKz8L2h0YLTeWg/qrjCZLvxyPz7P4Wd9DCM822JlhjzsF/H5JR97GI13V15eBOcNJ+y
 
 
 - message_record
@@ -144,6 +158,11 @@ CREATE TABLE `en_group_trsc_record` (
   `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否被删除： 1 是， 0 否',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='企业分组交易流水表';
+
+-- ev_message_record 增加 event_type 枚举字段
+ALTER TABLE `evcs_dev`.`ev_message_record`
+  CHANGE `event_type` `event_type` ENUM('BILLING_PAYMENT','CHARGE_FINISH','GROUP_BALANCE_INCREASE','CUSTOMER_ENABLE','CUSTOMER_DISABLE') CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL   COMMENT '消息事件类型：CHARGE_FINISH 充电结束, BILLING_PAYMENT 订单支付提醒, GROUP_BALANCE_INCREASE 充电组额度发放，CUSTOMER_DISABLE 禁用账户，CUSTOMER_ENABLE 启用充电账户';
+
 
 
 -- 将原来 customer 没有生成 wallet 的数据刷进 wallet 表
