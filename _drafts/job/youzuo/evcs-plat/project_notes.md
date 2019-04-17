@@ -142,7 +142,7 @@ PRO = 线上环境 product
 ## commond
 
 - 模拟器启动命令：siteId: 1 siteName:蚂蚁园区充电站 309 （开发环境）
-java -Devcs.sim.rpc.server.host=10.28.6.14 -Devcs.sim.client.mac=075BCD15FFFF -jar evcs-sim-jiedian-gui-1.7.2-SNAPSHOT.jar
+java -Devcs.sim.rpc.server.host=10.28.6.14 -Devcs.sim.client.mac=075BCD15FFFF -jar evcs-sim-jiedian-gui-1.4.0-SNAPSHOT.jar
 
 - siteId: 1 siteName:蚂蚁园区充电站 309 （test 环境）
 java -Devcs.sim.rpc.server.host=10.28.6.50 -Devcs.sim.client.mac=075BCD15FFFF -jar evcs-sim-jiedian-gui-1.7.2-SNAPSHOT.jar
