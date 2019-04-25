@@ -97,9 +97,10 @@ U:root
 P:nYq%d#vBWiE40K3T~*Jy
 
 prd只读库：
-ip:rm-wz9gj4mp2466a7782oo.mysql.rds.aliyuncs.com
-mysql地址：rm-wz9gj4mp2466a7782oo.mysql.rds.aliyuncs.com
-只读账号密码：snxia_ro/idaK$MdJ
+
+数据库地址   47.106.30.241   port: 16069
+
+账号密码： kangshan    密码：2:0,@B;v#"BAKxtA/9kY
 
 生产环竟地址：
 https://api.app.snxia.com
