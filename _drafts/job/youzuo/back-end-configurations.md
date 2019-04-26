@@ -238,3 +238,8 @@ pre_redis-slave 10.28.13.129
 pre_zk1 10.28.13.151
 pre_zk2 10.28.13.71
 pre_zk3 10.28.13.183
+
+
+-- 日志
+线上efk日志查看地址：kibana.snxia.com:10650
+kibana/snxia_kibana
