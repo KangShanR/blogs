@@ -101,6 +101,7 @@ date: "2019-03-07 14:35"
   - [x] sendVrfCodeToUnregisteredPhone 被改错 - 改为登录注册专用发送验证码 service，返回是否需要注册。只是命名不合理
   - [x] 预充状态 加上 READY
   - [ ] 订单未支付提醒消息 - 重复发两条，且 app notification 的 event_id 写成了 customerId
+  - [ ] 
 
 
 
