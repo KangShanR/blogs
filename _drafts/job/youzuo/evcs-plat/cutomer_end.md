@@ -99,7 +99,8 @@ date: "2019-03-07 14:35"
   - [ ] 注册用户 autopay false
   - [x] 原版本订单状态 是归一到原有的状态 - 不用处理，老版本不会使用到新的订单状态
   - [x] sendVrfCodeToUnregisteredPhone 被改错 - 改为登录注册专用发送验证码 service，返回是否需要注册。只是命名不合理
-  - [ ] 预充状态 加上 READY 
+  - [x] 预充状态 加上 READY
+  - [ ] 订单未支付提醒消息 - 重复发两条，且 app notification 的 event_id 写成了 customerId
 
 
 
