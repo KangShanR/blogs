@@ -14,6 +14,8 @@ date: "2019-03-12 15:11"
 - account：uz@uzbus.com
 - password：@n9lsX5K^Jge!O92
 
+帐号：成都神骊科技有限公司  密码：cdslkj2019
+
 友盟消息推送 key：
   - title             string   标题
   - body              string   消息内容

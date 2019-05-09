@@ -72,14 +72,14 @@ date: "2019-03-07 14:35"
   - [x] 预充状态判定条件：状态如果不在 charging 就不用再取 redis 数据来判定 @lb 确定是否改动
   - [x] 增加是否有未支付订单接口 ： 返回 billingId 与 boolean
   - [x] 组成员列表 - 加上 customerId
-  - [ ] 充电完成订单接口
+  - [x] 充电完成订单接口
     - [x] 加字段 额度支付/剩余额度 - 不用加，已跟移动端确认
     - [x] 总金额返回 单位为 分 的数据 integer
   - [x] 未支付订单返回所有的未支付 billingId
   - [x] 将字典数据查询接口 copy 到 app 服务来 - 避免引起相互
     - [x] 将场站标签相关已加
   - [x] 待支付消息 的推送
-    - [ ] 增加 resId 与 receiveUid 字段
+    - [x] 增加 resId 与 receiveUid 字段
   - [ ] service 不能引用 modules 包引起现不能找到 企业充电权限创建者名
   - [x] 初始昵称长度 与 电话号码 - 长度改成 15 位
 
@@ -96,13 +96,19 @@ date: "2019-03-07 14:35"
     - [x] 手动支付不成功 - finish 接口
   - [x] 原接口的兼容
   - [x] 充电中详情的 空指针异常
-  - [ ] 注册用户 autopay false
+  - [x] 注册用户 autopay false
   - [x] 原版本订单状态 是归一到原有的状态 - 不用处理，老版本不会使用到新的订单状态
   - [x] sendVrfCodeToUnregisteredPhone 被改错 - 改为登录注册专用发送验证码 service，返回是否需要注册。只是命名不合理
   - [x] 预充状态 加上 READY
-  - [ ] 订单未支付提醒消息 - 重复发两条，且 app notification 的 event_id 写成了 customerId
-  - [ ] 
+  - [ ] 订单未支付提醒消息
+    - [ ] - 重复发两条
+    - [x] app notification 的 event_id 写成了 customerId
 
+#### 出租车需求
+- [x] 充电完成界面的数据增加
+- [x] 原发送消息 - 平台端 - 使用新的数据表
+- [x] 核对 - 订单详情h5 接口 - 核对出租车数据是否满足显示
+- [x] my_page 接口 添加企业类型字段 - 使用 billing_type 字符串
 
 
 ## DB
