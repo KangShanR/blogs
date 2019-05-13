@@ -104,11 +104,18 @@ date: "2019-03-07 14:35"
     - [ ] - 重复发两条
     - [x] app notification 的 event_id 写成了 customerId
 
-#### 出租车需求
+## 出租车
+
+### 需求
 - [x] 充电完成界面的数据增加
 - [x] 原发送消息 - 平台端 - 使用新的数据表
 - [x] 核对 - 订单详情h5 接口 - 核对出租车数据是否满足显示
 - [x] my_page 接口 添加企业类型字段 - 使用 billing_type 字符串
+
+### debug list
+
+- [x] 字典表字段删除确认 @ct - 不同 family
+- [ ] 充电完成页面接口 - 错误的 status - AUTOPAY_FAIL
 
 
 ## DB

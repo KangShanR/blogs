@@ -166,4 +166,9 @@ hget EVCS:EP:ACCOUNTING id
 hget EVCS:EP:BMS billingId
 
 
+- test env
+  - 冯元涛 accountId= 572 client
+  - 
+
+
 开发环境数据库 10.28.6.14 3307 root 123456
