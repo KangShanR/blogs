@@ -115,7 +115,9 @@ date: "2019-03-07 14:35"
 ### debug list
 
 - [x] 字典表字段删除确认 @ct - 不同 family
-- [ ] 充电完成页面接口 - 错误的 status - AUTOPAY_FAIL
+- [x] 充电完成页面接口 - 错误的 status - AUTOPAY_FAIL
+- [ ] notification push 缺少 title - 本地测试出现
+- [ ] 离开企业充电人员再去支付，同样需要显示组余额
 
 
 ## DB

@@ -37,16 +37,17 @@ errorCodeMap.putIfAbsent(0x1b, "输出短路保护");
 errorCodeMap.putIfAbsent(0x1c, "反接保护");
 errorCodeMap.putIfAbsent(0x1d, "充电机未就绪");
 errorCodeMap.putIfAbsent(0x1e, "继电器粘连");
+errorCodeMap.putIfAbsent(0x1f, "平台远程停止");
 
 appErrorCodeMap.putIfAbsent(0x00, "");
+appErrorCodeMap.putIfAbsent(0x01, "余额不足,自动结束");
+appErrorCodeMap.putIfAbsent(0x02, "主动拔枪异常结束");
+appErrorCodeMap.putIfAbsent(0x03, "电池充满,自动结束");
 appErrorCodeMap.putIfAbsent(0x04, "");
 appErrorCodeMap.putIfAbsent(0x05, "APP端主动结束");
-appErrorCodeMap.putIfAbsent(0x01, "余额不足,自动结束");
-appErrorCodeMap.putIfAbsent(0x03, "电池充满,自动结束");
-appErrorCodeMap.putIfAbsent(0x02, "主动拔枪异常结束");
 appErrorCodeMap.putIfAbsent(0x06, "电桩急停按钮按下结束");
-appErrorCodeMap.putIfAbsent(0x08, "电桩操作异常，自动结束");
 appErrorCodeMap.putIfAbsent(0x07, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x08, "电桩操作异常，自动结束");
 appErrorCodeMap.putIfAbsent(0x09, "电桩故障，自动结束");
 appErrorCodeMap.putIfAbsent(0x0a, "电桩故障，自动结束");
 appErrorCodeMap.putIfAbsent(0x0b, "电桩故障，自动结束");
@@ -69,6 +70,8 @@ appErrorCodeMap.putIfAbsent(0x1b, "电桩故障，自动结束");
 appErrorCodeMap.putIfAbsent(0x1c, "电桩故障，自动结束");
 appErrorCodeMap.putIfAbsent(0x1d, "电桩故障，自动结束");
 appErrorCodeMap.putIfAbsent(0x1e, "电桩故障，自动结束");
+appErrorCodeMap.putIfAbsent(0x1f, "平台远程停止");
+
 
 
   RemoteChargeEndType:{
