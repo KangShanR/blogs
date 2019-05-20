@@ -7,7 +7,9 @@ date: "2019-03-12 15:11"
 # Umeng 消息推送
 
 
-
+- 同步线上 redis umeng token 数据到数据库
+syncUserDeviceData
+ASmdlx+06hmLuBd72eXhhpG8YZFmKZlPx9qKYigLcHhTVNZUC99+m0WwpRdKwitvg8S2JccuFCuAz84kRzS4Zsb5ACU3uDJwySyezQ4gFYnD
 
 
 [Umeng](https://www.umeng.com)

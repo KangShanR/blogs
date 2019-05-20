@@ -7,6 +7,7 @@ date: "2019-03-07 14:35"
 # 电桩项目 c 端
 
 
+
 ## 评审会上确认
 
 - 消息推送：
@@ -116,9 +117,12 @@ date: "2019-03-07 14:35"
 
 - [x] 字典表字段删除确认 @ct - 不同 family
 - [x] 充电完成页面接口 - 错误的 status - AUTOPAY_FAIL
-- [ ] notification push 缺少 title - 本地测试出现
-- [ ] 离开企业充电人员再去支付，同样需要显示组余额
-
+- [x] notification push 缺少 title - 本地测试出现
+- [x] 离开企业充电人员再去支付，同样需要显示组余额
+- [x] ready 状态不算 充电中 - 离开企业 有无正在充电订单验证
+- [x] 平台端 - 订单显示 4 位小数
+- [x] 企业端与移动端名称限制一致为 15 位
+- [ ] 获取 用户token的验证其是否有效
 
 ## DB
 
@@ -143,6 +147,10 @@ date: "2019-03-07 14:35"
       - evcs_plat accountId 19
 ASmdlx/touaprrqds04w8ZtwGNTYyvYvJQ5v5uE31YKz8L2h0YLTeWg/qrjCZLvxyPz7P4Wd9DCM822JlhjzsF/H5JR97GI13V15eBOcNJ+y
 
+
+708 "{"deviceType":"ios","deviceToken":"4ce12648177ac1d49d45cfa45361c7ce1b166ae0cd34a23f658d3880c21899b2"}"
+687  "{"deviceType":"ios","deviceToken":"4ce12648177ac1d49d45cfa45361c7ce1b166ae0cd34a23f658d3880c21899b2"}"
+683 "{"deviceType":"ios","deviceToken":"4ce12648177ac1d49d45cfa45361c7ce1b166ae0cd34a23f658d3880c21899b2"}"
 
 - message_record
 - customer

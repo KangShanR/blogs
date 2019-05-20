@@ -37,6 +37,7 @@
 
 
 ## 我
+1d6aaf5879923753b8c1373b66afaa4d4df26d7fcfb767218dfdba696607b68a
 
 
 ## 分公司与城市
@@ -168,7 +169,7 @@ hget EVCS:EP:BMS billingId
 
 - test env
   - 冯元涛 accountId= 572 client
-  - 
+  -
 
 
 开发环境数据库 10.28.6.14 3307 root 123456
