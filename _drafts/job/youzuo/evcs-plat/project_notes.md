@@ -141,7 +141,15 @@ PRO = 线上环境 product
 
 ## commond
 
+- D:\projects\evcs\压测\
+- java -Devcs.sim.rpc.server.host=10.28.16.68 -Devcs.sim.client.mac=D89C673E7D41 -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
+- java -Devcs.sim.rpc.server.host=10.28.16.68 -Devcs.sim.client.mac=D89C673E7D42 -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
+- java -Devcs.sim.rpc.server.host=10.28.16.68 -Devcs.sim.client.mac=D89C673E7D43 -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
+- java -Devcs.sim.rpc.server.host=10.28.16.68 -Devcs.sim.client.mac=D89C673E7D44 -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
+- java -Devcs.sim.rpc.server.host=10.28.16.68 -Devcs.sim.client.mac=D89C673E7D45 -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
+
 - 模拟器启动命令：siteId: 1 siteName:蚂蚁园区充电站 309 （开发环境）
+java -Devcs.sim.rpc.server.host=10.28.18.85 -Devcs.sim.client.mac=075BCD15FFFF -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
 java -Devcs.sim.rpc.server.host=10.28.18.85 -Devcs.sim.client.mac=075BCD15FFFF -jar D:/projects/evcsevcs-sim-standard-gui-1.4.5-SNAPSHOT.jar
 
 - siteId: 1 siteName:蚂蚁园区充电站 309 （test 环境）

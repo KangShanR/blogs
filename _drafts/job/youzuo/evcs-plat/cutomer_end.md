@@ -101,9 +101,12 @@ date: "2019-03-07 14:35"
   - [x] 原版本订单状态 是归一到原有的状态 - 不用处理，老版本不会使用到新的订单状态
   - [x] sendVrfCodeToUnregisteredPhone 被改错 - 改为登录注册专用发送验证码 service，返回是否需要注册。只是命名不合理
   - [x] 预充状态 加上 READY
-  - [ ] 订单未支付提醒消息
-    - [ ] - 重复发两条
+  - [x] 订单未支付提醒消息
+    - [x] - 重复发两条
     - [x] app notification 的 event_id 写成了 customerId
+
+- TODOlist
+  - [ ] 分发组额度 - 推送消息 - 未找到 deviceData 依然调用其推消息接口
 
 ## 出租车
 
