@@ -165,7 +165,6 @@ ASmdlx+gHSgKLeMZowFoPy0FTB+vowjApqUtbyCBS1TS0cotGuM0IZth+XHKvSnM2tmlgutmGT4QTzIh
 ## 企业端相关 数据库设计
 
 TODO list：
-- [ ] en_customer_permission 新加 enable 字段来确认些司机是否开启权限 是否不妥？
 - [x] 是否需要 将 enable 换成 enabled?
   - 不需要，此字段不是关键字，而 delete 改成 deleted
 
