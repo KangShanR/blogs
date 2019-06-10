@@ -121,6 +121,7 @@
     - [ ] 开始充电后，偶发场站全部的电枪状态为 故障
 - [ ] 计费相关
     - [x] 丢失电费计价详情。
+- [ ] 正在充电中的功率取 ACCOUNTING 中的 outputPower 单元为 KW
 
 
 ```
@@ -139,6 +140,15 @@ UAT = 预发环境 user acceptance testing
 PRO = 线上环境 product
 
 
+groovyScript
+(" 	def result='';
+   	def params=\"${_1}\".replaceAll('[\\\\[|\\\\]|\\\\s]', '').split(',').toList();
+        	for(i = 0; i < params.size(); i++) {
+             	 		if(i!=0)result+= ' * ';
+                      	 		result+='@param ' + params[i] + ((i < (params.size() - 1)) ? '\\n' + '\\t' : '');
+                                	};
+                                  return result", methodParameters())
+
 ## commond
 
 D:\projects\evcs\压测\
@@ -149,7 +159,7 @@ java -Devcs.sim.rpc.server.host=10.28.16.68 -Devcs.sim.client.mac=D89C673E7D44 -
 java -Devcs.sim.rpc.server.host=10.28.16.68 -Devcs.sim.client.mac=D89C673E7D45 -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
 
 - 模拟器启动命令：siteId: 1 siteName:蚂蚁园区充电站 309 （开发环境）
-java -Devcs.sim.rpc.server.host=10.28.18.85 -Devcs.sim.client.mac=075BCD15FFFF -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
+java -Devcs.sim.rpc.server.host=10.28.32.205 -Devcs.sim.client.mac=075BCD15FFFF -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
 java -Devcs.sim.rpc.server.host=10.28.18.85 -Devcs.sim.client.mac=075BCD15FFFF -jar D:/projects/evcsevcs-sim-standard-gui-1.4.5-SNAPSHOT.jar
 
 - siteId: 1 siteName:蚂蚁园区充电站 309 （test 环境）
@@ -176,7 +186,6 @@ hget EVCS:EP:BMS billingId
 
 - test env
   - 冯元涛 accountId= 572 client
-  -
 
 
 开发环境数据库 10.28.6.14 3307 root 123456

@@ -16,6 +16,9 @@ ASmdlx+06hmLuBd72eXhhpG8YZFmKZlPx9qKYigLcHhTVNZUC99+m0WwpRdKwitvg8S2JccuFCuAz84k
 - account：uz@uzbus.com
 - password：@n9lsX5K^Jge!O92
 
+cc48itsje4qqwpq7rm1bw9izdsudwqn3
+0a257fbc8bcfb49c27ad28e1d7fb2200   1f8b9237f84b74538d89c337414d9df8
+
 帐号：成都神骊科技有限公司  密码：cdslkj2019
 
 友盟消息推送 key：
@@ -32,6 +35,11 @@ TODO List：
 - [x] ios 正式模式下推送消息（重新获取 token 需要重新上传证书）
   - [x] 正式模式下使用正式环境证书的 token 测试通过
 
+
+## 返回结果
+
+{"ret":"SUCCESS","data":{"msg_id":"uu25faf155929272324301"}}
+{"ret":"FAIL","data":{"error_msg":"时间戳已过期","error_code":"2028"}}
 
 
 android 推送请求参数：
