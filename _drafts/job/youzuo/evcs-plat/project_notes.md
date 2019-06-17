@@ -28,15 +28,11 @@
 ## 设置
 
 - [x] 电话，从后端取
-
 - [ ] 二维码确定协议格式
 
 ## 充电订单
 
 - [x] 分页作好不分页参数的适配
-
-
-## 我
 
 
 ## 分公司与城市
@@ -121,71 +117,28 @@
     - [ ] 开始充电后，偶发场站全部的电枪状态为 故障
 - [ ] 计费相关
     - [x] 丢失电费计价详情。
-- [ ] 正在充电中的功率取 ACCOUNTING 中的 outputPower 单元为 KW
+- [x] 正在充电中的功率取 ACCOUNTING 中的 outputPower 单元为 KW
+  - [ ] 使用移动端版本号来区分
+- [x] 确定正在充电的数据取新的字段
+- [ ] 结束充电消息根据订单是否支付推送不同信息
+- [ ] event_id 未给到引起的脏数据 - 直接删除/刷脏数据
+
+### v1.2.3 TODO list
+
+> 版本 1.2.3 代码工作
 
 
-```
-    public static final int                         IDLE                                =1;                     //空闲
-    public static final int                         LINKED                              =2;                     //已连接
-    public static final int                         CHARGING                            =3;                     //充电中
-    public static final int                         RETURNING                           =4;                     //返回充电枪中
-    public static final int                         EXCEPTION                           =5;                     //异常
-    public static final int                         OFFLINE                             =6;                     //离线
-```
 
-统一一下：
-DEV = 开发、测试人员用的开发测试环境 develop
-FAT = 测试人员用的测试环境 Feature acceptance testing
-UAT = 预发环境 user acceptance testing
-PRO = 线上环境 product
+### v1.2.4 TODO list
 
+> v1.2.4 版本
 
-groovyScript
-(" 	def result='';
-   	def params=\"${_1}\".replaceAll('[\\\\[|\\\\]|\\\\s]', '').split(',').toList();
-        	for(i = 0; i < params.size(); i++) {
-             	 		if(i!=0)result+= ' * ';
-                      	 		result+='@param ' + params[i] + ((i < (params.size() - 1)) ? '\\n' + '\\t' : '');
-                                	};
-                                  return result", methodParameters())
+- [x] 企业充值记录列表
+- [ ] 1、新增财务管理模块、账户明细页面；2、账户明细页面显示平台所有用户的账户明细信息，分为普通用户[个人用户和普通企业用户]和出租车企业用户
 
-## commond
+### 移动端分享版本 TODO list
 
-D:\projects\evcs\压测\
-java -Devcs.sim.rpc.server.host=10.28.16.68 -Devcs.sim.client.mac=D89C673E7D41 -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
-java -Devcs.sim.rpc.server.host=10.28.16.68 -Devcs.sim.client.mac=D89C673E7D42 -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
-java -Devcs.sim.rpc.server.host=10.28.16.68 -Devcs.sim.client.mac=D89C673E7D43 -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
-java -Devcs.sim.rpc.server.host=10.28.16.68 -Devcs.sim.client.mac=D89C673E7D44 -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
-java -Devcs.sim.rpc.server.host=10.28.16.68 -Devcs.sim.client.mac=D89C673E7D45 -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
-
-- 模拟器启动命令：siteId: 1 siteName:蚂蚁园区充电站 309 （开发环境）
-java -Devcs.sim.rpc.server.host=10.28.32.205 -Devcs.sim.client.mac=075BCD15FFFF -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
-java -Devcs.sim.rpc.server.host=10.28.18.85 -Devcs.sim.client.mac=075BCD15FFFF -jar D:/projects/evcsevcs-sim-standard-gui-1.4.5-SNAPSHOT.jar
-
-- siteId: 1 siteName:蚂蚁园区充电站 309 （test 环境）
-java -Devcs.sim.rpc.server.host=10.28.6.50 -Devcs.sim.client.mac=075BCD15FFFF -jar evcs-sim-jiedian-gui-1.7.2-SNAPSHOT.jar
-- 连接测试环境日志信息机器 查看日志
-  - path       /home/admin/logs/java/snxia/snxia-api/2019-03-12
-  - host 10.28.6.50  port 22  loginname loguser   password log123
-  - commond ```tailf [error-log.log]```
-  - cd commod ```cd admin/logs/java/snxia/snxia-api/```
-
-
-## redis 查询命令：
-
--  查询电枪
-HEXISTS EVCS:EP:HEAD_STATIONS headHardwareCode
-HGET EVCS:EP:HEAD_STATIONS 201
-- 查询电桩登录信息
-hget EVCS:EP:AUTH stationId
-- 查询正在充电实时账单信息
-hget EVCS:EP:ACCOUNTING id
-- 查询 BMS 数据
-hget EVCS:EP:BMS billingId
-
-
-- test env
-  - 冯元涛 accountId= 572 client
-
-
-开发环境数据库 10.28.6.14 3307 root 123456
+- [x] debug - siteServiceImpl line 852 bug IndexOutOfBoundException
+- [ ] IBillingRecordService line 240  will always return false @ct
+- [ ] 登录时确定是否如果未带 umengToken 将其设备关系转为无效
+  - [x] 已确定，需要无效
