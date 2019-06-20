@@ -118,10 +118,10 @@
 - [ ] 计费相关
     - [x] 丢失电费计价详情。
 - [x] 正在充电中的功率取 ACCOUNTING 中的 outputPower 单元为 KW
-  - [ ] 使用移动端版本号来区分
+  - [x] 使用移动端版本号来区分
 - [x] 确定正在充电的数据取新的字段
-- [ ] 结束充电消息根据订单是否支付推送不同信息
-- [ ] event_id 未给到引起的脏数据 - 直接删除/刷脏数据
+- [x] 结束充电消息根据订单是否支付推送不同信息
+- [x] event_id 未给到引起的脏数据 - 软删除 BILLING_PAYMENT 类型的 notification
 
 ### v1.2.3 TODO list
 
@@ -139,6 +139,11 @@
 ### 移动端分享版本 TODO list
 
 - [x] debug - siteServiceImpl line 852 bug IndexOutOfBoundException
-- [ ] IBillingRecordService line 240  will always return false @ct
-- [ ] 登录时确定是否如果未带 umengToken 将其设备关系转为无效
+- [x] IBillingRecordService line 240  will always return false @ct
+- [x] 登录时确定是否如果未带 umengToken 将其设备关系转为无效
   - [x] 已确定，需要无效
+- [x] 场站列表 - 收藏是否需要筛选，如果要，确定没有收藏与筛选后结果区分策略 - 不需要
+- [ ] 消息列表订单相关 - 区分其跳转目标
+- [x] 场站计费规则新接口
+- [x] 场站是否收藏接口
+- [x] 场站详情 h5 接口
