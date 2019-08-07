@@ -164,4 +164,8 @@
 application 中添加：
 
 - key assign.freeSite.ids
-- value [68, 77, 62, 60, 53]
+- value [68, 77, 62, 60, 53, 64]
+
+
+- key assign.sites.data
+- value [{"id":13,"dcHeadAmount":20,"dcFreeHeadAmount":20},{"id":14,"dcHeadAmount":36,"dcFreeHeadAmount":36},{"id":2,"dcHeadAmount":13,"dcFreeHeadAmount":13},{"id":3,"dcHeadAmount":10,"dcFreeHeadAmount":10}]
