@@ -16,6 +16,7 @@ categories: programming
 
 <!--more-->
 
+
 ## 举jdbc属性配置例说明
 
 - 假定我们jdbc属性文件如下：
