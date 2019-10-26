@@ -77,3 +77,23 @@ print(names2[len(names) - 1])
 # foreach body
 for name in names:
 	print('hello,' + name.title() + '. How do you do ?')
+
+print('function of range()')
+numbers = range(0, 1) # range() will return a object but is not a list
+print(numbers)
+for number in numbers:
+	print(number)
+
+print('list 解析')
+numbers = [number % 2 == 0 for number in range(1, 4)]
+print(numbers)
+
+print('list 切片')
+slides = ['good', ' morning', 'every','body ']
+print(slides)
+
+slides2 = [slide.strip() for slide in slides[-3:]]
+print(slides)
+print(slides2)# the result be printed shows that slide is not a reference of list oriented
+
+
