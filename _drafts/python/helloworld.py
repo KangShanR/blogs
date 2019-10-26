@@ -25,3 +25,8 @@ print(0.28 *2 + 0.1)
 # A int number divided by a int, the result is float. This is 
 print(3/2)
 print(1/3)
+
+# show the Zen of Python
+import this
+
+
