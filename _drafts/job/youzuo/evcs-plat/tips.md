@@ -9,7 +9,7 @@ date: "2019-09-19 15:57"
 - mybatis 替换表达式
   - \n.+\/.+\n.+\n.*\n.+\n.+\n.+\n.+\/$
 - 服务器日志目录
-  - /smapp/servers/snxia-api-app/logs/2019
+  - /smapp/servers/snxia-api-app/logs/
 
 
 
