@@ -173,4 +173,25 @@ ASmdlx/touaprrqds04w8ZtwGNTYyvYvJQ5v5uE31YKz8L2h0YLTeWg/qrjCZLvxyPz7P4Wd9DCM822J
 
 ### TODO list
 
-- [ ] @sy get usable coupons without any coupon value 
+- [ ] @sy get usable coupons without any coupon value
+
+
+### app 换肤
+
+> 广告图片
+
+- 测试环境新图片 https://pwpd-public-test.oss-cn-shenzhen.aliyuncs.com/public/happynewyear.png
+  - 原： http://evcs-public-test.oss-cn-shenzhen.aliyuncs.com/public/020bca8e3375dd4cd50c05120c307e20.jpg
+- 预发环境 https://pwpd-public-test.oss-cn-shenzhen.aliyuncs.com/public/happynewyear.png
+  - 原： http://snxia-public.oss-cn-shenzhen.aliyuncs.com/public/3d5060a9-1826-4e79-85f0-458d62781843.png
+- 生产： https://pwpd-public-test.oss-cn-shenzhen.aliyuncs.com/public/happynewyear.png
+  - 原： bgimg_url = http://pwpd-public.oss-cn-shenzhen.aliyuncs.com/public/3d5060a9-1826-4e79-85f0-458d62781843.png    advert_type_int = 16
+
+####  sql
+
+```
+update `mkt_advert` set `bgimg_url` = 'https://pwpd-public.oss-cn-shenzhen.aliyuncs.com/public/happynewyear.png'
+set `advert_type_int` = 1
+where id =2
+-- 生产上原 advert_type_int = 16
+```
