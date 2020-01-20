@@ -1,23 +1,17 @@
----
-layout: "post"
-title: "testJav"
-date: "2020-01-03 23:13"
----
-
 # decompile lambda codes
 
 > 反编译lambda 代码
 
 ## original java codes
 
-```
+```java
 public class OptionalTest {
   Function<Integer, String> f = (Integer i) -> i.toString();
   Consumer<Integer> c = (Integer i) -> {};
 }
 ```
 
-```
+```java
 Classfile /H:/programming/projects/DesignPattern/target/classes/java8inaction/optional/OptionalTest.class
   Last modified 2020-1-3; size 1552 bytes
   MD5 checksum c7b547e731aa23fab86d69e7e85c0224
