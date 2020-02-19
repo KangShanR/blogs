@@ -6,8 +6,6 @@ date: "2019-03-07 14:35"
 
 # 电桩项目 c 端
 
-
-
 ## 评审会上确认
 
 - 消息推送：
@@ -18,11 +16,10 @@ date: "2019-03-07 14:35"
       - 拿登陆的 token 存入本地判断时再用此 token 去访问登录服务接口判断此 token 是否过期或退出（已确认登录服务是否有更优雅的接口提供）
 
 ## DO replace regrex
-```
+
+```java
 /\*\*\n.*\n.*\n.*\n.*\n.*\n.*\*\/$
 ```
-
-
 
 ## TODO list
 
@@ -84,33 +81,34 @@ date: "2019-03-07 14:35"
   - [ ] service 不能引用 modules 包引起现不能找到 企业充电权限创建者名
   - [x] 初始昵称长度 与 电话号码 - 长度改成 15 位
 
-
 ### debug
-  - [x] 测试环境 - 注册发送验证码 系统错误
-  - [x] 从缓存获取用户信息的全部修改从数据库获取
-  - [x] 从 enterprsie_customer 获取 enterprsie_manager 的方法，全部改写  从新表获取企业管理员数据
-  - [x] 其他企业管理员添加到其他企业为充电人员 - 系统错误2128
-  - [x] unpaid 状态，无金额数据
-  - [x] 充电中 - 增加 unpaid 状态
-  - [x] 登录验证码错误
-  - [x] 手动支付 - 返回自动支付
-    - [x] 手动支付不成功 - finish 接口
-  - [x] 原接口的兼容
-  - [x] 充电中详情的 空指针异常
-  - [x] 注册用户 autopay false
-  - [x] 原版本订单状态 是归一到原有的状态 - 不用处理，老版本不会使用到新的订单状态
-  - [x] sendVrfCodeToUnregisteredPhone 被改错 - 改为登录注册专用发送验证码 service，返回是否需要注册。只是命名不合理
-  - [x] 预充状态 加上 READY
-  - [x] 订单未支付提醒消息
-    - [x] - 重复发两条
-    - [x] app notification 的 event_id 写成了 customerId
 
-- TODOlist
+- [x] 测试环境 - 注册发送验证码 系统错误
+- [x] 从缓存获取用户信息的全部修改从数据库获取
+- [x] 从 enterprsie_customer 获取 enterprsie_manager 的方法，全部改写  从新表获取企业管理员数据
+- [x] 其他企业管理员添加到其他企业为充电人员 - 系统错误2128
+- [x] unpaid 状态，无金额数据
+- [x] 充电中 - 增加 unpaid 状态
+- [x] 登录验证码错误
+- [x] 手动支付 - 返回自动支付
+- [x] 手动支付不成功 - finish 接口
+- [x] 原接口的兼容
+- [x] 充电中详情的 空指针异常
+- [x] 注册用户 autopay false
+- [x] 原版本订单状态 是归一到原有的状态 - 不用处理，老版本不会使用到新的订单状态
+- [x] sendVrfCodeToUnregisteredPhone 被改错 - 改为登录注册专用发送验证码 service，返回是否需要注册。只是命名不合理
+- [x] 预充状态 加上 READY
+- [x] 订单未支付提醒消息
+- [x] - 重复发两条
+- [x] app notification 的 event_id 写成了 customerId
+
+- TODO list
   - [x] 分发组额度 - 推送消息 - 未找到 deviceData 依然调用其推消息接口
 
 ## 出租车
 
 ### 需求
+
 - [x] 充电完成界面的数据增加
 - [x] 原发送消息 - 平台端 - 使用新的数据表
 - [x] 核对 - 订单详情h5 接口 - 核对出租车数据是否满足显示
@@ -186,9 +184,9 @@ ASmdlx/touaprrqds04w8ZtwGNTYyvYvJQ5v5uE31YKz8L2h0YLTeWg/qrjCZLvxyPz7P4Wd9DCM822J
 - 生产： https://pwpd-public-test.oss-cn-shenzhen.aliyuncs.com/public/happynewyear.png
   - 原： bgimg_url = http://pwpd-public.oss-cn-shenzhen.aliyuncs.com/public/3d5060a9-1826-4e79-85f0-458d62781843.png    advert_type_int = 16
 
-####  sql
+#### sql
 
-```
+```sql
 update `mkt_advert` set `bgimg_url` = 'https://pwpd-public.oss-cn-shenzhen.aliyuncs.com/public/happynewyear.png', `advert_type_int` = 1
 where id =2
 -- 生产上原 advert_type_int = 16
