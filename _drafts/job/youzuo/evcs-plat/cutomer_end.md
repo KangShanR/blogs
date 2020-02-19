@@ -190,8 +190,7 @@ ASmdlx/touaprrqds04w8ZtwGNTYyvYvJQ5v5uE31YKz8L2h0YLTeWg/qrjCZLvxyPz7P4Wd9DCM822J
 ####  sql
 
 ```
-update `mkt_advert` set `bgimg_url` = 'https://pwpd-public.oss-cn-shenzhen.aliyuncs.com/public/happynewyear.png'
-set `advert_type_int` = 1
+update `mkt_advert` set `bgimg_url` = 'https://pwpd-public.oss-cn-shenzhen.aliyuncs.com/public/happynewyear.png', `advert_type_int` = 1
 where id =2
 -- 生产上原 advert_type_int = 16
 ```
