@@ -169,12 +169,11 @@ ASmdlx/touaprrqds04w8ZtwGNTYyvYvJQ5v5uE31YKz8L2h0YLTeWg/qrjCZLvxyPz7P4Wd9DCM822J
 - customer
   - name 产品那边当作 nickname 可以随意编辑的
   - email
-  - vehical 相关车辆信息 ： 是否可以有多辆车
+  - vehicle 相关车辆信息 ： 是否可以有多辆车
 
 ### TODO list
 
 - [ ] @sy get usable coupons without any coupon value
-
 
 ### app 换肤
 
