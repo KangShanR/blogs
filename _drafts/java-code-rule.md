@@ -4,7 +4,7 @@ title: "java code rule"
 date: "2019-01-23 14:22"
 ---
 
-# java code rule
+# java naming rule
 
 > 编程过程中应该遵循的规范
 

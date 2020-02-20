@@ -23,8 +23,6 @@ date: "2018-12-03 15:05"
     "classpath:persistence-${envTarget:mysql}.properties"})
   ```
 
-
-
   **note**:
   - [参考](http://www.cnblogs.com/jycboy/p/7349139.html)
   - classpath 是指被编译过后的 src 中所有的文件（包括：java、xml、properties）都放在的 WEB-INFO/classes 的文件夹。
@@ -32,7 +30,8 @@ date: "2018-12-03 15:05"
 
 - 在 java 配置文件中插入一个 property 值使用标签 `@Value` ： `@Value("${jdbc.url:defaultUrl}")` ， `:` 后面跟的是默认值。
 - 在 xml 配置文件中插入一个 property 值
-  ```
+
+  ```xml
   <bean id="dataSource">
     <property name="url" value="${jdbc.url}" />
   </bean>

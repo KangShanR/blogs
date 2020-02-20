@@ -5,10 +5,9 @@ tags: "markdown"
 date: "2018-10-24 11:30"
 ---
 
-# markdown 中 table 标签
+## 使用 table 标签
 
-> 在markdown文档中， <table> 这个标签的使用。分别使用 table tr th 三个标签可以实现复杂表格的绘制。
-
+> 在markdown文档中， `<table>` 这个标签的使用。分别使用 table tr th 三个标签可以实现复杂表格的绘制。Just from the html.
 
 示例如下：
 
@@ -38,3 +37,11 @@ date: "2018-10-24 11:30"
     </th>
   </tr>
 </table>
+
+## Logarithmic Function
+
+```math
+  a^x = N
+```
+
+测试结果：按照有道云笔记中写法，数学公式不能被渲染出来。

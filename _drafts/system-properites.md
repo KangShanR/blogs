@@ -1,13 +1,12 @@
 ---
 layout: "post"
-title: "System properites"
+title: "System properties"
 date: "2019-12-26 18:31"
 ---
 
-# System properites
+# System properties
 
 > be printed in system bootstrap
-
 
 ## System properties
 

@@ -29,8 +29,6 @@ localhost 的 testing 尝试：
             - 关闭服务：`mysqladmin -uroot shutdown`
 - 查看当前 mysql server 连接情况命令： `show processlist` 将会看到当前 mysql server 连接的各个 client 的 ip/port/status/user/db 等
 
-
-
 ## mysql client operate
 
 > 在 mysql 控制台操作数据库
@@ -48,8 +46,8 @@ _note: mysql server 命令行都必须使用 `;`  或 `\g` 结尾，否则不会
         - 需要 **注意** 的是： mysql 5.7 后不再支持 PASSWARD() 函数，取而代之的是 MD%()
 - 退出控制台：`exit|quit`
 
-
 常用命令：
+
 - 查找库内所有的表名： `select table_name from information_schema.tables where table_schema = 'dabataseName' AND table_type='base table';`
 - 选择库：`USE database`
 - 查看库内所有表名：`SHOE TABLES`
@@ -64,21 +62,20 @@ _note: mysql server 命令行都必须使用 `;`  或 `\g` 结尾，否则不会
 > 当 mysql 服务初始化完成并启动后，登录 root 账户后可以在 client 使用命令添加用户，只需要在 mysql 库 user 表中插入数据即可。
 
 执行命令：
-```
+
+```sql
 INSERT INTO user
           (host, user, password,
            select_priv, insert_priv, update_priv)
            VALUES ('localhost', 'guest',
            PASSWORD('guest123'), 'Y', 'Y', 'Y');
-   ```
+```
 
    _note: user 表中所有的以 `_priv` 结尾的字段都是表示相关的权限（privilege），`Y` 表示有， `N` 表示无此权限。_
 
-
-
 ### 创建表
 
-```
+```sql
 create table if not exists `user`(
     `id` int unsigned  not null auto_increment,`username` varchar(20) NOT null,
     `remark` varchar(30), primary key (`id`)
