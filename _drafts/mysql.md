@@ -50,19 +50,19 @@ _note: mysql server 命令行都必须使用 `;`  或 `\g` 结尾，否则不会
 
 常用命令：
 
-- 查找库内所有的表名： `select table_name from information_schema.tables where table_schema = 'dabataseName' AND table_type='base table';`
+- 查找库内所有的表名： `SELECT table_name FROM information_schema.tables WHERE table_schema = 'dabataseName' AND table_type='base TABLE';`
 - 选择库：`USE database`
 - 查看库内所有表名：`SHOW TABLES;`
 - 添加库： `CREATE DATABASE db_name character set {字符集};`
 - 删除库： `DROP database;`
-- 删除表：`DROP table (table name);`
+- 删除表：`DROP TABLE (TABLE name);`
 - 查看库创建信息 ： `show create database (database name);`
-- 查看表创建信息： `show create table (table name);`
-- 查看表所有 column : `SHOW COLUMNS FROM (table name);`
-- 查看表所有 index : `SHOW INDEX FROM table`
-- 查看表状态信息： `SHOW TABLE STATUS [FROM db_name] [LIKE 'table'] [\G]`
+- 查看表创建信息： `show create TABLE (TABLE name);`
+- 查看表所有 column : `SHOW COLUMNS FROM (TABLE name);`
+- 查看表所有 index : `SHOW INDEX FROM TABLE`
+- 查看表状态信息： `SHOW TABLE STATUS [FROM db_name] [LIKE 'TABLE'] [\G]`
 - 查看表：`desc (table_name);`
-- 修改表名：`rename table 表名 to 新表名;`
+- 修改表名：`rename TABLE 表名 to 新表名;`
 
 ### mysql 服务添加新用户
 
@@ -84,31 +84,34 @@ _note: user 表中所有的以 `_priv` 结尾的字段都是表示相关的权�
 
 创建表：
 
-> create table (table name) ((field name) (字段类型) (字段长度) [约束]);
+> CREATE TABLE (table name) ((field name) (字段类型) (字段长度) [约束]));
 
 ```sql
-create table if not exists `user`(
+create TABLE if not exists `user`(
     `id` int unsigned  not null auto_increment,`username` varchar(20) NOT null,
     `remark` varchar(30), primary key (`id`)
     )
-    engine=innodb default charset=utf8mb4 comment='用户表';
+    engine=innodb default charset=utf8mb4 COMMENT='用户表';
 ```
 
-- 修改表名: `rename table 原表名 to 新表名;`
-- 添加列：`alter table 表名 add 字段名 类型(长度) [约束] comment 备注;`
-- 修改列：`alter table 表名 modify 字段名 类型(长度) [约束] comment 备注;` 可指定列字符集，在其中加入: `charset (utf8mb4)`;
-- 修改列名：`alter table 表名 change 旧字段名 新字段名 类型(长度) [约束] comment 备注;`
-- 删除列：`alter table 表名 drop 列名;`
-- 修改表字符集：`alter table 表名 character set|charset (charset);`
-- 修改表备注：`alter atable 表名 comment='your comments';` 备注使用了 `=`
+- 修改表名: `rename TABLE 原表名 TO 新表名;`
+- 添加列：`ALTER TABLE 表名 ADD 字段名 类型(长度) [约束] COMMENT 备注;`
+- 修改列：`ALTER TABLE 表名 MODIFY 字段名 类型(长度) [约束] COMMENT 备注;` 可指定列字符集，在其中加入: `CHARSET (utf8mb4)`;
+- 修改列名：`ALTER TABLE 表名 CHANGE 旧字段名 新字段名 类型(长度) [约束] COMMENT 备注;`
+- 删除列：`ALTER TABLE 表名 DROP 列名;`
+- 修改表字符集：`ALTER TABLE 表名 CHARSET (charsetname);`
+- 修改表备注：`ALTER TABLE 表名 COMMENT='your comments';` 表备注与列备注不同，使用了 `=`
 
 ### DML
 
 > 对表中行数据进行更改
 
 - 表插入数据：
-  - `insert into 表名 （字段名...） values (value1), (value2), (value3);` 插入指定字段名数据
-  - `insert into 表名 values (row1, row2, row3);` 此各必须插入所有字段
+  - `INSERT into 表名 （字段名...） values (value1), (value2), (value3);` 插入指定字段名数据
+  - `INSERT into 表名 values (row1, row2, row3);` 此各必须插入所有字段
+- 修改行数据 `UPDATE 表名 SET field1=value, field2=value2 [WHERE condition];`
+- 删除行数据： `DELETE FROM 表名 [WHERE condition];`
+- 删除表内所有数据： `TRUNCATE TABLE tablename;` 与 delete 不加 WHERE 条件区别在于 此命令将删除所有后新建一张同样的表所有其新行 id 从 0 开始，而 delete 将从之前删除的最大的 id 开始。
 
 ## DQL
 
@@ -116,7 +119,7 @@ create table if not exists `user`(
 
 - 查询：
   - 模糊查询：今天（Feb 18 2020才知道：除了 `%` 可以指定多个点位符外， `_` 还可以当作单个占位符使用。
-  - 顺序： select >> from >> where >> group by >> having >> order by
+  - 顺序： select >> from >> WHERE >> group by >> having >> order by
   
 ### 多表查询
 
@@ -124,8 +127,8 @@ create table if not exists `user`(
 
 分类：
 
-1. 交叉连接查询 `select * from tableA,tableB;` （不推荐使用，其算法会将两张表每行数据进行组合得到一个行数之积的结果再 select）
-2. 内连接查询 `inner join` ，其中 `inner` 可省略
+1. 交叉连接查询 `SELECT * from tableA,tableB;` （不推荐使用，其算法会将两张表每行数据进行组合得到一个行数之积的结果再 select）
+2. 内连接查询 `INNER JOIN` ，其中 `INNER` 可省略
    1. 隐式内连接 `SELECT * FROM A,B [WHERE condition];`
    2. 显式内连接 `SELECT * FROM A JOIN B [ON condition];`
 3. 外连接查询 keywork: `OUTER JOIN` , `OUTER` 可省略
