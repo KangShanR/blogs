@@ -10,7 +10,9 @@ description:
 <!--more-->
 
 首先来一个：
+
 #### 官方的使用说明 ####
+
 - 包括了常用的快捷键使用：
 - Welcome to GitHub Pages
 
@@ -37,8 +39,9 @@ Syntax highlighted code block
 
 **Bold** and _Italic_ and `Code` text
 
-[Link](url) and ![Image](src)
+[Link](url) and ![Image](img src)
 ```
+
 **Shortcut:**
 - **Bold** (`Ctrl+B`) and *Italic* (`Ctrl+I`)
 - Quotes (`Ctrl+Q`)

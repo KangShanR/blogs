@@ -6,36 +6,39 @@ categories: programming
 keywords: jdbc,持久层,数据库,连接,状态,会话
 description: 
 ---
+
 # JDBC
+
 > 全称：fava database connectivity,专用于java数据库连接，其中封装了基本的连接数据库的API,数据库连接的高级框架（诸如：Mybatis/Hibernate)的使用都基于JDBC的原理，也就是理解了JDBC对于我们更理解各种持久层数据连接层的框架很有帮助；
 
 <!--more-->
 
 ## 一个简单的JDBC实现
-	/**
-	 * 获取数据库连接的方法
-	 * @return
-	 */
-	public static Connection getConnection(){
-		Connection con = null;
-		
-		try{
-	//			获取连接mysql数据库的驱动
-			Class.forName("com.mysql.jdbc.Driver");
-	//			设置连接数据库的url
-			String url = "jdbc:mysql://localhost:3306/agileone1?useUnicode=true&characterEncoding=UTF-8";
-	//			连接数据库的用户名
-			String userName = "root";
-	//			连接数据库的密码
-			String userPass="";
-	//			从而获取到数据库连接connection
-			con = DriverManager.getConnection(url, userName, userPass);
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-		return con;
-	}
 
+```java
+/**
+ * 获取数据库连接的方法
+ * @return
+ */
+public static Connection getConnection(){
+    Connection con = null;
+	try{
+//			获取连接mysql数据库的驱动
+		Class.forName("com.mysql.jdbc.Driver");
+//			设置连接数据库的url
+		String url = "jdbc:mysql://localhost:3306/agileone1?useUnicode=true&characterEncoding=UTF-8";
+//			连接数据库的用户名
+		String userName = "root";
+//连接数据库的密码
+		String userPass="";
+//			从而获取到数据库连接connection
+		con = DriverManager.getConnection(url, userName, userPass);
+	}catch (Exception e){
+		e.printStackTrace();
+	}
+	return con;
+}
+```
 
 - 上述代码块就通过java.sql包里封装好的各个类与类反射获取到了连接指定数据库的链接；
 	- 接下来就可以利用这个连接来进行crud类操作
