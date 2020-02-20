@@ -31,10 +31,9 @@ date: "2018-12-17 20:50"
 - wanderlust
 - bucket list
 
-
 ## Dec 20th, 2018
 
-### vocabularies
+### vocabularies-2
 
 - pipes
 - impeach
@@ -77,7 +76,7 @@ date: "2018-12-17 20:50"
 
 ## review of this week
 
-### vocabularies
+### vocabularies - 3
 
 - dispense
   - water dispenser

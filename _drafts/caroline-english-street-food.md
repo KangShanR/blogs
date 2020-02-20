@@ -19,10 +19,10 @@ the script:
 
 Ah, so share yours and I'm looking forward to reading those and going over them tomorrow in our live video portion of class. Have a wonderful day and see you soon.”
 
-
 ## Adoption
 
 **some words about adoption**:
+
 - custody means: legal guardian = legal caretaker
 - foster care   temperary just
 - charity
@@ -56,8 +56,6 @@ Ah, so share yours and I'm looking forward to reading those and going over them 
 - moderate
 - so i see what you mean very much.
 
-
-
 ## time
 
 > Nov 29th, 2018
@@ -79,11 +77,9 @@ Ah, so share yours and I'm looking forward to reading those and going over them 
 - punctual person
 - miliraty Time
 
-
 ## review of this weeek
 
 > Nov 30th, 2018
 
 - hey, there.
 - rural care
-- 

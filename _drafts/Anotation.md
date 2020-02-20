@@ -1,5 +1,4 @@
 ---
-title: 项目中注解的使用
 date: "2017-11-17 11:44"
 categories: programming
 tag: [java,programming]
@@ -11,7 +10,8 @@ tag: [java,programming]
 
 单词： autowired 的意思就是自动装配。而在 java 编程中使用此注解就是将标注过注解的都自动装配到 spring 容器中。
 
-据此理解的话，在 编码中：
+据此理解的话，在编码中：
+
 - 如果是属性被此注解标注，则此属性就将这个 bean 注入到容器中，不用写此属性的 getter() 与 setter() 方法，在 bean.xml 配置中也不用写此属性的 <property> 标签了；
 - 如果方法或构造函数被 @Autowired 注解，则此方法参数中的 bean 就会自动被查找装入到这个方法中；
 
@@ -30,48 +30,53 @@ tag: [java,programming]
 shiro 框架中的权限验证注解，用于验证是否拥有某权限。
 
 ## @PathVariable
+
 用于将方法参数绑定到请求路径中去
-```
+
+```java
 @Controller  
 @RequestMapping("/owners/{ownerId}")  
 public class RelativePathUriTemplateController {  
 
   @RequestMapping("/pets/{petId}")  
-  public void findPet(@PathVariable String ownerId, @PathVariable String petId, Model model) {      
-    // implementation omitted   
+  public void findPet(@PathVariable String ownerId, @PathVariable String petId, Model model) {
+    // implementation omitted
   }  
 }  
 ```
-### @RequestHeader、@CookieValue
 
-```
+### @RequestHeader @CookieValue
+
+```java
 @RequestMapping("/displayHeaderInfo.do")  
 public void displayHeaderInfo(@RequestHeader("Accept-Encoding") String encoding,  
                               @RequestHeader("Keep-Alive") long keepAlive)  {  
 }  
 ```
+
 上面的代码就参数 encoding 与 keepAlive 分别绑定到了请求的 Header 中去。
-```
+
+```java
 @RequestMapping("/displayHeaderInfo.do")  
 public void displayHeaderInfo(@CookieValue("JSESSIONID") String cookie)  {  
 }
 ```
+
 而这一段代码就将参数 cookie 绑定到 JSESSIONID 上。
-
 _note:关于这儿的请求是将请求的 header/cookie 中的值绑定到请求方法参数中还是将请求时的参数绑定到 header/cookie 中是一个未搞清的问题。查找上说是将 header/cookie 值绑定到请求方法参数中，但如果是这样就没必要设置这个参数了，直接获取这些值在方法中调用就是，而后者却更有必要，调用方法时参数就直接当作 header/cookie 值去请求了看来也更合理_
-
 
 ### @Repository
 
-对应 dao 层的数据
+> 对应 dao 层的数据
 
 ## 注解的定义与使用
 
-注解是 JAVA5.0 之后的高级特性。可以使用自定义注解来使用。
+> 注解是 JAVA5.0 之后的高级特性。可以使用自定义注解来使用。
 
 ### 四个元注解
 
 注解的注解，用于标注该注解的基本属性。
+
 - @Documented 注解是否包含在 JavaDoc 中
 - @Retention 什么时候使用该注解，定义该注解的生命周期
   - RetentionPolicy.SOURCE
@@ -91,7 +96,7 @@ _note:关于这儿的请求是将请求的 header/cookie 中的值绑定到请�
 
 注解定义中的属性只能是 String、Enum、及基本数据类型
 
-```
+```java
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @interface Todo {
@@ -102,9 +107,10 @@ _note:关于这儿的请求是将请求的 header/cookie 中的值绑定到请�
   Status status() default Status.NOT_STARTED;
 }
 ```
+
 如果注解中属性只有一个，那么使用时不需要写属性名，直接写值即可：
 
-```
+```java
 @Target(ElementType.TYPE)
 @interface Remark{
   String author() default "kfc";

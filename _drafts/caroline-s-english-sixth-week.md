@@ -24,7 +24,6 @@ date: "2018-12-10 21:18"
 - punish
 - proportion
 
-
 ## updating phones
 
 > Dec 11th, 2018
@@ -49,7 +48,7 @@ date: "2018-12-10 21:18"
 
 - crossing the line
 - pick on somebody
-- book a tickat & order a phisical object
+- book a ticket & order a phisical object
 - buy out
 - superior
 - to address something = to confront it

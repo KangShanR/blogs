@@ -4,7 +4,7 @@ title: "DynamicInvoke Class be compiled"
 date: "2019-12-26 18:30"
 ---
 
-
+```java
 Classfile /D:/mine/github/DesignPattern/target/classes/java8inaction/lazycompute/LazyList.class
   Last modified 2019-12-26; size 4620 bytes
   MD5 checksum ce31dbefa06a39fde443d4ffebe2ac87
@@ -466,3 +466,4 @@ BootstrapMethods:
       #119 (Ljava/lang/Object;)Z
       #120 invokestatic java8inaction/lazycompute/LazyList.lambda$null$2:(Ljava8inaction/lazycompute/LazyList;Ljava/lang/Integer;)Z
       #121 (Ljava/lang/Integer;)Z
+```
