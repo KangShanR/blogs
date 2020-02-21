@@ -6,7 +6,7 @@ date: "2018-10-11 20:11"
 
 # BigDecimal
 
-## mothods
+## methods
 
 - 四舍五入
   - BigDecimal.ROUND_UP 进位，保留后的位数往上增，如果是负数，则相反成为保留为更小的数。
