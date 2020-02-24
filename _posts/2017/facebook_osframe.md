@@ -6,9 +6,6 @@ tags: [framework,programming]
 keywords: 
 ---
 
-# facebook开源框架 #
-
-
 > facebook的开源框架有很多，在github上都公布了[各个框架的库](https://github.com/facebook "github_facebook")，分下面几个方面来介绍：
 
 <!--more-->
@@ -19,7 +16,6 @@ keywords:
 2. [Rebound](https://github.com/facebook/rebound "Rebound"):Rebound是一个**模仿弹簧动力学的Java库**。回弹弹簧模型可以用来创建动画，通过将真实物理世界引入到你的应用可使动画更自然。回弹使用相同的弹簧常数，就像Origami使得折纸交互模型很容易被转换到安卓应用中。
 3. [Stetho](https://facebook.github.io/stetho/ "Stetho")，是一个**全新的安卓平台调试工具**。Stetho提供C/S协议，使强大的Chrome开发者工具能在应用程序中使用该协议。你的应用程序整合之后，只需访问chrome://inspect ，点击“检查”即可开始。
 4. [Infer](https://github.com/facebook/infer "Infer")，**一个静态分析工具，用来检测安卓和苹果系统应用发布前的缺陷**。如果你给Infer一些Objective-C，Java或C代码，它会生成一个潜在的缺陷列表。Infer工具也有助于防止系统崩溃和性能下降。Infer的**目标是空指针异常、资源漏洞、内存溢出之类的致命缺陷**。
-
 
 ## 在WEB开发方面： ##
 1. [React Js](https://facebook.github.io/react/ "React Js")，是个用于**构建用户界面的JavaScript库**，高效且灵活。很多人把React当作MVC中的V来用，因为React不依赖你技术栈里的其它技术，因此很容易把它用在一些已有项目的小特性上。
