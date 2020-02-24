@@ -124,8 +124,54 @@ static void close(Connection con){
 - 此之前已经知道 url 中那一段协议，但手写 url 时没写进去，后面检查时也没有对此进行检查。
 - 这种很暴力的错误很有可能就是在这种低级的地方导致。找不到驱动最直接的想法就是包没导好，想不到的是找包是根据协议来找的。
 
-## 在 java sql 代码中写 %
+## 关于
 
-在 java 中写 sql 时想要把模糊点位符 `%` 直接写进 sql （用以模糊条件）。
+1. 在 java sql 代码中写 %
 
-如果写成 `select * from user where username like %?%;` 执行时会出现语法错误，解析此条 sql 时会对 `%` 错误解析。正确的写法是: `select * from user where username like \"%\"?\"%\";`。将 `%` 使用双引号包起来同时要对双引号进行转义：`\"%\"`。
+在 java 中写 sql 时想要把模糊点位符 `%` 直接写进 sql （用以模糊条件）。如果写成 `select * from user where username like %?%;` 执行时会出现语法错误，解析此条 sql 时会对 `%` 错误解析。正确的写法是: `select * from user where username like \"%\"?\"%\";`。将 `%` 使用双引号包起来同时要对双引号进行转义：`\"%\"`。
+
+## apache DbUtils
+
+> apache common 下的对 jdbc 常用方法的封装，可以的直写 sql 语句执行并对其结果进行封装。[preference](http://commons.apache.org/proper/commons-dbutils/examples.html)
+
+引入一段使用过的代码：
+
+```java
+/**
+ * connection 使用的是 c3p0 封装的连接池
+ * QueryRunner 是 DbUtils 核心的类
+ * query 方法查询签名： T query(Connection conn, String sql, ResultSetHandler rsh, Object... params);
+ */
+@Test
+public void queryTest () throws PropertyVetoException, SQLException {
+    QueryRunner queryRunner = new QueryRunner();
+    String sql = "select * from `user` where `username` like \"%\"?\"%\";";
+    queryRunner.query(C3p0Util.getConnection(), sql, rshd, "i");
+}
+
+@Test
+public void updateTest() throws PropertyVetoException, SQLException {
+    String sql = "update `user` set `username` = 'ant man', `gender` = 'male' where id = ?";
+    new QueryRunner().update(C3p0Util.getConnection(), sql,  8);
+}
+
+@After
+public void close() {
+    System.out.println("after");
+    // close the databases
+}
+
+/**
+ * RusultSetHandler 对结果进行处理
+ * 接口只有一个方式，隐式函数式接口，直接使用 lambda 表达式
+ */
+private static ResultSetHandler rshd = rs -> {
+    List<UserDTO> users = JdbcUtil.convertRes2User(rs);
+    users.stream().forEach(System.out::println);
+    return null;
+};
+```
+
+- 使用此 util 的好处在于其对 sql 的封装与参数设置、结果处理的封装，使用时 sql 点位符 `?` 可以在方法参数中直接添加，结果可以直接使用 lambda 表达式进行封装成 javabean 。
+- DbUtils 还提供了更高阶的方法，异步执行：AsyncQueryRunner 。异步并行执行多个 sql 相对于串行同步执行多个 sql 可节省响应时间。
+- 对结果进行转换的操作可以直接使用 ResultSetHandler 的实现类 BeanListHandler ，其处理的核心在于 RowProcess
