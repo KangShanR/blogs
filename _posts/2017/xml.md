@@ -110,7 +110,7 @@ description: xml的使用与理解
   - 其内容：`<?xml version="1.0" encoding="utf-8"?>`
   - 声明了xml的版本，与encoding格式，同时UTF-8 也是 HTML5, CSS, JavaScript, PHP, 和 SQL 的默认编码。
 
-## 实体引用
+## 实体引用 entity
 
 - 在 XML 中，一些字符拥有特殊的意义。
   - 如果您把字符 "<" 放在 XML 元素中，会发生错误，这是因为解析器会把它当作新元素的开始。
@@ -123,6 +123,7 @@ description: xml的使用与理解
   4. `&apos;` `'` apostrophe
   5. `&quot;` `"` quotation mark
 - 注释：在 XML 中，只有字符 "<" 和 "&" 确实是非法的。大于号是合法的，但是用实体引用来代替它是一个好习惯。[参考博客](http://www.runoob.com/xml/xml-syntax.html "参考的菜鸟教程")
+- 如果在 xml 中需要写大量的此类符号（直接写代码或写 sql），如果使用实体引用可读性就低，书写难度也会增加，此时可以使用 `<![CDATA[]]>` 用来包装代码（代码写在最中间 `[]` 内）。 CDATA -> character data
 
 ### xml的可扩展性
 
@@ -146,4 +147,60 @@ description: xml的使用与理解
 </bean>
 ```
 
-- 这样我们的数据的扩展性变得更大哥；
+- 这样我们的数据的扩展性变得更大；
+
+## DTD
+
+> document type definition 文档类型定义，用以规范 xml 文档
+
+在 xml 文件中引入 dtd 的方法：
+
+- 在 xml 内部申明：`<!DOCTYPE (root element) [dtd leaf element]>`
+- 引入使用本地 DTD `<!DOCTYPE (name) SYSTEM "url/web-app_2_3.dtd(dtd path)">`
+- 引入公共 DTD `<!DOCTYPE (name) PUBLIC "url/web-app_2_3.dtd(dtd path)">`
+
+### DTD element
+
+> In a DTD, XML elements are declared with the following syntax:
+`<!ELEMENT element-name category>` or `<!ELEMENT element-name (element-content)>`
+
+### DTD attribute
+
+> An attribute declaration has the following syntax: `<!ATTLIST element-name attribute-name attribute-type attribute-value>`
+DTD example: `<!ATTLIST payment type CDATA "check">`
+XML example: `<payment type="check" />`
+
+## schema
+
+> An XML Schema describes the structure of an XML document.The XML Schema language is also referred to as XML Schema Definition (XSD).[reference](https://www.w3schools.com/xml/schema_intro.asp)
+
+### xml 引入 schema
+
+This XML document has a reference to an XML Schema:
+
+```xml
+<?xml version="1.0"?>
+
+<note xmlns="https://www.w3schools.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="https://www.w3schools.com/xml note.xsd">
+  <to>Tove</to>
+  <from>Jani</from>
+  <heading>Reminder</heading>
+  <body>Don't forget me this weekend!</body>
+</note>
+```
+
+### element
+
+> The syntax for defining a simple element is:
+<xs:element name="xxx" type="yyy"/>
+where xxx is the name of the element and yyy is the data type of the element.
+
+XML Schema has a lot of built-in data types. The most common types are:
+
+- xs:string
+- xs:decimal
+- xs:integer
+- xs:boolean
+- xs:date
+- xs:time
