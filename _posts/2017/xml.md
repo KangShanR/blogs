@@ -204,3 +204,20 @@ XML Schema has a lot of built-in data types. The most common types are:
 - xs:boolean
 - xs:date
 - xs:time
+
+### indicators
+
+指示符，用以指示 xml 各节点元素的限定。
+
+> There are seven indicators:
+
+- Order indicators:
+  - All 不限顺序
+  - Choice `<xs:choiece></xs:sequence>` 顺序出现
+  - Sequence `<xs:sequence></xs:sequence>` 顺序出现
+- Occurrence indicators: 出现频率指示
+  - maxOccurs
+  - minOccurs
+- Group indicators:
+  - Group name
+  - attributeGroup name
