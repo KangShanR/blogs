@@ -3,8 +3,7 @@ title: servlet
 date: 2017-09-01 14:23:30
 categories: programming
 tags: [programming,java,servlet]
-keywords:
-
+keywords: servlet
 ---
 
 > Servlet 是 javaWe b中处理 Http 请求的核心技术，众多的处理 web 框架都是对它的封装而来。Servlet 规范源自 Sun 公司，除了 servlet 技术还包括了 filter / listener 。
@@ -34,6 +33,65 @@ keywords:
 
 ## ServletContext
 
+- servlet 直接调用 `getServletContext()` 即可获取。
 - servlet 上下文，一个 web 应用启动后只有一个，通过把通用的数据存放在其中，在 web.xml 使用 `<config-param>` 标签配置数据。
-- 可在 servlet 直接调用 `getServletContext()` 获取。
 - 用以存放数据时，可以在 `<load-on-startup>0</load-on-startup>` （此标签用以标记在应用启动时初始化的 servlet ，value 越小越先初始化，最小值为 0）的 servlet 中进行数据初始化。
+- `getRealname(String path)` 可通过工程中的文件路径获取在服务器中的绝对路径。绝对路径是获取下载服务器资源时必用的参数。
+
+## Response
+
+- 通过 Response
+
+### download
+
+> 通过 servlet 下载文件
+
+- 将运行的工程中的资源 copy 用 InputStream 读取，再将 InputStream 中的 bytes 写入 response 中的 ServletOutputStream 即可。
+- 如果要指定浏览器不解析下载的资源且指定下载文件名，使用 `setHeader("Content-Disposition", "attachment;filename=")+filename`;
+- 要对浏览器传来的中文文件名进行转码：`filename = new String(filename.getBytes("ISO-8859-1"), "utf-8")`；
+- 对中文文件名进行转码成不同浏览器需要的格式：
+  - 先获取请求客户端的 User-Agent 用判断浏览器的类型；
+  - 根据不同浏览器用不同的方式解码：
+
+```java
+ // 对不同浏览器给以不同的中文编码
+if (ua.contains("MSIE")) {
+   // IE浏览器
+   originFilename = URLEncoder.encode(originFilename, "utf-8");
+   originFilename = originFilename.replace("+", " ");
+} else if (ua.contains("Firefox")) {
+   // 火狐浏览器
+   BASE64Encoder base64Encoder = new BASE64Encoder();
+   originFilename = "=?utf-8?B?"
+            + base64Encoder.encode(originFilename.getBytes("utf-8")) + "?=";
+} else {
+   // 其它浏览器
+   originFilename = URLEncoder.encode(originFilename, "utf-8");
+}
+System.out.println("encoded filename:" + originFilename);
+```
+
+#### 同样使用 download 发送验证码图片给客户端
+
+> [reference](http://www.programmersought.com/article/5287123976/)，案例写在 JDBCDemo 项目中。
+
+1. 使用 BufferdImage 生成图片；
+2. 将图片写入 response.ServletOutputStream 中；
+
+## Request
+
+> Tomcat engine 封装的请求
+
+- 获取客户机的信息： `getRemoteAddr()` `getRemoteUrl()` `getRemoteUri`, etc.
+- 防盗链： `getHeader("Referer")` 获取请求来源。
+
+### redirect & forward
+
+> 重定向与转发
+
+- redirect 重定向，其本质是将 statausCode 改成 302 ，再加上 Location 设置成一个新的 url，响应给客户端，客户端拿到后会根据这 StatusCode 重新请求新的 url（`senRedirect(String url)`， url 使用相对的， tomcat container 会转换成绝对的）。整个流程有发生过两次客户端的请求，可以看到浏览器在完成请求后其 url 变成了后一个请求的 url。
+  - 对于 container 转换 url 规则：
+    - 如果 url 没有 `/` 开头， container 将视 url 作与当前 servlet 相对关联
+    - 如果 url 以 `/` 开头， container 将视 url 为与 container 根相对关联
+    - 如果 url 以 `//` 开头， container 将视 url 为一个网络相对路径
+- forward 是对一次请求中，前一个请求被应用内部转发到另一个 servlet ，Tomcat 会将整个过程完成并响应给客户端。浏览器接收最后的响应。前一次处理可以对 request 进行改动再交给后一次处理。
