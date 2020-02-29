@@ -25,6 +25,8 @@ keywords: servlet
 5. HttpServlet 再调用 HttpResponse 对象的相关方法对这些参数做出处理并生成响应数据；
 6. HttpServlet 将响应数据传给 webClient ，完成请求响应；
 
+_**servlet3.0** 已有使用注册注册 servlet 的功能，添加注解 `@WebServlet(name = "register", urlPatterns = "/register")` 就完成了 servlet 注册到 tomcat 容器的功能_
+
 问题：
 
 1. 服务器上的服务是如何响应请求的？
@@ -91,7 +93,15 @@ System.out.println("encoded filename:" + originFilename);
 
 - redirect 重定向，其本质是将 statausCode 改成 302 ，再加上 Location 设置成一个新的 url，响应给客户端，客户端拿到后会根据这 StatusCode 重新请求新的 url（`senRedirect(String url)`， url 使用相对的， tomcat container 会转换成绝对的）。整个流程有发生过两次客户端的请求，可以看到浏览器在完成请求后其 url 变成了后一个请求的 url。
   - 对于 container 转换 url 规则：
-    - 如果 url 没有 `/` 开头， container 将视 url 作与当前 servlet 相对关联
+    - 如果 url **没有 `/` ** 开头， container 将视 url 作与当前 servlet 相对关联
     - 如果 url 以 `/` 开头， container 将视 url 为与 container 根相对关联
     - 如果 url 以 `//` 开头， container 将视 url 为一个网络相对路径
 - forward 是对一次请求中，前一个请求被应用内部转发到另一个 servlet ，Tomcat 会将整个过程完成并响应给客户端。浏览器接收最后的响应。前一次处理可以对 request 进行改动再交给后一次处理。
+- 如果要将错误提示回显到原页面，只能使用 forward(jsp) 。如使用 rediredct 将重新发起一次请求到 jsp ，新的 request 没有上一个 request 中保存的 attributes 将会丢失。
+
+### 中文乱码的问题
+
+- 当请求数据中，如果中文在请求体里（请求方式为 post），只需要对 request 设置解码字符集为 **utf-8** 即可
+- 当中文在请求 url 中（method = get），需要对请求参数先进行 `iso8859-1` 编码，再使用 `utf-8` 字符集解码： `value = new String(value.getBytes("iso-8859-1"), "utf-8");`
+
+原因：使用 get 方式请求，数据放在 url 中， http 协议不支持含中文的 utf8 字符集，所以对 url 数据统一使用 iso88591 编码。
