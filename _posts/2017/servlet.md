@@ -105,3 +105,21 @@ System.out.println("encoded filename:" + originFilename);
 - 当中文在请求 url 中（method = get），需要对请求参数先进行 `iso8859-1` 编码，再使用 `utf-8` 字符集解码： `value = new String(value.getBytes("iso-8859-1"), "utf-8");`
 
 原因：使用 get 方式请求，数据放在 url 中， http 协议不支持含中文的 utf8 字符集，所以对 url 数据统一使用 iso88591 编码。
+
+## Cookie
+
+服务端设置响应给客户端后，客户端再请求时会根据 Cookie 的属性进行带 Cookie 访问。
+
+- 设置 cookie 过期时间： `cookie.setMaxAge(int seconds);`
+- 删除 Cookie : `cookie.setMaxAge(0);`
+- 设置 cookie 路径： `cookie.setPath(String path);` 如果不设置，其路径为当前资源
+
+## Session
+
+session 技术是基于cookie 的，其本质是服务器为客户端创建一块内存，为其编号，将编号用 cookie 形式响应给客户端，客户端再取此 id 去取 session 数据。
+
+## jsp
+
+java server pages。
+
+- 其本质是一个 servlet ，被 Tomcat container 翻译成一个 servlet ，最后执行的是一个 java 代码将结果写入 outputStream 。被 http 协议传输给浏览器。
