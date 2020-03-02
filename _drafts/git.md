@@ -26,39 +26,40 @@ date: "2018-10-19 11:06"
 
 [reference](http://www.cnblogs.com/vman/articles/Git_cmds.html)
 
+[官方文档](https://git-scm.com/docs/)
+
 ### Git 远程仓库管理
 
 - `git remote -v` # 查看远程服务器地址和仓库名称
 - `git remote show origin` # 查看远程服务器仓库状态
 - `git remote add origin git@github:robbin/robbin_site.git` **添加远程仓库地址**，可以用来一个本地库与多个远程库连接（github & gitee）
-- `git remote set-url origin git@ github.com:robbin/robbin_site.git` # 设置远程仓库地址(用于修改远程仓库地址) 
+- `git remote set-url origin git@github.com:robbin/robbin_site.git` # 设置远程仓库地址(用于修改远程仓库地址)
 - `git remote rm <repository>` # 删除远程仓库
-- `git log remotes/<origin/branch_name>` 查看远程分支提交历史，不使用 remotes 也可以
-- `git clone --bare robbin_site robbin_site.git` # 用带版本的项目创建纯版本仓库
-- `scp -r my_project.git git@ git.csdn.net:~` # 将纯仓库上传到服务器上
-- `mkdir robbin_site.git && cd robbin_site.git && git --bare init` # 在服务器创建纯仓库
-- `git remote add origin git@ github.com:robbin/robbin_site.git` # 设置远程仓库地址
-- `git push -u origin develop` # 首次将本地develop分支提交到远程develop分支，并且track
+- `git remote show <origin>` 查看远程分支与本地分支的跟踪状态
 - `git remote set-head origin master` # 设置远程仓库的HEAD指向master分支也可以命令设置跟踪远程库和本地库
-- `git branch <--set-upstream-to|--track> master origin/master` **将本地 master 分支与远程 master 分支关联**
-- `git push` # push所有分支
+- `git remote add <origin> <git@github.com:robbin/robbin_site.git>`  **设置远程仓库地址与本地仓库链接**
+- `git branch <--set-upstream-to> <master> <origin>/<master>` **将本地 master 分支与远程 master 分支关联**
+- `git branch <--unset-upstream-to> <master> <origin>/<master>` **将本地 master 分支与远程 master 分支解绑**
+- `git branch <--track> <master> <origin>/<master>` **将本地 master 分支与远程 master 分支关联** 新创建分支时使用 `--track` 与远程分支连接
+- `git branch -r -d <origin>/<branch_name>` 删除远程分支的跟踪信息
+- `git branch -r` 查看远程分支
+- `git push -u origin develop` # 首次将本地develop分支提交到远程develop分支，并且 track
+- `git push` # push 分支
 - `git push origin master` # 将本地主分支推到远程主分支
 - `git push -u origin master` # 将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)
 - `git push origin <local_branch>` # 创建远程分支， origin是远程仓库名
 - `git push origin <local_branch>:<remote_branch>` # 创建远程分支
+- `git push origin --delete <remote_branch_name>` 彻底删除远程分支，git 版本 1.7 之后添加的新功能
+- `git push origin --delete tag <tag_name>` 彻底删除远程 tag ，版本 1.7 之后添加的新功能
 - `git pull` # 抓取远程仓库所有分支更新并合并到本地
 - `git pull origin <remote_branch> [--allow-unrelated-histories]` # 抓取远程仓库所有分支更新并合并到本地，后一参数用以指定允许 pull 不相关历史
-- `git pull --no-ff` # 抓取远程仓库所有分支更新并合并到本地，不要快进合并
+- `git pull --no-ff` # 抓取远程仓库所有分支更新并合并到本地，不要快速合并 no fast forward
 - `git fetch origin` # 抓取远程仓库更新
 - `git merge origin/master` # 将远程主分支合并到本地当前分支
-- `git checkout --track origin/branch` # 跟踪某个远程分支创建相应的本地分支（使用此命令跟踪远程分支前，需要确定是否已抓取远程分支的更新 `git remote show origin`，如果没有抓取，使用 `git fetch origin` 命令抓取）
-- `git checkout -b <local_branch> origin/<remote_branch>` # 基于远程分支创建本地分支，功能同上
-- 查看远程 url 路径 `git remote -v`
-- 删除远程分支的跟踪信息 `git branch -r -d <origin>/<branch_name>`
-- 彻底删除远程分支 `git push origin --delete <remote_branch_name>` git 版本 1.7 之后添加的新功能
-- 彻底删除远程 tag `git push origin --delete tag <tag_name>` git 版本 1.7 之后添加的新功能
-- 查看远程分支 `git branch -r`
-- 查看远程分支与本地分支的跟踪状态 `git remote show <origin>`
+- `git log remotes/<origin/branch_name>` 查看远程分支提交历史，不使用 remotes 也可以
+- `mkdir robbin_site.git && cd robbin_site.git && git --bare init` # 在服务器创建纯仓库
+- `git clone --bare robbin_site robbin_site.git` # 用带版本的项目创建纯版本仓库
+- `scp -r my_project.git git@ git.csdn.net:~` # 将纯仓库上传到服务器上
 
 ### Git 本地分支管理
 
@@ -69,21 +70,23 @@ date: "2018-10-19 11:06"
 - `git br -v` # 查看各个分支最后提交信息
 - `git br --merged` # 查看已经被合并到当前分支的分支
 - `git br --no-merged` # 查看尚未被合并到当前分支的分支
+- `git br -d <branch>` # 删除某个本地分支
+- `git br -D <branch>` # 强制删除某个本地分支 (未被合并的分支被删除的时候需要强制)
 - `git co <branch>` # 切换到某个分支
 - `git co -b <new_branch>` # 创建新的分支，并且切换过去
 - `git co -b <new_branch> <branch>` # 基于branch创建新的new_branch
 - `git co $id` # 把某次历史提交记录checkout出来，但无分支信息，切换到其他分支会自动删除
 - `git co $id -b <new_branch>` # 把某次历史提交记录 checkout 出来，创建成一个分支
-- `git br -d <branch>` # 删除某个本地分支
-- `git br -D <branch>` # 强制删除某个本地分支 (未被合并的分支被删除的时候需要强制)
+- `git checkout --track origin/branch` # 跟踪某个远程分支创建相应的本地分支（使用此命令跟踪远程分支前，需要确定是否已抓取远程分支的更新 `git remote show origin`，如果没有抓取，使用 `git fetch origin` 命令抓取）
+- `git checkout -b <local_branch> origin/<remote_branch>` # 基于远程分支创建本地分支，功能同上
 
-分支合并 merge 和 rebase
+### 分支合并 merge 和 rebase
 
 - `git merge <branch>` # 将branch分支合并到当前分支
 - `git merge origin/master --no-ff` # 不要Fast-Foward合并，这样可以生成merge提交
 - `git rebase master <branch>` # 将master rebase到branch，相当于： git co <branch> && git rebase master && git co master && git merge <branch>
 
-Git补丁管理(方便在多台机器上开发同步时用)
+### Git补丁管理(方便在多台机器上开发同步时用)
 
 - `git diff > ../sync.patch` # 生成补丁
 - `git apply ../sync.patch` # 打补丁
