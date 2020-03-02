@@ -112,9 +112,9 @@ date: "2018-10-19 11:06"
   - 与 `git push origin:origin/branchName` 命令一致的原理，将空分支 push 到远程对应分支而将其置空。
 - 查看 tag : `git tag`/`git tag -l`
 
-## 错误案例
+## 案例
 
-### E325
+### 错误 E325
 
 > 使用 git bash 时遇到的错误。[参考](https://blog.csdn.net/wangzunkuan/article/details/80484119)
 
@@ -129,3 +129,18 @@ date: "2018-10-19 11:06"
 解决方案
 
 直接删除 `.COMMIT_EDITMSG.swp` 文件即可。
+
+### 将本地工作空间关联两个远程库
+
+> 需求来源于 github 远程仓库连接太慢，而国内的 gitee 连接速度相对更快，有必要将自己的代码放入两个仓库备份使用。
+
+步骤：
+
+1. 基本操作，先生成两套密钥（注意 generate 时命名区分），一套放 github 一套放 gitee，并测试（SSH -T git@github.com）连接成功；
+2. 远程分别创建仓库；
+3. 先将一个 gitee(随便哪个都可，反之后续则反) 远程库 clone 到本地；
+4. 在本地库增加远程机：`git remote add <origin2> <git@github.com:robbin/robbin_site.git>`，注意增加第二个远程主机时命名不要与前面自动生成的 origin 重复。仓库 url 在见面上 copy 即可。
+5. fetch 新远程主机数据：`git fetch <origin2>`;
+6. 将本地分支 master（其他亦可）与 github 上分支关联：`git branch <--set-upstream-to> <master> <origin2>/<master>` 。至此，已经本地库也与两个远程库关联成功。前面使用过程中此步骤出现 `fatal : branch orgin2/master not exist`，换用被废弃的指令 `--set-upstream` 成功，不知道为什么？
+7. 将新远程库代码 pull 到本地 merge：`git pull <origin2> <master>`；、
+8. 再次 push 时可加上远程主机名与分支名以区分：`git push origin master`
