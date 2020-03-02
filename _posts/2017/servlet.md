@@ -125,7 +125,7 @@ session 技术是基于cookie 的，其本质是服务器为客户端创建一�
 > jsp是一个特殊的 servlet ,它最终被执行成一个java的class文件并置入内存，当响应开始后会利用输出流生成一个Html页面传送给请求方；
 
 - 其本质是一个 servlet ，被 Tomcat container 翻译成一个 servlet ，最后执行的是一个 java 代码将结果写入 outputStream 。被 http 协议传输给浏览器。
-- 所有 jsp/xjsp 文件的请求都是被 容器中全局配置 `web.xml` 中指定由 JspServlet 处理。
+- 所有 jsp/jspx 文件的请求都是被 容器中全局配置 `web.xml` 中指定由 JspServlet 处理。
 
 ### Jsp的工作原理
 
