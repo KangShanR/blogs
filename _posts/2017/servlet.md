@@ -127,7 +127,7 @@ session 技术是基于cookie 的，其本质是服务器为客户端创建一�
 - 其本质是一个 servlet ，被 Tomcat container 翻译成一个 servlet ，最后执行的是一个 java 代码将结果写入 outputStream 。被 http 协议传输给浏览器。
 - 所有 jsp/xjsp 文件的请求都是被 容器中全局配置 `web.xml` 中指定由 JspServlet 处理。
 
-## Jsp的工作原理
+### Jsp的工作原理
 
 1. 当请求方请求一个jsp页面时，jsp先被服务器中的**Servlet引擎转换成一个java源文件**，这个过程会对jsp页面中的**语法进行检查**，如果页面语法没有错则转换成功，这时Jsp引擎再利用**javac**将java源文件**编译成class文件加载到内存中**；
 2. 其次再创建一个**Servlet的对象**，并执行该对你的`jspInit()`方法，与Servlet生命周期中一致这个`jspInit()`方法在其生成周期中只被执行一次；
@@ -136,7 +136,7 @@ session 技术是基于cookie 的，其本质是服务器为客户端创建一�
 5. 与servlet一样，jspServlet会调用Request对象中相应的方法将封装在其中的参数取出来，再**调用Response中相关的方法进行业务逻辑处理**，生成响应数据；
 6. `jspService()` 方法将执行完的结果返回给请求方；
 
-## Jsp指令
+### Jsp指令
 
 1. **page：**
     1. `<%@ page%>`作用于整个jsp页面，包括静态的包含文件；
