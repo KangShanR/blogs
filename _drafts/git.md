@@ -84,7 +84,7 @@ date: "2018-10-19 11:06"
 
 - `git merge <branch>` # 将branch分支合并到当前分支
 - `git merge origin/master --no-ff` # 不要Fast-Foward合并，这样可以生成merge提交
-- `git rebase master <branch>` # 将master rebase到branch，相当于： git co <branch> && git rebase master && git co master && git merge <branch>
+- `git rebase master <branch>` # 将master rebase到branch，相当于： `git co <branch> && git rebase master && git co master && git merge <branch>`
 
 ### Git补丁管理(方便在多台机器上开发同步时用)
 
