@@ -117,12 +117,20 @@ static void close(Connection con){
 
 #### 问题
 
-> Feb 24 2020, 昨天晚上使用 c3p0 时出现的问题：`No suitable Driver!` 一直找不到原因，重新导了几遍 mysql-connector-java 包。睡前还想包哪里导得有问题，今天起来没去上班新起一个项目，使用 maven 导 c3p0 进来还是有同样的问题。打开 c3p0 的官方文档看到工厂方法创建 Databases ，尝试过程中发现 url 中与别人内置的相比少了个 `:` 。加上这个 `:` 在协议字段 `mysql` 之后，万事大吉！
+1. Feb 24 2020, 昨天晚上使用 c3p0 时出现的问题：`No suitable Driver!` 一直找不到原因，重新导了几遍 mysql-connector-java 包。睡前还想包哪里导得有问题，今天起来没去上班新起一个项目，使用 maven 导 c3p0 进来还是有同样的问题。打开 c3p0 的官方文档看到工厂方法创建 Databases ，尝试过程中发现 url 中与别人内置的相比少了个 `:` 。加上这个 `:` 在协议字段 `mysql` 之后，万事大吉！
 
 **总结：**
 
 - 此之前已经知道 url 中那一段协议，但手写 url 时没写进去，后面检查时也没有对此进行检查。
 - 这种很暴力的错误很有可能就是在这种低级的地方导致。找不到驱动最直接的想法就是包没导好，想不到的是找包是根据协议来找的。
+
+**由 pom 文件引起的 c3p0 一直不能获取连接的错误：**
+
+出现一直连接不上，打断点观察 c3p0 在初始化时在未加载配置前就进行初始化，以至于拿不到任何驱动与 datasources ，反复找原因，更新了各个相关包的版本都不会一直报出： `connections could not be acquired from the underlying database` `A ResourcePool could not acquire a resource from its primary factory or source` 错误；
+
+解决：查看 pom 文件时发现今天更新了 `<groupId>` `<artifactId>` 且与工程包并未吻合（想分包但未完成），将 `<packaging>pom</packaging>` 注释掉，恢复正常。
+
+可能原因：在 `<packaging>` 标签的作用下，工程运行前打包了各个依赖而找不到驱动。
 
 ## 关于
 
