@@ -1,6 +1,6 @@
 # decompile lambda codes
 
-> 反编译lambda 代码
+> 反编译lambda 代码，用以查看 java8 动态调用实现。
 
 ## original java codes
 
