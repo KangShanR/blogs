@@ -91,13 +91,13 @@ System.out.println("encoded filename:" + originFilename);
 
 > 重定向与转发
 
-- redirect 重定向，其本质是将 statausCode 改成 302 ，再加上 Location 设置成一个新的 url，响应给客户端，客户端拿到后会根据这 StatusCode 重新请求新的 url（`senRedirect(String url)`， url 使用相对的， tomcat container 会转换成绝对的）。整个流程有发生过两次客户端的请求，可以看到浏览器在完成请求后其 url 变成了后一个请求的 url。
+- redirect 重定向，其本质是将 statusCode 改成 302 ，再加上 Location 设置成一个新的 url，响应给客户端，客户端拿到后会根据这 StatusCode 重新请求新的 url（`senRedirect(String url)`， url 使用相对的， tomcat container 会转换成绝对的）。整个流程有发生过两次客户端的请求，可以看到浏览器在完成请求后其 url 变成了后一个请求的 url。
   - 对于 container 转换 url 规则：
     - 如果 url **没有 `/` ** 开头， container 将视 url 作与当前 servlet 相对关联
     - 如果 url 以 `/` 开头， container 将视 url 为与 container 根相对关联
     - 如果 url 以 `//` 开头， container 将视 url 为一个网络相对路径
 - forward 是对一次请求中，前一个请求被应用内部转发到另一个 servlet ，Tomcat 会将整个过程完成并响应给客户端。浏览器接收最后的响应。前一次处理可以对 request 进行改动再交给后一次处理。
-- 如果要将错误提示回显到原页面，只能使用 forward(jsp) 。如使用 rediredct 将重新发起一次请求到 jsp ，新的 request 没有上一个 request 中保存的 attributes 将会丢失。
+- 如果要将错误提示回显到原页面，只能使用 forward(jsp) 。如使用 redirect 将重新发起一次请求到 jsp ，新的 request 没有上一个 request 中保存的 attributes 将会丢失。
 
 ### 中文乱码的问题
 
@@ -129,7 +129,7 @@ session 技术是基于cookie 的，其本质是服务器为客户端创建一�
 
 ### Jsp的工作原理
 
-1. 当请求方请求一个jsp页面时，jsp先被服务器中的**Servlet引擎转换成一个java源文件**，这个过程会对jsp页面中的**语法进行检查**，如果页面语法没有错则转换成功，这时Jsp引擎再利用**javac**将java源文件**编译成class文件加载到内存中**；
+1. 当请求方请求一个jsp页面时，jsp先被服务器中的**Servlet引擎转换成一个java源文件**，这个过程会对jsp页面中的**语法进行检查**，如果页面语法没有错则转换成功，这时Jsp引擎再利用 **javac** 将java源文件**编译成class文件加载到内存中**；
 2. 其次再创建一个**Servlet的对象**，并执行该对你的`jspInit()`方法，与Servlet生命周期中一致这个`jspInit()`方法在其生成周期中只被执行一次；
 3. **创建并启动一个线程**，线程来调用对象的`jspService()`方法（如果有多个请求同时请求一个jsp，则jsp引擎**会创建多个线程来请求**）；
 4. Servlet容器将 **请求方的参数封装到HttpServletRequest对象** 中并再生成一个 HttpServletResponse 对象，将这两个对象作为参数传给 `jspService()` 方法；
@@ -148,3 +148,20 @@ session 技术是基于cookie 的，其本质是服务器为客户端创建一�
 3. **include**
     1. 包含指令，将会在jsp编译时插入一个包含文本或代码的文件；
     2. 这个包含的文件可以是html文件也可以是jsp文件、文本文件、java代码。但在这些包含文件中不能使用 `<html><body>` ，这些标签将会影响jsp文件中的标签的解析；
+    3. 引入外部 jsp 文件包括动态引入与静态引入。
+       1. 格式分别为：静态 `<%@ include file="">` ；动态 `<jsp:include file=""/>`
+       2. 动态的执行过程：两个 jsp 先都编译成 _jsp.class 文件，在请求时外部 jsp 执行到引入标签就根据 uri 找到被包含的 jsp class 进行执行，最终把两个 class 执行的结果写在一直。
+       3. 静态包含执行过程：在解析 jsp 成 class 时就将被包含 jsp 置入主 jsp 成为同一个 jsp，再被编译成 class 文件。
+       4. 两种包含方式不同之处决定了：静态包含不让在两个 jsp context 域间传递数据，而动态包含可以。
+
+### jsp 内置 9 大对象
+
+1. request 就是 HttpRequest
+2. response HttpResponse
+3. session Session
+4. application ServletContext
+5. config ，ServletConfig servlet 的配置
+6. out JspWriter 将页面写入 outputStream
+7. page 被翻译后的 servlet
+8. pageContext jsp 页面容器
+9. exception 内置的一个 Throwable 与 errorPage 标签连胜：在发生异常时在新的页面 getMessage()
