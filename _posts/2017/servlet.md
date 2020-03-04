@@ -165,3 +165,20 @@ session 技术是基于cookie 的，其本质是服务器为客户端创建一�
 7. page 被翻译后的 servlet
 8. pageContext jsp 页面容器
 9. exception 内置的一个 Throwable 与 errorPage 标签连胜：在发生异常时在新的页面 getMessage()
+
+### EL 表达式
+
+- expression language
+- 在 jsp 中使用的表达式，其最重要的作用就是读取各域中的数据。
+- 格式：`${[scrope.]<key>}`
+- 如果不指定域，那么将从小的域开始往大的域内查找，直到找到为止。依次为： pageContext > request > session > application(servletContext)。其底层就是使用了 jsp 的 `pageContext.getAttribite(String name);`
+- 在 jsp 中使用 EL expression 获取项目绝对路径：`${pageContext.request.contextPath}`，使用 pageContext 获取到 jsp 万能内置对象以获取一系列的对象（request/response/session ，注意：此处获取的不是 requestScrope 域对象， scrope 域对象只能获取到 request 对象的域，其中只有 attributes ）。
+- `${!empty (value)}` 用以判空，其中 空包括 `""`；
+
+### jstl
+
+- jsp standard tag language;
+- 与 el 获取数据连用，组合出页面逻辑与数据；
+- 需要导入 jstl 核心库 `<%@ taglib uri="名字，带着 http 协议头" prefix="c"%>`
+
+#### if
