@@ -7,7 +7,7 @@ keywords: jdbc,持久层,数据库,连接,状态,会话
 description: 
 ---
 
-> 全称：java database connectivity,专用于java数据库连接，其中封装了基本的连接数据库的API,数据库连接的高级框架（诸如：Mybatis/Hibernate)的使用都基于JDBC的原理，也就是理解了JDBC对于我们更理解各种持久层数据连接层的框架很有帮助；
+> 全称：java database connectivity,专用于java数据库连接，其中封装了基本的连接数据库的API,数据库连接的高级框架（诸如：Mybatis/Hibernate)的使用都基于 JDBC 的原理，也就是理解了 JDBC 对于我们更理解各种持久层数据连接层的框架很有帮助；
 
 <!--more-->
 
@@ -99,13 +99,17 @@ static void close(Connection con){
 
 - 其中针对不同的方法与连接状态，关闭的对象也不一样，除了Connection还有Statement,Prestatement,resultSet，各个对象都是调用其Close方法；
 - 通常情况下，调用对象的Close()方法放在finally语句块中，这样就可以执行完查询语句方法后，交接将各个对象关闭；
-
-### Note
-
 - *以上的代码基本实现了JDBC的整个流程，从创建连接到执行查询语句，再到关闭连接、状态、结果集*
 - *JDBC中封装的连接数据库的API包：java.sql是连接sql的基础包，使用JDBC就得引入这个jar包：`mysql-connector-java-5.1.38-bin.jar`*
-- 在使用 maven 管理包时，在没有加入 mysql 驱动包时连接本地的 mysql 库依然能连接上也能查询到数据。前面项目把 `Class.forName("com.mysql.jdbc.Driver")` 这一行代码注释后一样能连上数据库使用。
-  - 目前原因猜测：当 `mysql-connector-java` 包被 build 进项目后，程序运行时自动将其加载好了。不用再使用代码加载驱动了！
+
+### 问题
+
+1. 在使用 maven 管理包时，在没有加入 mysql 驱动包时连接本地的 mysql 库依然能连接上也能查询到数据。前面项目把 `Class.forName("com.mysql.jdbc.Driver")` 这一行代码注释后一样能连上数据库使用。 版本：`<artifactId>mysql-connector-java</artifactId><version>8.0.18</version>`
+
+- 目前原因猜测：当 `mysql-connector-java` 包被 build 进项目后，程序运行时自动将其加载好了。不用再使用代码加载驱动了！
+- March 5 2020 跑 jdbc 本地测试时出现：`Loading class 'com.mysql.jdbc.Driver'. This is deprecated. The new driver class is 'com.mysql.cj.jdbc.Driver'. The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.` 这应该是真正原因。
+  - demo 测试：当不指定加载驱动时，不会报出此提醒，这个时候自动加载了 cj 包中的驱动。
+  - 结论：可以不再手动加载 jdbc.driver ，也就可以不再配置 jdbc.driver。
 
 ## c3p0
 
