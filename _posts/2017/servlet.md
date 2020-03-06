@@ -183,7 +183,7 @@ session 技术是基于cookie 的，其本质是服务器为客户端创建一�
 
 #### if
 
-使用格式：`<c:if test="">`
+使用格式：`<c:if test="boolean">`
 
 #### forEach
 
