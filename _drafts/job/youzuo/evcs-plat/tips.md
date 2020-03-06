@@ -4,14 +4,10 @@ title: "tips"
 date: "2019-09-19 15:57"
 ---
 
-# Tips
-
 - mybatis 替换表达式
   - \n.+\/.+\n.+\n.*\n.+\n.+\n.+\n.+\/$
 - 服务器日志目录
   - /smapp/servers/snxia-api-app/logs/
-
-
 
 - ev_billing_record request
   - couponId
@@ -21,3 +17,5 @@ date: "2019-09-19 15:57"
     - != NULL
       - == -1 unpaid donot need coupon
       - != -1 unpaid need the coupon data
+- sofa host
+  - 10.28.18.105:2181,10.28.18.108:2181,10.28.18.82:2181

@@ -91,6 +91,7 @@ description:
 ## 案例
 
 1. 匹配某些指定字符同时又不包含某些指定字符 [reference](https://blog.csdn.net/thewindkee/article/details/52785763)
-   1. `^((?<!abc).)*admin((?!abc).)*$` 包含 admin 且不包含 abc 。
-      1. eg: `abcaadmin`
-      2. eg: `absadminac`
+   1. `^((?<!abc).)*admin(.(?!abc))*$` 包含 admin 且不包含 abc 。
+      1. eg: `aabcdcaadmin`
+      2. eg: `absadminabc`
+      3. `^((?<!registry).)*@SofaReferenceBinding(.(?!registry))*\n((?<!registry).)*((?<!registry).)*\)$` 两行中少 registry 的 sofa 注入注解
