@@ -276,7 +276,7 @@ On shutdown of a bean factory, the following lifecycle methods apply:
             </tx:attributes>
         </tx:advice>
     ```
-    - 最后一行统配就指定了所有的方法都配置上事务，同时isolation指此事务的隔离级别，propagation指事务的传播属性，read-only指是否为只读；
+    - 最后一行统配就指定了所有的方法都配置上事务，同时 isolation 指此事务的隔离级别，propagation 指事务的传播属性，read-only 指是否为只读；
 - 第五个配置aop:config，配置事务的切入点，以及被管理的对象
     ```
     <aop:config>
