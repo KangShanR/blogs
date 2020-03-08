@@ -187,4 +187,7 @@ session 技术是基于cookie 的，其本质是服务器为客户端创建一�
 
 #### forEach
 
-使用格式：`<c:forEach items=listName var=itemname` 这里需要给 item 取一个变量名，在标签中就使用此变量名直接使用。
+使用格式：`<c:forEach items=listName var=itemname varStatus=""` 这里需要给 item 取一个变量名，在标签中就使用此变量名直接使用。
+
+- varStatus 是循环变量状态，可在其中取出 `count` 循环次数，可用于 list 行
+- 编号
