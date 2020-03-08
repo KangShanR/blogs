@@ -4,9 +4,7 @@ title: "json"
 date: "2017-11-08 21:22"
 ---
 
-# json
-
-概念：javascript object notation
+概念：javascript object notation。[reference](https://www.json.org/json-en.html)
 
 ## 基础知识
 
