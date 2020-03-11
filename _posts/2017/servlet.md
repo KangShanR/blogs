@@ -111,6 +111,7 @@ System.out.println("encoded filename:" + originFilename);
 
 - 当请求数据中，如果中文在请求体里（请求方式为 post），只需要对 request 设置解码字符集为 **utf-8** 即可
 - 当中文在请求 url 中（method = get），需要对请求参数先进行 `iso8859-1` 编码，再使用 `utf-8` 字符集解码： `value = new String(value.getBytes("iso-8859-1"), "utf-8");`
+  - 字符集使用不要使用魔法值，使用 `StandardCharsets` 中定义好的字符类。
 
 原因：使用 get 方式请求，数据放在 url 中， http 协议不支持含中文的 utf8 字符集，所以对 url 数据统一使用 iso88591 编码。
 

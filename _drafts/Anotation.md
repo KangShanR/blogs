@@ -4,7 +4,67 @@ categories: programming
 tag: [java,programming]
 ---
 
-# 注解的使用
+# Anotation
+
+> 有注解，必有其解析器。解析器使用类反射做了注解所增加的功能。
+
+## 注解的定义与使用
+
+> 注解是 JAVA5.0 之后的高级特性。可以使用自定义注解来使用。
+
+### 四个元注解
+
+注解的注解，用于标注该注解的基本属性。
+
+- @Documented 注解是否包含在 JavaDoc 中
+- @Retention 什么时候使用该注解，定义该注解的生命周期
+  - RetentionPolicy.SOURCE
+  - RetentionPolicy.CLASS
+  - RetentionPolicy.RUNTIME
+- @Target 定义该注解使用的地方
+  - ElementType.TYPE 类、接口、枚举等
+  - ElementType.FIELD 字段属性
+  - ElementType.METHOD 方法
+  - ElementType.PARAMETER 方法参数
+  - ElementType.CONSTRUCTOR 构造函数
+  - ElementType.LOCAL_VARIABLE 本地变量
+  - ElementType.PACKAGE 包
+- @Inherited 是否允许子类继承该注解
+
+### 注解的定义
+
+注解定义中的属性只能是 String、Enum、及基本数据类型
+
+```java
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@interface Todo {
+  public enum Priority {LOW, MEDIUM, HIGH}
+  public enum Status {STARTED, NOT_STARTED}
+  String author() default "Yash";
+  Priority priority() default Priority.LOW;
+  Status status() default Status.NOT_STARTED;
+}
+```
+
+如果注解中属性只有一个，那么使用时不需要写属性名，直接写值即可：
+
+```java
+@Target(ElementType.TYPE)
+@interface Remark{
+  String author() default "kfc";
+}
+
+@Remark("jfk")
+public class Change{
+}
+```
+
+### 注解的解析器
+
+- 使用注解必然要写好其解析器，根据注解的不同生命周期，其解析器对相应的注解进行进行解析，获取其属性值，并做相应的处理。
+- 注解的保留策略：如果是 `RetentionPolicy.SOURCECODE`，则其在编译阶段会被使用，因为此时编译器根据其 源码策略 对其进行处理。
+- 注解的解析器是如果工作的？参照 spring 。
 
 ## 注解 @Autowired 的使用
 
@@ -12,7 +72,7 @@ tag: [java,programming]
 
 据此理解的话，在编码中：
 
-- 如果是属性被此注解标注，则此属性就将这个 bean 注入到容器中，不用写此属性的 getter() 与 setter() 方法，在 bean.xml 配置中也不用写此属性的 <property> 标签了；
+- 如果是属性被此注解标注，则此属性就将这个 bean 注入到容器中，不用写此属性的 getter() 与 setter() 方法，在 bean.xml 配置中也不用写此属性的 `<property>` 标签了；
 - 如果方法或构造函数被 @Autowired 注解，则此方法参数中的 bean 就会自动被查找装入到这个方法中；
 
 ## 注解 @ResponseBody
@@ -68,55 +128,3 @@ _note:关于这儿的请求是将请求的 header/cookie 中的值绑定到请�
 ### @Repository
 
 > 对应 dao 层的数据
-
-## 注解的定义与使用
-
-> 注解是 JAVA5.0 之后的高级特性。可以使用自定义注解来使用。
-
-### 四个元注解
-
-注解的注解，用于标注该注解的基本属性。
-
-- @Documented 注解是否包含在 JavaDoc 中
-- @Retention 什么时候使用该注解，定义该注解的生命周期
-  - RetentionPolicy.SOURCE
-  - RetentionPolicy.CLASS
-  - RetentionPolicy.RUNTIME
-- @Target 定义该注解使用的地方
-  - ElementType.TYPE 类、接口、枚举等
-  - ElementType.FIELD 字段属性
-  - ElementType.METHOD 方法
-  - ElementType.PARAMETER 方法参数
-  - ElementType.CONSTRUCTOR 构造函数
-  - ElementType.LOCAL_VARIABLE 本地变量
-  - ElementType.PACKAGE 包
-- @Inherited 是否允许子类继承该注解
-
-### 注解的定义
-
-注解定义中的属性只能是 String、Enum、及基本数据类型
-
-```java
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-@interface Todo {
-  public enum Priority {LOW, MEDIUM, HIGH}
-  public enum Status {STARTED, NOT_STARTED}
-  String author() default "Yash";
-  Priority priority() default Priority.LOW;
-  Status status() default Status.NOT_STARTED;
-}
-```
-
-如果注解中属性只有一个，那么使用时不需要写属性名，直接写值即可：
-
-```java
-@Target(ElementType.TYPE)
-@interface Remark{
-  String author() default "kfc";
-}
-
-@Remark("jfk")
-public class Change{
-}
-```
