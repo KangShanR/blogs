@@ -114,7 +114,7 @@ date: "2018-12-29 15:04"
 1. server 端使用 netcat 监听端口：`nc -l port`;
 2. client 端使用 netcat 连接 server 端口： `nc server_host port`;
 3. 两端现在都可以输入数据，按 ENTER 将数据发送出去，另一端即可收到对方数据；
-4. CTRL + C 断开连接。
+4. CTRL+C 断开连接。
 
 #### 使用 netcat 执行一个 HTTP 请求
 
