@@ -49,7 +49,6 @@ desktop virtual machine: root 123456
   - `.` 当前目录
   - `..` 上级目录
   - `-` 上次所在目录
-  - `cd ` 缺省当前用户目录
 - `pwd` print working directory 打印当前所在目录
 - `mkdir` make directory
 - `rmdir` remove directory 移除空目录
@@ -109,7 +108,7 @@ desktop virtual machine: root 123456
 - `ps [parameter]` process status 进程运行状态
   - `-e` 与 `-A` 相同显示所有进程
   - `-f` 显示UID, PPIP, C, STIME 栏位
-- `kill [parameter] [process]` 
+- `kill [parameter] [process]`
   - `-9 pid` 强制终止
 
 ### 备份压缩
