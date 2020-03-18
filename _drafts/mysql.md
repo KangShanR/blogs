@@ -36,21 +36,21 @@ localhost 的 testing 尝试：
 
 _note: mysql server 命令行都必须使用 `;`  或 `\g` 结尾，否则不会执行。_
 
-- 登录：`mysql -h hostadrress -u username [-p]` -p 决定是否带上密码
+- 登录：`mysql -h host_address -u username [-p]` -p 决定是否带上密码
 登录全更改初始密码：
 - `SET PASSWORD FOR 'root'@'localhost' = PASSWORD('password');`
 - `UPDATE mysql.user SET authentication_string = PASSWORD('password'), password_expired = 'N' WHERE User = 'root' AND Host = 'localhost';`
   - （office laptop sql root password: `111`; desktop mysql database root password:''）
   - 从此行更改用户密码的命令可以得出：
     - `mysql` 库 `user` 表是存放用户的表
-    - 其中的 `aythentication_string` 字段用于存放密码
+    - 其中的 `authentication_string` 字段用于存放密码
     - 密码格式：PASSWORD('password')
-    - 需要 **注意** 的是： mysql 5.7 后不再支持 PASSWARD() 函数，取而代之的是 MD%()
+    - 需要 **注意** 的是： mysql 5.7 后不再支持 PASSWORD() 函数，取而代之的是 MD%()
 - 退出控制台：`exit|quit`
 
 常用命令：
 
-- 查找库内所有的表名： `SELECT table_name FROM information_schema.tables WHERE table_schema = 'dabataseName' AND table_type='base TABLE';`
+- 查找库内所有的表名： `SELECT table_name FROM information_schema.tables WHERE table_schema = 'databaseName' AND table_type='base TABLE';`
 - 选择库：`USE database`
 - 查看库内所有表名：`SHOW TABLES;`
 - 添加库： `CREATE DATABASE db_name character set {字符集};`
