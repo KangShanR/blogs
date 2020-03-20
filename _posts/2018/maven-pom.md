@@ -12,6 +12,7 @@ date: "2018-09-27 17:22"
 > 所有的 pom 文件都由一个父 POM 继承而来。此 POM 称为 super POM 。super POM 指定了所有的构建需要的信息，当 POM 文件未指一些必要的信息时，就会从 super POM 中去获取默认的信息。
 
 - 要查看 super POM 信息，使用命令： mvn help:effective-pom （需要保证当前命令目录存在一个基础的 POM 文件，其中包含了一个 POM 文件所需要的四个元素，参下）
+- maven 从 src/main/java 中编译源码
 
 ### 标签意义
 
@@ -173,7 +174,7 @@ date: "2018-09-27 17:22"
 
 ## skills
 
-- 新加了 maven 依赖，并依赖于内网的仓库，拉不下来包
-  1. 将内网仓库 添加 到 host 中
-  2. 使用 命令行 `mvn clean install` 重新构建
-  3. 重启 IDE
+1. 新加了 maven 依赖，并依赖于内网的仓库，拉不下来包
+    1. 将内网仓库 添加 到 host 中
+    2. 使用 命令行 `mvn clean install` 重新构建
+    3. 重启 IDE
