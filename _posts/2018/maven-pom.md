@@ -4,10 +4,7 @@ title: "maven POM"
 date: "2018-09-27 17:22"
 ---
 
-# Maven POM
-
 > maven 基于 项目对象模型构建（POM Project Object Model）。
-
 > 后台项目 maven 构建
 
 ### super POM
@@ -19,6 +16,7 @@ date: "2018-09-27 17:22"
 ### 标签意义
 
 >` 所有的 POM 文件必须包括的元素：
+
 - `<project>` 所有项目构建 POM 文件的根标签
     - `<groupId>`
     - `<artifactId>`
@@ -121,7 +119,6 @@ date: "2018-09-27 17:22"
                             `<dependencies>`
                                 <!--参见dependencies/dependency元素 -->
                                 `<dependency>`
-                                    ......
                                 `</dependency>`
                             `</dependencies>`
                             `<goals />`
@@ -161,17 +158,17 @@ date: "2018-09-27 17:22"
     - `<dependencyManagement>` 子项目默认依赖信息， **所谓默认依赖信息是指：当子项目中声明了依赖（明确指定了其 groupId 与 artifactId），而依赖其他没有指定的信息就会从这里获取（根据依赖的 groupId 与 artifactId）**
         - `<dependencies>`
             - `<dependency>`
-    - `<destributionManagement>` 项目分发信息，在执行mvn deploy后表示要发布的位置，有这些信息才能将网站部署到远程服务器或构件部署到远程仓库
+    - `<d>` 项目分发信息，在执行mvn deploy后表示要发布的位置，有这些信息才能将网站部署到远程服务器或构件部署到远程仓库
         - `<repository>` 部署项目产生的构件到远程仓库需要的信息
             - `<uniqueVersion>` 是分配给快照一个唯一的版本号（由时间戳和构建流水号）？还是每次都使用相同的版本号？参见repositories/repository元素
-            - `<id>`banseon-maven2`</id>`
-            - `<name>`banseon maven2`</name>`
+            - `<id>`baseon-maven2`</id>`
+            - `<name>`baseon maven2`</name>`
             - `<url>`file://${basedir}/target/deploy`</url>`
             - `<layout />`
         - `<snapshotRepository>` 构件快照部署信息
         - `<site>` 部署项目网站需要的信息
         - `<downloadUrl>` 项目下载 url
-    - `</destributionManagement>`
+    - `</distributionManagement>`
     - `<properties>` 在整个 POM 中使用，使用其名称引用起值。eg： `<java.source.version>`1.8`</java.source.version>`
 
 ## skills
