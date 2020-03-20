@@ -49,20 +49,24 @@ On shutdown of a bean factory, the following lifecycle methods apply:
 
 - 切面 Aspect :可以理解为模块，比如，读写数据库、权限检查、异常情况记录；
 - Advice ，增强：拦截器实现增强接口 Advisor ，不同的拦截器实现不同的增强接口，比如：方法前拦截器
-            MethodBeforeInterceptor implements MethodBeforeAdvice{
-                //方法前拦截器
-                //调用对象的方法前将执行该方法。参数分别为被调用的方法、参数、对象
-                public void before(Method method, Object[] args, Object instance) throws Throwable{
-                    System.out.println("即将要执行的方法：" + method.getName());
-                    //如果是 Service
-                    if(instance instanceof WaiterServiceImpl)
-                        String name = ((AopServiceImpl) instance).getName();
-                            if(name == null)//检查是否为空
-                                throw new NullPointerException("name 属性不能为 null");
-                    }
-                    method.invoke(instance,args);
-                }
+
+    ```java
+    MethodBeforeInterceptor implements MethodBeforeAdvice{
+        //方法前拦截器
+        //调用对象的方法前将执行该方法。参数分别为被调用的方法、参数、对象
+        public void before(Method method, Object[] args, Object instance) throws Throwable{
+            System.out.println("即将要执行的方法：" + method.getName());
+            //如果是 Service
+            if(instance instanceof WaiterServiceImpl)
+                String name = ((AopServiceImpl) instance).getName();
+                    if(name == null)//检查是否为空
+                        throw new NullPointerException("name 属性不能为 null");
             }
+            method.invoke(instance,args);
+        }
+    }
+    ```
+
 - 拦截器，interceptor，也是 pointcut 的核心:
     - spring拦截器的配置实现，通过增加配置：
 
@@ -80,14 +84,14 @@ On shutdown of a bean factory, the following lifecycle methods apply:
         - 同时mappedName属性用来指定拦截的方法，这个方法并不是增加类中的方法，而是到时要执行到的所有的匹配方法名字段的方法；
         - 同时：spring支持由正则表达式配置切入点：
 
-```xml
-<property name="patterns">      <!-- 正则表达式配置切入点-->
-    <list>
-        <value>.*get.*</value> <!--包含get字段的方法就被拦截>
-        <value>.*absquatulate</value>  <!--包含absquatutulat字段的方法被拦截>
-    </list>
-</property>
-```
+            ```xml
+            <property name="patterns">      <!-- 正则表达式配置切入点-->
+                <list>
+                    <value>.*get.*</value> <!--包含get字段的方法就被拦截>
+                    <value>.*absquatulate</value>  <!--包含absquatutulat字段的方法被拦截>
+                </list>
+            </property>
+            ```
 
 ## ORM 模块
 
