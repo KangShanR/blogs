@@ -26,38 +26,43 @@ tags: github
 [生成新浪微博秀；](http://app.weibo.com/tool/weiboshow "新浪微博秀")
 
 <!--more-->
- 
+
 ## .2. hexo 命令使用
 
 ### .2.1. `hexo generate` 转换命令
 
-- hexo generate
-    - 根据已提供的md文件资料生成静态网页，放在public文件夹中；
-    - hexo generate --watch
+- `hexo generate`
+    - 根据已提供的 md 文件资料生成静态网页，放在 public 文件夹中；
+    - `hexo generate --watch`
         - 对比查看文件的改动，只有当文件改动被审查过才会执行generate命令生成静态网页；
-    - hexo generate --deploy与hexo deploy --generate
-        - 两者效果一样都在generate后执行布置命令deploy
+    - `hexo generate --deploy` 与 `hexo deploy --generate`
+        - 两者效果一样都在 `generate` 后执行布置命令 `deploy`
 
 ### .2.2. `hexo new <dir> filename` 新建 md 文档
 
 - 新建md文档：`hexo new [dir] filename`
     - 使用这个命令生成md文档时，当指定其生成的目录为`_draft`时，hexo会自动将文档的头加上：
-        - <pre>
+
+        ```
         ---
         title: hexo+github=your website
         date: 2017-01-23 02:04:38
-        ---</pre>
+        ---
+        ```
+
     - 而当指定目录为`_post`时，其效果会加上标签：
-    - <pre>
+
+        ```
         ---
         title: hexo+github=your website
         date: 2017-01-23 02:04:38
         tags:
         ---
-    </pre>
-    - 但是全部的信息包括：
+        ```
 
-    <pre>
+    - 但是全部的信息包括：
+    
+        ```
         ---
         title: hexo+github=your website
         date: 2017-01-23 02:04:38
@@ -65,18 +70,21 @@ tags: github
         tags: [tag1,tag2,tag3]#文章标签，可空；使用多标签时，将`[]`符号带上，并且标签之间用`,`分开
         description: 附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面
         ---
-    </pre>
-    - Hexo 生成时**使用的模板**中只有title、date、tags属性，生成的html会缺少Meta信息，不利于搜索引擎收录。建议自行在文件头中添加keywords和description属性。categories属性可自行选择是否添加。标准包含全部meta信息的头应该是：
+        ```
 
-            ---
-            title: ##文章标题
-            date: ##时间，格式为 YYYY-MM-DD HH:mm:ss
-            categories: ##分类
-            tags: ##标签，多标签格式为 [tag1,tag2,...]
-            keywords: ##文章关键词，多关键词格式为 keyword1,keywords2,...
-            description: ##文章描述
-            ---
-            正文
+    - Hexo 生成时**使用的模板**中只有 title、date、tags 属性，生成的html会缺少Meta信息，不利于搜索引擎收录。建议自行在文件头中添加 keywords 和 description 属性。categories 属性可自行选择是否添加。标准包含全部 meta 信息的头应该是：
+
+        ```
+        ---
+        title: ##文章标题
+        date: ##时间，格式为 YYYY-MM-DD HH:mm:ss
+        categories: ##分类
+        tags: ##标签，多标签格式为 [tag1,tag2,...]
+        keywords: ##文章关键词，多关键词格式为 keyword1,keywords2,...
+        description: ##文章描述
+        ---
+        正文
+        ```
 
 - 生成md文档还有另外一个命令：`hexo new page newpage`
     - 与上一个命令不同之处在于：生成的md文件放在了根目录而不会放在 `source/_post` 中，而会在source文件夹中生在一个newpage的folder，并在其中生一个index.md，且这个md文档的title会被设置成 newpage，也就是生成了这样一个页面，而这个页面并未在网页目录中，但我们就可以好好地设置这个页面用于在其他的文档引用；

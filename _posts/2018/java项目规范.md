@@ -1,3 +1,11 @@
+---
+title: 科学思维看世间百态
+date: 2018-08-23 08:02:42
+tags: project
+categories: 心得笔记
+description: 项目规范
+---
+
 # java项目规范
 
 @(陈涛)[java项目规范 2018-04-13]

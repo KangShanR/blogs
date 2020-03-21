@@ -103,13 +103,13 @@ date: "2018-10-19 11:06"
 ### git tag
 
 - 添加 tag : `git tag -a [tagName] -m ['note']`
-  - version 指版本号。 note 指文本说明。 `-a` 指 `add` 添加标签。
+    - version 指版本号。 note 指文本说明。 `-a` 指 `add` 添加标签。
 - 提交 tag 到远程仓库： `git push [remote nate] -tags`
-  - 此命令可以把本地的 tag 全部提交到远程仓库。
+    - 此命令可以把本地的 tag 全部提交到远程仓库。
 - 删除本地 tag: `git tag -d [tagName]`
-  - `-d` 表示 `delete`
+    - `-d` 表示 `delete`
 - 删除远程 tag : `git push [remoteName 如 origin]:refs/tags/[tagName]`
-  - 与 `git push origin:origin/branchName` 命令一致的原理，将空分支 push 到远程对应分支而将其置空。
+    - 与 `git push origin:origin/branchName` 命令一致的原理，将空分支 push 到远程对应分支而将其置空。
 - 查看 tag : `git tag`/`git tag -l`
 
 ## 案例

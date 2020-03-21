@@ -12,8 +12,8 @@ java 中的编译。
 [reference](https://javarevisited.blogspot.com/2015/04/error-could-not-find-or-load-main-class-helloworld-java.html)
 
 - 命令：`java [-options] class_file [args]` to execute a class
-  - `java [-options] -jar jarfile [args]` to execute a jar file 。一个 jar 包是如果运行起来的？其如果如何设置？
-  - class_file 必须是此 java 文件的全名（带上包名，包之间使用 `.` 分隔）
+    - `java [-options] -jar jarfile [args]` to execute a jar file 。一个 jar 包是如果运行起来的？其如果如何设置？
+    - class_file 必须是此 java 文件的全名（带上包名，包之间使用 `.` 分隔）
 
 where options insclude:
 
@@ -21,4 +21,4 @@ where options insclude:
 - `-D<name>=<value>` set a system property
 
 - 终端打印环境变量：windows `echo %CLASSPATH%`; linux `echo $CLASSPATH`
-  - 如果环境变量存在将打印出来，如果不存在将打印出命令。
+    - 如果环境变量存在将打印出来，如果不存在将打印出命令。

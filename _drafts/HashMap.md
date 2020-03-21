@@ -12,7 +12,7 @@ description: java集合框架中的HashMap
 - Map中键对象不允许重复，且键的唯一性很重要；
 - 不建议将多个键映射到同一个值对象；
 - Map接口下有的实现集合类有：
-  - HashMap，用到了哈希码的算法，以便快速查找一个键；
-  - TreeMap，其键按序存放
-  - HashTable，是Dictionary的子类，与HashMap类似；
+    - HashMap，用到了哈希码的算法，以便快速查找一个键；
+    - TreeMap，其键按序存放
+    - HashTable，是Dictionary的子类，与HashMap类似；
   

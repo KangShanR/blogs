@@ -1,40 +1,34 @@
 ---
 title: spring 框架的学习
 date: 2017-08-15 12:14:38
-tags: [framework,java]
+tags: [framework,java,spring]
 categories: programming
-description: spring框架的学习与理解
+description: spring 框架的学习与理解
 ---
 
-> spring 配置 beans 的底层原理就在于通过封装好的解析 xml 类，将 xml 文件中配置好的 bean 实例出一个对象来，再通过配置实现 bean 之间的相互引用，而实现将要用到的 bean （实用类）实例化并使用；查看源码：`@Configuration` 用以配置 spring 组件的注解，其文档有详细说明大部分的注解使用。
+> spring 配置 beans 的底层原理就在于通过封装好的解析 xml 类，将 xml 文件中配置好的 bean 实例出一个对象来，再通过配置实现 bean 之间的相互引用，而实现将要用到的 bean （实用类）实例化并使用；查看源码：
+
 Bean factory implementations should support the standard bean lifecycle interfaces as far as possible. The full set of initialization methods and their standard order is:
 
-<ol>
-    <li>BeanNameAware's {@code setBeanName}
-    <li>BeanClassLoaderAware's {@code setBeanClassLoader}
-    <li>BeanFactoryAware's {@code setBeanFactory}
-    <li>EnvironmentAware's {@code setEnvironment}
-    <li>EmbeddedValueResolverAware's {@code setEmbeddedValueResolver}
-    <li>ResourceLoaderAware's {@code setResourceLoader}
-    (only applicable when running in an application context)
-    <li>ApplicationEventPublisherAware's {@code setApplicationEventPublisher}
-    (only applicable when running in an application context)
-    <li>MessageSourceAware's {@code setMessageSource}
-    (only applicable when running in an application context)
-    <li>ApplicationContextAware's {@code setApplicationContext}
-    (only applicable when running in an application context)
-    <li>ServletContextAware's {@code setServletContext}
-    (only applicable when running in a web application context)
-    <li>{@code postProcessBeforeInitialization} methods of BeanPostProcessors
-    <li>InitializingBean's {@code afterPropertiesSet}
-    <li>a custom init-method definition
-    <li>{@code postProcessAfterInitialization} methods of BeanPostProcessors
-</ol>
+1. BeanNameAware's {@code setBeanName}
+2. BeanClassLoaderAware's {@code setBeanClassLoader}
+3. BeanFactoryAware's {@code setBeanFactory}
+4. EnvironmentAware's {@code setEnvironment}
+5. EmbeddedValueResolverAware's {@code setEmbeddedValueResolver}
+6. ResourceLoaderAware's {@code setResourceLoader}(only applicable when running in an application context)
+7. ApplicationEventPublisherAware's {@code setApplicationEventPublisher}(only applicable when running in an application context)
+8. MessageSourceAware's {@code setMessageSource}(only applicable when running in an application context)
+9. ApplicationContextAware's {@code setApplicationContext}(only applicable when running in an application context)
+10. ServletContextAware's {@code setServletContext}(only applicable when running in a web application context)
+11. {@code postProcessBeforeInitialization} methods of BeanPostProcessors
+12. InitializingBean's {@code afterPropertiesSet}
+13. a custom init-method definition {@code postProcessAfterInitialization} methods of BeanPostProcessors
+
 On shutdown of a bean factory, the following lifecycle methods apply:
-<ol>
-<li>{@code postProcessBeforeDestruction} methods of DestructionAwareBeanPostProcessors
-<li>DisposableBean's {@code destroy}
-<li>a custom destroy-method definitio</ol>
+
+1. {@code postProcessBeforeDestruction} methods of DestructionAwareBeanPostProcessors
+2. DisposableBean's {@code destroy}
+3. a custom destroy-method definition
 
 ## Core 模块
 
@@ -317,3 +311,9 @@ public void setConfigLocations(Resource... configLocations) {
         - sessionFactory不变；
         - 事务管理器trasactionManager依然不变；
         - 变的是：添加一个事务注解驱动`tx:annotation-driven trasaction-manager="transactionManager"/>`，添加这个驱动配置后，对产生事务的类添加注解`@Transactional`，标记这个类为事务类，对其中的事务方法添加注解`@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED)`注解（标明了这个方法的隔离水平与传播水平）。这样的注解就取代了上面例子中tx:advice与aop:config两个配置节点的功能；
+
+## source codes
+
+源码
+
+`@Configuration` 用以配置 spring 组件的注解，其文档有详细说明大部分的注解使用。
