@@ -60,8 +60,8 @@ _**servlet3.0** 已有使用注册注册 servlet 的功能，添加注解 `@WebS
 - 如果要指定浏览器不解析下载的资源且指定下载文件名，使用 `setHeader("Content-Disposition", "attachment;filename=")+filename`;
 - 要对浏览器传来的中文文件名进行转码：`filename = new String(filename.getBytes("ISO-8859-1"), "utf-8")`；
 - 对中文文件名进行转码成不同浏览器需要的格式：
-  - 先获取请求客户端的 User-Agent 用判断浏览器的类型；
-  - 根据不同浏览器用不同的方式解码：
+    - 先获取请求客户端的 User-Agent 用判断浏览器的类型；
+    - 根据不同浏览器用不同的方式解码：
 
 ```java
  // 对不同浏览器给以不同的中文编码
@@ -100,10 +100,10 @@ System.out.println("encoded filename:" + originFilename);
 > 重定向与转发
 
 - redirect 重定向，其本质是将 statusCode 改成 302 ，再加上 Location 设置成一个新的 url，响应给客户端，客户端拿到后会根据这 StatusCode 重新请求新的 url（`senRedirect(String url)`， url 使用相对的， tomcat container 会转换成绝对的）。整个流程有发生过两次客户端的请求，可以看到浏览器在完成请求后其 url 变成了后一个请求的 url。
-  - 对于 container 转换 url 规则：
-    - 如果 url **没有 `/` ** 开头， container 将视 url 作与当前 servlet 相对关联
-    - 如果 url 以 `/` 开头， container 将视 url 为与 container 根相对关联
-    - 如果 url 以 `//` 开头， container 将视 url 为一个网络相对路径
+    - 对于 container 转换 url 规则：
+        - 如果 url **没有 `/` ** 开头， container 将视 url 作与当前 servlet 相对关联
+        - 如果 url 以 `/` 开头， container 将视 url 为与 container 根相对关联
+        - 如果 url 以 `//` 开头， container 将视 url 为一个网络相对路径
 - forward 是对一次请求中，前一个请求被应用内部转发到另一个 servlet ，Tomcat 会将整个过程完成并响应给客户端。浏览器接收最后的响应。前一次处理可以对 request 进行改动再交给后一次处理。
 - 如果要将错误提示回显到原页面，只能使用 forward(jsp) 。如使用 redirect 将重新发起一次请求到 jsp ，新的 request 没有上一个 request 中保存的 attributes 将会丢失。
 
@@ -111,7 +111,7 @@ System.out.println("encoded filename:" + originFilename);
 
 - 当请求数据中，如果中文在请求体里（请求方式为 post），只需要对 request 设置解码字符集为 **utf-8** 即可
 - 当中文在请求 url 中（method = get），需要对请求参数先进行 `iso8859-1` 编码，再使用 `utf-8` 字符集解码： `value = new String(value.getBytes("iso-8859-1"), "utf-8");`
-  - 字符集使用不要使用魔法值，使用 `StandardCharsets` 中定义好的字符类。
+    - 字符集使用不要使用魔法值，使用 `StandardCharsets` 中定义好的字符类。
 
 原因：使用 get 方式请求，数据放在 url 中， http 协议不支持含中文的 utf8 字符集，所以对 url 数据统一使用 iso88591 编码。
 
@@ -200,3 +200,12 @@ session 技术是基于cookie 的，其本质是服务器为客户端创建一�
 
 - varStatus 是循环变量状态，可在其中取出 `count` 循环次数，可用于 list 行
 - 编号
+
+### 文件上传
+
+1. 在页面中使用表单进行文件上传，标签 `<input></input>`
+2. 表单提交方式 `method="post"`，提交方式必须为 post
+3. 表单属性 `entype="multipart/form-data"`，默认情况下引属性为: `entype="application/x-www-form-urlencoded"`，此种编码方式服务器只能获取到文件名。
+   > The enctype property sets or returns the value of the enctype attribute in a form.The enctype attribute specifies how form-data should be encoded before sending it to the server.The form-data is encoded to "application/x-www-form-urlencoded" by default. This means that all characters are encoded before they are sent to the server (spaces are converted to "+" symbols, and special characters are converted to ASCII HEX values).
+   1. 同时此种编码方式发送数据到 Tomcat 后，不能再使用 `request.getParameter(name)` 获取到数据。需要对多段 from 表单数据进行拆分处理。
+4. 使用 apache commons-fileupload.jar 与 commons-io.jar 包上传文件更方便，不用繁琐地对流进行转换，也可以方便地进行缓存控制。

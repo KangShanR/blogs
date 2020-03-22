@@ -73,7 +73,7 @@ description: xml的使用与理解
 
 - xml文档必须有根元素
 - xml属性值必须加引号
-- 从上面的 xml 中，我们可以看到根元素是 user ，其中又有两个子元素： id/username ；而id这个元素有一个属性value这个属性值为 “1”，而另外一个子元素 username 有内容 kfc；
+- 从上面的 xml 中，我们可以看到根元素是 user ，其中又有两个子元素： id/username ；而 id 这个元素有一个属性 value 这个属性值为 “1”，而另外一个子元素 username 有内容 kfc；
 
 ### xml文档的生成与解析方式
 
@@ -103,6 +103,27 @@ description: xml的使用与理解
     - DOM4J性能最好，应用也更广泛；
     - JDOM和DOM在性能测试时表现不佳，在测试10M文档时内存溢出，在小文档情况下使用他们更好。但同时，DOM的跨语言解析要强一些，也正因为如此获得W3C的推荐；
     - SAX基于其事件驱动的解析方式，其在检测即将到来的xml流但并不载入内存中，让它在小文档解析中有一定的优势。
+
+#### xml 解析示例
+
+java 工程中各种 xml 配置文件的解析都可以用这些解析器来获取配置信息，常用 jar 包： `dom4j.jar` 。 spring 可以根据解析出来的各个 bean 的 class 信息，再利用反射实例化 bean 实现层层之间调用的解耦。
+
+```java
+public static String getDomElementValue(String url) throws DocumentException {
+    SAXReader saxReader = new SAXReader();
+//        Document doc = saxReader.read(new File("src/com/kang/jdbcdemo/web.xml"));
+    Document  doc       = saxReader.read("src/com/kang/jdbcdemo/web.xml");
+    Element   root      = doc.getRootElement();
+    List<Element>      mappings  = (List<Element>)root.elements("servlet-mapping");
+    String servletName = mappings.stream().filter(
+            e -> url.equals(e.element("url-pattern").getText()))
+            .findFirst().get().element("servlet-name").getText();
+
+    List<Element>      servlets  = (List<Element>)root.elements("servlet");
+    return servlets.stream().filter(e -> servletName.equals(e.element("servlet-name").getText()))
+            .findFirst().get().element("servlet-class").getText();
+}
+```
 
 ## xml 声明部分
 
