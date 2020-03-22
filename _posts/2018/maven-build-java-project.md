@@ -16,13 +16,16 @@ date: "2018-11-19 18:31"
 
 也可以不指定上面参数，而直接使用 `mvn archetype:generate` 命令来执行，此命令执行后，maven 会出现多个指定问题让我们指定项目的各个信息。如果不指定（直接按 enter ） 则会使用默认的信息（apche 项目名与各种 beta 版本号）。
 
-
 **构建 web 项目**：
 `mvn archetype:generate -DgroupId=com.companyname.bank -DartifactId=consumerBanking -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false`
 
 注意这儿构建项目命令与上面项目的不同在于其 `archetypeArtifactId` 值为： `maven-archetype-webapp`。如果不指定这些参数，那么在只单纯执行 `mvn archtype:generate` 命令后指定其 DarchetypeArtifactId
 
-
 note:
+
 1. _将普通的 java 项目转成 maven 项目_
-  1. 在 idea 中可以直接添加 pom 文件后，右键 - add to maven project 即可实现。
+         1. 在 idea 中可以直接添加 pom 文件后，右键 - add to maven project 即可实现。
+
+## 一键部署项目
+
+在 web 项目源码（src 同级）中 `mvn tomcat:run`
