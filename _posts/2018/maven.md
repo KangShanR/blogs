@@ -3,12 +3,31 @@ layout: "post"
 title: "maven"
 date: "2018-11-20 16:53"
 ---
+<!-- TOC -->
 
-# maven
+- [1. maven](#1-maven)
+  - [1.1. 标准生命周期](#11-%e6%a0%87%e5%87%86%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f)
+    - [1.1.1. clean lifecycle](#111-clean-lifecycle)
+    - [1.1.2. defalut(build) lifecycle](#112-defalutbuild-lifecycle)
+    - [1.1.3. site lifecycle](#113-site-lifecycle)
+  - [1.2. maven dependency](#12-maven-dependency)
+    - [1.2.1. scope 依赖范围](#121-scope-%e4%be%9d%e8%b5%96%e8%8c%83%e5%9b%b4)
+      - [1.2.1.1. 依赖范围对依赖传递的影响](#1211-%e4%be%9d%e8%b5%96%e8%8c%83%e5%9b%b4%e5%af%b9%e4%be%9d%e8%b5%96%e4%bc%a0%e9%80%92%e7%9a%84%e5%bd%b1%e5%93%8d)
+    - [1.2.2. dependency version conflit](#122-dependency-version-conflit)
+  - [1.3. maven 插件](#13-maven-%e6%8f%92%e4%bb%b6)
+    - [1.3.1. maven 常用插件](#131-maven-%e5%b8%b8%e7%94%a8%e6%8f%92%e4%bb%b6)
+    - [1.3.2. note](#132-note)
+  - [1.4. maven 私服](#14-maven-%e7%a7%81%e6%9c%8d)
+    - [1.4.1. 发布本地包到私服](#141-%e5%8f%91%e5%b8%83%e6%9c%ac%e5%9c%b0%e5%8c%85%e5%88%b0%e7%a7%81%e6%9c%8d)
+    - [1.4.2. 下载私服包](#142-%e4%b8%8b%e8%bd%bd%e7%a7%81%e6%9c%8d%e5%8c%85)
+
+<!-- /TOC -->
+
+# 1. maven
 
 > maven 会将整个项目上下所有的依赖全部集合起来而避免各个不同的模块依赖到相同的构件，出现重复。
 
-## 标准生命周期
+## 1.1. 标准生命周期
 
 maven 有三个标准生命周期：
 
@@ -26,7 +45,7 @@ maven 有三个标准生命周期：
     7. deploy 拷贝项目工程包到远程仓库，以共享其他开发人员和工程
 3. site 项目站点文档创建的处理
 
-### clean lifecycle
+### 1.1.1. clean lifecycle
 
 > 项目清理的处理
 
@@ -39,7 +58,7 @@ maven 有三个标准生命周期：
 **note:**
 clean 并不会将 localRepository 中 installed 的包清除，所以本地的包过期后需要手动删除。
 
-### defalut(build) lifecycle
+### 1.1.2. defalut(build) lifecycle
 
 > 项目构建生命周期（也是项目构建核心生命周期所以叫 defalut/build）
 
@@ -67,7 +86,7 @@ build 生命周期的 phase 有：
 20. install 安装工程包到本地仓库中，该仓库可以作为本地其他工程的依赖。
 21. deploy 拷贝最终的工程包到远程仓库中，以共享给其他开发人员和工程。_对应到 pom 文件 distributionManagement - repository 标签的内容_
 
-### site lifecycle
+### 1.1.3. site lifecycle
 
 > site 插件用来创建新的报告文档、部署站点等。
 
@@ -81,13 +100,13 @@ site 生命周期的 phase 有：
 ---
 note： **运行任何生命周期中的任何阶段之一，其同生命周期内的之前的阶段都会被被运行** 。也就是说：在 clean lifecycle 中如果执行 post-clean 命令，则前面的 pre-clean 与 clean 都会被执行到。同时，在父项目中执行此命令，在子项目中也同样会执行同样的命令。
 
-## maven dependency
+## 1.2. maven dependency
 
 - 注意 pom 中的 `<parent>` tag ，这个标签将各个模块的父模块引出，父模块中有的依赖，子模块中不需要引入。
 - groupId 、 artifactId、 version 三个属性用于指定 jar 包坐标，用于在仓库中查找需要的 jar 包；
 - 如果本地仓库找不到会去公司私服找，没有私服或私服没有指定的包，将去远程仓库找。
 
-### scope 依赖范围
+### 1.2.1. scope 依赖范围
 
 maven 共有 6 种 scope ，用以指定依赖的可及性，针对不同 build 任务修改 classpath（？）。[reference](https://www.baeldung.com/maven-dependency-scopes)
 
@@ -98,7 +117,61 @@ maven 共有 6 种 scope ，用以指定依赖的可及性，针对不同 build 
 5. system 与 provided 类似，system 指定此依赖已经在 system 中已经存在不用再提供，引外 system 类依赖需要指定此依赖在系统中的位置 `<systemPath>${project.basedir}/libs/custom-dependency-1.3.2.jar</systemPath>`。
 6. import 只在 type 为 pom `<type>pom</type>` 的依赖中出现，表明此依赖应该被其 POM 中所有有效的依赖所替代。
 
-## maven 插件
+#### 1.2.1.1. 依赖范围对依赖传递的影响
+
+|直接依赖\传递依赖|compile|provide|runtime|test|
+|--|--|--|--|--|
+|compile|compile|-|runtime|-|
+|provided|provided|provided|provided|-|
+|runtime|runtime|-|runtime|-|
+|test|test|-|test|-|
+
+note ：*横行表示传递的依赖范围，纵列表示自己依赖范围。 `-` 表示结果为无依赖。*
+
+### 1.2.2. dependency version conflit
+
+不同依赖传递必然会出现依赖版本冲突，不同包之间的相同依赖版本不一。
+
+这种情况下 maven 的解决原则：
+
+1. 调节原则
+   1. 路径就近原则
+   2. 第一声明优先原则
+2. 排除原则，在依赖中写入排除标签，当冲突的两个包中其中一个被排除后，其他的自动获取到
+
+   ```xml
+   <dependency>
+        <groupId>org.apache.struts</groupId>
+        <artifactId>struts2-spring-plugin</artifactId>
+        <version>2.1.5</version>
+        <exclusions>
+            <exclusion>
+                <groupId><org.springframeword></groupId>
+                <artifactId>spring-beans</artifactId>
+                <!-- 不需要写 version -->
+            </exclusion>
+        </exclusions>
+    </dependency>
+   ```
+
+3. 版本锁定原则，使用依赖管理对依赖进行指定，指定后各个冲突的包只要符合了依赖管理的坐标即为锁定的版本（可添加变量统一版本）。同时使用版本锁定后，在 `<dependency>` 中可以不用再指定 `<version>` 了。
+
+   ```xml
+   <properties>
+        <spring.version>4.2.4.RELEASE</spring.version>
+   <dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>...</groupId>
+            <artifactId>...</artifactId>
+            <!-- EL 表达式写法 -->
+            <version>${spring.version}</version>
+        </dependency>
+    </dependencies>
+    </dependencyManagement>
+   ```
+
+## 1.3. maven 插件
 
 > maven 的所有命令执行都是在执行相应的插件。
 
@@ -108,7 +181,7 @@ maven 共有 6 种 scope ，用以指定依赖的可及性，针对不同 build 
 - maven 插件执行命令行: `mvn [plugin-name]:[goal-name]`
 - maven 的三个标准生命周期中每一个都包含了多个 phase ，每个 phase 都是 maven 提供的统一接口，每个接口的实现都是通过插件来实现的。
 
-### maven 常用插件
+### 1.3.1. maven 常用插件
 
 > maven 插件有两中类型：
 >
@@ -125,10 +198,94 @@ maven 共有 6 种 scope ，用以指定依赖的可及性，针对不同 build 
 - javadoc 为工程生成 JavaDoc
 - antrun 可以在构建任何一个 phase 运行一个 ant 任务的集合。
 
-### note
+### 1.3.2. note
 
 - 插件是在 pom.xml 中使用 plugins 元素定义的。
 - 每个插件可以有多个目标。
 - 你可以定义阶段，插件会使用它的 phase 元素开始处理。我们已经使用了 clean 阶段。
 - 你可以通过绑定到插件的目标的方式来配置要执行的任务。我们已经绑定了 echo 任务到 maven-antrun-plugin 的 run 目标。
 - 就是这样，Maven 将处理剩下的事情。它将下载本地仓库中获取不到的插件，并开始处理。也就是说插件也会优先使用本地仓库里面的，如果本地仓库插件有问题同样可以将其删除再让 maven 从远程仓库拉取。
+
+## 1.4. maven 私服
+
+maven 私服是公司内搭建的服务，使用 nexus 。
+
+### 1.4.1. 发布本地包到私服
+
+1. 修改 maven setting 文件，添加上传账号与密码
+
+   ```xml
+   <server>
+      <id>releases</id>
+      <username>admin</username>
+      <password>admin123</password>
+    </server>
+	<server>
+      <id>snapshots</id>
+      <username>admin</username>
+      <password>admin123</password>
+    </server>
+   ```
+
+2. 配置需要发布的包 pom ，指定私服位置与仓库
+
+    ```xml
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+        <url>http://localhost:8081/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+        <url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+    ```
+
+3. 执行 deploy 发布到指定私服 `mvn deploy`
+
+### 1.4.2. 下载私服包
+
+1. 在 maven setting 中添加/修改 profile
+
+    ```xml
+    <profile>
+	<!--profile的id-->
+    <id>dev</id>
+    <repositories>
+      <repository>  
+		<!--仓库id，repositories可以配置多个仓库，保证id不重复-->
+        <id>nexus</id>
+		<!--仓库地址，即nexus仓库组的地址-->
+        <url>http://localhost:8081/nexus/content/groups/public/</url>
+		<!--是否下载releases构件-->
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+		<!--是否下载snapshots构件-->
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
+      </repository>
+    </repositories>  
+	 <pluginRepositories>  
+    	<!-- 插件仓库，maven的运行依赖插件，也需要从私服下载插件 -->
+        <pluginRepository>  
+        	<!-- 插件仓库的id不允许重复，如果重复后边配置会覆盖前边 -->
+            <id>public</id>  
+            <name>Public Repositories</name>  
+            <url>http://localhost:8081/nexus/content/groups/public/</url>  
+        </pluginRepository>  
+    </pluginRepositories>
+    </profile>
+    ```
+
+2. maven settting 中激活 profile
+
+    ```xml
+    <activeProfiles>
+        <activeProfile>dev</activeProfile>
+    </activeProfiles>
+    ```
+
+3. 更新依赖 `maven clean update`
