@@ -29,5 +29,9 @@ categaries: programming
 [reference](https://www.cnblogs.com/leap/p/6251576.html)
 
 - 本地上将一个 web project 转成 maven 管理时出现了启动时 tomcat 找不到本地的 class 文件: ClassNotFoundException 。
-  - 原因： idea 没有将项目文件复制到 tomcat 的 webapps 中（eclipse 是这么做的），默认是在各个项目的 out 文件夹中，各个项目的 tomcat 配置放在用户目录 .idea/../tomcat/ROOT.xml ，这个文件指定了项目文件部署的位置。
-  - 解决办法：在 project structure/artifits/output layout 中将 maven 引入的包拖到 META-INF/lib 中。[reference](https://blog.csdn.net/iwts_24/article/details/84916867?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task)
+    - 原因： idea 没有将项目文件复制到 tomcat 的 webapps 中（eclipse 是这么做的），默认是在各个项目的 out 文件夹中，各个项目的 tomcat 配置放在用户目录 .idea/../tomcat/ROOT.xml ，这个文件指定了项目文件部署的位置。
+    - 解决办法：在 project structure/artifits/output layout 中将 maven 引入的包拖到 META-INF/lib 中。[reference](https://blog.csdn.net/iwts_24/article/details/84916867?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task)
+
+### idea 上将项目文件夹识别为 web
+
+[reference](https://stackoverflow.com/questions/11652162/how-in-intellij-idea-to-convert-simple-folder-to-web-folder)

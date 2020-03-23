@@ -16,8 +16,8 @@ description: 关于Hibernate框架的基本使用与理解
 ## Hibernate的原理
 
 - 从最基础的JDBC说起：
-  - 在 JDBC 编程中，我们在在 DAO 层编写各种 sql 语句来实现数据库的 crud，而 Hibernate 就充当了 DAO 层，根据 POJO 与实体类的映射自动生成 sql 语句；
-  - JDBC 中 DAO 中的 sql 语句必须由程序员事先写好，而在 Hibernate 中 sql 语句是动态生成，如果实体类发生变化：在 JDBC 中，与之相应的 sql 语句都得重新写一遍，但在 Hibernate 中只需要更新与这个实体类相关的配置类即可；
+    - 在 JDBC 编程中，我们在在 DAO 层编写各种 sql 语句来实现数据库的 crud，而 Hibernate 就充当了 DAO 层，根据 POJO 与实体类的映射自动生成 sql 语句；
+    - JDBC 中 DAO 中的 sql 语句必须由程序员事先写好，而在 Hibernate 中 sql 语句是动态生成，如果实体类发生变化：在 JDBC 中，与之相应的 sql 语句都得重新写一遍，但在 Hibernate 中只需要更新与这个实体类相关的配置类即可；
 
 ## Hibernate的配置
 
@@ -26,17 +26,17 @@ description: 关于Hibernate框架的基本使用与理解
 ### Hibernate的版本配置
 
 > 锁的配置就是为了防止线程上的不安全，Hibernate为了处理这种当一个线程在更改数据时，另一个线程也参与进来而出现线程不安全；
-> Hibernate的锁机制有两种，乐观锁与悲观锁，悲观锁是只让一个线程来操作数据，而乐观锁是加上一个版本号，现web开发中一般都用乐观锁；
+> Hibernate的锁机制有两种，乐观锁与悲观锁，悲观锁是只让一个线程来操作数据，而乐观锁是加上一个版本号，现 web 开发中一般都用乐观锁；
 
 - 注解配置版本号：
-  - 在实体类中，配置一个乐观锁需要在实体类中专门开一个数值类型的属性并加上注解`@Version`；
+    - 在实体类中，配置一个乐观锁需要在实体类中专门开一个数值类型的属性并加上注解`@Version`；
 - xml配置版本号：
-  - 在`<id>`之前，`<property>`之后，配置上`<version>`标签；
-  - 比注解配置更灵活的地方在于，在这个标签中，`<version>`标签中可以指定属性为时间类型值`<version name="version" type="timestamp" column="version"></version>`；
+    - 在`<id>`之前，`<property>`之后，配置上`<version>`标签；
+    - 比注解配置更灵活的地方在于，在这个标签中，`<version>`标签中可以指定属性为时间类型值`<version name="version" type="timestamp" column="version"></version>`；
 
 ### Hibernate与Mybatis的对比
 
 > 或者说为什么有了Mybatis还会存在着Hibernate？
 
 - 降低了开发认知负担，最大优势在于**级联**，最大的劣势也在于级联，**降低了执行效率**，经过了**多层封装**，**资源消耗变得很高**；
-- 相较于Hibernate,Mybatis在只是**简单地封装了JDBC**，**代码开发更多**，**执行效率更高**，**资源消耗更低**；
+- 相较于Hibernate，Mybatis在只是**简单地封装了JDBC**，**代码开发更多**，**执行效率更高**，**资源消耗更低**；
