@@ -27,8 +27,9 @@ description: 关于Hibernate框架的基本使用与理解
     - [1.5.1. 二级缓存并发策略](#151-%e4%ba%8c%e7%ba%a7%e7%bc%93%e5%ad%98%e5%b9%b6%e5%8f%91%e7%ad%96%e7%95%a5)
     - [1.5.2. cache provider](#152-cache-provider)
     - [1.5.3. 查询级别缓存](#153-%e6%9f%a5%e8%af%a2%e7%ba%a7%e5%88%ab%e7%bc%93%e5%ad%98)
-  - [1.6. Hibernate与Mybatis的对比](#16-hibernate%e4%b8%8emybatis%e7%9a%84%e5%af%b9%e6%af%94)
-  - [1.7. 问题](#17-%e9%97%ae%e9%a2%98)
+  - [1.6. 事务](#16-%e4%ba%8b%e5%8a%a1)
+  - [1.7. Hibernate与Mybatis的对比](#17-hibernate%e4%b8%8emybatis%e7%9a%84%e5%af%b9%e6%af%94)
+  - [1.8. 问题](#18-%e9%97%ae%e9%a2%98)
 
 <!-- /TOC -->
 
@@ -364,13 +365,13 @@ List users = query.list();
 SessionFactory.closeSession();
 ```
 
-## 1.6. Hibernate与Mybatis的对比
+## 1.7. Hibernate与Mybatis的对比
 
 > 或者说为什么有了 Mybatis 还会存在着 Hibernate？
 
 - 降低了开发认知负担，最大优势在于**级联**，最大的劣势也在于级联，**降低了执行效率**，经过了**多层封装**，**资源消耗变得很高**；
 - 相较于 Hibernate，Mybatis 在只是**简单地封装了JDBC**，**代码开发更多**，**执行效率更高**，**资源消耗更低**；
 
-## 1.7. 问题
+## 1.8. 问题
 
 1. 使用注解进行 mapping 时，刚开始没有加入到 hibernate configuration 中去，后来使用 `<mapping package="kang.treadstone.service.dto"/>` 将包引入还是不行，添加 `<mapping class="kang.treadstone.service.dto.ProductDTO"/>` 解决。为什么直接引入包不行？

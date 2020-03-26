@@ -37,34 +37,22 @@ public static void main(String[] args) {
 }
 ```
 
-- Oracle 数据库的事务隔离级别：
-  - 先引入三个概念：
-    - 幻读：事务 T1 读取一条 where 条件语句，T2 插入一行也符合的，这时 T1 再次查询可以看到新数据，这叫幻想读
-    - 不可重复读：T1 读取，T2 修改了数据，T1 再次读时就讲到修改过的数据，这叫不可重复读
-    - 脏读：T1 更新了数据，但未提交，这时 T2 读取更新后的数据，但 T1 回滚操作，T2 读取就无效，这就叫脏读；
-  - 事务隔离级别：
-    - READ UNCOMMITED,允许以上三种
-    - READ COMMITED,允许幻想读、不可重复读，不允许脏读
-    - REPEATABLE READ:允许幻想读，不允许不可重复读与脏读
-    - SERIALIAZABLE,三者都不允许
-  - Oracle不支持脏读，默认使用READ COMMITED,支持READ COMMITED/SERIALIZABLE
-  - SQL标准定义的默认事务隔离级别是SERIALIZABLE
 - 数据库索引：（参照其他博客）
 - 数据库引擎：（参照其他博客）
-  - ISAM，读取速度很快且不占用大量的内在和储存资源。不支持事务处理也不容错。
-  - MyISAM，上者的扩展，也是缺省的数据库引擎。表损坏后不能恢复数据。
-  - HEAP，只允许驻留在内在里的临时表格，这也让其读取速度最快，但也是缺陷来源，没有保存就关机也就丢失所有数据。
-  - InnoDB，支持事务与外键，也就意味着慢。
+    - ISAM，读取速度很快且不占用大量的内在和储存资源。不支持事务处理也不容错。
+    - MyISAM，上者的扩展，也是缺省的数据库引擎。表损坏后不能恢复数据。
+    - HEAP，只允许驻留在内在里的临时表格，这也让其读取速度最快，但也是缺陷来源，没有保存就关机也就丢失所有数据。
+    - InnoDB，支持事务与外键，也就意味着慢。
 - CSS常用选择器并说明：
-  - id选择器,选择指定唯一标识id属性的元素
-  - 类选择器，选择同一类属性的元素
-  - 属性选择器，选择同一属性值的元素
-  - 元素选择器，直接选择指定文档元素
-  - 派生选择器，依赖上下文来应用或避免某种规则
-- Conllection 与 Conllections 的区别:
-  - Collection：
-    - java集合框架（Java Collections Framework)中的一个接口，它为具体的集合规定了最大化统一操作方式；
-  - Collections：
-    - 一个java集合的包装类，java集合框架中的一个成员；`public class Collections extends Object{...}`
-    - 此类中除继承而来的成员外，大部分是静态成员，而且此类不能实例化出对象来；
-    - 其中有一个很有用的方法：`sort(List<T> list, Comparator<? super T> c)`，将指定的list进行排序，有重载方法不指定比较器则按默认的从小到大的方式进行排序；
+    - id选择器,选择指定唯一标识id属性的元素
+    - 类选择器，选择同一类属性的元素
+    - 属性选择器，选择同一属性值的元素
+    - 元素选择器，直接选择指定文档元素
+    - 派生选择器，依赖上下文来应用或避免某种规则
+- Collection 与 Collections 的区别:
+    - Collection：
+        - java集合框架（Java Collections Framework)中的一个接口，它为具体的集合规定了最大化统一操作方式；
+    - Collections：
+        - 一个java集合的包装类，java集合框架中的一个成员；`public class Collections extends Object{...}`
+        - 此类中除继承而来的成员外，大部分是静态成员，而且此类不能实例化出对象来；
+        - 其中有一个很有用的方法：`sort(List<T> list, Comparator<? super T> c)`，将指定的list进行排序，有重载方法不指定比较器则按默认的从小到大的方式进行排序；
