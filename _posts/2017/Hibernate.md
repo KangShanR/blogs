@@ -27,7 +27,8 @@ description: 关于Hibernate框架的基本使用与理解
     - [1.5.1. 二级缓存并发策略](#151-%e4%ba%8c%e7%ba%a7%e7%bc%93%e5%ad%98%e5%b9%b6%e5%8f%91%e7%ad%96%e7%95%a5)
     - [1.5.2. cache provider](#152-cache-provider)
     - [1.5.3. 查询级别缓存](#153-%e6%9f%a5%e8%af%a2%e7%ba%a7%e5%88%ab%e7%bc%93%e5%ad%98)
-  - [1.6. 事务](#16-%e4%ba%8b%e5%8a%a1)
+  - [1.6. 级联](#16-%e7%ba%a7%e8%81%94)
+    - [1.6.1. 配置](#161-%e9%85%8d%e7%bd%ae)
   - [1.7. Hibernate与Mybatis的对比](#17-hibernate%e4%b8%8emybatis%e7%9a%84%e5%af%b9%e6%af%94)
   - [1.8. 问题](#18-%e9%97%ae%e9%a2%98)
 
@@ -363,6 +364,23 @@ query.setCacheable(true);
 query.setCacheRegion("employee");
 List users = query.list();
 SessionFactory.closeSession();
+```
+
+## 1.6. 级联
+
+当对象与表中数据存在多对多、一对多时，为了简化操作，可以在 hibernate 中设置关系对象级联。
+
+级联类型：
+
+1. update-and-save 保存更新时使用
+2. delete 删除时使用，慎用
+3. all 前两种都用，慎用
+
+### 1.6.1. 配置
+
+```xml
+<set name="" class="" cascate="">
+</set>
 ```
 
 ## 1.7. Hibernate与Mybatis的对比

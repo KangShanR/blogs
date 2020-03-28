@@ -3,18 +3,25 @@ layout: "post"
 title: "aop"
 date: "2018-11-26 10:50"
 ---
+<!-- TOC -->
 
-# aop 面向切面
+- [1. aop 面向切面](#1-aop-%e9%9d%a2%e5%90%91%e5%88%87%e9%9d%a2)
+  - [1.1. aop 实现分为两类](#11-aop-%e5%ae%9e%e7%8e%b0%e5%88%86%e4%b8%ba%e4%b8%a4%e7%b1%bb)
+  - [1.2. spring aop](#12-spring-aop)
+
+<!-- /TOC -->
+
+# 1. aop 面向切面
 
 > aop aspect oriented programming 。面向切面编程，常用于具有横切性质的系统级服务，如：事务管理、安全检查、缓存、对象池管理。
-> **需要说明的是** aop 是一种编程思想，并不仅限于 java 更不仅限于 java spring 。但这儿主要针对 java spring aop 进行讨论。
+> **需要说明的是** aop 是一种编程思想，并不仅限于 java 更不仅限于 java spring 。但这儿主要针对 java spring aop 进行讨论。纵向重复代码在横向上抽取。
 
 aspcetj 是基于 java 语言的 aop 框架，提供了强大的 aop 功能，其他众多的 aop 框架都借鉴了其思想。包括两个部分：
 
 - 定义如何表达/定义 aop 语法规范。用于解决 java 中的交叉关注点问题。
 - 工具部分：编译/调试。
 
-## aop 实现分为两类
+## 1.1. aop 实现分为两类
 
 - 静态 AOP 实现：在编译阶段就对程序进行修改，即实现对目标类的增强，生成静态的 AOP 代理类，以 aspcetj 为代表。具有良好的性能，但需要特殊的编译器。
 - 动态 AOP 实现：AOP 框架在运行阶段动态生成 AOP 代理，以实现对目标对象的增加，如： spring AOP 。纯java 实现，无需特殊编译器，性能相对略差。
@@ -26,13 +33,13 @@ aspcetj 是基于 java 语言的 aop 框架，提供了强大的 aop 功能，�
 - Advice 增强：AOP 框架支持在特定的切入点执行的增加处理。类型有：Before Around After
 - Pointcut 切入点：中以插入增强处理的连接点。当连接点满足指定要求时，该连接点将被添加增加处理，该连接点也就说变成了切点。
 
-## spring aop
+## 1.2. spring aop
 
 - Spring AOP 代理由 IoC 容器负责生成、管理，其依赖关系也由 IoC 窗口负责管理。
 - 在 Spring 使用 Aspectj 支持需要添加三个库：
-  - aspcetjweaver.jar
-  - aspectjrt.jar
-  - aopalliance.jar
+    - aspcetjweaver.jar
+    - aspectjrt.jar
+    - aopalliance.jar
 - 配置文件加如下配置：
 
   ```xml

@@ -6,11 +6,19 @@ tags: [java,leadingEnd,programming]
 keywords:
 ---
 
+# 1. Ajax
+<!-- TOC -->
+
+- [1. Ajax](#1-ajax)
+  - [1.1. 传统方法使用 ajax](#11-%e4%bc%a0%e7%bb%9f%e6%96%b9%e6%b3%95%e4%bd%bf%e7%94%a8-ajax)
+  - [1.2. 使用 jquery 调用 ajax](#12-%e4%bd%bf%e7%94%a8-jquery-%e8%b0%83%e7%94%a8-ajax)
+
+<!-- /TOC -->
 > AJAX，Asynchronous Javascript And Xml，异步的Javascript和xml；
 > 其最大优点是不用重新加载整个网页实现与服务器数据交换并更新部分网页内容；
-> 不是新的编程语言也不需要浏览器插件，只是基于 Javascript 和 xml 的新的方法；
+> 不是新的编程语言也不需要浏览器插件，只是基于 Javascript 和 xml 的新的方法；Google地图就对这个一技术完美应用，在地图中，网页是活动的，但你可以用鼠标实现各个组件功能，当用户界面与Ajax结合后，只有在必要时才会向服务器发起请求，获得少量必要的信息。提高了信息的**可重用性**。
 
-## 传统方法使用 ajax
+## 1.1. 传统方法使用 ajax
 
 传统方法指使用基础的 js 调用 ajax 。
 case:
@@ -40,7 +48,7 @@ $(function () {
 })
 ```
 
-## 使用 jquery 调用 ajax
+## 1.2. 使用 jquery 调用 ajax
 
 case:
 

@@ -159,6 +159,7 @@ note ：*横行表示传递的依赖范围，纵列表示自己依赖范围。 `
    ```xml
    <properties>
         <spring.version>4.2.4.RELEASE</spring.version>
+    <properties>
    <dependencyManagement>
     <dependencies>
         <dependency>
@@ -170,6 +171,32 @@ note ：*横行表示传递的依赖范围，纵列表示自己依赖范围。 `
     </dependencies>
     </dependencyManagement>
    ```
+
+其他的属性值可在不同的标签里指定后，通过类似 el 表达式获取时的规则：直接取标签，标签间使用 `.` 分隔。eg:
+
+```xml
+<build>
+        <finalName>basic-struts</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.4.7.v20170914</version>
+                <configuration>
+                    <webApp>
+                        <contextPath>/${project.build.finalName}</contextPath>
+                    </webApp>
+                    <stopKey>CTRL+C</stopKey>
+                    <stopPort>8999</stopPort>
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <scanTargets>
+                        <scanTarget>src/main/webapp/WEB-INF/web.xml</scanTarget>
+                    </scanTargets>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+```
 
 ## 1.3. maven 插件
 
