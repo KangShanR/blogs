@@ -83,18 +83,22 @@ keywords:
 	2. class 属性，action 的完整类名，如果不指定，默认 `com.opensymphony.xwork2.ActionSupport`
 	3. method 属性，指定由 action 哪个方法来处理请求，默认值 `excute`
 	4. result 子元素，对结果配置
-		1. type 属性，指定哪一个类来处理结果，默认使用 `dispatcher` 转发
+		1. type 属性，指定哪一个类来处理结果
+      		1. 默认使用 `dispatcher` 转发
+      		2. `redirect` 重定向到 jsp
+      		3. `chain` 转发到其他 action ，配合使用子元素 `actionName` `namespace` 指定目标 action
+      		4. `redirectAction` 重定向到其他 action，配合使用子元素 `actionName` `namespace` 指定目标 action
 		2. name 属性，标识结果处理名称，与 action 方法返回值对应，默认 `success`
 		3. 标签体，指定页面相对路径
 6. 指定包中默认 `action` : `default-action-ref name="action_name"` ，如果访问的 action 找不到将使用此指定 action
 
 ### 1.2.3. 配置动态方法调用
 
-使用动态方法调用配置可实现配置一个 action 将 action 中所有方法都配置上。
+使用动态方法调用配置可实现配置一个 action 将 action 中所有方法都配置上（这儿使用的方法名只能是：cancel|input|save|back|index|list|excute|delete|browse 九个之一，其他的都不算 struts 可识别方法名。）。
 
 两种方式
 
-1. 打开 struts 的动态方法调用配置： `struts.enable.DynamicMethodInvocation=true` 默认为 false，在访问资源的时候在 action 类名后资源后缀（可能没有）前加上 `!` 并接上方法名
+1. 打开 struts 的动态方法调用配置： `struts.enable.DynamicMethodInvocation=true` 默认为 false，在访问资源的时候在 action 类名后资源后缀（可能没有）前加上 `!` 并接上方法名。
 2. 关闭动态方法调用配置：`struts.enable.DynamicMethodInvocation=false`，在 action 配置时给 action 指定 `name` 属性时加上 `*`，eg:`SomeAction_*`，再在 `method` 上使用 `{1}` 引用 `*`，这儿的 `*` 可以指定多个，后面引用时相应地增加 index。在访问该 action 资源时，只需要匹配 name 符，struts 就会用此处点位符当作 `method` 值访问 action 指定的方法。
 
 ## 1.3. action 的书写方式
@@ -109,3 +113,7 @@ struts2 由 struts1 而来，所以 struts1 原来的包 xwork 在 struts2 中�
 
 1. struts2 启动后，tomcat 报出错误 `org.apache.tomcat.util.bcel.classfile.ClassFormatException: Invalid byte tag in constant pool: 19` ?
    1. 参考[stackoverflow](https://stackoverflow.com/questions/23541532/org-apache-tomcat-util-bcel-classfile-classformatexception-invalid-byte-tag-in) 升级了 tomcat 版本到 8.5 后不再有。
+2. 配置文件中 `package` 标签加入 `extends="struts-default"` 元素后显示 *Cannot resolve Struts Package "struts default"*。添加了 struts-deault 到 facets 中无效。
+   1. [reference](https://blog.csdn.net/Small_Lee/article/details/78621909)在 modole 中把 struts2 引入的两个 file sets 都删除再重新添加即可。
+
+   -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
