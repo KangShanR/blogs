@@ -116,4 +116,4 @@ struts2 由 struts1 而来，所以 struts1 原来的包 xwork 在 struts2 中�
 2. 配置文件中 `package` 标签加入 `extends="struts-default"` 元素后显示 *Cannot resolve Struts Package "struts default"*。添加了 struts-deault 到 facets 中无效。
    1. [reference](https://blog.csdn.net/Small_Lee/article/details/78621909)在 modole 中把 struts2 引入的两个 file sets 都删除再重新添加即可。
 
-   -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+启动日志： -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
