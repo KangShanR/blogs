@@ -14,13 +14,14 @@ categories: programming
     - [1.1. 核心对象](#11-%E6%A0%B8%E5%BF%83%E5%AF%B9%E8%B1%A1)
         - [1.1.1. springMVC 中的处理器](#111-springmvc-%E4%B8%AD%E7%9A%84%E5%A4%84%E7%90%86%E5%99%A8)
             - [1.1.1.1. @RequestMapping 注解的使用](#1111-requestmapping-%E6%B3%A8%E8%A7%A3%E7%9A%84%E4%BD%BF%E7%94%A8)
-    - [1.2. springmvc 的高级应用](#12-springmvc-%E7%9A%84%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8)
-        - [1.2.1. LocalResolver 区域解析器](#121-localresolver-%E5%8C%BA%E5%9F%9F%E8%A7%A3%E6%9E%90%E5%99%A8)
-        - [1.2.2. 多部件解析器 MultipartResolver](#122-%E5%A4%9A%E9%83%A8%E4%BB%B6%E8%A7%A3%E6%9E%90%E5%99%A8-multipartresolver)
-        - [1.2.3. json 数据交互](#123-json-%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92)
-        - [1.2.4. xml 数据交互](#124-xml-%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92)
-        - [1.2.5. 数据校验](#125-%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C)
-        - [1.2.6. Restful 架构](#126-restful-%E6%9E%B6%E6%9E%84)
+    - [1.2. 使用代码代替 xml 配置文件](#12-%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%A0%81%E4%BB%A3%E6%9B%BF-xml-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)
+    - [1.3. springmvc 的高级应用](#13-springmvc-%E7%9A%84%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8)
+        - [1.3.1. LocalResolver 区域解析器](#131-localresolver-%E5%8C%BA%E5%9F%9F%E8%A7%A3%E6%9E%90%E5%99%A8)
+        - [1.3.2. 多部件解析器 MultipartResolver](#132-%E5%A4%9A%E9%83%A8%E4%BB%B6%E8%A7%A3%E6%9E%90%E5%99%A8-multipartresolver)
+        - [1.3.3. json 数据交互](#133-json-%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92)
+        - [1.3.4. xml 数据交互](#134-xml-%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92)
+        - [1.3.5. 数据校验](#135-%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C)
+        - [1.3.6. Restful 架构](#136-restful-%E6%9E%B6%E6%9E%84)
 
 <!-- /TOC -->
 
@@ -72,7 +73,7 @@ categories: programming
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
   	```
-	
+
 	1. [替代方案 WebApplicationInitializer](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html)
 
 2. **处理器映射器** HandlerMapping ：设置 handler 处理器与 url 资源的映射
@@ -179,9 +180,13 @@ categories: programming
   	1. consumes 指定提交媒体数据类型 `consumes="text/plain"` `consumes={"!text/plain","application/*"}` ，支持 `!` 排除选择
   	2. produces 指定返回媒体类型 `produces="text/plain"` `consumes={"!text/plain","application/*"}` `consumes="application/json; charset=UTF-8"` 同样支持使用 `!` 排除选择
 
-## 1.2. springmvc 的高级应用
+## 1.2. 使用代码代替 xml 配置文件
 
-### 1.2.1. LocalResolver 区域解析器
+参照 spring mvc doc： org.springframework.web.WebApplicationInitializer。
+
+## 1.3. springmvc 的高级应用
+
+### 1.3.1. LocalResolver 区域解析器
 
 在 springmvc 中配置这个解析器，用于国际化。其中解析器常用的有：
 
@@ -190,11 +195,11 @@ categories: programming
 - SessionLocaleResolver
     - 它通过检验用户会话中预置的属性来解析区域。如果该会话属性不存在，它会根据accept-language HTTP头部确定默认区域。
 
-### 1.2.2. 多部件解析器 MultipartResolver
+### 1.3.2. 多部件解析器 MultipartResolver
 
 用于文件上传，需要引入包：commons-fileupload 与 commons-io
 
-### 1.2.3. json 数据交互
+### 1.3.3. json 数据交互
 
 > 在前后端分离的项目中，特别是存在为移动端提供的接口都应该使用 json 数据的格式对前端提供接口。
 
@@ -224,7 +229,7 @@ categories: programming
 - @ResponseBody
     - 用于将 controller 返回的结果 使用 converter 转换成 json/xml 格式直接 response 给浏览器
 
-### 1.2.4. xml 数据交互
+### 1.3.4. xml 数据交互
 
 使用的渲染 view 是 mappingJackson2XmlView
 
@@ -247,10 +252,10 @@ categories: programming
 使用：
  同样使用两个标签 `@RequestBody` `@ResponseBody` 并联合使用 `@RequestMapping(produces={}, consumes={})` 来确定请求与返回数据的格式。
 
-### 1.2.5. 数据校验
+### 1.3.5. 数据校验
 
 springmvc 中可以直接使用 Hibernate 的一个校验框架：hibernate-validator。基于注解实现数据的校验。
 
-### 1.2.6. Restful 架构
+### 1.3.6. Restful 架构
 
 - 只是一种规范，终极的目标是资源 URI
