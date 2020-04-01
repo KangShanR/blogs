@@ -184,28 +184,28 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao{
 *- 数据源的配置就是用依赖包中的一个封装好的类（这儿就是BasicDataSource）的对象，并将这个对象的属性值配置好，这些属性就包括了数据库的驱动、连接的url、连接数据库的用户名、密码。可以想象的是，这个处理数据库的对象封装了所有的连接数据库的方法，使用密码与用户名，交给驱动对象，这个驱动对象就按照提供的url连接到主机上的数据库，并登录到数据库；*
     - 有了数据源，就可以将关联连接库的数据源配置到sessionFactory中去：
 
-    ```xml
-        <bean id="sessionFactory" class="org.springframework.orm.hibernate4.annotation.AnnotationSessionFactoryBean" destroy-method="destroy">
-            <property name="dataSource">
-                <ref bean="dataSource"/>
-            <property/>
-            <property name="annotatedClasses">
-                <list>
-                    <value>com.woniuxy.orm.class_qulified_name</value>
-                </list>
-            <property/>
-            <property name="hibernateProperties">
-                <pros>
-                    <pro key="hibernate.dialect">
-                        org.hibernate.dialect.MySQLDialect
-                    </pro>
-                    <pro key="hibernate.show_sql">true</pro>
-                    <pro key="hibernate.format_sql">true</pro>
-                    <pro key="hibernate.hbm2ddl.auto">create</pro>
-                </pros>
-            </property>
-        </bean>
-    ```
+        ```xml
+            <bean id="sessionFactory" class="org.springframework.orm.hibernate4.annotation.AnnotationSessionFactoryBean" destroy-method="destroy">
+                <property name="dataSource">
+                    <ref bean="dataSource"/>
+                <property/>
+                <property name="annotatedClasses">
+                    <list>
+                        <value>com.woniuxy.orm.class_qulified_name</value>
+                    </list>
+                <property/>
+                <property name="hibernateProperties">
+                    <pros>
+                        <pro key="hibernate.dialect">
+                            org.hibernate.dialect.MySQLDialect
+                        </pro>
+                        <pro key="hibernate.show_sql">true</pro>
+                        <pro key="hibernate.format_sql">true</pro>
+                        <pro key="hibernate.hbm2ddl.auto">create</pro>
+                    </pros>
+                </property>
+            </bean>
+        ```
 
         - *配置会话工厂（因为我们的实体类使用的注解映射，所以就使用注解会话工厂AnnotationSessionFatoryBean)其中包括了：数据源、实体类还有hibernate,而hibernate的配置就包括了方言、输出sql语句、格式化sql语句、创建表结构*
     - 有了会话工厂，距离操作数据库就只有让Dao配置为bean，而操作代码就getBean来获取到这个Dao的实例，让这个实例来操作数据库：
