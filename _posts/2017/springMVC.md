@@ -15,13 +15,14 @@ categories: programming
         - [1.1.1. springMVC 中的处理器](#111-springmvc-%E4%B8%AD%E7%9A%84%E5%A4%84%E7%90%86%E5%99%A8)
             - [1.1.1.1. @RequestMapping 注解的使用](#1111-requestmapping-%E6%B3%A8%E8%A7%A3%E7%9A%84%E4%BD%BF%E7%94%A8)
     - [1.2. 使用代码代替 xml 配置文件](#12-%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%A0%81%E4%BB%A3%E6%9B%BF-xml-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)
-    - [1.3. springmvc 的高级应用](#13-springmvc-%E7%9A%84%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8)
-        - [1.3.1. LocalResolver 区域解析器](#131-localresolver-%E5%8C%BA%E5%9F%9F%E8%A7%A3%E6%9E%90%E5%99%A8)
-        - [1.3.2. 多部件解析器 MultipartResolver](#132-%E5%A4%9A%E9%83%A8%E4%BB%B6%E8%A7%A3%E6%9E%90%E5%99%A8-multipartresolver)
-        - [1.3.3. json 数据交互](#133-json-%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92)
-        - [1.3.4. xml 数据交互](#134-xml-%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92)
-        - [1.3.5. 数据校验](#135-%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C)
-        - [1.3.6. Restful 架构](#136-restful-%E6%9E%B6%E6%9E%84)
+        - [1.2.1. LocalResolver 区域解析器](#121-localresolver-%E5%8C%BA%E5%9F%9F%E8%A7%A3%E6%9E%90%E5%99%A8)
+        - [1.2.2. 多部件解析器 MultipartResolver](#122-%E5%A4%9A%E9%83%A8%E4%BB%B6%E8%A7%A3%E6%9E%90%E5%99%A8-multipartresolver)
+        - [1.2.3. json 数据交互](#123-json-%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92)
+        - [1.2.4. xml 数据交互](#124-xml-%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92)
+        - [1.2.5. 数据校验](#125-%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C)
+        - [1.2.6. Restful 架构](#126-restful-%E6%9E%B6%E6%9E%84)
+    - [1.3. configuration based on java codes](#13-configuration-based-on-java-codes)
+        - [1.3.1. ant style](#131-ant-style)
 
 <!-- /TOC -->
 
@@ -138,12 +139,9 @@ categories: programming
 			<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller"/>
 		</context:component-scan>
-    - **注解映射器：**注解式映射器配置可以直接将使用过注解`@RequestMapping`的方法进行映射，而直接在处理器中寻到相关的处理方法；
-			<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
-    - **注解处理器适配器：**注解式处理器适配器，配置此甜酸器直接对标记`@RequestMapping`的方法进行适配：
-				<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
-    - **SpringMVC中的注解驱动配置：**注解驱动综合了前两个注解式的适配器与映射器，因此配置此驱动即可省略适配器与映射器的配置：
-			<mvc:annotation-driven/>
+    - **注解映射器：**注解式映射器配置可以直接将使用过注解`@RequestMapping`的方法进行映射，而直接在处理器中寻到相关的处理方法； `<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>`
+    - **注解处理器适配器：**注解式处理器适配器，配置此甜酸器直接对标记`@RequestMapping`的方法进行适配： `<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>`
+    - **SpringMVC中的注解驱动配置：**注解驱动综合了前两个注解式的适配器与映射器，因此配置此驱动即可省略适配器与映射器的配置：`<mvc:annotation-driven/>`
 
 - **Tips:**
     - *在spring-webmvc包中web_servlet包中最后有一个配置文件DispatcherServlet.properties，这个文件就规定了springmvc的默认核心对象；*
@@ -184,9 +182,7 @@ categories: programming
 
 参照 spring mvc doc： org.springframework.web.WebApplicationInitializer。
 
-## 1.3. springmvc 的高级应用
-
-### 1.3.1. LocalResolver 区域解析器
+### 1.2.1. LocalResolver 区域解析器
 
 在 springmvc 中配置这个解析器，用于国际化。其中解析器常用的有：
 
@@ -195,11 +191,11 @@ categories: programming
 - SessionLocaleResolver
     - 它通过检验用户会话中预置的属性来解析区域。如果该会话属性不存在，它会根据accept-language HTTP头部确定默认区域。
 
-### 1.3.2. 多部件解析器 MultipartResolver
+### 1.2.2. 多部件解析器 MultipartResolver
 
 用于文件上传，需要引入包：commons-fileupload 与 commons-io
 
-### 1.3.3. json 数据交互
+### 1.2.3. json 数据交互
 
 > 在前后端分离的项目中，特别是存在为移动端提供的接口都应该使用 json 数据的格式对前端提供接口。
 
@@ -229,7 +225,7 @@ categories: programming
 - @ResponseBody
     - 用于将 controller 返回的结果 使用 converter 转换成 json/xml 格式直接 response 给浏览器
 
-### 1.3.4. xml 数据交互
+### 1.2.4. xml 数据交互
 
 使用的渲染 view 是 mappingJackson2XmlView
 
@@ -252,10 +248,18 @@ categories: programming
 使用：
  同样使用两个标签 `@RequestBody` `@ResponseBody` 并联合使用 `@RequestMapping(produces={}, consumes={})` 来确定请求与返回数据的格式。
 
-### 1.3.5. 数据校验
+### 1.2.5. 数据校验
 
 springmvc 中可以直接使用 Hibernate 的一个校验框架：hibernate-validator。基于注解实现数据的校验。
 
-### 1.3.6. Restful 架构
+### 1.2.6. Restful 架构
 
 - 只是一种规范，终极的目标是资源 URI
+
+## 1.3. configuration based on java codes
+
+使用 java 代码配置 mvc [reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-config)
+
+### 1.3.1. ant style
+
+关于 spring 中写 ant style 路径规则参照此类 doc: `org.springframework.util.AntPathMatcher`
