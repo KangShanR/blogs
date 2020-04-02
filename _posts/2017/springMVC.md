@@ -142,6 +142,8 @@ categories: programming
 
 ### 1.1.1. springMVC 中的处理器
 
+在 DispatcherServlet 中， spring 规约的处理器 bean [reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-servlet-special-bean-types)
+
 1. 通过上一步实现来自前端请求必须都通过 web.xml 文件中指定的 servlet 处理，也就是大部分请求都是交给了 springmvc，所有的 springmvc 的配置都在 springmvc.xml 文件中，在这个文件中，我们常常通过注解来实现请求与处理器（处理器中的方法）的映射。
 2. springmvc.xml 配置中就指定了适配器映射，使用 `@Controller` 注解就让该类成为处理器
 3. `@RequestMapping("url_name")` 则用来指定url路径，可以用来注解类与类的方法，想要请求进入处理方法中就要通过类的url与方法的url;
