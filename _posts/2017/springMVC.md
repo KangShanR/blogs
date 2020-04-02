@@ -11,18 +11,12 @@ categories: programming
 <!-- TOC -->
 
 - [1. SpringMVC](#1-springmvc)
-    - [1.1. 核心对象](#11-%E6%A0%B8%E5%BF%83%E5%AF%B9%E8%B1%A1)
-        - [1.1.1. springMVC 中的处理器](#111-springmvc-%E4%B8%AD%E7%9A%84%E5%A4%84%E7%90%86%E5%99%A8)
-            - [1.1.1.1. @RequestMapping 注解的使用](#1111-requestmapping-%E6%B3%A8%E8%A7%A3%E7%9A%84%E4%BD%BF%E7%94%A8)
-    - [1.2. 使用代码代替 xml 配置文件](#12-%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%A0%81%E4%BB%A3%E6%9B%BF-xml-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)
-        - [1.2.1. LocalResolver 区域解析器](#121-localresolver-%E5%8C%BA%E5%9F%9F%E8%A7%A3%E6%9E%90%E5%99%A8)
-        - [1.2.2. 多部件解析器 MultipartResolver](#122-%E5%A4%9A%E9%83%A8%E4%BB%B6%E8%A7%A3%E6%9E%90%E5%99%A8-multipartresolver)
-        - [1.2.3. json 数据交互](#123-json-%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92)
-        - [1.2.4. xml 数据交互](#124-xml-%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92)
-        - [1.2.5. 数据校验](#125-%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C)
-        - [1.2.6. Restful 架构](#126-restful-%E6%9E%B6%E6%9E%84)
-    - [1.3. configuration based on java codes](#13-configuration-based-on-java-codes)
-        - [1.3.1. ant style](#131-ant-style)
+	- [1.1. 核心对象](#11-%e6%a0%b8%e5%bf%83%e5%af%b9%e8%b1%a1)
+		- [1.2.5. 数据校验](#125-%e6%95%b0%e6%8d%ae%e6%a0%a1%e9%aa%8c)
+		- [1.2.6. Restful 架构](#126-restful-%e6%9e%b6%e6%9e%84)
+	- [1.3. configuration based on java codes](#13-configuration-based-on-java-codes)
+		- [1.3.1. ant style](#131-ant-style)
+	- [1.4. Functional Endpoints](#14-functional-endpoints)
 
 <!-- /TOC -->
 
@@ -263,3 +257,9 @@ springmvc 中可以直接使用 Hibernate 的一个校验框架：hibernate-vali
 ### 1.3.1. ant style
 
 关于 spring 中写 ant style 路径规则参照此类 doc: `org.springframework.util.AntPathMatcher`
+
+## 1.4. Functional Endpoints
+
+函数式 mvc 编程，与 jdk8 很好地整合。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#webmvc-fn)
+
+
