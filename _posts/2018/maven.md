@@ -20,6 +20,7 @@ date: "2018-11-20 16:53"
   - [1.4. maven 私服](#14-maven-%e7%a7%81%e6%9c%8d)
     - [1.4.1. 发布本地包到私服](#141-%e5%8f%91%e5%b8%83%e6%9c%ac%e5%9c%b0%e5%8c%85%e5%88%b0%e7%a7%81%e6%9c%8d)
     - [1.4.2. 下载私服包](#142-%e4%b8%8b%e8%bd%bd%e7%a7%81%e6%9c%8d%e5%8c%85)
+  - [1.5. questions](#15-questions)
 
 <!-- /TOC -->
 
@@ -307,7 +308,7 @@ maven 私服是公司内搭建的服务，使用 nexus 。
     </profile>
     ```
 
-2. maven settting 中激活 profile
+2. maven setting 中激活 profile
 
     ```xml
     <activeProfiles>
@@ -316,3 +317,10 @@ maven 私服是公司内搭建的服务，使用 nexus 。
     ```
 
 3. 更新依赖 `maven clean update`
+
+## 1.5. questions
+
+1. idea 中出出某个 module 在 maven 显示为灰色，且其他包始终引用不了此包资源。尝试使用 mvn clean package 都无效。
+   1. 原因：idea maven 中已经将此 module 的 pom.xml 给 ignored 掉了，进入 setting-maven-Ignored files 中取消即可。
+2. install module dao 到 service 时报错找不到 dao 中的 parent pom （Failed to read artifact descriptor for com.kang:springdemo-dao:jar），单独 install dao 执行成功。再直接构建 parent pom 工程，依然出错（maven.plugins:maven-surefire-plugin Error creating properties files for forking; nested exception is java.io.IOException: 系统找不到指定的路径。）。
+   1. 解决：[reference](https://blog.csdn.net/prstaxy/article/details/46862757) 参照此见面时，在 parent pom 中添加 org.apache.maven.surefire plugin 同时解决。也解决了整个项目运行后不能注册 spring mvc 的问题。
