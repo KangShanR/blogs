@@ -262,6 +262,6 @@ springmvc 中可以直接使用 Hibernate 的一个校验框架：hibernate-vali
 
 ## 1.4. Functional Endpoints
 
-函数式 mvc 编程，与 jdk8 很好地整合。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#webmvc-fn)
+函数式 mvc 编程，与 jdk8 很好地整合。可以直接使用流式编码将请求与响应数据装配好，诸如：header/body[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#webmvc-fn)
 
 
