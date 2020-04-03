@@ -8,20 +8,33 @@ description: spring 框架的学习与理解
 <!-- TOC -->
 
 - [1. spring](#1-spring)
-  - [1.1. Core 模块](#11-core-%e6%a8%a1%e5%9d%97)
-  - [1.2. AOP 模块](#12-aop-%e6%a8%a1%e5%9d%97)
-  - [1.3. ORM 模块](#13-orm-%e6%a8%a1%e5%9d%97)
-    - [1.3.1. 实体类](#131-%e5%ae%9e%e4%bd%93%e7%b1%bb)
-      - [1.3.1.1. 配置集成Hibernate](#1311-%e9%85%8d%e7%bd%ae%e9%9b%86%e6%88%90hibernate)
-    - [1.3.2. Hibernate的事务管理](#132-hibernate%e7%9a%84%e4%ba%8b%e5%8a%a1%e7%ae%a1%e7%90%86)
-    - [1.3.3. spring的bean.xml配置文件的理解](#133-spring%e7%9a%84beanxml%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%9a%84%e7%90%86%e8%a7%a3)
-  - [1.4. source codes](#14-source-codes)
+  - [1.1. ioc](#11-ioc)
+    - [1.1.1. BeanFactory](#111-beanfactory)
+    - [1.1.2. ApplicationContext](#112-applicationcontext)
+  - [1.2. Core 模块](#12-core-%e6%a8%a1%e5%9d%97)
+  - [1.3. AOP 模块](#13-aop-%e6%a8%a1%e5%9d%97)
+  - [1.4. ORM 模块](#14-orm-%e6%a8%a1%e5%9d%97)
+    - [1.4.1. 实体类](#141-%e5%ae%9e%e4%bd%93%e7%b1%bb)
+      - [1.4.1.1. 配置集成Hibernate](#1411-%e9%85%8d%e7%bd%ae%e9%9b%86%e6%88%90hibernate)
+    - [1.4.2. Hibernate的事务管理](#142-hibernate%e7%9a%84%e4%ba%8b%e5%8a%a1%e7%ae%a1%e7%90%86)
+    - [1.4.3. spring的bean.xml配置文件的理解](#143-spring%e7%9a%84beanxml%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%9a%84%e7%90%86%e8%a7%a3)
+  - [1.5. source codes](#15-source-codes)
 
 <!-- /TOC -->
 
 # 1. spring
 
-> spring 配置 beans 的底层原理就在于通过封装好的解析 xml 类，将 xml 文件中配置好的 bean 实例出一个对象来，再通过配置实现 bean 之间的相互引用，而实现将要用到的 bean （实用类）实例化并使用；查看源码：
+> spring 配置 beans 的底层原理就在于通过封装好的解析 xml 类，将 xml 文件中配置好的 bean 实例出一个对象来，再通过配置实现 bean 之间的相互引用，而实现将要用到的 bean （实用类）实例化并使用；
+
+- 通过 DI(dependency injection) 依赖注入，实现 IoC(Inverse of Control) 反转控制，将所有的 bean 注入 IoC 容器。
+- ioc 等于 di
+- IoC 的实现：将容器在装配 bean 时，先通过其构造器或工厂生产一个实例后，再根据其配置去构造 bean 的各个依赖。这与传统的实例生成方法相反，所以叫反转控制。
+
+## 1.1. ioc
+
+### 1.1.1. BeanFactory
+
+最基础的 ioc 容器 BeanFactory 源码：
 
 Bean factory implementations should support the standard bean lifecycle interfaces as far as possible. The full set of initialization methods and their standard order is:
 
@@ -45,14 +58,18 @@ On shutdown of a bean factory, the following lifecycle methods apply:
 2. DisposableBean's {@code destroy}
 3. a custom destroy-method definition
 
-## 1.1. Core 模块
+### 1.1.2. ApplicationContext
+
+
+
+## 1.2. Core 模块
 
 - bean 标签：
     - id 属性指定这个实例的唯一标识；
     - class 属性，用来指定这个实例的类定义；
     - property 子元素，指定这个对象的属性，比如：user 对象中有属性 name ，那么这个这个 user 的 bean 对象就应该有一个子元素标签 property ，同时如果这个属性是另外一个本地的 bean ， name 属性指向这个属性：`<property name="advice" id="beanId">` 直接使用 id 属性来引用到其他的 bean 的 id 就行；
 
-## 1.2. AOP 模块
+## 1.3. AOP 模块
 
 > Aspect Oriented Programming , 面向切面编程
 
@@ -102,7 +119,7 @@ On shutdown of a bean factory, the following lifecycle methods apply:
             </property>
             ```
 
-## 1.3. ORM 模块
+## 1.4. ORM 模块
 
 > Object RelativeDatabase Mapping,对象关系型数据库映射
 
@@ -111,7 +128,7 @@ On shutdown of a bean factory, the following lifecycle methods apply:
     - Spring 提供在 DAO 层提供 HibernateDaoSupport 类与 JDBCTemplate 类；
     - 在 Spring 里，Hibernate 与 SessionFactory 等只是 Spring 一个特殊的 Bean ，由 spring 负责实例化与销毁；所以也就不需要与 Hibernate 的 API 打交道，不需要开启关闭 Hibernate 的 Session/Transaction ， Spring 自动维护这些对象；
 
-### 1.3.1. 实体类
+### 1.4.1. 实体类
 
 这儿用User类举例：
 
@@ -167,7 +184,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao{
         - 同时，所有sql语言的操作对象都指向实体类，而没有对数据库中的表进行组织sql语句；
     - **个人理解：**spring通过封装Hibernate在框架中，让DAO接口的实现类继承HibernateDaoSupport尖，就将Hibernate对象创建出来，而直接操作这个对象的方法来获取session/Hibernate对象直接与数据库交互，而就节省了操作JDBC的代码；
 
-#### 1.3.1.1. 配置集成Hibernate
+#### 1.4.1.1. 配置集成Hibernate
 
 - 在spring的bean.xml文件中配置集成hibernate到目前这一步只需要***配置三个bean***：
     - 数据源datasource，这是一切的基础，所有的操作最终都会落到对数据库的操作上；
@@ -222,12 +239,12 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao{
 
 ---
 
-### 1.3.2. Hibernate的事务管理
+### 1.4.2. Hibernate的事务管理
 
 - **分层的做法：应用层调用Service层，Service层对数据进行检查（是否重复之类），然后Service层（注入一个Dao属性）调用Dao层，Dao层调用Hibernate实现数据的操作。原则上不允许跨层访问，业务层次分明。**
 - 事务管理transaction，对应的层为Service层；
 
-### 1.3.3. spring的bean.xml配置文件的理解
+### 1.4.3. spring的bean.xml配置文件的理解
 
 - 所有的操作都基于对数据库的crud，所以所有的配置都围绕着操作数据库；
 - 所以，第一个bean的是数据源：dataSource
@@ -329,7 +346,7 @@ public void setConfigLocations(Resource... configLocations) {
         - 事务管理器trasactionManager依然不变；
         - 变的是：添加一个事务注解驱动`tx:annotation-driven trasaction-manager="transactionManager"/>`，添加这个驱动配置后，对产生事务的类添加注解`@Transactional`，标记这个类为事务类，对其中的事务方法添加注解`@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED)`注解（标明了这个方法的隔离水平与传播水平）。这样的注解就取代了上面例子中tx:advice与aop:config两个配置节点的功能；
 
-## 1.4. source codes
+## 1.5. source codes
 
 源码
 
