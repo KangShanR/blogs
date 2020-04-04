@@ -11,11 +11,13 @@ categories: programming
 <!-- TOC -->
 
 - [1. Spring的反向控制思想](#1-spring%e7%9a%84%e5%8f%8d%e5%90%91%e6%8e%a7%e5%88%b6%e6%80%9d%e6%83%b3)
-	- [1.1. 反向控制（Inverse of Control)](#11-%e5%8f%8d%e5%90%91%e6%8e%a7%e5%88%b6inverse-of-control)
-		- [1.1.1. 举例](#111-%e4%b8%be%e4%be%8b)
-	- [1.2. Container Configuration](#12-container-configuration)
-		- [1.2.1. java based container configuration](#121-java-based-container-configuration)
-			- [1.2.1.1. AnnotationConfigApplicationContext 初始化 IoC 容器](#1211-annotationconfigapplicationcontext-%e5%88%9d%e5%a7%8b%e5%8c%96-ioc-%e5%ae%b9%e5%99%a8)
+  - [1.1. 反向控制（Inverse of Control)](#11-%e5%8f%8d%e5%90%91%e6%8e%a7%e5%88%b6inverse-of-control)
+    - [1.1.1. 举例](#111-%e4%b8%be%e4%be%8b)
+  - [1.2. Container Configuration](#12-container-configuration)
+    - [1.2.1. java based container configuration](#121-java-based-container-configuration)
+      - [1.2.1.1. AnnotationConfigApplicationContext 初始化 IoC 容器](#1211-annotationconfigapplicationcontext-%e5%88%9d%e5%a7%8b%e5%8c%96-ioc-%e5%ae%b9%e5%99%a8)
+      - [1.2.1.2. ComponentScan](#1212-componentscan)
+      - [1.2.1.3. AnnotationConfigWebApplicationContext](#1213-annotationconfigwebapplicationcontext)
 
 <!-- /TOC -->
 
@@ -64,18 +66,32 @@ ioc 容器配置。传统配置方法是使用 xml 配置文件实现。
 
 	```java
 	public static void main(String[] args) {
-    ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-    MyService myService = ctx.getBean(MyService.class);
-    myService.doStuff();
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+        MyService myService = ctx.getBean(MyService.class);
+        myService.doStuff();
 	}
 	```
 
+    - AppConfig 是一个 bean 配置类，集合相应的 bean ，在一个类中。
+    - 可以使用无参构造一个 AnnotationConfigApplicationContext 实例，再调用其 `register(config.class)` 方法将配置类注册进去，达到同样的效果。
 - 通过各个 bean 的 class 注册
 
 	```java
 	public static void main(String[] args) {
-    ApplicationContext ctx = new AnnotationConfigApplicationContext(MyServiceImpl.class, Dependency1.class, Dependency2.class);
-    MyService myService = ctx.getBean(MyService.class);
-    myService.doStuff();
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(MyServiceImpl.class, Dependency1.class, Dependency2.class);
+        MyService myService = ctx.getBean(MyService.class);
+        myService.doStuff();
 	}
 	```
+
+#### 1.2.1.2. ComponentScan
+
+- 使用 `@ComponentScan(basePackage={"com.xxx"})` 注解在 Configuration 上将 component 扫描入 IoC Container。等同于 beans.xml 配置中的 `<context:component-scan base-package="com.xxx" />`。
+- 在 AnnotationConfigurationApplicationContext 中可使用 `scan(String package)` 达到同样的效果。
+- `@Configuration` 被元注解 `@Component` 所注解，所以，只要被 scan 到，同样会被注册到 IoC 容器中。
+
+#### 1.2.1.3. AnnotationConfigWebApplicationContext
+
+- AnnotationConfigWebApplicationContext 是 AnnotationConfigApplicationContext 的变体，用于初始化 springmvc 容器。
+- 可用于注册 Spring Servlet lisener `ContextLoaderListener`、spring MVC DispatherServlet 等等。
+- 
