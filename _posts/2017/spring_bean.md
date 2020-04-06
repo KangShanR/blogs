@@ -203,3 +203,19 @@ spring 提供两种后处理器：
 Bean scope : bean 领域，指 bean 的生存策略，共 6 种，其中 4 种只存在于 web 应用 context 中。
 
 1. singleton，spring bean 默认的单例，但 spring bean scope 单例与设计模式的单例不同。设计模式中单例是对一个特定 java 类来说的，每个 classloader 只生产一个实例。而 spring bean scope 是指一个 bean 在同一个 IoC 容器只生产一个实例。
+2. prototype, 模版模式，每次请求此 bean 被注入其他 bean 中或通过 `getBean()` 方式获取容器中 bean 时都会创建一个实例。按惯例， prototype scope 用于带状态的 bean ，而 singleton scope 用于无状态 bean 。
+    1. 对于 prototype scope 的 bean ， IoC 容器只负责其初始化、装配、交给需要此 bean 的客户端，并不负责其后的生命周期。所以对一个 prototype scope bean 就算配置了生命周期中 destruction 销毁的回调 IoC 也不会执行，而负责此任务的是 client。
+    2. client 可使用 bean post-processor 对 bean 进行资源管理。在某些方面来讲，IoC 容器对于 prototype scope bean 相当于一个 java new operator。在此之后的生命周期管理都交给了 client。
+3. 当一个 singleton scope beanA 中依赖注入了 prototype scope beanB ，同时，在 beanA 中需要 beanB 的多个不同的实例。IoC 容器在初始化 beanB 时只会在 beanA 中初始化一个 beanB 的实例，当 IoC 容器按顺序给 beanA 装配时只会装配同一个 beanB 实例到 beanA 中。[reference](https://spring.io/blog/2004/08/06/method-injection/)
+   1. 解决问题的方案一：放弃 IoC ，让 beanA 实现 `ApplicationContextAware` 接口让其对 IoC 容器敏感，每个需要 bean 的地方使用 `ApplicationContext.getBean(Bean.class)` 的方式获取，这样获取的 bean 就是一个新的实例。缺点：业务代码与 spring 框架耦合在一起。
+   2. 方案二：IoC 容器方法注入。
+
+    ```xml
+    <bean id="commandManager" class="fiona.apple.CommandManager">
+        <lookup-method name="createCommand" bean="myCommand"/>
+    </bean>
+    ```
+
+    或使用 annotation `@Lookup(value="")`
+        1. 方法可以是抽象方法也可是具体方法，IoC 容器会通过 CGLIB 为方法所在的类生成子类覆盖方法，所以 `@Lookup` 只能在 IoC 容器能通过常规构造器初始化的 bean 中才能生效。也就是：Lookup 不能为工厂方法生产 bean 方法所替代，因为不能动态地为工厂方法所生产的 bean 提供子类。method 与 class 均不能为 final 修辞。
+        2. 在 spring 使用场景中需要注意：需要为 Lookup 方法提供具体实现，否则 component scanning 之类会过滤掉抽象 bean。同时， Lookup method 不能在 configuration class 中配置的 `@Bean` 方法上生效，需要使用 `@Inject` 之类的注解代替。
