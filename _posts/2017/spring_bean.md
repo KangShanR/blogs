@@ -24,6 +24,7 @@ categories: programming
   - [1.7. spring 容器中的 bean 实现不同方法](#17-spring-%e5%ae%b9%e5%99%a8%e4%b8%ad%e7%9a%84-bean-%e5%ae%9e%e7%8e%b0%e4%b8%8d%e5%90%8c%e6%96%b9%e6%b3%95)
     - [1.7.1. @Bean Annotation](#171-bean-annotation)
     - [1.7.2. Bean Scope](#172-bean-scope)
+      - [1.7.2.1. Web application bean scope](#1721-web-application-bean-scope)
 
 <!-- /TOC -->
 
@@ -217,5 +218,38 @@ Bean scope : bean 领域，指 bean 的生存策略，共 6 种，其中 4 种�
     ```
 
     或使用 annotation `@Lookup(value="")`
-        1. 方法可以是抽象方法也可是具体方法，IoC 容器会通过 CGLIB 为方法所在的类生成子类覆盖方法，所以 `@Lookup` 只能在 IoC 容器能通过常规构造器初始化的 bean 中才能生效。也就是：Lookup 不能为工厂方法生产 bean 方法所替代，因为不能动态地为工厂方法所生产的 bean 提供子类。method 与 class 均不能为 final 修辞。
-        2. 在 spring 使用场景中需要注意：需要为 Lookup 方法提供具体实现，否则 component scanning 之类会过滤掉抽象 bean。同时， Lookup method 不能在 configuration class 中配置的 `@Bean` 方法上生效，需要使用 `@Inject` 之类的注解代替。
+    3. 方法可以是抽象方法也可是具体方法，IoC 容器会通过 CGLIB 为方法所在的类生成子类覆盖方法，所以 `@Lookup` 只能在 IoC 容器能通过常规构造器初始化的 bean 中才能生效。也就是：Lookup 不能为工厂方法生产 bean 方法所替代，因为不能动态地为工厂方法所生产的 bean 提供子类。method 与 class 均不能为 final 修辞。
+    4. 在 spring 使用场景中需要注意：需要为 Lookup 方法提供具体实现，否则 component scanning 之类会过滤掉抽象 bean。同时， Lookup method 不能在 configuration class 中配置的 `@Bean` 方法上生效，需要使用 `@Inject` 之类的注解代替。
+
+#### 1.7.2.1. Web application bean scope
+
+ request/session/application/websocket scope 都用于 web application context，如果是一个普通的应用程序，使胳膊这几个 scope 会抛出 IllegalStateException。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-scopes-sing-prot-interaction)
+
+初始化一个 web application configuration:
+
+1. 如果使用 spring mvc scoped this beans，只需要注册一个 `DispatherServlet` 在 web 配置中即可。
+2. 在初始化一个 web configuration 时，当使用的 Servlet2.5 web 容器，且请求非 spring mvc （struts 、 jsf 之类），需要注册 `org.springframework.web.context.request.RequestContextListener` 到 web 配置中，如果使用 servlet3.0 使用 `WebApplicationInitializer` 接口将自动完成以上注册。
+3. 如果使用 listener 还有问题，可注册 `org.springframework.web.filter.RequestContextFilter` 到 web 中。
+4. 前面的 servlet/listener/filter 的目标只有一个：将 HTTP request 对象按名绑定到服务此请求的线程上。这就让请求域与会话域的 bean 在调用链更下游可用。
+
+四个 web bean scope
+
+1. request scope
+   1. 在 xml 配置中： `<bean id="loginAction" class="com.something.LoginAction" scope="request"/>`
+   2. java configuration: `@RequestScope` 在请求类上注解
+   3. 效果：每次请求调用此 bean 将会产生一个新的 bean 实例来处理此次请求，请求与请求之间不互扰。当此次请求完成，bean 被废弃。
+2. session scope
+   1. xml 配置方式: `<bean id="userPreferences" class="com.something.UserPreferences" scope="session"/>`
+   2. java 配置方式: `@SessionScope`
+   3. 效果：bean 实例的产生取决于一个 HTTP session 的生命周期，在同一个 HTTP 会话中，此 bean 实例都是有效的。只有当此次 HTTP 会话结束，bean 才会被废弃。所以在同一次会话中，不同的请求的状态变化将会相互影响。
+3. application scope
+   1. xml 配置方式：`<bean id="appPreferences" class="com.something.AppPreferences" scope="application"/>`
+   2. java 配置方式： `@ApplicationScope`
+   3. 效果：整个 web 应用只生产一个 application scope 的 bean 。bean 域被划分到 ServletContext 级别，并且被存储为一个常规的 ServletContext 属性。类似于 spring 的 singleton scope，但有两点不同：
+      1. application scope  是每个 servlet 生产一个实例，而 spring 的 singleton scope 是每个 ApplicationContext 生产一个实例（一个应用中可能有多个 ApplicationContext）。
+      2. application scope bean 实际上是显露在外的，在 ServletContext 中属性可见。
+4. 依赖域的 bean[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-scopes-custom)
+   1. 当需要将一个短生命周期的 beanA(session scope) 注入一个相对长生命周期的 beanB(singleton scope) 中时，会出现 beanA 已经被丢弃而 beanB 依然去调用 beanA。
+   2. 添加 AOP 代理配置到 beanA ，代理会将短生命周期的 beanA 序列化存储起来，在 beanB 需要调用时实际上调用代理，代理去查找需要实际调用的实例，找不到则反序列化成为对象 beanA 再次调用此 beanA。
+   3. 如果代理的对象是 ptototype scope，则代理每次调用时将产生一个新的 beanA 实例供调用。
+   4. 代理 scope 并非唯一的在长域 bean 访问短域 bean 的方式，也可定义注入点（构造器、setter argument、autowired field）为 `ObjectFactory<MyBean>` ，通过调用其 `getObject()` 获取新的实例 bean。
