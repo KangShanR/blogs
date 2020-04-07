@@ -14,7 +14,9 @@ categories: programming
   - [1.1. 知识点](#11-%e7%9f%a5%e8%af%86%e7%82%b9)
   - [1.2. spring bean 的自动装配](#12-spring-bean-%e7%9a%84%e8%87%aa%e5%8a%a8%e8%a3%85%e9%85%8d)
   - [1.3. 创建 bean 的方式](#13-%e5%88%9b%e5%bb%ba-bean-%e7%9a%84%e6%96%b9%e5%bc%8f)
-  - [1.4. 协调作用域不同的 bean](#14-%e5%8d%8f%e8%b0%83%e4%bd%9c%e7%94%a8%e5%9f%9f%e4%b8%8d%e5%90%8c%e7%9a%84-bean)
+  - [1.4. Bean Scope](#14-bean-scope)
+    - [1.4.1. Web application bean scope](#141-web-application-bean-scope)
+    - [1.4.2. 协调作用域不同的 bean](#142-%e5%8d%8f%e8%b0%83%e4%bd%9c%e7%94%a8%e5%9f%9f%e4%b8%8d%e5%90%8c%e7%9a%84-bean)
   - [1.5. spring 后处理器](#15-spring-%e5%90%8e%e5%a4%84%e7%90%86%e5%99%a8)
   - [1.6. spring bean 零配置支持](#16-spring-bean-%e9%9b%b6%e9%85%8d%e7%bd%ae%e6%94%af%e6%8c%81)
     - [1.6.1. 标注 bean 注解](#161-%e6%a0%87%e6%b3%a8-bean-%e6%b3%a8%e8%a7%a3)
@@ -23,8 +25,8 @@ categories: programming
     - [1.6.4. 使用注解来定制 bean 方法成员的生命周期](#164-%e4%bd%bf%e7%94%a8%e6%b3%a8%e8%a7%a3%e6%9d%a5%e5%ae%9a%e5%88%b6-bean-%e6%96%b9%e6%b3%95%e6%88%90%e5%91%98%e7%9a%84%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f)
   - [1.7. spring 容器中的 bean 实现不同方法](#17-spring-%e5%ae%b9%e5%99%a8%e4%b8%ad%e7%9a%84-bean-%e5%ae%9e%e7%8e%b0%e4%b8%8d%e5%90%8c%e6%96%b9%e6%b3%95)
     - [1.7.1. @Bean Annotation](#171-bean-annotation)
-    - [1.7.2. Bean Scope](#172-bean-scope)
-      - [1.7.2.1. Web application bean scope](#1721-web-application-bean-scope)
+  - [1.8. Naming Bean](#18-naming-bean)
+    - [1.8.1. Aliasing Bean](#181-aliasing-bean)
 
 <!-- /TOC -->
 
@@ -107,11 +109,66 @@ _一个模块的 spring 配置文件根节点就是 `<beans>` ，也就是用这
 
 1. 构造器创建 bean ，最常见的创建方式。 如果不采用构造注入， spring 会自动加载此 bean 的默认无参构造器，并将其属性全部初始化（基本类型设置为 0/false，引用类型设为 null）
 2. 静态工厂方法创建 bean 。使用静态工厂创建 bean 时必须指定 `<bean class="">` 这儿的 class 属性就是用来指定静态工厂， factory-method 属性指定工厂的创建方法， 如果此方法需要参数，通过 constructor-arg 属性来指定。
-3. 实例工厂方法创建 bean 。顾名思义，此方法与 静态工厂方法 的不同之处在于使用工厂实例进行创建 bean 。所以这儿能过 factory-bean 来指定工厂实例，再通过 factory-method 指定创建 bean 的方法。如果需要参数通过 ceonstructor-arg 指定参数值。
+3. 实例工厂方法创建 bean 。顾名思义，此方法与 静态工厂方法 的不同之处在于使用工厂实例进行创建 bean 。所以这儿能过 factory-bean 来指定工厂实例，再通过 factory-method 指定创建 bean 的方法。如果需要参数通过 constructor-arg 指定参数值。
 
-## 1.4. 协调作用域不同的 bean
+## 1.4. Bean Scope
 
-> 当 singleton bean 依赖于 prototype bean 时，会因为 spring 窗口初始化时会先预初始化 singleton bean ，如果  singleton bean 依赖于 prototype bean ，就不得不先将依赖的 prototype bean 初始化好，再注入到 singleton bean。这就带来一个不同步的问题（多个 singleton bean 需要同一个 prototype bean）。
+Bean scope : bean 领域，指 bean 的生存策略，共 6 种，其中 4 种只存在于 web 应用 context 中。
+
+1. singleton，spring bean 默认的单例，但 spring bean scope 单例与设计模式的单例不同。设计模式中单例是对一个特定 java 类来说的，每个 classloader 只生产一个实例。而 spring bean scope 是指一个 bean 在同一个 IoC 容器只生产一个实例。
+2. prototype, 模版模式，每次请求此 bean 被注入其他 bean 中或通过 `getBean()` 方式获取容器中 bean 时都会创建一个实例。按惯例， prototype scope 用于带状态的 bean ，而 singleton scope 用于无状态 bean 。
+    1. 对于 prototype scope 的 bean ， IoC 容器只负责其初始化、装配、交给需要此 bean 的客户端，并不负责其后的生命周期。所以对一个 prototype scope bean 就算配置了生命周期中 destruction 销毁的回调 IoC 也不会执行，而负责此任务的是 client。
+    2. client 可使用 bean post-processor 对 bean 进行资源管理。在某些方面来讲，IoC 容器对于 prototype scope bean 相当于一个 java new operator。在此之后的生命周期管理都交给了 client。
+3. 当一个 singleton scope beanA 中依赖注入了 prototype scope beanB ，同时，在 beanA 中需要 beanB 的多个不同的实例。IoC 容器在初始化 beanB 时只会在 beanA 中初始化一个 beanB 的实例，当 IoC 容器按顺序给 beanA 装配时只会装配同一个 beanB 实例到 beanA 中。[reference](https://spring.io/blog/2004/08/06/method-injection/)
+   1. 解决问题的方案一：放弃 IoC ，让 beanA 实现 `ApplicationContextAware` 接口让其对 IoC 容器敏感，每个需要 bean 的地方使用 `ApplicationContext.getBean(Bean.class)` 的方式获取，这样获取的 bean 就是一个新的实例。缺点：业务代码与 spring 框架耦合在一起。
+   2. 方案二：IoC 容器方法注入。
+
+    ```xml
+    <bean id="commandManager" class="fiona.apple.CommandManager">
+        <lookup-method name="createCommand" bean="myCommand"/>
+    </bean>
+    ```
+
+    或使用 annotation `@Lookup(value="")`
+    3. 方法可以是抽象方法也可是具体方法，IoC 容器会通过 CGLIB 为方法所在的类生成子类覆盖方法，所以 `@Lookup` 只能在 IoC 容器能通过常规构造器初始化的 bean 中才能生效。也就是：Lookup 不能为工厂方法生产 bean 方法所替代，因为不能动态地为工厂方法所生产的 bean 提供子类。method 与 class 均不能为 final 修辞。
+    4. 在 spring 使用场景中需要注意：需要为 Lookup 方法提供具体实现，否则 component scanning 之类会过滤掉抽象 bean。同时， Lookup method 不能在 configuration class 中配置的 `@Bean` 方法上生效，需要使用 `@Inject` 之类的注解代替。
+
+### 1.4.1. Web application bean scope
+
+ request/session/application/websocket scope 都用于 web application context，如果是一个普通的应用程序，使胳膊这几个 scope 会抛出 IllegalStateException。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-scopes-sing-prot-interaction)
+
+初始化一个 web application configuration:
+
+1. 如果使用 spring mvc scoped this beans，只需要注册一个 `DispatherServlet` 在 web 配置中即可。
+2. 在初始化一个 web configuration 时，当使用的 Servlet2.5 web 容器，且请求非 spring mvc （struts 、 jsf 之类），需要注册 `org.springframework.web.context.request.RequestContextListener` 到 web 配置中，如果使用 servlet3.0 使用 `WebApplicationInitializer` 接口将自动完成以上注册。
+3. 如果使用 listener 还有问题，可注册 `org.springframework.web.filter.RequestContextFilter` 到 web 中。
+4. 前面的 servlet/listener/filter 的目标只有一个：将 HTTP request 对象按名绑定到服务此请求的线程上。这就让请求域与会话域的 bean 在调用链更下游可用。
+
+四个 web bean scope
+
+1. request scope
+   1. 在 xml 配置中： `<bean id="loginAction" class="com.something.LoginAction" scope="request"/>`
+   2. java configuration: `@RequestScope` 在请求类上注解
+   3. 效果：每次请求调用此 bean 将会产生一个新的 bean 实例来处理此次请求，请求与请求之间不互扰。当此次请求完成，bean 被废弃。
+2. session scope
+   1. xml 配置方式: `<bean id="userPreferences" class="com.something.UserPreferences" scope="session"/>`
+   2. java 配置方式: `@SessionScope`
+   3. 效果：bean 实例的产生取决于一个 HTTP session 的生命周期，在同一个 HTTP 会话中，此 bean 实例都是有效的。只有当此次 HTTP 会话结束，bean 才会被废弃。所以在同一次会话中，不同的请求的状态变化将会相互影响。
+3. application scope
+   1. xml 配置方式：`<bean id="appPreferences" class="com.something.AppPreferences" scope="application"/>`
+   2. java 配置方式： `@ApplicationScope`
+   3. 效果：整个 web 应用只生产一个 application scope 的 bean 。bean 域被划分到 ServletContext 级别，并且被存储为一个常规的 ServletContext 属性。类似于 spring 的 singleton scope，但有两点不同：
+      1. application scope  是每个 servlet 生产一个实例，而 spring 的 singleton scope 是每个 ApplicationContext 生产一个实例（一个应用中可能有多个 ApplicationContext）。
+      2. application scope bean 实际上是显露在外的，在 ServletContext 中属性可见。
+4. 依赖域的 bean[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-scopes-custom)
+   1. 当需要将一个短生命周期的 beanA(session scope) 注入一个相对长生命周期的 beanB(singleton scope) 中时，会出现 beanA 已经被丢弃而 beanB 依然去调用 beanA。
+   2. 添加 AOP 代理配置到 beanA ，代理会将短生命周期的 beanA 序列化存储起来，在 beanB 需要调用时实际上调用代理，代理去查找需要实际调用的实例，找不到则反序列化成为对象 beanA 再次调用此 beanA。
+   3. 如果代理的对象是 ptototype scope，则代理每次调用时将产生一个新的 beanA 实例供调用。
+   4. 代理 scope 并非唯一的在长域 bean 访问短域 bean 的方式，也可定义注入点（构造器、setter argument、autowired field）为 `ObjectFactory<MyBean>` ，通过调用其 `getObject()` 获取新的实例 bean。
+
+### 1.4.2. 协调作用域不同的 bean
+
+> 当 singleton bean 依赖于 prototype bean 时，会因为 spring 窗口初始化时会先预初始化 singleton bean ，如果  singleton bean 依赖于 prototype bean ，就不得不先将依赖的 prototype bean 初始化好，再注入到 singleton bean。这就带来一个不同步的问题（多个 singleton bean 依赖了同一个 prototype bean）。
 
 解决不同步的方法：
 
@@ -119,7 +176,7 @@ _一个模块的 spring 配置文件根节点就是 `<beans>` ，也就是用这
 2. 利用方法注入。通常使用 `lookup` 方法注入，此方法会让 spring 容器重写容器中的 bean 的抽象或具体方法，返回查找容器中其他 bean 的结果，被查找的 bean 通常是一个 non-singleton bean 。 spring 通过使用 JDK 动态代理或者 cglib 库修改客户端代码实现上述动作。
    1. 为了使用lookup方法注入，大致需要如下两步：
         1. 将调用者Bean的实现类定义为抽象类，并定义一个抽象方法来获取被依赖的Bean。
-        1. 在<bean.../>元素中添加<lookup-method.../>子元素让Spring为调用者Bean的实现类实现指定的抽象方法。
+        2. 在 `<bean.../>` 元素中添加 `<lookup-method.../>` 子元素让 Spring 为调用者 Bean 的实现类实现指定的抽象方法。
 
 _Spring会采用运行时动态增强的方式来实现 `<lookup-method.../>`元素所指定的抽象方法，如果目标抽象类实现过接口，Spring 会采用 JDK 动态代理来实现该抽象类，并为之实现抽象方法；如果目标抽象类没有实现过接口，Spring会采用cglib实现该抽象类，并为之实现抽象方法。Spring4.0 的 spring-core-xxx.jar 包中已经集成了 cglib 类库。_
 
@@ -199,57 +256,18 @@ spring 提供两种后处理器：
     - 在 `@Bean` 中指定 `initMethod` `destroyMethod` 两个 bean 方法名，用以决定 bean 在初始化后现销毁前的回调。
     - `destroyMethod` 默认为 `deferred` 推断模式，在容器销毁前自行推断其销毁方法，如果想在容器销毁时保留 bean ，可以指定 `destroyMethod=""`。
 
-### 1.7.2. Bean Scope
+## 1.8. Naming Bean
 
-Bean scope : bean 领域，指 bean 的生存策略，共 6 种，其中 4 种只存在于 web 应用 context 中。
+bean 的命名[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-basics)
 
-1. singleton，spring bean 默认的单例，但 spring bean scope 单例与设计模式的单例不同。设计模式中单例是对一个特定 java 类来说的，每个 classloader 只生产一个实例。而 spring bean scope 是指一个 bean 在同一个 IoC 容器只生产一个实例。
-2. prototype, 模版模式，每次请求此 bean 被注入其他 bean 中或通过 `getBean()` 方式获取容器中 bean 时都会创建一个实例。按惯例， prototype scope 用于带状态的 bean ，而 singleton scope 用于无状态 bean 。
-    1. 对于 prototype scope 的 bean ， IoC 容器只负责其初始化、装配、交给需要此 bean 的客户端，并不负责其后的生命周期。所以对一个 prototype scope bean 就算配置了生命周期中 destruction 销毁的回调 IoC 也不会执行，而负责此任务的是 client。
-    2. client 可使用 bean post-processor 对 bean 进行资源管理。在某些方面来讲，IoC 容器对于 prototype scope bean 相当于一个 java new operator。在此之后的生命周期管理都交给了 client。
-3. 当一个 singleton scope beanA 中依赖注入了 prototype scope beanB ，同时，在 beanA 中需要 beanB 的多个不同的实例。IoC 容器在初始化 beanB 时只会在 beanA 中初始化一个 beanB 的实例，当 IoC 容器按顺序给 beanA 装配时只会装配同一个 beanB 实例到 beanA 中。[reference](https://spring.io/blog/2004/08/06/method-injection/)
-   1. 解决问题的方案一：放弃 IoC ，让 beanA 实现 `ApplicationContextAware` 接口让其对 IoC 容器敏感，每个需要 bean 的地方使用 `ApplicationContext.getBean(Bean.class)` 的方式获取，这样获取的 bean 就是一个新的实例。缺点：业务代码与 spring 框架耦合在一起。
-   2. 方案二：IoC 容器方法注入。
+- 按惯例， bean 命名使用小驼峰。
+- 命名规范保持一致，有助于读与理解。同时，有助于 AOP 通过名字查找 bean 进入增强。
+- 对于 component scan ，Spring 为未命名的 componet 命名。取类的 simple name 小驼峰化为其名。特例：对于类名字母数量不只1个且前两个字符都是大写字母的情况， spring 会保留其原名。
+- 指定多个名：可使用逗号 `,`，分号 `;`，空格 ` ` 加以分隔。
 
-    ```xml
-    <bean id="commandManager" class="fiona.apple.CommandManager">
-        <lookup-method name="createCommand" bean="myCommand"/>
-    </bean>
-    ```
+### 1.8.1. Aliasing Bean
 
-    或使用 annotation `@Lookup(value="")`
-    3. 方法可以是抽象方法也可是具体方法，IoC 容器会通过 CGLIB 为方法所在的类生成子类覆盖方法，所以 `@Lookup` 只能在 IoC 容器能通过常规构造器初始化的 bean 中才能生效。也就是：Lookup 不能为工厂方法生产 bean 方法所替代，因为不能动态地为工厂方法所生产的 bean 提供子类。method 与 class 均不能为 final 修辞。
-    4. 在 spring 使用场景中需要注意：需要为 Lookup 方法提供具体实现，否则 component scanning 之类会过滤掉抽象 bean。同时， Lookup method 不能在 configuration class 中配置的 `@Bean` 方法上生效，需要使用 `@Inject` 之类的注解代替。
+给 bean 起别名。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-basics)
 
-#### 1.7.2.1. Web application bean scope
-
- request/session/application/websocket scope 都用于 web application context，如果是一个普通的应用程序，使胳膊这几个 scope 会抛出 IllegalStateException。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-scopes-sing-prot-interaction)
-
-初始化一个 web application configuration:
-
-1. 如果使用 spring mvc scoped this beans，只需要注册一个 `DispatherServlet` 在 web 配置中即可。
-2. 在初始化一个 web configuration 时，当使用的 Servlet2.5 web 容器，且请求非 spring mvc （struts 、 jsf 之类），需要注册 `org.springframework.web.context.request.RequestContextListener` 到 web 配置中，如果使用 servlet3.0 使用 `WebApplicationInitializer` 接口将自动完成以上注册。
-3. 如果使用 listener 还有问题，可注册 `org.springframework.web.filter.RequestContextFilter` 到 web 中。
-4. 前面的 servlet/listener/filter 的目标只有一个：将 HTTP request 对象按名绑定到服务此请求的线程上。这就让请求域与会话域的 bean 在调用链更下游可用。
-
-四个 web bean scope
-
-1. request scope
-   1. 在 xml 配置中： `<bean id="loginAction" class="com.something.LoginAction" scope="request"/>`
-   2. java configuration: `@RequestScope` 在请求类上注解
-   3. 效果：每次请求调用此 bean 将会产生一个新的 bean 实例来处理此次请求，请求与请求之间不互扰。当此次请求完成，bean 被废弃。
-2. session scope
-   1. xml 配置方式: `<bean id="userPreferences" class="com.something.UserPreferences" scope="session"/>`
-   2. java 配置方式: `@SessionScope`
-   3. 效果：bean 实例的产生取决于一个 HTTP session 的生命周期，在同一个 HTTP 会话中，此 bean 实例都是有效的。只有当此次 HTTP 会话结束，bean 才会被废弃。所以在同一次会话中，不同的请求的状态变化将会相互影响。
-3. application scope
-   1. xml 配置方式：`<bean id="appPreferences" class="com.something.AppPreferences" scope="application"/>`
-   2. java 配置方式： `@ApplicationScope`
-   3. 效果：整个 web 应用只生产一个 application scope 的 bean 。bean 域被划分到 ServletContext 级别，并且被存储为一个常规的 ServletContext 属性。类似于 spring 的 singleton scope，但有两点不同：
-      1. application scope  是每个 servlet 生产一个实例，而 spring 的 singleton scope 是每个 ApplicationContext 生产一个实例（一个应用中可能有多个 ApplicationContext）。
-      2. application scope bean 实际上是显露在外的，在 ServletContext 中属性可见。
-4. 依赖域的 bean[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-scopes-custom)
-   1. 当需要将一个短生命周期的 beanA(session scope) 注入一个相对长生命周期的 beanB(singleton scope) 中时，会出现 beanA 已经被丢弃而 beanB 依然去调用 beanA。
-   2. 添加 AOP 代理配置到 beanA ，代理会将短生命周期的 beanA 序列化存储起来，在 beanB 需要调用时实际上调用代理，代理去查找需要实际调用的实例，找不到则反序列化成为对象 beanA 再次调用此 beanA。
-   3. 如果代理的对象是 ptototype scope，则代理每次调用时将产生一个新的 beanA 实例供调用。
-   4. 代理 scope 并非唯一的在长域 bean 访问短域 bean 的方式，也可定义注入点（构造器、setter argument、autowired field）为 `ObjectFactory<MyBean>` ，通过调用其 `getObject()` 获取新的实例 bean。
+`@Bean`
+当一个应用中存在多个子系统，系统之间需要使用同一个 bean
