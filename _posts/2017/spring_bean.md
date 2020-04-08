@@ -17,16 +17,23 @@ categories: programming
   - [1.4. Bean Scope](#14-bean-scope)
     - [1.4.1. Web application bean scope](#141-web-application-bean-scope)
     - [1.4.2. 协调作用域不同的 bean](#142-%e5%8d%8f%e8%b0%83%e4%bd%9c%e7%94%a8%e5%9f%9f%e4%b8%8d%e5%90%8c%e7%9a%84-bean)
-  - [1.5. spring 后处理器](#15-spring-%e5%90%8e%e5%a4%84%e7%90%86%e5%99%a8)
-  - [1.6. spring bean 零配置支持](#16-spring-bean-%e9%9b%b6%e9%85%8d%e7%bd%ae%e6%94%af%e6%8c%81)
-    - [1.6.1. 标注 bean 注解](#161-%e6%a0%87%e6%b3%a8-bean-%e6%b3%a8%e8%a7%a3)
-    - [1.6.2. @Resouce 依赖配置](#162-resouce-%e4%be%9d%e8%b5%96%e9%85%8d%e7%bd%ae)
-    - [1.6.3. 自动装配与精确装配 spring 4.0](#163-%e8%87%aa%e5%8a%a8%e8%a3%85%e9%85%8d%e4%b8%8e%e7%b2%be%e7%a1%ae%e8%a3%85%e9%85%8d-spring-40)
-    - [1.6.4. 使用注解来定制 bean 方法成员的生命周期](#164-%e4%bd%bf%e7%94%a8%e6%b3%a8%e8%a7%a3%e6%9d%a5%e5%ae%9a%e5%88%b6-bean-%e6%96%b9%e6%b3%95%e6%88%90%e5%91%98%e7%9a%84%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f)
-  - [1.7. spring 容器中的 bean 实现不同方法](#17-spring-%e5%ae%b9%e5%99%a8%e4%b8%ad%e7%9a%84-bean-%e5%ae%9e%e7%8e%b0%e4%b8%8d%e5%90%8c%e6%96%b9%e6%b3%95)
-    - [1.7.1. @Bean Annotation](#171-bean-annotation)
-  - [1.8. Naming Bean](#18-naming-bean)
-    - [1.8.1. Aliasing Bean](#181-aliasing-bean)
+  - [1.5. Dependencies](#15-dependencies)
+    - [1.5.1. Dependency injection](#151-dependency-injection)
+      - [1.5.1.1. constructor injection](#1511-constructor-injection)
+      - [1.5.1.2. setter injection](#1512-setter-injection)
+      - [1.5.1.3. 依赖解析](#1513-%e4%be%9d%e8%b5%96%e8%a7%a3%e6%9e%90)
+        - [1.5.1.3.1. 循环依赖](#15131-%e5%be%aa%e7%8e%af%e4%be%9d%e8%b5%96)
+        - [1.5.1.3.2. spring 依赖加载特性](#15132-spring-%e4%be%9d%e8%b5%96%e5%8a%a0%e8%bd%bd%e7%89%b9%e6%80%a7)
+  - [1.6. spring 后处理器](#16-spring-%e5%90%8e%e5%a4%84%e7%90%86%e5%99%a8)
+  - [1.7. spring bean 零配置支持](#17-spring-bean-%e9%9b%b6%e9%85%8d%e7%bd%ae%e6%94%af%e6%8c%81)
+    - [1.7.1. 标注 bean 注解](#171-%e6%a0%87%e6%b3%a8-bean-%e6%b3%a8%e8%a7%a3)
+    - [1.7.2. @Resouce 依赖配置](#172-resouce-%e4%be%9d%e8%b5%96%e9%85%8d%e7%bd%ae)
+    - [1.7.3. 自动装配与精确装配 spring 4.0](#173-%e8%87%aa%e5%8a%a8%e8%a3%85%e9%85%8d%e4%b8%8e%e7%b2%be%e7%a1%ae%e8%a3%85%e9%85%8d-spring-40)
+    - [1.7.4. 使用注解来定制 bean 方法成员的生命周期](#174-%e4%bd%bf%e7%94%a8%e6%b3%a8%e8%a7%a3%e6%9d%a5%e5%ae%9a%e5%88%b6-bean-%e6%96%b9%e6%b3%95%e6%88%90%e5%91%98%e7%9a%84%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f)
+  - [1.8. spring 容器中的 bean 实现不同方法](#18-spring-%e5%ae%b9%e5%99%a8%e4%b8%ad%e7%9a%84-bean-%e5%ae%9e%e7%8e%b0%e4%b8%8d%e5%90%8c%e6%96%b9%e6%b3%95)
+    - [1.8.1. @Bean Annotation](#181-bean-annotation)
+  - [1.9. Naming Bean](#19-naming-bean)
+    - [1.9.1. Aliasing Bean](#191-aliasing-bean)
 
 <!-- /TOC -->
 
@@ -180,7 +187,63 @@ Bean scope : bean 领域，指 bean 的生存策略，共 6 种，其中 4 种�
 
 _Spring会采用运行时动态增强的方式来实现 `<lookup-method.../>`元素所指定的抽象方法，如果目标抽象类实现过接口，Spring 会采用 JDK 动态代理来实现该抽象类，并为之实现抽象方法；如果目标抽象类没有实现过接口，Spring会采用cglib实现该抽象类，并为之实现抽象方法。Spring4.0 的 spring-core-xxx.jar 包中已经集成了 cglib 类库。_
 
-## 1.5. spring 后处理器
+## 1.5. Dependencies
+
+spring IoC 容器中各个 bean 相互依赖。
+
+### 1.5.1. Dependency injection
+
+依赖注入
+
+依赖注入的方法主要有两种：构造器注入、工厂方法注入、setter 注入
+
+区别：constructor 与工厂方法注入在初始化就注入，而 setter 注入在初始化后注入依赖。
+
+#### 1.5.1.1. constructor injection
+
+[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-constructor-injection)
+
+1. 构造器注入与工厂方法注入类似，都在本 bean 初始化时将依赖注入。
+2. 当构造参数或工厂方法参数存在继承关系时，参数匹配会模糊不清。解决方案：
+   1. 添加参数 index （从 0 开始）；
+   2. 指定参数类型：
+
+   ```xml
+   <bean id="exampleBean" class="examples.ExampleBean">
+        <constructor-arg type="int" value="7500000"/>
+        <constructor-arg type="java.lang.String" value="42"/>
+    </bean>
+   ```
+
+   1. 指定参数名，同时需要在方法上添加 `@ConstructorProperties({"years", "ultimateAnswer"})`；
+
+#### 1.5.1.2. setter injection
+
+在 bean 实例化后调用，同一个 bean 的依赖注入两种方式都可使用。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-setter-injection)
+
+#### 1.5.1.3. 依赖解析
+
+1. `ApplicationContext` 通过配置元数据创建并初始化，配置数据可以通过 xml/Java code/annotations 完成。
+2. 每个 bean 的依赖表现为 bean 的属性、构造器参数、工厂方法参数形式，当 bean 被创建时，这些依赖已准备好。
+3. 对于 bean 来说，每个依赖等同于被设置的值或 IoC 容器中其他 bean 引用。
+4. bean 的每个属性实际上是从指定的格式转换为其需要的类型。spring 可以将一个 String 类型的值转换为内置的类型（如：int boolean long）。
+5. 默认 spring IoC 容器在创建时会将 bean scope 域定为 singleton，且会预先初始化 bean ，否则只有在请求时才会被创建。
+6. bean 的创建可能会形成图形结构：bean 的依赖的创建及其依赖的依赖的创建。
+
+##### 1.5.1.3.1. 循环依赖
+
+bean 之间相互 constructor 依赖。beanA 依赖了 beanB ，同时 beanB 依赖了 beanA，且两者的依赖都是通过构造器依赖。当出现循环依赖时，IoC 在运行时会抛出 `BeanCurrentlyInCreationException`。
+
+解决方案：配置其中一个（或全部） bean 使用 setter 注入。虽然不推荐，但可以使用 setter 注入配置循环依赖。
+
+循环依赖与正常依赖不同之处：循环依赖其中一个 bean 强制在完全初始化前注入另一个 bean 。_IoC container 来做的？_
+
+##### 1.5.1.3.2. spring 依赖加载特性
+
+1. spring 在容器加载时会自动检测配置的潜在问题，诸如：引用缺失、循环依赖；
+2. spring 实际创建 bean 时会尽晚地设置属性和解析依赖（在未使用某个依赖前并不注入此依赖），这意味着在 spring container 正确加载后请求对象会出现创建对象或其依赖的异常，比如：bean throws a exception of  a missing of invalid property。为此，`ApplicationContext` 的实现默认预先初始化 singleton scope beans。用预先的时间与内存消耗来初始化 bean 在 `ApplicationContext` 创建时显露出配置的问题。
+
+## 1.6. spring 后处理器
 
 spring 提供两种后处理器：
 
@@ -198,19 +261,19 @@ spring 提供两种后处理器：
         1. postProcessBeanFactory(ConfigurableListableBeanFactory BeanFactory)
     3. 同样，如果 使用 BeanFactory 作为容器，必须手动调用容器后处理器来处理 BeanFactory 容器。
 
-## 1.6. spring bean 零配置支持
+## 1.7. spring bean 零配置支持
 
 > spring 零配置是指通过**注解**来实现 beans.xml 中配置 spring bean 容器的功能
 > 在 spring 配置文件中指定自动扫描的包： `<context:component-scan base-package="package.path.name"/>`
 
-### 1.6.1. 标注 bean 注解
+### 1.7.1. 标注 bean 注解
 
 - `@Repository` 标注为 DAO 组件类
 - `@component` 标注为一个普通组件类
 - `@Service` 标注为一个业务逻辑组件类
 - `@Controller` 标注为一个控制器组件类
 
-### 1.6.2. @Resouce 依赖配置
+### 1.7.2. @Resouce 依赖配置
 
 > 位于 javax.anotation 包
 
@@ -218,7 +281,7 @@ spring 提供两种后处理器：
 - 可以用于修改 setter 方法
 - 还可以直接修辞 实例变量。这样使用更为简单，spring 将会使用 javaEE 规范的 field 注入，setter 方法都不用写了。
 
-### 1.6.3. 自动装配与精确装配 spring 4.0
+### 1.7.3. 自动装配与精确装配 spring 4.0
 
 - `@autowired` 指定自动装配
     - 可以用来修辞 setter方法/普通方法/实例变量/构造器
@@ -226,14 +289,14 @@ spring 提供两种后处理器：
     - 为解决上述问题，spring 4.0 就增加了 `@Qualifier` 注解
         - `@Qualifier` 用于精确装配 bean ，其方法是在其中指定 bean id 。因此如果要使用此注解来装配，就得将被装配的 bean id（也就是 beanName，通常的标注注解就这一个属性，默认为 ""） 标注出来。
 
-### 1.6.4. 使用注解来定制 bean 方法成员的生命周期
+### 1.7.4. 使用注解来定制 bean 方法成员的生命周期
 
 现个注解实现(javax.anotation 包)：
 
 - `@PostConstruct` 顾名思义，是在 bean 构造之后执行，修辞的是 bean 的初始化方法；
 - `@PreDestroy` 修辞 bean 销毁之前执行的方法
 
-## 1.7. spring 容器中的 bean 实现不同方法
+## 1.8. spring 容器中的 bean 实现不同方法
 
 [参考](https://www.cnblogs.com/duanxz/p/7493276.html)
 
@@ -245,7 +308,7 @@ spring 提供两种后处理器：
 
 [获取 xml applicationContext 方法参考](https://www.cnblogs.com/yjbjingcha/p/6752265.html)
 
-### 1.7.1. @Bean Annotation
+### 1.8.1. @Bean Annotation
 
 使用 `@Bean` 注册一个实例到 IoC 容器中。
 
@@ -256,7 +319,7 @@ spring 提供两种后处理器：
     - 在 `@Bean` 中指定 `initMethod` `destroyMethod` 两个 bean 方法名，用以决定 bean 在初始化后现销毁前的回调。
     - `destroyMethod` 默认为 `deferred` 推断模式，在容器销毁前自行推断其销毁方法，如果想在容器销毁时保留 bean ，可以指定 `destroyMethod=""`。
 
-## 1.8. Naming Bean
+## 1.9. Naming Bean
 
 bean 的命名[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-basics)
 
@@ -265,7 +328,7 @@ bean 的命名[reference](https://docs.spring.io/spring/docs/current/spring-fram
 - 对于 component scan ，Spring 为未命名的 componet 命名。取类的 simple name 小驼峰化为其名。特例：对于类名字母数量不只1个且前两个字符都是大写字母的情况， spring 会保留其原名。
 - 指定多个名：可使用逗号 `,`，分号 `;`，空格 ` ` 加以分隔。
 
-### 1.8.1. Aliasing Bean
+### 1.9.1. Aliasing Bean
 
 给 bean 起别名。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-basics)
 
