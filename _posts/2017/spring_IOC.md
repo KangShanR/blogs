@@ -6,11 +6,11 @@ categories: programming
 
 ---
 
-# 1. Spring的反向控制思想
+# 1. Spring IoC
 
 <!-- TOC -->
 
-- [1. Spring的反向控制思想](#1-spring%e7%9a%84%e5%8f%8d%e5%90%91%e6%8e%a7%e5%88%b6%e6%80%9d%e6%83%b3)
+- [1. Spring IoC](#1-spring-ioc)
   - [1.1. 反向控制（Inverse of Control)](#11-%e5%8f%8d%e5%90%91%e6%8e%a7%e5%88%b6inverse-of-control)
     - [1.1.1. 举例](#111-%e4%b8%be%e4%be%8b)
   - [1.2. Container Configuration](#12-container-configuration)
@@ -18,6 +18,11 @@ categories: programming
       - [1.2.1.1. AnnotationConfigApplicationContext 初始化 IoC 容器](#1211-annotationconfigapplicationcontext-%e5%88%9d%e5%a7%8b%e5%8c%96-ioc-%e5%ae%b9%e5%99%a8)
       - [1.2.1.2. ComponentScan](#1212-componentscan)
       - [1.2.1.3. AnnotationConfigWebApplicationContext](#1213-annotationconfigwebapplicationcontext)
+  - [1.3. ApplicationContext 额外功能](#13-applicationcontext-%e9%a2%9d%e5%a4%96%e5%8a%9f%e8%83%bd)
+    - [1.3.1. 使用 MessageResource 做国际化](#131-%e4%bd%bf%e7%94%a8-messageresource-%e5%81%9a%e5%9b%bd%e9%99%85%e5%8c%96)
+    - [1.3.2. 标准事件与自定义事件](#132-%e6%a0%87%e5%87%86%e4%ba%8b%e4%bb%b6%e4%b8%8e%e8%87%aa%e5%ae%9a%e4%b9%89%e4%ba%8b%e4%bb%b6)
+      - [1.3.2.1. 内置的事件](#1321-%e5%86%85%e7%bd%ae%e7%9a%84%e4%ba%8b%e4%bb%b6)
+      - [1.3.2.2. 监听器实现](#1322-%e7%9b%91%e5%90%ac%e5%99%a8%e5%ae%9e%e7%8e%b0)
 
 <!-- /TOC -->
 
@@ -94,3 +99,39 @@ ioc 容器配置。传统配置方法是使用 xml 配置文件实现。
 
 - AnnotationConfigWebApplicationContext 是 AnnotationConfigApplicationContext 的变体，用于初始化 springmvc 容器。
 - 可用于注册 Spring Servlet lisener `ContextLoaderListener`、spring MVC DispatherServlet 等等。
+
+## 1.3. ApplicationContext 额外功能
+
+ApplicationContext 可以理解为 Spring IoC 容器。
+
+### 1.3.1. 使用 MessageResource 做国际化
+
+[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#context-introduction)
+
+- ApplicationContext 默认实现都继承了 MessageResource 接口，只要注册了任何一个 MessageContext Bean 在容器中，即可使用其功能。
+- 默认的 MessageContext 实现 `org.springframework.context.support.ResourceBundleMessageSource` ，可定义相关 ResourceBoundle 用于 message 定制。
+- `ReloadableResourceBundleMessageSource` 有更灵活的实现，允许从 Spring 资源中加载任何路径中的文件， `ResourceBoundleMessageSource` 只能加载 classpath 中的资源文件。同时也支持热重载资源文件。
+
+### 1.3.2. 标准事件与自定义事件
+
+ApplicationContext 中事件的处理通过 `ApplicationEvent` 类和 `ApplicationListener` 接口完成，当发布一个 event 实现了 `ApplicationListener` 的类将被通知到此事件。这是一个典型的观察者设计模式。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#context-introduction)
+
+从 Spring 4.2 开始，事件处理可使用注解配置。
+
+#### 1.3.2.1. 内置的事件
+
+1. ContextRefreshedEvent 在 ApplicationContext 初始化或刷新时触发，在 context 未 closed，可以多次调用 `refresh()` 刷新
+2. ContextStartedEvent 在 `ConfigurableApplicationContext` 接口中调用 `start()` 方法开启一个 `ApplicationContext` 时发布此事件。
+3. ContextStopedEvent 在`ConfigurableApplicationContext` 接口中调用 `stop()` 方法停止一个 context 时发布。
+4. ContextClosedEvent 在 `ConfugurableApplicationContext` 接口中调用 `close()` 方法关闭一个应用时发布。
+5. RequestHandledEvent 在一个使用 Spring DispatcherServelt 的 web 应用中，一个请求完成后发布此事件。
+6. ServletRequesthandledEvent `RequestHandledEvent` 的子类，可以添加指定 Servlet 上下文信息。
+
+#### 1.3.2.2. 监听器实现
+
+[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#context-introduction)
+
+- ApplicationContext 将自动注册为一个 `ApplicationEventPulisher`，事件发布器。
+- 使用注解注册监听器 `@EventLisener` ，注解在方法之上不用再实现 `ApplicationLisener` 。
+- 指定监听事件对象类型 `@EventListener({ContextStartedEvent.class, ContextRefreshedEvent.class})`
+- 

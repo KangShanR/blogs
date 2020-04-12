@@ -30,6 +30,7 @@ categories: programming
       - [1.5.4.1. 使用自动装配的不足](#1541-%e4%bd%bf%e7%94%a8%e8%87%aa%e5%8a%a8%e8%a3%85%e9%85%8d%e7%9a%84%e4%b8%8d%e8%b6%b3)
   - [1.6. 自定义 bean 特性](#16-%e8%87%aa%e5%ae%9a%e4%b9%89-bean-%e7%89%b9%e6%80%a7)
     - [1.6.1. 指定回调方法](#161-%e6%8c%87%e5%ae%9a%e5%9b%9e%e8%b0%83%e6%96%b9%e6%b3%95)
+    - [1.6.2. Shutting Down the Spring IoC Container Gracefully in Non-Web Applications](#162-shutting-down-the-spring-ioc-container-gracefully-in-non-web-applications)
   - [1.7. spring 后处理器](#17-spring-%e5%90%8e%e5%a4%84%e7%90%86%e5%99%a8)
   - [1.8. spring bean 零配置支持](#18-spring-bean-%e9%9b%b6%e9%85%8d%e7%bd%ae%e6%94%af%e6%8c%81)
     - [1.8.1. 标注 bean 注解](#181-%e6%a0%87%e6%b3%a8-bean-%e6%b3%a8%e8%a7%a3)
@@ -304,6 +305,28 @@ bean 之间相互 constructor 依赖。beanA 依赖了 beanB ，同时 beanB 依
 3. 使用 `@PostContrust` `@PreDestroy` 注解在方法上。
 
 当 bean 有多个生命周期回调时，回调都将被执行，其顺序是 : 3 -> 1 -> 2
+
+### 1.6.2. Shutting Down the Spring IoC Container Gracefully in Non-Web Applications
+
+[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-shutdown)
+
+在 web 工程中， ApplicationContext 的实现代码会在工程关闭时正确地关闭 Spring IoC 容器。而在一个非 web 工程中需要手动地将 Spring IoC 容器关闭注册到 JVM ，以保证在关闭时能释放 singleton 资源。
+
+```java
+public final class Boot {
+
+    public static void main(final String[] args) throws Exception {
+        ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
+
+        // add a shutdown hook for the above context...
+        ctx.registerShutdownHook();
+
+        // app runs here...
+
+        // main method exits, hook is called prior to the app shutting down...
+    }
+}
+```
 
 ## 1.7. spring 后处理器
 
