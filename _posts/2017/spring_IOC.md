@@ -23,6 +23,8 @@ categories: programming
     - [1.3.2. 标准事件与自定义事件](#132-%e6%a0%87%e5%87%86%e4%ba%8b%e4%bb%b6%e4%b8%8e%e8%87%aa%e5%ae%9a%e4%b9%89%e4%ba%8b%e4%bb%b6)
       - [1.3.2.1. 内置的事件](#1321-%e5%86%85%e7%bd%ae%e7%9a%84%e4%ba%8b%e4%bb%b6)
       - [1.3.2.2. 监听器实现](#1322-%e7%9b%91%e5%90%ac%e5%99%a8%e5%ae%9e%e7%8e%b0)
+    - [1.3.3. Web 应用中实例化 ApplicationContext](#133-web-%e5%ba%94%e7%94%a8%e4%b8%ad%e5%ae%9e%e4%be%8b%e5%8c%96-applicationcontext)
+    - [1.3.4. 发布一个 Spring ApplicationContext 为 Java EE RAR 文件](#134-%e5%8f%91%e5%b8%83%e4%b8%80%e4%b8%aa-spring-applicationcontext-%e4%b8%ba-java-ee-rar-%e6%96%87%e4%bb%b6)
 
 <!-- /TOC -->
 
@@ -134,4 +136,11 @@ ApplicationContext 中事件的处理通过 `ApplicationEvent` 类和 `Applicati
 - ApplicationContext 将自动注册为一个 `ApplicationEventPulisher`，事件发布器。
 - 使用注解注册监听器 `@EventLisener` ，注解在方法之上不用再实现 `ApplicationLisener` 。
 - 指定监听事件对象类型 `@EventListener({ContextStartedEvent.class, ContextRefreshedEvent.class})`
-- 
+
+### 1.3.3. Web 应用中实例化 ApplicationContext
+
+[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#context-create)
+
+### 1.3.4. 发布一个 Spring ApplicationContext 为 Java EE RAR 文件
+
+[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#context-create)

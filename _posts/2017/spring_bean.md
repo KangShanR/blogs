@@ -31,6 +31,9 @@ categories: programming
   - [1.6. 自定义 bean 特性](#16-%e8%87%aa%e5%ae%9a%e4%b9%89-bean-%e7%89%b9%e6%80%a7)
     - [1.6.1. 指定回调方法](#161-%e6%8c%87%e5%ae%9a%e5%9b%9e%e8%b0%83%e6%96%b9%e6%b3%95)
     - [1.6.2. Shutting Down the Spring IoC Container Gracefully in Non-Web Applications](#162-shutting-down-the-spring-ioc-container-gracefully-in-non-web-applications)
+    - [1.6.3. ApplicationContextAware and BeanNameAware](#163-applicationcontextaware-and-beannameaware)
+      - [1.6.3.1. ApplicationContextAware](#1631-applicationcontextaware)
+      - [1.6.3.2. BeanNameAware](#1632-beannameaware)
   - [1.7. spring 后处理器](#17-spring-%e5%90%8e%e5%a4%84%e7%90%86%e5%99%a8)
   - [1.8. spring bean 零配置支持](#18-spring-bean-%e9%9b%b6%e9%85%8d%e7%bd%ae%e6%94%af%e6%8c%81)
     - [1.8.1. 标注 bean 注解](#181-%e6%a0%87%e6%b3%a8-bean-%e6%b3%a8%e8%a7%a3)
@@ -328,6 +331,24 @@ public final class Boot {
 }
 ```
 
+### 1.6.3. ApplicationContextAware and BeanNameAware
+
+#### 1.6.3.1. ApplicationContextAware
+
+实现 ApplicationContextAware 接口获取 ApplicationContext 。以获得操纵 ApplicationContext 的方法。但这样会让业务代码与 Spring 耦合。
+
+可以使用 Spring Autowiring 特性，自动注入 ApplicationContext 。
+
+#### 1.6.3.2. BeanNameAware
+
+实现此接口的 bean 会提供一个定义 bean name 的方法，在 bean properties 设置之后且在其初始化回调（`InitializingBean` `afterPorpertiesSet` 或自定义初始化方法）执行之前会执行此方法。
+
+```java
+public interface BeanNameAware {
+    void setBeanName(String name) throws BeansException;
+}
+```
+
 ## 1.7. spring 后处理器
 
 spring 提供两种后处理器：
@@ -351,6 +372,11 @@ spring 提供两种后处理器：
 > spring 零配置是指通过**注解**来实现 beans.xml 中配置 spring bean 容器的功能
 > 在 spring 配置文件中指定自动扫描的包： `<context:component-scan base-package="package.path.name"/>`
 
+- 使用注解完成配置相对于 xml 配置更为精简，但也与源码耦合，修改配置需要重新编译。通常同一个项目中混合使用两种配置方式。
+- xml 配置中兼容注解配置，使用 `<context:annotation-config/>`
+    - 此配置隐匿地注册了很多 post-processor 包括： `AutowiredAnnotationBeanPostProcessor, CommonAnnotationBeanPostProcessor, PersistenceAnnotationBeanPostProcessor, and the aforementioned RequiredAnnotationBeanPostProcessor`
+    - 此配置只查询同一级别的应用上下文的注解，所以如果只是在 DispatherServlet 的 `WebApplicationContext` 配置，那么就只会扫描到 Controller 而不会扫描到 Service 的注解。
+
 ### 1.8.1. 标注 bean 注解
 
 - `@Repository` 标注为 DAO 组件类
@@ -368,11 +394,18 @@ spring 提供两种后处理器：
 
 ### 1.8.3. 自动装配与精确装配 spring 4.0
 
-- `@autowired` 指定自动装配
-    - 可以用来修辞 setter方法/普通方法/实例变量/构造器
-    - 当用来修辞 setter 或实例变量时，使用的是 byType 策略从 spring 容器中查找 bean ，如果容器中有多个同一类型的 bean 就会拋出异常。
-    - 为解决上述问题，spring 4.0 就增加了 `@Qualifier` 注解
-        - `@Qualifier` 用于精确装配 bean ，其方法是在其中指定 bean id 。因此如果要使用此注解来装配，就得将被装配的 bean id（也就是 beanName，通常的标注注解就这一个属性，默认为 ""） 标注出来。
+`@Autowired` 指定自动装配
+
+- 可以用来修辞 setter方法/普通方法/实例变量/构造器
+- 使用的是 byType 策略从 spring 容器中查找 bean ，如果容器中有多个同一类型的 bean 就会拋出异常。同时确保所需要的至少有一个是 declared by type ，否则抛出 "no type match found"
+- 为解决上述问题，spring 4.0 就增加了 `@Qualifier` 注解
+    - `@Qualifier` 用于精确装配 bean ，其方法是在其中指定 bean id 。因此如果要使用此注解来装配，就得将被装配的 bean id（也就是 beanName，通常的标注注解就这一个属性，默认为 ""） 标注出来。
+- 对于 xml 配置与 classpath 扫描，容器能知道具体的类型。但对于工厂方法的 `@Bean` 需要保证返回类型足够明确，特别是对于实现多个接口的 bean ，最好返回 bean 的最具体的类型（至少指定到需要的 bean 类型）。
+- 注解在 bean 集合上
+    - 如果是有序集合（数据、List），可以使用 `@Ordered` `@Priority` 注解标明其顺序，如果未标注，则其顺序为其在容器中注册的顺序。
+    - 如果是 Map ，其 key 是 bean name (String)。
+- `BeanFactory, ApplicationContext, Environment, ResourceLoader, ApplicationEventPublisher, and MessageSource` 这些 Spring 基础工具都是自动解析，直接使用 `@AutoWired` 即可。
+- 可用于 Constructor 上标明此构造器用于生产 bean 用于自动装配。
 
 ### 1.8.4. 使用注解来定制 bean 方法成员的生命周期
 
