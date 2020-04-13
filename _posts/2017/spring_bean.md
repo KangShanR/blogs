@@ -39,7 +39,10 @@ categories: programming
     - [1.8.1. 标注 bean 注解](#181-%e6%a0%87%e6%b3%a8-bean-%e6%b3%a8%e8%a7%a3)
     - [1.8.2. @Resouce 依赖配置](#182-resouce-%e4%be%9d%e8%b5%96%e9%85%8d%e7%bd%ae)
     - [1.8.3. 自动装配与精确装配 spring 4.0](#183-%e8%87%aa%e5%8a%a8%e8%a3%85%e9%85%8d%e4%b8%8e%e7%b2%be%e7%a1%ae%e8%a3%85%e9%85%8d-spring-40)
-    - [1.8.4. 使用注解来定制 bean 方法成员的生命周期](#184-%e4%bd%bf%e7%94%a8%e6%b3%a8%e8%a7%a3%e6%9d%a5%e5%ae%9a%e5%88%b6-bean-%e6%96%b9%e6%b3%95%e6%88%90%e5%91%98%e7%9a%84%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f)
+      - [1.8.3.1. 自动装配微调](#1831-%e8%87%aa%e5%8a%a8%e8%a3%85%e9%85%8d%e5%be%ae%e8%b0%83)
+    - [1.8.4. @Resource 匹配](#184-resource-%e5%8c%b9%e9%85%8d)
+    - [1.8.5. @Value 注入配置数据](#185-value-%e6%b3%a8%e5%85%a5%e9%85%8d%e7%bd%ae%e6%95%b0%e6%8d%ae)
+    - [1.8.6. 使用注解来定制 bean 方法成员的生命周期](#186-%e4%bd%bf%e7%94%a8%e6%b3%a8%e8%a7%a3%e6%9d%a5%e5%ae%9a%e5%88%b6-bean-%e6%96%b9%e6%b3%95%e6%88%90%e5%91%98%e7%9a%84%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f)
   - [1.9. spring 容器中的 bean 实现不同方法](#19-spring-%e5%ae%b9%e5%99%a8%e4%b8%ad%e7%9a%84-bean-%e5%ae%9e%e7%8e%b0%e4%b8%8d%e5%90%8c%e6%96%b9%e6%b3%95)
     - [1.9.1. @Bean Annotation](#191-bean-annotation)
   - [1.10. Naming Bean](#110-naming-bean)
@@ -407,9 +410,62 @@ spring 提供两种后处理器：
 - `BeanFactory, ApplicationContext, Environment, ResourceLoader, ApplicationEventPublisher, and MessageSource` 这些 Spring 基础工具都是自动解析，直接使用 `@AutoWired` 即可。
 - 可用于 Constructor 上标明此构造器用于生产 bean 用于自动装配。
 
-### 1.8.4. 使用注解来定制 bean 方法成员的生命周期
+#### 1.8.3.1. 自动装配微调
 
-现个注解实现(javax.anotation 包)：
+1. 使用 `@Primary` 指定众多实现 bean 中一个为主 bean，当自动装配时优先使用此 bean；
+2. 使用 `@Qualifier` 指定修辞词，在 bean 定义上加入修辞词：`<qualifier value="main"/>` ，使用处加上注解 `@Qualifier("main")` 即指定相应的 bean 为需要的装配对象。
+   1. bean name 是一个默认的后备 qualifier value，所以不用内嵌一个 qualifier 定义 bean，直接使用其 name/id 即可。
+   2. `@AutoWired` 其根本上是类型匹配，附加了 Qualifier 语义匹配。所以不管是指定一个 Qualifier value 还是使用备选的 bean name qualifier，会窄化类型匹配的含义。一个好的 qualifier value 应该独立于其 bean id/name 定义其组件角色，诸如：`main` `EMEA` `persistent`。bean id 在匿名定义时会自动生成。
+   3. 如果通过 bean name 查找 qualifier value 可以不用在注入点添加 `@Qualifier` ，Spring 在没有其他解析指示器（qualifier/primary）处，类型匹配到多个依赖的情况下，会自动匹配注入点名与 bean name 相同的 bean。
+   4. 在使用自动装配加上 `@Qualifier` 注解或相关的 bean name 标记模式下，其查询机制是在 类型匹配的结果集上再进行 bean name 匹配。而 `@Resource` 注解是直接使用 bean id/name 匹配。
+3. 如果注入本身定义为集合、数组类型的 bean，直接使用 `@Resource` 匹配其 bean id/name 。
+4. 从 Spring 4.3 开始，bean 注入可以注入自身。自注入只是一个备选方案，常规的注入中其他的依赖的有更高的优先权。如果注入时有其他可选项，bean 本身不会被注入。可以使用 `@Resource` 来指定 bean id 来注入本身。实际编码中，如果出现需要在事务中同一个 bean 中调用其他方法，就得使用自注入实现 bean 代理（可选的方案还有将需要事务代理的方法抽取到另一个 bean 中）。
+5. `@Resource` 如果注解在方法上，方法只能有一个参数。
+6. 自定义 Qualifier ，自定义一个Qualifier 注解，其被 `@Qualifier` 注解，可为其加上属性，定义 bean 时，为其加上属性值，在注放处加上注解并指定其属性，自动装配时会主动匹配各属性一致的 bean。
+7. 可使用范型约束来达到 qualifier 的效果。在 `@AutoWired` 注入依赖时，如果依赖实现的是一个范型接口，注入点就使用此范型类型作为 type 即可以注入此实现。
+
+### 1.8.4. @Resource 匹配
+
+- @Resource 注解主要基于 bean name 匹配，同时 byType 类型匹配将作为一个备选策略，如果在容器中找不到指定的 bean name，将进行类型匹工配。
+- 注解在 field 上与字段名匹配，注解在 setter 方法上与类的 property 名匹配。
+- `BeanFactory, ApplicationContext, Environment, ResourceLoader, ApplicationEventPublisher, and MessageSource` 这些 Spring 基础工具都是自动解析，不用 bean define 直接使用 `@Resource` 可进入注入。
+
+### 1.8.5. @Value 注入配置数据
+
+`@Value` 注入外部属性。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-autowired-annotation)
+
+1. 在配置上下文添加外部文件：`@PropertySource("classpath:application.properties")`
+2. 需要注入外部属性数据的地方：`@Value("${upper_case}")` 会注入外部文件的值。
+3. Spring 默认的解析器会解析此配置，如果未找到此属性名，那么会注入此注解的 value `${upper_case}`。
+4. 如果需要更严格地控制外部数据注入，需要静态注入一个 bean : `PropertySourcesPlaceholderConfigurer`
+
+    ```java
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertyPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+    ```
+
+    1. 使用此配置 bean 作为解析器，在 Spring 上下文初始化时就需要保证各个配置点位符能被正确解析（ key 必须存在），否则会抛出错误。
+    2. 此解析器可以添加配置 key 的前后缀。使用方法： `setPlaceholderPrefix()` `setPlaceholderSuffix`
+    3. 可添加默认值：`@Value("${upper_case:true}")`
+5. 内置的解析器提供了简单地类型转换，数据类型可以直接转换成相应类型。
+   1. 可自定义数据转换器
+
+        ```java
+        @Bean
+        public ConversionService conversionService() {
+            DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
+            conversionService.addConverter(new MyCustomConverter());
+            return conversionService;
+        }
+        ```
+
+6. Spring Boot 默认使用 `PropertySourcesPlaceholderConfigurer` ，其配置的外部文件为 `application.properties` `application.yml`
+
+### 1.8.6. 使用注解来定制 bean 方法成员的生命周期
+
+现个注解实现(javax.annotation 包)：
 
 - `@PostConstruct` 顾名思义，是在 bean 构造之后执行，修辞的是 bean 的初始化方法；
 - `@PreDestroy` 修辞 bean 销毁之前执行的方法
@@ -420,7 +476,7 @@ spring 提供两种后处理器：
 
 可以通过 java 配置类来实现 spring beans 的配置：
 
-- @Configuation 等价于 `<Beans></Beans>`
+- @Configuration 等价于 `<Beans></Beans>`
 - @Bean 等价于 `<Bean></Bean>`
 - @ComponentScan 等价于 `<context:component-scan base-package="com.dxz.demo"/>`
 
