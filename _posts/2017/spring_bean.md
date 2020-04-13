@@ -36,17 +36,19 @@ categories: programming
       - [1.6.3.2. BeanNameAware](#1632-beannameaware)
   - [1.7. spring 后处理器](#17-spring-%e5%90%8e%e5%a4%84%e7%90%86%e5%99%a8)
   - [1.8. spring bean 零配置支持](#18-spring-bean-%e9%9b%b6%e9%85%8d%e7%bd%ae%e6%94%af%e6%8c%81)
-    - [1.8.1. 标注 bean 注解](#181-%e6%a0%87%e6%b3%a8-bean-%e6%b3%a8%e8%a7%a3)
-    - [1.8.2. @Resouce 依赖配置](#182-resouce-%e4%be%9d%e8%b5%96%e9%85%8d%e7%bd%ae)
-    - [1.8.3. 自动装配与精确装配 spring 4.0](#183-%e8%87%aa%e5%8a%a8%e8%a3%85%e9%85%8d%e4%b8%8e%e7%b2%be%e7%a1%ae%e8%a3%85%e9%85%8d-spring-40)
-      - [1.8.3.1. 自动装配微调](#1831-%e8%87%aa%e5%8a%a8%e8%a3%85%e9%85%8d%e5%be%ae%e8%b0%83)
-    - [1.8.4. @Resource 匹配](#184-resource-%e5%8c%b9%e9%85%8d)
-    - [1.8.5. @Value 注入配置数据](#185-value-%e6%b3%a8%e5%85%a5%e9%85%8d%e7%bd%ae%e6%95%b0%e6%8d%ae)
-    - [1.8.6. 使用注解来定制 bean 方法成员的生命周期](#186-%e4%bd%bf%e7%94%a8%e6%b3%a8%e8%a7%a3%e6%9d%a5%e5%ae%9a%e5%88%b6-bean-%e6%96%b9%e6%b3%95%e6%88%90%e5%91%98%e7%9a%84%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f)
-  - [1.9. spring 容器中的 bean 实现不同方法](#19-spring-%e5%ae%b9%e5%99%a8%e4%b8%ad%e7%9a%84-bean-%e5%ae%9e%e7%8e%b0%e4%b8%8d%e5%90%8c%e6%96%b9%e6%b3%95)
-    - [1.9.1. @Bean Annotation](#191-bean-annotation)
-  - [1.10. Naming Bean](#110-naming-bean)
-    - [1.10.1. Aliasing Bean](#1101-aliasing-bean)
+    - [1.8.1. 自动装配与精确装配 spring 4.0](#181-%e8%87%aa%e5%8a%a8%e8%a3%85%e9%85%8d%e4%b8%8e%e7%b2%be%e7%a1%ae%e8%a3%85%e9%85%8d-spring-40)
+      - [1.8.1.1. 自动装配微调](#1811-%e8%87%aa%e5%8a%a8%e8%a3%85%e9%85%8d%e5%be%ae%e8%b0%83)
+    - [1.8.2. @Resource 匹配](#182-resource-%e5%8c%b9%e9%85%8d)
+    - [1.8.3. @Value 注入配置数据](#183-value-%e6%b3%a8%e5%85%a5%e9%85%8d%e7%bd%ae%e6%95%b0%e6%8d%ae)
+    - [1.8.4. 使用注解来定制 bean 方法成员的生命周期](#184-%e4%bd%bf%e7%94%a8%e6%b3%a8%e8%a7%a3%e6%9d%a5%e5%ae%9a%e5%88%b6-bean-%e6%96%b9%e6%b3%95%e6%88%90%e5%91%98%e7%9a%84%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f)
+  - [1.9. Classpath Scanning and Managed Components](#19-classpath-scanning-and-managed-components)
+    - [1.9.1. 自动检测 class 并注册 Bean Definition](#191-%e8%87%aa%e5%8a%a8%e6%a3%80%e6%b5%8b-class-%e5%b9%b6%e6%b3%a8%e5%86%8c-bean-definition)
+    - [1.9.2. Class Scanning Filter](#192-class-scanning-filter)
+      - [1.9.2.1. Filter 类型](#1921-filter-%e7%b1%bb%e5%9e%8b)
+  - [1.10. spring 容器中的 bean 实现不同方法](#110-spring-%e5%ae%b9%e5%99%a8%e4%b8%ad%e7%9a%84-bean-%e5%ae%9e%e7%8e%b0%e4%b8%8d%e5%90%8c%e6%96%b9%e6%b3%95)
+    - [1.10.1. @Bean Annotation](#1101-bean-annotation)
+  - [1.11. Naming Bean](#111-naming-bean)
+    - [1.11.1. Aliasing Bean](#1111-aliasing-bean)
 
 <!-- /TOC -->
 
@@ -380,22 +382,7 @@ spring 提供两种后处理器：
     - 此配置隐匿地注册了很多 post-processor 包括： `AutowiredAnnotationBeanPostProcessor, CommonAnnotationBeanPostProcessor, PersistenceAnnotationBeanPostProcessor, and the aforementioned RequiredAnnotationBeanPostProcessor`
     - 此配置只查询同一级别的应用上下文的注解，所以如果只是在 DispatherServlet 的 `WebApplicationContext` 配置，那么就只会扫描到 Controller 而不会扫描到 Service 的注解。
 
-### 1.8.1. 标注 bean 注解
-
-- `@Repository` 标注为 DAO 组件类
-- `@component` 标注为一个普通组件类
-- `@Service` 标注为一个业务逻辑组件类
-- `@Controller` 标注为一个控制器组件类
-
-### 1.8.2. @Resouce 依赖配置
-
-> 位于 javax.anotation 包
-
-- 使用 `@Resource` 配置一个 bean 类的依赖，用于指定协作 bean 。这就与 `<property ...>` 中的 ref 属性有相同的效果。
-- 可以用于修改 setter 方法
-- 还可以直接修辞 实例变量。这样使用更为简单，spring 将会使用 javaEE 规范的 field 注入，setter 方法都不用写了。
-
-### 1.8.3. 自动装配与精确装配 spring 4.0
+### 1.8.1. 自动装配与精确装配 spring 4.0
 
 `@Autowired` 指定自动装配
 
@@ -410,7 +397,7 @@ spring 提供两种后处理器：
 - `BeanFactory, ApplicationContext, Environment, ResourceLoader, ApplicationEventPublisher, and MessageSource` 这些 Spring 基础工具都是自动解析，直接使用 `@AutoWired` 即可。
 - 可用于 Constructor 上标明此构造器用于生产 bean 用于自动装配。
 
-#### 1.8.3.1. 自动装配微调
+#### 1.8.1.1. 自动装配微调
 
 1. 使用 `@Primary` 指定众多实现 bean 中一个为主 bean，当自动装配时优先使用此 bean；
 2. 使用 `@Qualifier` 指定修辞词，在 bean 定义上加入修辞词：`<qualifier value="main"/>` ，使用处加上注解 `@Qualifier("main")` 即指定相应的 bean 为需要的装配对象。
@@ -424,13 +411,18 @@ spring 提供两种后处理器：
 6. 自定义 Qualifier ，自定义一个Qualifier 注解，其被 `@Qualifier` 注解，可为其加上属性，定义 bean 时，为其加上属性值，在注放处加上注解并指定其属性，自动装配时会主动匹配各属性一致的 bean。
 7. 可使用范型约束来达到 qualifier 的效果。在 `@AutoWired` 注入依赖时，如果依赖实现的是一个范型接口，注入点就使用此范型类型作为 type 即可以注入此实现。
 
-### 1.8.4. @Resource 匹配
+### 1.8.2. @Resource 匹配
 
+> 位于 javax.anotation 包
+
+- 使用 `@Resource` 配置一个 bean 类的依赖，用于指定协作 bean 。这就与 `<property ...>` 中的 ref 属性有相同的效果。
+- 可以用于修改 setter 方法
+- 还可以直接修辞 实例变量。这样使用更为简单，spring 将会使用 javaEE 规范的 field 注入，setter 方法都不用写了。
 - @Resource 注解主要基于 bean name 匹配，同时 byType 类型匹配将作为一个备选策略，如果在容器中找不到指定的 bean name，将进行类型匹工配。
 - 注解在 field 上与字段名匹配，注解在 setter 方法上与类的 property 名匹配。
 - `BeanFactory, ApplicationContext, Environment, ResourceLoader, ApplicationEventPublisher, and MessageSource` 这些 Spring 基础工具都是自动解析，不用 bean define 直接使用 `@Resource` 可进入注入。
 
-### 1.8.5. @Value 注入配置数据
+### 1.8.3. @Value 注入配置数据
 
 `@Value` 注入外部属性。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-autowired-annotation)
 
@@ -463,14 +455,45 @@ spring 提供两种后处理器：
 
 6. Spring Boot 默认使用 `PropertySourcesPlaceholderConfigurer` ，其配置的外部文件为 `application.properties` `application.yml`
 
-### 1.8.6. 使用注解来定制 bean 方法成员的生命周期
+### 1.8.4. 使用注解来定制 bean 方法成员的生命周期
 
 现个注解实现(javax.annotation 包)：
 
 - `@PostConstruct` 顾名思义，是在 bean 构造之后执行，修辞的是 bean 的初始化方法；
 - `@PreDestroy` 修辞 bean 销毁之前执行的方法
 
-## 1.9. spring 容器中的 bean 实现不同方法
+## 1.9. Classpath Scanning and Managed Components
+
+配置元数据，Spring 容器会根据元配置数据生成 BeanDefinition，bean 的注入可以通过前面介绍的使用注解实现，但基本的 bean 定义还是使用的 xml 配置。Spring 3.0 开始引入 classpath scan，用以检测 Spring bean 组件。在扫描到的 classes 中，匹配到指定条件且有在容器中注册相应的 bean 定义。
+
+- `@Component` 标注为一个基本组件类，所有的 bean 组件注解都继此元注解，Spring 组件管理的标版。
+- `@Repository` 标注为持久层 DAO 组件类
+- `@Service` 标注为一个 service 层业务逻辑组件类
+- `@Controller` 标注为一个表现层控制器组件类
+
+### 1.9.1. 自动检测 class 并注册 Bean Definition
+
+- Spring 会自动检测各个标准版本 class 并注册相应的 BeanDefinition 实例（ApplicationContext 信息）。
+- 需要在配置 `Configuration` 类上添加 `@ComponentScan` 注解，其中 `basePackages` 属性可以是基础包名也可以是多个 bean class（用 `,` `;` 或空格 ` ` 分隔）。
+
+### 1.9.2. Class Scanning Filter
+
+在 Spring Class 扫描中添加过滤器。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-value-annotations)
+
+- Spring 默认的过滤效果是将 `@Component, @Repository, @Service, @Controller, @RestController, @Configuration` 6 个和自定义的注解 class 过滤出来。
+- 在 `@ComponentScan` 中指定属性 `useDefaultFilters=false` 将取消默认扫描的类
+- `includeFilters` 添加过滤器
+- `excludeFilters` 拦截过滤器
+  
+#### 1.9.2.1. Filter 类型
+
+1. annotation 默认，指定有某个注解的类为目标组件
+2. assignable 指定某个类或接口为目标组件
+3. aspectj AspectJ 类型表达式匹配目标组件
+4. regex 正则表达式匹配目标组件的 bean name
+5. custom 自定义实现 `org.springframework.core.type.TypeFilter` 过滤器
+
+## 1.10. spring 容器中的 bean 实现不同方法
 
 [参考](https://www.cnblogs.com/duanxz/p/7493276.html)
 
@@ -482,7 +505,7 @@ spring 提供两种后处理器：
 
 [获取 xml applicationContext 方法参考](https://www.cnblogs.com/yjbjingcha/p/6752265.html)
 
-### 1.9.1. @Bean Annotation
+### 1.10.1. @Bean Annotation
 
 使用 `@Bean` 注册一个实例到 IoC 容器中。
 
@@ -493,7 +516,7 @@ spring 提供两种后处理器：
     - 在 `@Bean` 中指定 `initMethod` `destroyMethod` 两个 bean 方法名，用以决定 bean 在初始化后现销毁前的回调。
     - `destroyMethod` 默认为 `deferred` 推断模式，在容器销毁前自行推断其销毁方法，如果想在容器销毁时保留 bean ，可以指定 `destroyMethod=""`。
 
-## 1.10. Naming Bean
+## 1.11. Naming Bean
 
 bean 的命名[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-basics)
 
@@ -502,7 +525,7 @@ bean 的命名[reference](https://docs.spring.io/spring/docs/current/spring-fram
 - 对于 component scan ，Spring 为未命名的 componet 命名。取类的 simple name 小驼峰化为其名。特例：对于类名字母数量不只1个且前两个字符都是大写字母的情况， spring 会保留其原名。
 - 指定多个名：可使用逗号 `,`，分号 `;`，空格 `` 加以分隔。
 
-### 1.10.1. Aliasing Bean
+### 1.11.1. Aliasing Bean
 
 给 bean 起别名。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-basics)
 
