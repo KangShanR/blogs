@@ -18,13 +18,17 @@ categories: programming
       - [1.2.1.1. AnnotationConfigApplicationContext 初始化 IoC 容器](#1211-annotationconfigapplicationcontext-%e5%88%9d%e5%a7%8b%e5%8c%96-ioc-%e5%ae%b9%e5%99%a8)
       - [1.2.1.2. ComponentScan](#1212-componentscan)
       - [1.2.1.3. AnnotationConfigWebApplicationContext](#1213-annotationconfigwebapplicationcontext)
-  - [1.3. ApplicationContext 额外功能](#13-applicationcontext-%e9%a2%9d%e5%a4%96%e5%8a%9f%e8%83%bd)
-    - [1.3.1. 使用 MessageResource 做国际化](#131-%e4%bd%bf%e7%94%a8-messageresource-%e5%81%9a%e5%9b%bd%e9%99%85%e5%8c%96)
-    - [1.3.2. 标准事件与自定义事件](#132-%e6%a0%87%e5%87%86%e4%ba%8b%e4%bb%b6%e4%b8%8e%e8%87%aa%e5%ae%9a%e4%b9%89%e4%ba%8b%e4%bb%b6)
-      - [1.3.2.1. 内置的事件](#1321-%e5%86%85%e7%bd%ae%e7%9a%84%e4%ba%8b%e4%bb%b6)
-      - [1.3.2.2. 监听器实现](#1322-%e7%9b%91%e5%90%ac%e5%99%a8%e5%ae%9e%e7%8e%b0)
-    - [1.3.3. Web 应用中实例化 ApplicationContext](#133-web-%e5%ba%94%e7%94%a8%e4%b8%ad%e5%ae%9e%e4%be%8b%e5%8c%96-applicationcontext)
-    - [1.3.4. 发布一个 Spring ApplicationContext 为 Java EE RAR 文件](#134-%e5%8f%91%e5%b8%83%e4%b8%80%e4%b8%aa-spring-applicationcontext-%e4%b8%ba-java-ee-rar-%e6%96%87%e4%bb%b6)
+  - [1.3. Container Extension points](#13-container-extension-points)
+    - [1.3.1. 自定义 BeanPostProcessor](#131-%e8%87%aa%e5%ae%9a%e4%b9%89-beanpostprocessor)
+    - [1.3.2. 自定义 BeanFactoryPostProcessor](#132-%e8%87%aa%e5%ae%9a%e4%b9%89-beanfactorypostprocessor)
+    - [1.3.3. 通过 FactoryBean 自定义初始化逻辑](#133-%e9%80%9a%e8%bf%87-factorybean-%e8%87%aa%e5%ae%9a%e4%b9%89%e5%88%9d%e5%a7%8b%e5%8c%96%e9%80%bb%e8%be%91)
+  - [1.4. ApplicationContext 额外功能](#14-applicationcontext-%e9%a2%9d%e5%a4%96%e5%8a%9f%e8%83%bd)
+    - [1.4.1. 使用 MessageResource 做国际化](#141-%e4%bd%bf%e7%94%a8-messageresource-%e5%81%9a%e5%9b%bd%e9%99%85%e5%8c%96)
+    - [1.4.2. 标准事件与自定义事件](#142-%e6%a0%87%e5%87%86%e4%ba%8b%e4%bb%b6%e4%b8%8e%e8%87%aa%e5%ae%9a%e4%b9%89%e4%ba%8b%e4%bb%b6)
+      - [1.4.2.1. 内置的事件](#1421-%e5%86%85%e7%bd%ae%e7%9a%84%e4%ba%8b%e4%bb%b6)
+      - [1.4.2.2. 监听器实现](#1422-%e7%9b%91%e5%90%ac%e5%99%a8%e5%ae%9e%e7%8e%b0)
+    - [1.4.3. Web 应用中实例化 ApplicationContext](#143-web-%e5%ba%94%e7%94%a8%e4%b8%ad%e5%ae%9e%e4%be%8b%e5%8c%96-applicationcontext)
+    - [1.4.4. 发布一个 Spring ApplicationContext 为 Java EE RAR 文件](#144-%e5%8f%91%e5%b8%83%e4%b8%80%e4%b8%aa-spring-applicationcontext-%e4%b8%ba-java-ee-rar-%e6%96%87%e4%bb%b6)
 
 <!-- /TOC -->
 
@@ -102,34 +106,91 @@ ioc 容器配置。传统配置方法是使用 xml 配置文件实现。
 - AnnotationConfigWebApplicationContext 是 AnnotationConfigApplicationContext 的变体，用于初始化 springmvc 容器。
 - 可用于注册 Spring Servlet lisener `ContextLoaderListener`、spring MVC DispatherServlet 等等。
 
-## 1.3. ApplicationContext 额外功能
+## 1.3. Container Extension points
 
-ApplicationContext 可以理解为 Spring IoC 容器。
+容器扩展[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-extension)
 
-### 1.3.1. 使用 MessageResource 做国际化
+### 1.3.1. 自定义 BeanPostProcessor
+
+- 针对 bean 初始化后执行的回调配置，在每个 bean 初始化后执行其中的回调。
+- 可以配置多个，可指定其执行的顺序，通过 `Ordered` 接口或注解 `@Order`
+- BeanPostProcessor 只与自己所有的上下文环境相关，所在容器之间的处理器互不干扰。
+- 如果要操作容器中 BeanDefinition（bean 蓝图），要定义 BeanFactoryPostProcessor
+- 代理包装就是使用 BeanPostProcessor
+- ApplicationContext 自动检测 BeanPostProcessor 实现并注册到容器中，并在随后的 bean creation 中调用。
+- 指定 lazy-init 属性对这两类处理器无效，因为如果其中没有其他 bean 引用 processor 不会初始化。
+
+### 1.3.2. 自定义 BeanFactoryPostProcessor
+
+[BeanFactoryPostProcessor](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-extension)
+
+- 可直接访问 ApplicationContext.getBean() 获取 bean 到 processor 中，但这种方法不妥之处在于其获取的 bean 未破坏了容器生命周期管理，会产生潜在的副作用
+- BeanFactoryPostProcessor 同样其域范围是容器。
+- 作用是操作配置的元数据
+- ApplicationContext 自动检测并部署 BeanFactoryPostProcessor 的实现。
+- PropertySourcesPlaceholderConfigurer 可以为 bean 从外部文件读取数据配置 bean property，外部文件是 java 标准的 Properties 格式。
+
+  ```xml
+  <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+    <property name="locations" value="classpath:com/something/jdbc.properties"/>
+  </bean>
+  <bean id="dataSource" destroy-method="close"
+        class="org.apache.commons.dbcp.BasicDataSource">
+    <property name="driverClassName" value="${jdbc.driverClassName}"/>
+    <property name="url" value="${jdbc.url}"/>
+    <property name="username" value="${jdbc.username}"/>
+    <property name="password" value="${jdbc.password}"/>
+  </bean>
+  ```
+
+  外部数据：
+
+  ```java
+  jdbc.driverClassName=org.hsqldb.jdbcDriver
+  jdbc.url=jdbc:hsqldb:hsql://production:9002
+  jdbc.username=sa
+  jdbc.password=root
+  ```
+
+- PropertyOverrideConfigurer 与 PropertySourcesPlaceholderConfigurer 类似，但可以给配置添加默认值
+- 在不同环境使用不同的配置情况下，使用自定义处理器有用，具体使用还不明白。
+
+### 1.3.3. 通过 FactoryBean 自定义初始化逻辑
+
+[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-extension)
+
+- IoC 容器初始化逻辑的插口，如果有冗杂的初始化代码需要写，写在实现此接口的 java bean 中，而不是使用 xml 配置。
+- 定义一个 bean 实现 FactoryBean 接口，此时 bean 是自己的工厂。
+- 从容器中获取 FactoryBean 实例时， 在 bean id 前加上 `&`：`getBean("&beanName")` 即可。
+
+## 1.4. ApplicationContext 额外功能
+
+ApplicationContext 可以理解为 Spring IoC 容器。ApplicationContext 额外的功能[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#context-introduction)
+
+### 1.4.1. 使用 MessageResource 做国际化
 
 [reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#context-introduction)
 
 - ApplicationContext 默认实现都继承了 MessageResource 接口，只要注册了任何一个 MessageContext Bean 在容器中，即可使用其功能。
-- 默认的 MessageContext 实现 `org.springframework.context.support.ResourceBundleMessageSource` ，可定义相关 ResourceBoundle 用于 message 定制。
-- `ReloadableResourceBundleMessageSource` 有更灵活的实现，允许从 Spring 资源中加载任何路径中的文件， `ResourceBoundleMessageSource` 只能加载 classpath 中的资源文件。同时也支持热重载资源文件。
+- 默认的 MessageContext 实现 `org.springframework.context.support.ResourceBundleMessageSource` ，可定义相关 ResourceBundle 用于 message 定制。
+- `ReloadableResourceBundleMessageSource` 有更灵活的实现，允许从 Spring 资源中加载任何路径中的文件， `ResourceBundleMessageSource` 只能加载 classpath 中的资源文件。同时也支持热重载资源文件。
 
-### 1.3.2. 标准事件与自定义事件
+### 1.4.2. 标准事件与自定义事件
 
 ApplicationContext 中事件的处理通过 `ApplicationEvent` 类和 `ApplicationListener` 接口完成，当发布一个 event 实现了 `ApplicationListener` 的类将被通知到此事件。这是一个典型的观察者设计模式。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#context-introduction)
 
 从 Spring 4.2 开始，事件处理可使用注解配置。
 
-#### 1.3.2.1. 内置的事件
+#### 1.4.2.1. 内置的事件
 
 1. ContextRefreshedEvent 在 ApplicationContext 初始化或刷新时触发，在 context 未 closed，可以多次调用 `refresh()` 刷新
 2. ContextStartedEvent 在 `ConfigurableApplicationContext` 接口中调用 `start()` 方法开启一个 `ApplicationContext` 时发布此事件。
-3. ContextStopedEvent 在`ConfigurableApplicationContext` 接口中调用 `stop()` 方法停止一个 context 时发布。
-4. ContextClosedEvent 在 `ConfugurableApplicationContext` 接口中调用 `close()` 方法关闭一个应用时发布。
-5. RequestHandledEvent 在一个使用 Spring DispatcherServelt 的 web 应用中，一个请求完成后发布此事件。
-6. ServletRequesthandledEvent `RequestHandledEvent` 的子类，可以添加指定 Servlet 上下文信息。
+3. ContextStoppedEvent 在`ConfigurableApplicationContext` 接口中调用 `stop()` 方法停止一个 context 时发布。
+4. ContextClosedEvent 在 `ConfigurableApplicationContext` 接口中调用 `close()` 方法关闭一个应用时发布。
+5. RequestHandledEvent 在一个使用 Spring DispatcherServlet 的 web 应用中，一个请求完成后发布此事件。
+6. ServletRequestHandledEvent `RequestHandledEvent` 的子类，可以添加指定 Servlet 上下文信息。
 
-#### 1.3.2.2. 监听器实现
+#### 1.4.2.2. 监听器实现
 
 [reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#context-introduction)
 
@@ -137,10 +198,10 @@ ApplicationContext 中事件的处理通过 `ApplicationEvent` 类和 `Applicati
 - 使用注解注册监听器 `@EventLisener` ，注解在方法之上不用再实现 `ApplicationLisener` 。
 - 指定监听事件对象类型 `@EventListener({ContextStartedEvent.class, ContextRefreshedEvent.class})`
 
-### 1.3.3. Web 应用中实例化 ApplicationContext
+### 1.4.3. Web 应用中实例化 ApplicationContext
 
 [reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#context-create)
 
-### 1.3.4. 发布一个 Spring ApplicationContext 为 Java EE RAR 文件
+### 1.4.4. 发布一个 Spring ApplicationContext 为 Java EE RAR 文件
 
 [reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#context-create)

@@ -300,8 +300,8 @@ bean 之间相互 constructor 依赖。beanA 依赖了 beanB ，同时 beanB 依
 
 [reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-nature)
 
-- 使用 `@PostContrust` 与 `@PreDestroy` 代替实现 `InitializingBean` 与 `DiposibleBean` 接口，代码与 spring 解耦；
-- 指定 `<bean/>` 属性 `destroy-method=inferred`，可使 spring 自动推断 bean 销毁前执行公共回调方法，如：`close()/shutdonw()`。同理在 `<beans/>` 中设定属性 `default-destroy-method=inferred` 可指定所有的 bean 的销毁前回调方法；
+- 使用 `@PostConstruct` 与 `@PreDestroy` 代替实现 `InitializingBean` 与 `DisposableBean` 接口，代码与 spring 解耦；
+- 指定 `<bean/>` 属性 `destroy-method=inferred`，可使 spring 自动推断 bean 销毁前执行公共回调方法，如：`close()/shutdown()`。同理在 `<beans/>` 中设定属性 `default-destroy-method=inferred` 可指定所有的 bean 的销毁前回调方法；
 - 可在 `<beans/>` 中添加属性 `default-init-method="init"` 指定默认的初始化回调方法名，让配置中所有的 bean 都保持一致调用名此回调；
 
 ### 1.6.1. 指定回调方法
@@ -310,7 +310,7 @@ bean 之间相互 constructor 依赖。beanA 依赖了 beanB ，同时 beanB 依
 
 1. 实现 `InitializingBean` `DisposableBean` 回调接口；
 2. 自定义的 `init()` `close()` 方法；
-3. 使用 `@PostContrust` `@PreDestroy` 注解在方法上。
+3. 使用 `@PostConstruct` `@PreDestroy` 注解在方法上。
 
 当 bean 有多个生命周期回调时，回调都将被执行，其顺序是 : 3 -> 1 -> 2
 
@@ -342,7 +342,7 @@ public final class Boot {
 
 实现 ApplicationContextAware 接口获取 ApplicationContext 。以获得操纵 ApplicationContext 的方法。但这样会让业务代码与 Spring 耦合。
 
-可以使用 Spring Autowiring 特性，自动注入 ApplicationContext 。
+可以使用 Spring AutoWiring 特性，自动注入 ApplicationContext 。
 
 #### 1.6.3.2. BeanNameAware
 
@@ -410,6 +410,7 @@ spring 提供两种后处理器：
 5. `@Resource` 如果注解在方法上，方法只能有一个参数。
 6. 自定义 Qualifier ，自定义一个Qualifier 注解，其被 `@Qualifier` 注解，可为其加上属性，定义 bean 时，为其加上属性值，在注放处加上注解并指定其属性，自动装配时会主动匹配各属性一致的 bean。
 7. 可使用范型约束来达到 qualifier 的效果。在 `@AutoWired` 注入依赖时，如果依赖实现的是一个范型接口，注入点就使用此范型类型作为 type 即可以注入此实现。
+8. `@Qualifier` 定义 bean metadata 直接注解于 class 或 method 之上即可。
 
 ### 1.8.2. @Resource 匹配
 
