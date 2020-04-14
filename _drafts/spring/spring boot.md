@@ -57,5 +57,3 @@ spring boot 使用了不同的方式达到直接使用内嵌包。
 用以指定当前运行环境，可以 maven 打包时也可以设置针对环境打包。
 
 获取当前活跃的 profile ，参考 `6. Get Active Profiles`
-
-

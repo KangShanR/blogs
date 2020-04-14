@@ -29,6 +29,12 @@ categories: programming
       - [1.4.2.2. 监听器实现](#1422-%e7%9b%91%e5%90%ac%e5%99%a8%e5%ae%9e%e7%8e%b0)
     - [1.4.3. Web 应用中实例化 ApplicationContext](#143-web-%e5%ba%94%e7%94%a8%e4%b8%ad%e5%ae%9e%e4%be%8b%e5%8c%96-applicationcontext)
     - [1.4.4. 发布一个 Spring ApplicationContext 为 Java EE RAR 文件](#144-%e5%8f%91%e5%b8%83%e4%b8%80%e4%b8%aa-spring-applicationcontext-%e4%b8%ba-java-ee-rar-%e6%96%87%e4%bb%b6)
+  - [1.5. Environment Abstraction](#15-environment-abstraction)
+    - [1.5.1. 使用 @Profile 注解 bean](#151-%e4%bd%bf%e7%94%a8-profile-%e6%b3%a8%e8%a7%a3-bean)
+    - [1.5.2. 激活项目 Profile](#152-%e6%bf%80%e6%b4%bb%e9%a1%b9%e7%9b%ae-profile)
+    - [1.5.3. PropertySource Abstraction](#153-propertysource-abstraction)
+    - [1.5.4. 使用 @PropertySource](#154-%e4%bd%bf%e7%94%a8-propertysource)
+    - [1.5.5. Placeholder Resolution in Statement](#155-placeholder-resolution-in-statement)
 
 <!-- /TOC -->
 
@@ -205,3 +211,68 @@ ApplicationContext 中事件的处理通过 `ApplicationEvent` 类和 `Applicati
 ### 1.4.4. 发布一个 Spring ApplicationContext 为 Java EE RAR 文件
 
 [reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#context-create)
+
+## 1.5. Environment Abstraction
+
+Spring IoC 环境抽象。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-environment)
+
+### 1.5.1. 使用 @Profile 注解 bean
+
+使用 `@Profile` 注解实现 bean 的不同环境是否激活。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-environment)
+
+- 如果 注解在配置类上，类中所有未单独使用 `@Profile` 注解的 bean 都会使用此注解。
+- value 可以使用 表达式，表达式共有三种布尔运算符：与 `&`, 或 `|` , 非 `!` 。表达式运算符可以连用，但超过两个，两两之间必须使用括号确定运行顺序： `@Profile(value="prd|(test&us-east)")` 。在 xml 配置中只能使用 `!` ，使用 与 `&` 运算在 `<beans profile="production"/>` 中再内嵌一个 `<beans profile="us-central" />`
+- value 是数组，多个 value 之间可以使用 `,` 分隔开
+- 可以使用 `@Profile` 当元注解自定义 profile 功能注解。
+- 当使用 `@Profile` 注解在配置类的 bean defined method 方法上时，可以指定同一个 bean 在不同环境配置中为不同的实例。但在这种情况下，注意同一个方法的重载方法使用不同的 profile 只有第一个的生效。解决方案，使用不同的方法名避免 bean defined method 重载。
+
+### 1.5.2. 激活项目 Profile
+
+激活 spring profile 方式有很多。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-environment)
+
+1. 最直接简单方式：在 ApplicationContext 中获取 Environment 再调用其 `setProfiles()` 方法，之后还得 `refresh()` 一次刷新配置。
+2. 通过指定 `spring.profiles.active="dev"` ，指定方式：
+   1. 添加 JVM 系统属性：`-D` 命令行；
+   2. 系统环境变量
+   3. servlet context 参数
+   4. JNDI 入口
+   5. 测试模块可使用注解 `@ActiveProifles`
+
+### 1.5.3. PropertySource Abstraction
+
+[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-property-source-abstraction)
+
+- Spring 的 `Environment` 抽象通过可配置的 Property Source （属性源）提供查询操作。
+- Spring 独立应用使用 `StandardEnvironment` 为默认的 Property Source 。 `StandardServletEnvironment` 还提供额外的Servlet config 和 servlet context 参数。
+- `StandardServletEnvironment` property source 从高到低优先级：
+    - ServletConfig parameters (if applicable — for example, in case of a DispatcherServlet context)
+    - ServletContext parameters (web.xml context-param entries)
+    - JNDI environment variables (java:comp/env/ entries)
+    - JVM system properties (-D command-line arguments)
+    - JVM system environment (operating system environment variables)
+- 整个查询机制是可配的，可自定义 property source 添加到 environment 中
+
+  ```java
+  ConfigurableApplicationContext ctx = new GenericApplicationContext();
+  MutablePropertySources sources = ctx.getEnvironment().getPropertySources();
+  sources.addFirst(new MyPropertySource());
+  ```
+
+### 1.5.4. 使用 @PropertySource
+
+使用此注解为 Configuration 添加外部配置文件。
+
+- `@PropertySource("classpath:/com/${my.placeholder:default/path}/app.properties")` 其中可使用点位符添加已加入的配置作为路径
+- 可以添加多个 `@PropertySource` 或自定义同功能（使用此注解当元注解）的注解在同一个 configuration 上，但不推荐，因为直接的注解会覆盖数据注解。
+
+### 1.5.5. Placeholder Resolution in Statement
+
+[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-property-source-abstraction)
+
+使用已定义好的配置：
+
+```xml
+<beans>
+    <import resource="com/bank/service/${customer}-config.xml"/>
+</beans>
+```
