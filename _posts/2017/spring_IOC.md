@@ -35,6 +35,7 @@ categories: programming
     - [1.5.3. PropertySource Abstraction](#153-propertysource-abstraction)
     - [1.5.4. 使用 @PropertySource](#154-%e4%bd%bf%e7%94%a8-propertysource)
     - [1.5.5. Placeholder Resolution in Statement](#155-placeholder-resolution-in-statement)
+  - [1.6. BeanFactory](#16-beanfactory)
 
 <!-- /TOC -->
 
@@ -276,3 +277,12 @@ Spring IoC 环境抽象。[reference](https://docs.spring.io/spring/docs/current
     <import resource="com/bank/service/${customer}-config.xml"/>
 </beans>
 ```
+
+## 1.6. BeanFactory
+
+[Spring IoC 容器基础](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-beanfactory)
+
+- 整个框架组件都基于 BeanFactory 及 相关的接口（`BeanFactoryAware` `InitializingBean`  `DisposableBean`）整个而成。
+- BeanFactory 级别的 API （其默认实现： DefaultListableBeanFactory） 只是单纯的一个工厂，并没对应用相关的组件进行设定，配置格式与注解组件都未配置。
+- `ApplicationContext` 是 `BeanFactory` 增强，包含了BeanFactory 所有的功能，其实现（eg: GenericApplicationContext）会按惯例扫描各类 bean 。ApplicationContext 的各类变体都会扩展各类功能，如添加 BeanFactoryPostProcessor BeanPostProcessor。
+- `AnnotationConfigApplicationContext` 除了添加了 post-processor 等组件外，还通过注解添加其他组件，如：`@EnableTransactionManagement`。在 Spring 注解配置模式中，post-processor bean 的概念仅仅只是容器内部细节。
