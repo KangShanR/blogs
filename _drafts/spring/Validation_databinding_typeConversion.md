@@ -51,3 +51,62 @@ Spring 中的 数据验证、数据绑定、类型转换。
 #### Spring 内置的 `PropertyEditor` 实现
 
 [reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#validation)
+
+其中有默认注册为 `BeanWrapperImpl` ，Spring 将自动使用这些组件实现 String 与 各个 type 的转换。
+
+#### 注册自定义 `PropertyEditor`
+
+[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#validation)
+
+两种注册方式：
+
+1. 当有获取到 BeanFactory reference 时，使用 ConfigurableBeanFactory 其 `registerCustomEditor()` 方法将自定义的 PropertyEditor 注册进来（不推荐）。
+2. 使用名为 `CustomEditorConfigurer` 的 bean factory post-processor，可使用注册 bean 方式注册，可设置其内置属性。
+
+- 实现一个 PropertyEditor
+
+    ```java
+    public class ExoticTypeEditor extends PropertyEditorSupport {
+
+        public void setAsText(String text) {
+            setValue(new ExoticType(text.toUpperCase()));
+        }
+    }
+    ```
+
+- 将 editor 注册到配置器中
+
+```xml
+<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+    <property name="customEditors">
+        <map>
+            <entry key="example.ExoticType" value="example.ExoticTypeEditor"/>
+        </map>
+    </property>
+</bean>
+```
+
+##### 使用 `PropertyEditorRegistrar`
+
+- 在不同场景需要使用同一系列的 editor 时更适合此注册器。
+- 与接口 `CustomEditorConfigurer` 连用，将 PropertyEditorRegistrar 实例注册到 CustomerEditorConfigurer 中，editor 可轻松地共享到 `DataBinder` 与 Spring MVC Controller。同时，这样操作在每次调用 PropertyEditor 时都创建一个新的实例，而避免了同步。
+
+## Spring Type Conversion
+
+[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-beans-conversion-customeditor-registration)
+
+### Converter SPI
+
+- 函数式接口， `Converter<S, T>`
+
+### ConverterFactory
+
+- 使用 `ConverterFactory<S, R>` 可以实现提供将一个类型转换成多个类型的 不同的转换器。
+
+### GenericConverter
+
+相对于 Converter 提供了更复杂的转换功能。针对转换多个目标 类型。
+
+### ConditionalGenericConverter
+
+联合了 `GenericConverter` 和 `ConditionalConverter` 两个接口而成，可以指定目标字段进行转换。
