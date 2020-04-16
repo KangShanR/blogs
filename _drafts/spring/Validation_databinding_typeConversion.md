@@ -110,3 +110,38 @@ Spring 中的 数据验证、数据绑定、类型转换。
 ### ConditionalGenericConverter
 
 联合了 `GenericConverter` 和 `ConditionalConverter` 两个接口而成，可以指定目标字段进行转换。
+
+### The `ConversionService` API
+
+[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#core-convert-ConversionService-API)
+
+- 大部分 `ConversionService` 实现了 `ConverterRegistry` ，这就提供了注册 Converter 的 SPI。内部实现将 conversion 工作委托给注册的 converter 。
+- `GenericConversionService` 覆盖了大部分 converter 使用场景
+- `ConversionServiceFactory` 提供工厂创建常用 `ConversionService` 。
+
+### 配置 `ConversionService`
+
+- 使用默认的 `ConversionServiceFactoryBean` 为容器默认转换器服务，其提供了基础数据转换器（详见 `{@link DefaultConversionService # addDefaultConverters()}`）。
+- 添加自定义转换器
+
+```xml
+<bean id="conversionService"
+        class="org.springframework.context.support.ConversionServiceFactoryBean">
+    <property name="converters">
+        <set>
+            <bean class="example.MyCustomConverter"/>
+        </set>
+    </property>
+</bean>
+```
+
+- 使用默认转换复合类型数据（集合转集合）[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#core-convert-ConversionService-API)
+
+```java
+DefaultConversionService cs = new DefaultConversionService();
+
+List<Integer> input = ...
+cs.convert(input,
+    TypeDescriptor.forObject(input), // List<Integer> type descriptor
+    TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(String.class)));
+```
