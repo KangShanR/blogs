@@ -145,3 +145,15 @@ cs.convert(input,
     TypeDescriptor.forObject(input), // List<Integer> type descriptor
     TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(String.class)));
 ```
+
+### Spring Field Formatting
+
+[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#format)
+
+formatting 是 converting 的一个子集。在客户端环境（web 应用或桌面应用），需要将 `String` 与各个类型互转，同时也需要将 String 本地化。这个格式化的过程在 core.convert.Converter SPI 并没有直接解决。Spring 3 中引入 Formatting SPI 提供了可选的 `PropertyEditor`实现来完成格式化。
+
+- `Formatter` 接口实现了 Printer 与 Parser 两个接口。
+
+#### 注解驱动 Formatting
+
+- `AnnotationFormatterFactory<? extend Annotation>` 实现此接口，使用注解指定类中字段格式化。常用注解所在包： `org.springframework.format.annotation`

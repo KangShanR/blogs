@@ -12,10 +12,19 @@ categories: programming
 
 - [1. SpringMVC](#1-springmvc)
 	- [1.1. 核心对象](#11-%e6%a0%b8%e5%bf%83%e5%af%b9%e8%b1%a1)
+		- [1.1.1. springMVC 中的处理器](#111-springmvc-%e4%b8%ad%e7%9a%84%e5%a4%84%e7%90%86%e5%99%a8)
+			- [1.1.1.1. @RequestMapping 注解的使用](#1111-requestmapping-%e6%b3%a8%e8%a7%a3%e7%9a%84%e4%bd%bf%e7%94%a8)
+	- [1.2. 使用代码代替 xml 配置文件](#12-%e4%bd%bf%e7%94%a8%e4%bb%a3%e7%a0%81%e4%bb%a3%e6%9b%bf-xml-%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6)
+		- [1.2.1. LocalResolver 区域解析器](#121-localresolver-%e5%8c%ba%e5%9f%9f%e8%a7%a3%e6%9e%90%e5%99%a8)
+		- [1.2.2. 多部件解析器 MultipartResolver](#122-%e5%a4%9a%e9%83%a8%e4%bb%b6%e8%a7%a3%e6%9e%90%e5%99%a8-multipartresolver)
+		- [1.2.3. json 数据交互](#123-json-%e6%95%b0%e6%8d%ae%e4%ba%a4%e4%ba%92)
+		- [1.2.4. xml 数据交互](#124-xml-%e6%95%b0%e6%8d%ae%e4%ba%a4%e4%ba%92)
 		- [1.2.5. 数据校验](#125-%e6%95%b0%e6%8d%ae%e6%a0%a1%e9%aa%8c)
 		- [1.2.6. Restful 架构](#126-restful-%e6%9e%b6%e6%9e%84)
 	- [1.3. configuration based on java codes](#13-configuration-based-on-java-codes)
 		- [1.3.1. ant style](#131-ant-style)
+		- [1.3.2. RequestMapping](#132-requestmapping)
+			- [1.3.2.1. 自定义注解](#1321-%e8%87%aa%e5%ae%9a%e4%b9%89%e6%b3%a8%e8%a7%a3)
 	- [1.4. Functional Endpoints](#14-functional-endpoints)
 
 <!-- /TOC -->
@@ -259,6 +268,28 @@ springmvc 中可以直接使用 Hibernate 的一个校验框架：hibernate-vali
 ### 1.3.1. ant style
 
 关于 spring 中写 ant style 路径规则参照此类 doc: `org.springframework.util.AntPathMatcher`
+
+### 1.3.2. RequestMapping
+
+- 可使用正则表达式来匹配 url 参数
+- pattern 匹配比较，越具体的 url 越匹配。
+- Consumable/Producible Media Types 请求消费/生产数据类型匹配，`MediaType` 中有基本的类型。可使用 非 `!` 运行符
+- Parameters,headers
+    - 窄化请求路径：指定参数是否存在 `param` `!param`，指定具体参数类型： `param=myValue`
+    - headers 相同窄化：
+
+	```java
+	@GetMapping(path = "/pets", headers = "myHeader=myValue")
+	public void findPet(@PathVariable String petId) {
+		// ...
+	}
+	```
+
+- HTTP HEAD,OPTIONS 请求，自动转换请求到 GET 上，也可配置多个请求方式在同一个 URL 上
+
+#### 1.3.2.1. 自定义注解
+
+_Spring MVC also supports custom request-mapping attributes with custom request-matching logic. This is a more advanced option that requires subclassing RequestMappingHandlerMapping and overriding the getCustomMethodCondition method, where you can check the custom attribute and return your own RequestCondition._
 
 ## 1.4. Functional Endpoints
 
