@@ -13,7 +13,6 @@ categories: programming
 - [1. SpringMVC](#1-springmvc)
 	- [1.1. 核心对象](#11-%e6%a0%b8%e5%bf%83%e5%af%b9%e8%b1%a1)
 		- [1.1.1. springMVC 中的处理器](#111-springmvc-%e4%b8%ad%e7%9a%84%e5%a4%84%e7%90%86%e5%99%a8)
-			- [1.1.1.1. @RequestMapping 注解的使用](#1111-requestmapping-%e6%b3%a8%e8%a7%a3%e7%9a%84%e4%bd%bf%e7%94%a8)
 	- [1.2. 使用代码代替 xml 配置文件](#12-%e4%bd%bf%e7%94%a8%e4%bb%a3%e7%a0%81%e4%bb%a3%e6%9b%bf-xml-%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6)
 		- [1.2.1. LocalResolver 区域解析器](#121-localresolver-%e5%8c%ba%e5%9f%9f%e8%a7%a3%e6%9e%90%e5%99%a8)
 		- [1.2.2. 多部件解析器 MultipartResolver](#122-%e5%a4%9a%e9%83%a8%e4%bb%b6%e8%a7%a3%e6%9e%90%e5%99%a8-multipartresolver)
@@ -26,6 +25,8 @@ categories: programming
 		- [1.3.2. RequestMapping](#132-requestmapping)
 			- [1.3.2.1. 自定义注解](#1321-%e8%87%aa%e5%ae%9a%e4%b9%89%e6%b3%a8%e8%a7%a3)
 	- [1.4. Functional Endpoints](#14-functional-endpoints)
+	- [1.5. Exceptions](#15-exceptions)
+		- [1.5.1. 异常处理器链 Chain of Exceptions](#151-%e5%bc%82%e5%b8%b8%e5%a4%84%e7%90%86%e5%99%a8%e9%93%be-chain-of-exceptions)
 
 <!-- /TOC -->
 
@@ -177,12 +178,6 @@ categories: programming
 			1. 响应jason数据：`response.setCharacterEncoding("utf-8");`
 			2. `response.getWriter().write(String "jason格式的字符串");`
 
-#### 1.1.1.1. @RequestMapping 注解的使用
-
-`@RequestMapping()` 注解指定访问信息。除了可以指定 method 提交方法， path/value 访问路径，还可以指定：
-  	1. consumes 指定提交媒体数据类型 `consumes="text/plain"` `consumes={"!text/plain","application/*"}` ，支持 `!` 排除选择
-  	2. produces 指定返回媒体类型 `produces="text/plain"` `consumes={"!text/plain","application/*"}` `consumes="application/json; charset=UTF-8"` 同样支持使用 `!` 排除选择
-
 ## 1.2. 使用代码代替 xml 配置文件
 
 参照 spring mvc doc： org.springframework.web.WebApplicationInitializer。
@@ -294,3 +289,36 @@ _Spring MVC also supports custom request-mapping attributes with custom request-
 ## 1.4. Functional Endpoints
 
 函数式 mvc 编程，与 jdk8 很好地整合。可以直接使用流式编码将请求与响应数据装配好，诸如：header/body[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#webmvc-fn)
+
+## 1.5. Exceptions
+
+[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-exceptionhandlers)
+
+spring MVC 中的异常。
+
+Spring MVC中的异常处理器 HandlerExceptionResolver 的实现：
+
+1. SimpleMappingExceptionResolver 可指定异常类名与错误页面的映射，用于浏览器应用
+2. DefaultHandlerExceptionResolver 通过 Spring MVC 处理异常，并将异常与状态码映射。`ResponseEntityExceptionHandler` and REST API exceptions
+3. ResponseStatusExceptionResolver 通过注解 `@ResponseStatus` 处理异常。根据注解值映射其到生意人 HTTP 状态码
+4. ExceptionHandlerExceptionResolver 通过调用 Controller 或 ControllerAdvice 中的 `@ExceptionHandler` 方法处理异常。
+
+### 1.5.1. 异常处理器链 Chain of Exceptions
+
+1. 形成异常处理器链直接 delare 多个异常处理器 bean 即可，指定其 `order` 值，越高的 order 值，执行处理得越晚。
+2. 异常处理器返回数据规约：
+    1. 使用 ModelAndView 指定错误页面
+    2. 如果处理器已经将异常处理，返回一个空的 ModelAndView
+    3. 如果处理器未处理，后面的处理器继续，如果最后异常一直未被处理，抛给 Servlet 容器。
+        1. 当所有异常处理器未将异常处理，异常传递到 Servlet 容器或指定了一个错误状态码（4xx,5xx），servlet container 可以渲染一个默认的错误 HTML 页面，在 web.xml 中配置（servlet API 不提供 java 形式的方式创建 error page mapping，只能以此种形式创建	）：
+
+		 ```xml
+		 <error-page>
+			<location>/error</location>
+
+		</error-page>
+		```
+
+        2. servlet container 同时会作一个 ERROR 分发到配置的 URL ，于是就交给了 DispatherServlet，如果有 Controller 对此 URL 处理，将映射到此 Contrller 进行处理。剩下的就交给 Controller ，可能指定一个 model ，也可能响应一个 JSON。
+
+3. Spring MVC 自动注册内置的异常处理器处理的异常包括：Spring MVC 异常、`@ResponseStatus` 注解的异常、`@ExceptionHandler` 注解的方法处理。可自定义异常处理器列表替换内置的处理器。
