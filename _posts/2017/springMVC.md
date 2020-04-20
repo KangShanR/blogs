@@ -25,8 +25,11 @@ categories: programming
 		- [1.3.2. RequestMapping](#132-requestmapping)
 			- [1.3.2.1. 自定义注解](#1321-%e8%87%aa%e5%ae%9a%e4%b9%89%e6%b3%a8%e8%a7%a3)
 	- [1.4. Functional Endpoints](#14-functional-endpoints)
-	- [1.5. Exceptions](#15-exceptions)
-		- [1.5.1. 异常处理器链 Chain of Exceptions](#151-%e5%bc%82%e5%b8%b8%e5%a4%84%e7%90%86%e5%99%a8%e9%93%be-chain-of-exceptions)
+	- [1.5. Annotated Controllers](#15-annotated-controllers)
+		- [1.5.1. DataBidder](#151-databidder)
+		- [1.5.2. Exceptions](#152-exceptions)
+			- [1.5.2.1. 异常处理器链 Chain of Exceptions](#1521-%e5%bc%82%e5%b8%b8%e5%a4%84%e7%90%86%e5%99%a8%e9%93%be-chain-of-exceptions)
+	- [1.6.](#16)
 
 <!-- /TOC -->
 
@@ -290,7 +293,15 @@ _Spring MVC also supports custom request-mapping attributes with custom request-
 
 函数式 mvc 编程，与 jdk8 很好地整合。可以直接使用流式编码将请求与响应数据装配好，诸如：header/body[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#webmvc-fn)
 
-## 1.5. Exceptions
+## 1.5. Annotated Controllers
+
+Spring MVC 提供的注解式 Controller。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-controller)
+
+### 1.5.1. DataBidder
+
+使用 `@DataBidder` 给 Controller 添加数据绑定。
+
+### 1.5.2. Exceptions
 
 [reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-exceptionhandlers)
 
@@ -303,7 +314,7 @@ Spring MVC中的异常处理器 HandlerExceptionResolver 的实现：
 3. ResponseStatusExceptionResolver 通过注解 `@ResponseStatus` 处理异常。根据注解值映射其到生意人 HTTP 状态码
 4. ExceptionHandlerExceptionResolver 通过调用 Controller 或 ControllerAdvice 中的 `@ExceptionHandler` 方法处理异常。
 
-### 1.5.1. 异常处理器链 Chain of Exceptions
+#### 1.5.2.1. 异常处理器链 Chain of Exceptions
 
 1. 形成异常处理器链直接 delare 多个异常处理器 bean 即可，指定其 `order` 值，越高的 order 值，执行处理得越晚。
 2. 异常处理器返回数据规约：
@@ -322,3 +333,5 @@ Spring MVC中的异常处理器 HandlerExceptionResolver 的实现：
         2. servlet container 同时会作一个 ERROR 分发到配置的 URL ，于是就交给了 DispatherServlet，如果有 Controller 对此 URL 处理，将映射到此 Contrller 进行处理。剩下的就交给 Controller ，可能指定一个 model ，也可能响应一个 JSON。
 
 3. Spring MVC 自动注册内置的异常处理器处理的异常包括：Spring MVC 异常、`@ResponseStatus` 注解的异常、`@ExceptionHandler` 注解的方法处理。可自定义异常处理器列表替换内置的处理器。
+
+## 1.6.  
