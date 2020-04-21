@@ -3,7 +3,6 @@ title: springMVC的理解与认识
 date: 2016-08-20 13:29:17
 tags: [java,framework]
 categories: programming
-
 ---
 
 # 1. SpringMVC

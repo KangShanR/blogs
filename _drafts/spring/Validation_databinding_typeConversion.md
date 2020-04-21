@@ -1,3 +1,11 @@
+---
+title: Spring Validating, Data Binding and Type Conversion
+date: 2020-04-15 12:14:38
+tags: [validating,data binding,type conversion,java,spring]
+categories: programming
+description: spring 中的数据验证、绑定与类型转换
+---
+
 # 1. Validating & Data Binding and Type Conversion
 
 <!-- TOC -->
