@@ -4,7 +4,8 @@
 
 - [1. Validating & Data Binding and Type Conversion](#1-validating--data-binding-and-type-conversion)
   - [1.1. Validation on Spring's Validator Interface](#11-validation-on-springs-validator-interface)
-    - [1.1.1. Resolving Codes to Error Messages](#111-resolving-codes-to-error-messages)
+    - [1.1.1. Configuring a Bean Validation Provider](#111-configuring-a-bean-validation-provider)
+    - [1.1.2. Resolving Codes to Error Messages](#112-resolving-codes-to-error-messages)
   - [1.2. Bean Manipulation and the `BeanWrapper`](#12-bean-manipulation-and-the-beanwrapper)
     - [1.2.1. Built-in `PropertyEditor` Implements](#121-built-in-propertyeditor-implements)
       - [1.2.1.1. Spring 内置的 `PropertyEditor` 实现](#1211-spring-%e5%86%85%e7%bd%ae%e7%9a%84-propertyeditor-%e5%ae%9e%e7%8e%b0)
@@ -31,7 +32,26 @@ Spring 中的 数据验证、数据绑定、类型转换。
 - 实现接口 Validator ，定义验证各个 POJO 的代码。
 - 结合 `ValidationUtils 使用
 
-### 1.1.1. Resolving Codes to Error Messages
+### 1.1.1. Configuring a Bean Validation Provider
+
+[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#validation-beanvalidation-overview)
+
+- `LocalValidatorFactoryBean` 继承了 ValidatorFactory 和 Validator 两个接口，将其注册为一个 Bean。
+- 在需要使用验证的 Bean 中注入 Validator 即可。
+- 使用 `@Constraint` 自定义约束，再使用 `ConstraintValidator` 实现约束行为。
+- Spring 驱动方法验证
+    - 整合方法验证直接将 `MethodValidationPostProcessor` 注册到容器中
+
+        ```java
+        @Bean
+        public MethodValidationPostProcessor validationPostProcessor() {
+            return new MethodValidationPostProcessor;
+        }
+        ```
+
+    - 目标类必须使用 Spring 的 `@Validated` 注解，同时目标类依赖 AOP 代理，否则不能正常工作。
+
+### 1.1.2. Resolving Codes to Error Messages
 
 - 如果需要使用 `MessageSource` 输出错误信息，可以使用在拒绝字段时提供的 error code。
 - `MessageCodesResolver` 决定 `Error` 注册哪个 error code 。
