@@ -1,10 +1,17 @@
+---
+title: Spring Boot
+date: 2020-04-10 12:14:38
+tags: [framework,java,spring boot]
+categories: programming
+description: spring boot
+---
 # spring boot
 
 [reference](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#getting-started-scoop-cli-installation)
 
 安装 spring CLI(command line interface)，后再运行本地 groovy 文件。
 
-## springboot 的简化处理
+## spring boot 的简化处理
 
 1. 将所有依赖都写入其基本配置中，最大简化其配置；
 2. 自动扫描，一个注解自动识别所有的需要扫描的包与 bean；
@@ -15,7 +22,7 @@
 7. `@Configuration` 相当于 spring bean 的容器，也可以外部的 bean 或配置组件导入。
 8. `@SpringBootApplication` 声明 spring boot 入口，拥有的功能相当于 `@EnableAutoConfiguration` `@Configuration` `@ComponentScan` 三者之和。同时， spring boot 的入口类最好放在包根路径下，因为组件扫描时时会隐式地将此注解所在类定义为 search package 。`@SpringBootApplication` 和 `@EnableAutoConfiguration` 永远只添加一个，一般建议选择任意一个添加到主 `@Configuration` 类上。
 9. 组件导入
-   1. 建议使用 `@Configuration` java 组件， `@Import` 可用来将其他组件导入，也可以使用 `@ComponentScan` 自动扫描所有的 spring 组件，包括 `@onfiguration` 配置组件
+   1. 建议使用 `@Configuration` java 组件， `@Import` 可用来将其他组件导入，也可以使用 `@ComponentScan` 自动扫描所有的 spring 组件，包括 `@Configuration` 配置组件
    2. 如果非要使用 xml 配置，使用 `@ImportResource`
 
 ### create an executable jar
