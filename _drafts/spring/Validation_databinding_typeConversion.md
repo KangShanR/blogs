@@ -11,23 +11,25 @@ description: spring 中的数据验证、绑定与类型转换
 <!-- TOC -->
 
 - [1. Validating & Data Binding and Type Conversion](#1-validating--data-binding-and-type-conversion)
-    - [1.1. Validation on Spring's Validator Interface](#11-validation-on-springs-validator-interface)
-        - [1.1.1. Configuring a Bean Validation Provider](#111-configuring-a-bean-validation-provider)
-        - [1.1.2. Resolving Codes to Error Messages](#112-resolving-codes-to-error-messages)
-    - [1.2. Bean Manipulation and the `BeanWrapper`](#12-bean-manipulation-and-the-beanwrapper)
-        - [1.2.1. Built-in `PropertyEditor` Implements](#121-built-in-propertyeditor-implements)
-            - [1.2.1.1. Spring 内置的 `PropertyEditor` 实现](#1211-spring-%E5%86%85%E7%BD%AE%E7%9A%84-propertyeditor-%E5%AE%9E%E7%8E%B0)
-            - [1.2.1.2. 注册自定义 `PropertyEditor`](#1212-%E6%B3%A8%E5%86%8C%E8%87%AA%E5%AE%9A%E4%B9%89-propertyeditor)
-                - [1.2.1.2.1. 使用 `PropertyEditorRegistrar`](#12121-%E4%BD%BF%E7%94%A8-propertyeditorregistrar)
-    - [1.3. Spring Type Conversion](#13-spring-type-conversion)
-        - [1.3.1. Converter SPI](#131-converter-spi)
-        - [1.3.2. ConverterFactory](#132-converterfactory)
-        - [1.3.3. GenericConverter](#133-genericconverter)
-        - [1.3.4. ConditionalGenericConverter](#134-conditionalgenericconverter)
-        - [1.3.5. The `ConversionService` API](#135-the-conversionservice-api)
-        - [1.3.6. 配置 `ConversionService`](#136-%E9%85%8D%E7%BD%AE-conversionservice)
-        - [1.3.7. Spring Field Formatting](#137-spring-field-formatting)
-            - [1.3.7.1. 注解驱动 Formatting](#1371-%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8-formatting)
+  - [1.1. Validation on Spring's Validator Interface](#11-validation-on-springs-validator-interface)
+    - [1.1.1. Configuring a Bean Validation Provider](#111-configuring-a-bean-validation-provider)
+    - [1.1.2. Resolving Codes to Error Messages](#112-resolving-codes-to-error-messages)
+  - [1.2. Bean Manipulation and the `BeanWrapper`](#12-bean-manipulation-and-the-beanwrapper)
+    - [1.2.1. Built-in `PropertyEditor` Implements](#121-built-in-propertyeditor-implements)
+      - [1.2.1.1. Spring 内置的 `PropertyEditor` 实现](#1211-spring-%e5%86%85%e7%bd%ae%e7%9a%84-propertyeditor-%e5%ae%9e%e7%8e%b0)
+      - [1.2.1.2. 注册自定义 `PropertyEditor`](#1212-%e6%b3%a8%e5%86%8c%e8%87%aa%e5%ae%9a%e4%b9%89-propertyeditor)
+        - [1.2.1.2.1. 使用 `PropertyEditorRegistrar`](#12121-%e4%bd%bf%e7%94%a8-propertyeditorregistrar)
+  - [1.3. Spring Type Conversion](#13-spring-type-conversion)
+    - [1.3.1. Converter SPI](#131-converter-spi)
+    - [1.3.2. ConverterFactory](#132-converterfactory)
+    - [1.3.3. GenericConverter](#133-genericconverter)
+    - [1.3.4. ConditionalGenericConverter](#134-conditionalgenericconverter)
+    - [1.3.5. The `ConversionService` API](#135-the-conversionservice-api)
+    - [1.3.6. 配置 `ConversionService`](#136-%e9%85%8d%e7%bd%ae-conversionservice)
+    - [1.3.7. Spring Field Formatting](#137-spring-field-formatting)
+      - [1.3.7.1. 注解驱动 Formatting](#1371-%e6%b3%a8%e8%a7%a3%e9%a9%b1%e5%8a%a8-formatting)
+    - [1.3.8. Spring MVC 中配置序列化与反序列化的 Converter](#138-spring-mvc-%e4%b8%ad%e9%85%8d%e7%bd%ae%e5%ba%8f%e5%88%97%e5%8c%96%e4%b8%8e%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96%e7%9a%84-converter)
+      - [1.3.8.1. 序列化时间类型数据](#1381-%e5%ba%8f%e5%88%97%e5%8c%96%e6%97%b6%e9%97%b4%e7%b1%bb%e5%9e%8b%e6%95%b0%e6%8d%ae)
 
 <!-- /TOC -->
 
@@ -207,3 +209,16 @@ formatting 是 converting 的一个子集。在客户端环境（web 应用或�
 #### 1.3.7.1. 注解驱动 Formatting
 
 - `AnnotationFormatterFactory<? extend Annotation>` 实现此接口，使用注解指定类中字段格式化。常用注解所在包： `org.springframework.format.annotation`
+
+### 1.3.8. Spring MVC 中配置序列化与反序列化的 Converter
+
+使用 JSR310 的序列化工具。
+
+#### 1.3.8.1. 序列化时间类型数据
+
+默认情况下其添加的 jdk8 与 LocalDateTimeSerialize 等序列化工具使用的 formatter 常并不是我们想的结果，这时需要配置自己想要的 formatter。
+
+- jdk time 包 DateTimeFormater 有具体的构造方法。可直接使用其 Builder 类 ： `DateTimeFormatterBuilder` 。
+    - `ResolveStyle` 指定 DateTime 解析模式：STRICT 严格按照日期来，超出则无效；SMART 智能模式，比如天超过当月最大天就到最大的；LENENT 宽容模式，超出边界也将被转换，比如：月份 15
+    - 指定 pattern ，在 builder 中 addPattern(String pattern) ，方法注释有对详细注释，其中有调用达到指定 pattern 字符等效方法说明。
+    - builder.configure() 中最后将所有的 serializer 与 deserializer 都添加进 new SimpleModule 中，再将 simpleModule 注册到 objectMapper 中（所有的配置数据都会注册入 objectMapper），最后 build 方法即将此 objectMapper 返回供 `AbstractJackson2HttpMessageConverter` 构造（for Spring MVC）使用。
