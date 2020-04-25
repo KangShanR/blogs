@@ -1,25 +1,45 @@
 ---
 layout: "post"
-title: "java8 Stream"
+title: "java8"
 tag: ["java8"]
 date: "2018-09-26 18:50"
 ---
 
-# stream
+# 1. java8 new feature
+<!-- TOC -->
+
+- [1. java8 new feature](#1-java8-new-feature)
+  - [1.1. stream](#11-stream)
+  - [1.2. 对 stream 进行以下操作会将流关闭而不能再进行利用](#12-%e5%af%b9-stream-%e8%bf%9b%e8%a1%8c%e4%bb%a5%e4%b8%8b%e6%93%8d%e4%bd%9c%e4%bc%9a%e5%b0%86%e6%b5%81%e5%85%b3%e9%97%ad%e8%80%8c%e4%b8%8d%e8%83%bd%e5%86%8d%e8%bf%9b%e8%a1%8c%e5%88%a9%e7%94%a8)
+  - [1.3. method](#13-method)
+    - [1.3.1. peek(Consumer())](#131-peekconsumer)
+  - [1.4. java8 time](#14-java8-time)
+
+<!-- /TOC -->
+
+## 1.1. stream
 
 > 列表进行 stream() 方法生成列表相应的流对象。对列表进行操作而不影响列表本身，很方便的一个对列表进行统计、过滤的特性。
 
-## 对 stream 进行以下操作会将流关闭而不能再进行利用
+## 1.2. 对 stream 进行以下操作会将流关闭而不能再进行利用
 
 - collect(Collector<T, T>) 常常将流进行操作后返回为 List<T> 进行再利用。这个时候就将关闭了，不能进行下一步流操作。
 - count() 此方法是统计流中数据数量，这个方法也会将流关闭。
 
 >> 如果在使用 流 的过程中，需要对流进行反复操作而又不得不使用用将其关闭的方法时，我们可以多次使用原列表生成流，这样可以多次操作。
 
-## method
+## 1.3. method
 
 > 流对于列表进行操作有诸多函数式接口参数方法，可以对列表进行过滤、筛选、求最值。
 
-### peek(Consumer())
+### 1.3.1. peek(Consumer())
 
 > 这个方法需要使用将对 流 中的元素进行依次的消费。但如果要表现出来，需要在其后跟上 collect() 方法。
+
+## 1.4. java8 time
+
+java 8 time 包提供了更耐用的日历系统。
+
+- chronology 年代表
+- ISO： International Standardization Organization :国际标准化组织
+    - IsoChronology 国际标准年代
