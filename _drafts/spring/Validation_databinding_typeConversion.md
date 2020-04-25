@@ -26,10 +26,10 @@ description: spring 中的数据验证、绑定与类型转换
     - [1.3.4. ConditionalGenericConverter](#134-conditionalgenericconverter)
     - [1.3.5. The `ConversionService` API](#135-the-conversionservice-api)
     - [1.3.6. 配置 `ConversionService`](#136-%e9%85%8d%e7%bd%ae-conversionservice)
-    - [1.3.7. Spring Field Formatting](#137-spring-field-formatting)
-      - [1.3.7.1. 注解驱动 Formatting](#1371-%e6%b3%a8%e8%a7%a3%e9%a9%b1%e5%8a%a8-formatting)
-    - [1.3.8. Spring MVC 中配置序列化与反序列化的 Converter](#138-spring-mvc-%e4%b8%ad%e9%85%8d%e7%bd%ae%e5%ba%8f%e5%88%97%e5%8c%96%e4%b8%8e%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96%e7%9a%84-converter)
-      - [1.3.8.1. 序列化时间类型数据](#1381-%e5%ba%8f%e5%88%97%e5%8c%96%e6%97%b6%e9%97%b4%e7%b1%bb%e5%9e%8b%e6%95%b0%e6%8d%ae)
+  - [1.4. Spring Field Formatting](#14-spring-field-formatting)
+    - [1.4.1. 注解驱动 Formatting](#141-%e6%b3%a8%e8%a7%a3%e9%a9%b1%e5%8a%a8-formatting)
+  - [1.5. Spring MVC 中配置序列化与反序列化的 Converter](#15-spring-mvc-%e4%b8%ad%e9%85%8d%e7%bd%ae%e5%ba%8f%e5%88%97%e5%8c%96%e4%b8%8e%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96%e7%9a%84-converter)
+    - [1.5.1. 序列化时间类型数据](#151-%e5%ba%8f%e5%88%97%e5%8c%96%e6%97%b6%e9%97%b4%e7%b1%bb%e5%9e%8b%e6%95%b0%e6%8d%ae)
 
 <!-- /TOC -->
 
@@ -198,7 +198,10 @@ cs.convert(input,
     TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(String.class)));
 ```
 
-### 1.3.7. Spring Field Formatting
+- 使用 `DefaultConversionService` 默认添加各个转换器到 Spring 容器中
+- 添加自定义 Converter 到其中，使用时直接调用 convert 方法，其在添加时是将各个 converter 放入一个指定 map 中，在使用时再 get 到相应的目标 converter 再再使用（这里可以看出来，再复杂的系统设计，最后都回归到了数据结构中）。
+
+## 1.4. Spring Field Formatting
 
 [reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#format)
 
@@ -206,15 +209,15 @@ formatting 是 converting 的一个子集。在客户端环境（web 应用或�
 
 - `Formatter` 接口实现了 Printer 与 Parser 两个接口。
 
-#### 1.3.7.1. 注解驱动 Formatting
+### 1.4.1. 注解驱动 Formatting
 
 - `AnnotationFormatterFactory<? extend Annotation>` 实现此接口，使用注解指定类中字段格式化。常用注解所在包： `org.springframework.format.annotation`
 
-### 1.3.8. Spring MVC 中配置序列化与反序列化的 Converter
+## 1.5. Spring MVC 中配置序列化与反序列化的 Converter
 
 使用 JSR310 的序列化工具。
 
-#### 1.3.8.1. 序列化时间类型数据
+### 1.5.1. 序列化时间类型数据
 
 默认情况下其添加的 jdk8 与 LocalDateTimeSerialize 等序列化工具使用的 formatter 常并不是我们想的结果，这时需要配置自己想要的 formatter。
 
