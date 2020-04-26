@@ -9,4 +9,6 @@ description: spring test 的应用
 
 [reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#testing-introduction)
 
+使用 `@TestPropertySource` 指定配置文件。
 
+- `Environment` `PropertyResolver` 配置信息解析基础接口。[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#testcontext-ctx-management-property-sources)
