@@ -6,10 +6,9 @@ date: "2018-11-26 10:50"
 <!-- TOC -->
 
 - [1. aop 面向切面](#1-aop-%e9%9d%a2%e5%90%91%e5%88%87%e9%9d%a2)
+  - [AOP Concepts](#aop-concepts)
   - [1.1. aop 实现分为两类](#11-aop-%e5%ae%9e%e7%8e%b0%e5%88%86%e4%b8%ba%e4%b8%a4%e7%b1%bb)
   - [1.2. spring aop](#12-spring-aop)
-
-<!-- /TOC -->
 
 # 1. aop 面向切面
 
@@ -20,6 +19,19 @@ aspcetj 是基于 java 语言的 aop 框架，提供了强大的 aop 功能，�
 
 - 定义如何表达/定义 aop 语法规范。用于解决 java 中的交叉关注点问题。
 - 工具部分：编译/调试。
+
+## AOP Concepts
+
+Aspect Oriented Programming 基本概念
+
+1. Aspect: 多个类间的模块化的事物。企业应用中的事务管理就是很好的跨类切面的例子。在 Spring AOP 中通过常规类（schema 途径）或注解 `@AspectsJ` 实现切面。
+2. Join Point: 程序执行中的某一点，如一个方法执行或异常处理。在 Spring AOP 中，一个 Joint Point 通常代表一个方法执行。
+3. Advice: 切面在入点（Joint Point）所采用的动作。Advice 类型有："Aroud" "Before" "After" 。大多框架（包括 Spring AOP）将 Advice 建模成拦截器，并为 Join Point 维护一个拦截器链。
+4. Pointcut： 匹配 Join Point 的判断。Advice 关联一个 Pointcut 表达式，并在每一个匹配上 Pointcut 的切点处执行（eg：执行有某个特定名字的方法）。匹配上 Pointcut 表达式的 Join Point 的概念是 AOP 的核心，Spring 默认使用使用 AspectJ pointcut 表达式语言。
+5. Introduction: 引入外部方法或字段到一个类。Spring AOP 可以引入新的接口与相应的实现到被增强的类。在 AspectJ 社区中，introduction 通常被当作一个内部类的定义。
+6. Target Object:被一个或多个增加的对象。也被当作被增强的对象。Spring AOP 通过运行时代理实现，所以 Target Object 也是一个代理对象。
+7. AOP Proxy：AOP 框架实现 aspect 规约（增加方法执行等等）而创建的对象。在 Spring AOP 中，AOP proxy 通常为 JDK 动态代理或 CGlib 代理。
+8. Weaving: 将 aspect 与其他应用的类型或对象连接以创建增加类。此动作可在编译期（通过 AspectJ Compoler）、加载期、运行时进行。Spring AOP 与大多 Java AOP 框架一样都在编译期执行 weaving。
 
 ## 1.1. aop 实现分为两类
 
