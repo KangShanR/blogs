@@ -26,7 +26,12 @@ Aspect Oriented Programming 基本概念
 
 1. Aspect: 多个类间的模块化的事物。企业应用中的事务管理就是很好的跨类切面的例子。在 Spring AOP 中通过常规类（schema 途径）或注解 `@AspectsJ` 实现切面。
 2. Join Point: 程序执行中的某一点，如一个方法执行或异常处理。在 Spring AOP 中，一个 Joint Point 通常代表一个方法执行。
-3. Advice: 切面在入点（Joint Point）所采用的动作。Advice 类型有："Aroud" "Before" "After" 。大多框架（包括 Spring AOP）将 Advice 建模成拦截器，并为 Join Point 维护一个拦截器链。
+3. Advice: 切面在入点（Joint Point）所采用的动作。大多框架（包括 Spring AOP）将 Advice 建模成拦截器，并为 Join Point 维护一个拦截器链。Advice 类型有："Around" "Before" "After" 。Spring AOP 包括以下类型：
+   1. Before Advice：在 Join Point 前执行的增强。除非抛出异常，此类型的 Advice 并不能阻止 Joint Point 流程的执行。
+   2. After Returning Advice：在 Join Point 正常流程执行完成（未抛出异常）后执行。
+   3. After Throwing Advice: 在方法因异常退出时执行
+   4. After(finally) advice: 在 join point 方法结束后执行（不管是正常结束还是异常结束）。
+   5. Around advice：在 join point 前后都可执行的 advice。最强势的 advice ，可自定义方法调用前后的行为，也可以决定 join point 是否执行或通过返回自定义的结果（或抛出异常）实现增强方法的快捷执行。
 4. Pointcut： 匹配 Join Point 的判断。Advice 关联一个 Pointcut 表达式，并在每一个匹配上 Pointcut 的切点处执行（eg：执行有某个特定名字的方法）。匹配上 Pointcut 表达式的 Join Point 的概念是 AOP 的核心，Spring 默认使用使用 AspectJ pointcut 表达式语言。
 5. Introduction: 引入外部方法或字段到一个类。Spring AOP 可以引入新的接口与相应的实现到被增强的类。在 AspectJ 社区中，introduction 通常被当作一个内部类的定义。
 6. Target Object:被一个或多个增加的对象。也被当作被增强的对象。Spring AOP 通过运行时代理实现，所以 Target Object 也是一个代理对象。
