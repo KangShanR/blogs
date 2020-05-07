@@ -6,9 +6,17 @@ date: "2018-11-26 10:50"
 <!-- TOC -->
 
 - [1. aop 面向切面](#1-aop-%e9%9d%a2%e5%90%91%e5%88%87%e9%9d%a2)
-  - [AOP Concepts](#aop-concepts)
-  - [1.1. aop 实现分为两类](#11-aop-%e5%ae%9e%e7%8e%b0%e5%88%86%e4%b8%ba%e4%b8%a4%e7%b1%bb)
-  - [1.2. spring aop](#12-spring-aop)
+  - [1.1. AOP Concepts](#11-aop-concepts)
+  - [1.2. aop 实现分为两类](#12-aop-%e5%ae%9e%e7%8e%b0%e5%88%86%e4%b8%ba%e4%b8%a4%e7%b1%bb)
+  - [1.3. spring aop](#13-spring-aop)
+    - [1.3.1. AOP Proxies](#131-aop-proxies)
+  - [1.4. @AspectJ Support](#14-aspectj-support)
+    - [1.4.1. Enable @AspectJ Support](#141-enable-aspectj-support)
+    - [1.4.2. Declaring an Aspect](#142-declaring-an-aspect)
+    - [1.4.3. Declaring a Pointcut](#143-declaring-a-pointcut)
+      - [1.4.3.1. Supported Pointcut Designators](#1431-supported-pointcut-designators)
+
+<!-- /TOC -->
 
 # 1. aop 面向切面
 
@@ -20,7 +28,7 @@ aspcetj 是基于 java 语言的 aop 框架，提供了强大的 aop 功能，�
 - 定义如何表达/定义 aop 语法规范。用于解决 java 中的交叉关注点问题。
 - 工具部分：编译/调试。
 
-## AOP Concepts
+## 1.1. AOP Concepts
 
 Aspect Oriented Programming 基本概念
 
@@ -38,7 +46,7 @@ Aspect Oriented Programming 基本概念
 7. AOP Proxy：AOP 框架实现 aspect 规约（增加方法执行等等）而创建的对象。在 Spring AOP 中，AOP proxy 通常为 JDK 动态代理或 CGlib 代理。
 8. Weaving: 将 aspect 与其他应用的类型或对象连接以创建增加类。此动作可在编译期（通过 AspectJ Compoler）、加载期、运行时进行。Spring AOP 与大多 Java AOP 框架一样都在编译期执行 weaving。
 
-## 1.1. aop 实现分为两类
+## 1.2. aop 实现分为两类
 
 - 静态 AOP 实现：在编译阶段就对程序进行修改，即实现对目标类的增强，生成静态的 AOP 代理类，以 aspcetj 为代表。具有良好的性能，但需要特殊的编译器。
 - 动态 AOP 实现：AOP 框架在运行阶段动态生成 AOP 代理，以实现对目标对象的增加，如： spring AOP 。纯java 实现，无需特殊编译器，性能相对略差。
@@ -50,7 +58,7 @@ Aspect Oriented Programming 基本概念
 - Advice 增强：AOP 框架支持在特定的切入点执行的增加处理。类型有：Before Around After
 - Pointcut 切入点：中以插入增强处理的连接点。当连接点满足指定要求时，该连接点将被添加增加处理，该连接点也就说变成了切点。
 
-## 1.2. spring aop
+## 1.3. spring aop
 
 - Spring AOP 代理由 IoC 容器负责生成、管理，其依赖关系也由 IoC 窗口负责管理。
 - 在 Spring 使用 Aspectj 支持需要添加三个库：
@@ -68,3 +76,40 @@ Aspect Oriented Programming 基本概念
       <context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
   </context:component-scan>
   ```
+
+### 1.3.1. AOP Proxies
+
+- Spring AOP 默认使用 JDK 动态代理，也可以使用 CGLIB 代理，一般在被代理对象没有实现接口的情况下使用。
+
+## 1.4. @AspectJ Support
+
+### 1.4.1. Enable @AspectJ Support
+
+- 在 `@Configuration` 上添加 `@EnableAspectJAutoProxy` 注解，让被增加的 bean 自动代理。
+- 使用 XML 配置 添加标签 `<aop:aspectj-autoproxy />`
+
+### 1.4.2. Declaring an Aspect
+
+当 @AspectJ 打开后，Spring 会自动检测容器中定义的 Aspect 。定义 Aspect 的方法有两种：
+
+1. 使用 XML 配置添加了 `@Aspect` 的 bean
+2. 使用自动扫描注解 `@Aspect` 的 bean，使用自动扫描 bean 方式时需要在 bean 上添加额外的 `@Component` 或自定义的扫描组件注解。
+
+- 使用 `@Aspect` 注解后的 bean 与其它类一样可以有自己的字段方法，同样可以定义 pointcut/advice
+- Aspects 不能成为其他 aspect 增强的目标，因为 aspect 已经被 `@Aspect` 注解为一个 Aspect 被自动代理排除在外。
+
+### 1.4.3. Declaring a Pointcut
+
+一个 Pointcut 的定义包括两部分:
+
+1. 由名与任意参数组成的签名（由一个方法定义，此方法签名的返回值必须为 `void`）；
+2. 使用 `@Pointcut` 注解表达的 pointcut 表达式。
+
+#### 1.4.3.1. Supported Pointcut Designators
+
+支持 Pointcut 的标识符
+
+- execution: 匹配 join points，主要的 pointcut 标识符
+- within: 通过特定类型限制匹配 join points
+- this: 目标对象（Spring AOP 代理）为指定类型的实例限定 join points 匹配
+-  
