@@ -113,8 +113,3 @@ Aspect Oriented Programming 基本概念
 - within: 通过特定类型限制匹配 join points
 - this: 目标对象（Spring AOP 代理）为指定类型的实例限定 join points 匹配
   
-----------
-
-- 静态方法要实现范型，要在返回结果前加上范型标识 `<T, R> void generic()`
-- 范型中 `super` 与 `extends` 的区别使用、非常规意义
-- 范型构造器的使用与无参范型构造的实现

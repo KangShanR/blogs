@@ -9,3 +9,7 @@
 ## April 12th 2020
 
 - the like later on 以后再说
+
+## May 9th 2020
+
+- infer 猜想；推断；
