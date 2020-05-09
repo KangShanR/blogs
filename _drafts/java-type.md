@@ -37,10 +37,12 @@ java 范型 [reference](https://blog.csdn.net/weixin_30662109/article/details/98
 
 #### 1.1.1.1. PECS 原则
 
+[reference](https://stackoverflow.com/questions/2723397/what-is-pecs-producer-extends-consumer-super)
+
 在范型中使用通配符时，遵守 PECS 原则：
 
-- 在集合中，如果只读取类型 T 的数据， 不写入，使用 `? extends` 通配：Producer Extends
-- 在集合中，如果只写入类型 T 数据，不用读取，使用 `? super` 通配： Comsumer Super。可以读取，不过读出来的只能识别为 Object。
+- 一个容器如果只读取类型 T 的数据， 不写入，使用 `? extends T` 通配：Producer Extends。_之所以此叫 Producer ，因为此时容器是一个 Producer，提供数据用以消费_
+- 容器如果只写入类型 T 数据，不用读取，使用 `? super T` 通配： Comsumer Super。可以读取，不过读出来的只能识别为 Object。_同理，此时容器是一个消费数据的 consumer_
     - 所以一般方法返回结果（要往内写数据用以返回）使用 super 通配，而方法参数（要读取其中的数据）使用 extends 通配
 - 如果即要读取又要写入，就不使用通配符
 
