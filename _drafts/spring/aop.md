@@ -20,6 +20,7 @@ date: "2018-11-26 10:50"
       - [1.4.3.2. Combining Pointcut Expressions](#1432-combining-pointcut-expressions)
       - [1.4.3.3. Examples](#1433-examples)
       - [1.4.3.4. optimize](#1434-optimize)
+    - [1.4.4. Declaring Advice](#144-declaring-advice)
 
 <!-- /TOC -->
 
@@ -188,3 +189,10 @@ notes:
 1. 一个优质的 pointcut 至少需要包含 kinded 与 scoping 两种类型的 designator;
 2. 仅提供 kinded designator 或 contextual desinator 能够正常工作，但性能不佳，因为需要额外的解析
 3. Scoping designator 可快速匹配，使用此类 PCD 可以快速地忽略不必要的 join points 组。
+
+### 1.4.4. Declaring Advice
+
+Advice 与一个 pointcut expression 相关联，并在此 pointcut 匹配的方法执行 before/after/around 切点执行。这个 pointcut expression 要么是一个被命名的 pointcut 简单引用，要么是一个相应位置的 pointcut expression。
+
+- After Returning Advice :  一个正常执行完成的方法执行增强。使用注解 `@AfterReturning(returning="retVal")` 。可以指定方法执行的返回值为 Advice 方法的参数。指定属性 `returning` 的值与 Advice 定义的参数名要保持一致，同时 `returning` 语句也对 join points 进行约束，其方法执行与此处的类型需要一致。使用此类型的 Advice 返回的引用不可能完全不同。
+- 
