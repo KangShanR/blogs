@@ -13,3 +13,7 @@
 ## May 9th 2020
 
 - infer 猜想；推断；
+
+## May 11th 2020
+
+- besides vs except: **Except** serves the purpose of **exclusion** while **besides** serves that of **inclusion**. The whole class is going, except John. Besides the class, Mary is also going. Sometimes they have the exact same meaning.

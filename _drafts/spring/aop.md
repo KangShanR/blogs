@@ -15,6 +15,11 @@ date: "2018-11-26 10:50"
     - [1.4.2. Declaring an Aspect](#142-declaring-an-aspect)
     - [1.4.3. Declaring a Pointcut](#143-declaring-a-pointcut)
       - [1.4.3.1. Supported Pointcut Designators](#1431-supported-pointcut-designators)
+        - [1.4.3.1.1. Spring AOP 与 AspectJ 不同之处](#14311-spring-aop-%e4%b8%8e-aspectj-%e4%b8%8d%e5%90%8c%e4%b9%8b%e5%a4%84)
+        - [1.4.3.1.2. Notes](#14312-notes)
+      - [1.4.3.2. Combining Pointcut Expressions](#1432-combining-pointcut-expressions)
+      - [1.4.3.3. Examples](#1433-examples)
+      - [1.4.3.4. optimize](#1434-optimize)
 
 <!-- /TOC -->
 
@@ -107,9 +112,79 @@ Aspect Oriented Programming 基本概念
 
 #### 1.4.3.1. Supported Pointcut Designators
 
-支持 Pointcut 的标识符
+支持 Pointcut 的标识符（PCD pointcut designators 用来匹配符合的 join point，限制 Spring AOP 方法执行）
 
 - execution: 匹配 join points，主要的 pointcut 标识符
-- within: 通过特定类型限制匹配 join points
-- this: 目标对象（Spring AOP 代理）为指定类型的实例限定 join points 匹配
-  
+- within: 限制 join points 所在的类需要是特定类型
+- this: bean reference（Spring AOP 代理对象）为指定类型的实例限定 join points 匹配
+- target: 目标对象（被代理的应用对象）是指定 type 的实例
+- args: 限制参数（arguments）为指定类型（type） 的实例
+- @target：限制执行对象需要有指定类型的注解
+- @args: 限制运行时被传递的参数必须有指定类型的注解
+- @within: 限制 join points 所在的类需要有指定的注解
+- @annotation: 限制 join points (AOP 中所执行的方法) 需要有指定的注解。
+
+##### 1.4.3.1.1. Spring AOP 与 AspectJ 不同之处
+
+- 除以上几个标志符外，AspectJ 还有其他的 Designator（如：`call`,`withinCode`,`@withinCode`, etc.），但若在 Spring 中使用这些标志符会抛出 `IllegalArgumentException`。
+- Spring AOP 窄化了 AspectJ 中标志符的定义，join points 只匹配了方法执行。
+- AspectJ 还有基于类型的语义（type-based semantics），且其标志符 `this` `target` 都是指相同的对象：执行方法的对象。而在 Spring AOP 是基于代理的系统，其代理（与 `this` 绑定）与其在代理之后的目标对象（与 `target` 绑定）是不同的。
+- 因为 Spring AOP is proxy-based 框架本质，所以直接调用其目标对象，并不能实现 AOP 拦截。JDK 动态代理只能对 public interface method 进行拦截，而CGLIB 代理 public/protected （如果需要，package-visible  方法也可以）都可被代理。
+- `bean` Spring AOP 有一个原生 AspectJ 所没有的 PCD ： `bean`。通过 bean name 匹配 bean ，也可加上通配符 `*` 匹配 bean 集合。与其他标签符一样， bean 可以使用 `&&` `||` `!` 运算符。  
+    - `bean` 是针对 Spring 扩展的 PCD ，因此在 `@Aspect` 模式中无效。 `bean` PCD 在实例级别上运行不仅仅是在类型级别上，instance-based PCD 是 Spring 基于代理的 AOP 框架的功能，与 Spring bean 工厂紧密整合，因此能自然而直接地通过 name 识别 bean。
+
+##### 1.4.3.1.2. Notes
+
+- 切点定义通常与任何拦截的方法相匹配。如果切入点被严格定义为只公开的，那么即使在 CGLIB 代理场景中，通过代理进行潜在的非公开交互，也需要相应地定义它。
+- 如果拦截需要包含目标对象的方法调用或构造器，需要使用 Spring 驱动的 native AspectJ weaving 而不是 Spring AOP 代理驱动的框架。
+
+#### 1.4.3.2. Combining Pointcut Expressions
+
+[reference](https://docs.spring.io/spring/docs/5.2.5.RELEASE/spring-framework-reference/core.html#aop-pointcuts-designators)
+
+eg:
+
+```java
+@Pointcut("execution(public * *(..))")
+private void anyPublicOperation() {}
+
+@Pointcut("within(com.xyz.someapp.trading..*)")
+private void inTrading() {}
+
+@Pointcut("anyPublicOperation() && inTrading()")
+private void tradingOperation() {}
+```
+
+- 第一个 pointcut 使用 `execution` 匹配访问级别为 public 的方法
+- 第二个 pointcut 使用 `within` 匹配 `trading` 包下的方法
+- 第三个 pointcut 使用 `&&` 运算符将前两个 pointcut 交集
+
+- 使用更小的命名组件组装一个更复杂的 pointcut expression 更为合适，通过 name 引用 pointcut 时，java 的可见性规则（private/default/protected/public）会被引入。但 visibility rules 并不影响 pointcut 匹配。
+
+#### 1.4.3.3. Examples
+
+最常用的 PCD : `execution`，对于此 PCD ，其标准的 pointcut expression 是：`execution(modifiers-pattern? ret-type-pattern declaring-type-pattern?name-pattern(param-pattern) thrown-pattern?)`
+
+- 除 ret-type-pattern (返回类型字段) /name-pattern/param-pattern 外，其他字段都是可选的。
+- returning-type-pattern 指定 join points 匹配的返回类型，`*` 表示任何类型都匹配。全限定名的类型只匹配返回类型为指定类型的方法。
+- name-pattern 匹配方法名，可以使用 `*` 通配所有或部分方法名，如果定义了 declaring-type-pattern（指定定义方法所在类），在其后追加一个 `.` 与 name-pattern 组件连用。
+- param-pattern 相对复杂一些。`()` 表示匹配无参数的方法，`(..)` 表示匹配任意数量参数的方法，`(*)` 表示匹配含一个任何类型的参数，`(*,String)` 表示匹配有两个参数的方法，其中第一个参数为任何类型，第二个参数为 String 。[reference](https://www.eclipse.org/aspectj/doc/released/progguide/semantics-pointcuts.html)
+- `execution(param)` 模式下的匹配与 `args()` 模式匹配的不同：execution 模式下表示一个方法在签名处定义的参数为指定类型，而 args() 模式表示在方法在运行时被传递的参数为指定类型。
+
+#### 1.4.3.4. optimize
+
+优化 PCD
+
+为了优化性能，AspectJ 在编译期处理 pointcut。检查代码并决定 join points 是否匹配(静态或动态)一个指定的 pointcut 是耗能不低的。（动态匹配指通过静态分析并不能完全决定是否匹配，需要添加一个 test 在代码处在运行时决定实际是否匹配）。当首次解析一个 pointcut 时，AspectJ 会为匹配流程将 pointcut 重写成一个最优形式。一般来说，pointcuts 会被重写成 DNF(Disjunctive Normal Form)，且 pointcut 组件会按越易计算越先检查的顺序重排序。这就意味着不需要考虑不同的 PCD 性能开销与 pointcuts 定义的顺序。
+
+已知的 PCD 自然地分为三组：
+
+1. kinded designator 选择一个类型的 join point : `excution` `get` `set` `handler`
+2. scoping designator 选择 join point 范围 : `within` `withincode`
+3. contextual designators 根据上下文匹配 join points : `this` `target` `@annotation`
+
+notes:
+
+1. 一个优质的 pointcut 至少需要包含 kinded 与 scoping 两种类型的 designator;
+2. 仅提供 kinded designator 或 contextual desinator 能够正常工作，但性能不佳，因为需要额外的解析
+3. Scoping designator 可快速匹配，使用此类 PCD 可以快速地忽略不必要的 join points 组。
