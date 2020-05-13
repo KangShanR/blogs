@@ -222,4 +222,4 @@ mysql 的事务
     - REPEATABLE READ:允许幻想读，不允许不可重复读与脏读
     - SERIALIAZABLE，串行事务，性能最低三者都不允许
 - Oracle 不支持脏读，默认使用 READ COMMITED，支持 READ COMMITED/SERIALIZABLE
-- MySQL 标准定义的默认事务隔离级别是 SERIALIZABLE
+- MySQL 标准定义的默认事务隔离级别是 REPEATABLE READ

@@ -195,4 +195,4 @@ notes:
 Advice 与一个 pointcut expression 相关联，并在此 pointcut 匹配的方法执行 before/after/around 切点执行。这个 pointcut expression 要么是一个被命名的 pointcut 简单引用，要么是一个相应位置的 pointcut expression。
 
 - After Returning Advice :  一个正常执行完成的方法执行增强。使用注解 `@AfterReturning(returning="retVal")` 。可以指定方法执行的返回值为 Advice 方法的参数。指定属性 `returning` 的值与 Advice 定义的参数名要保持一致，同时 `returning` 语句也对 join points 进行约束，其方法执行与此处的类型需要一致。使用此类型的 Advice 返回的引用不可能完全不同。
-- 
+- After Throwing Advice : 抛出异常的方法执行的增强。可以使用 `throwing=` 与其异常参数类型配合限制异常的匹配。
