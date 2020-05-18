@@ -22,7 +22,9 @@ categories: programming
 	- [1.3. configuration based on java codes](#13-configuration-based-on-java-codes)
 		- [1.3.1. ant style](#131-ant-style)
 		- [1.3.2. RequestMapping](#132-requestmapping)
-			- [1.3.2.1. 自定义注解](#1321-%e8%87%aa%e5%ae%9a%e4%b9%89%e6%b3%a8%e8%a7%a3)
+			- [1.3.2.1. URI Pattern](#1321-uri-pattern)
+			- [1.3.2.2. 自定义注解](#1322-%e8%87%aa%e5%ae%9a%e4%b9%89%e6%b3%a8%e8%a7%a3)
+			- [1.3.2.3. Explicit Registrations](#1323-explicit-registrations)
 	- [1.4. Functional Endpoints](#14-functional-endpoints)
 	- [1.5. Annotated Controllers](#15-annotated-controllers)
 		- [1.5.1. DataBidder](#151-databidder)
@@ -284,9 +286,40 @@ springmvc 中可以直接使用 Hibernate 的一个校验框架：hibernate-vali
 
 - HTTP HEAD,OPTIONS 请求，自动转换请求到 GET 上，也可配置多个请求方式在同一个 URL 上
 
-#### 1.3.2.1. 自定义注解
+#### 1.3.2.1. URI Pattern
+
+URI 路径样式与通配符
+
+- `?` 一个字符
+- `*` 匹配任意个字符在同一个 uri 片段中： `/resources/*/versions` 不匹配 `/resources/a/b/versions`
+- `**` 匹配任意个 uri 片段，但只能出现在 末尾： `/resource/**/version` 是非法的
+- `{name}` 匹配一个路径片段 （path segment）并将其捕获为名为 `name` 的变量
+- `{name:[a-z]+}` 匹配一个符合正则表达式 `[a-z]+` 的路径片段，并将其捕获为 `name` 变量
+- `{*path}` 匹配任意个路径片段并捕获其为 `path` 变量
+    - 使用捕获的变量使用 `@PathVariable` 注解在 handler 参数中即可。
+
+#### 1.3.2.2. 自定义注解
 
 _Spring MVC also supports custom request-mapping attributes with custom request-matching logic. This is a more advanced option that requires subclassing RequestMappingHandlerMapping and overriding the getCustomMethodCondition method, where you can check the custom attribute and return your own RequestCondition._
+
+#### 1.3.2.3. Explicit Registrations
+
+显式注册 RequestMapping
+
+除使用注解进行注册外，可以直接使用代码实现更灵活的 RequestMapping 注册。
+
+```java
+@Autowired
+public void setHandlerMapping(RequestMappingHandlerMapping mapping, UserHandler handler)
+		throws NoSuchMethodException {
+	RequestMappingInfo info = RequestMappingInfo
+			.paths("/user/{id}").methods(RequestMethod.GET).build();
+	Method method = UserHandler.class.getMethod("getUser", Long.class);
+	mapping.registerMapping(info, handler, method);
+}
+```
+
+将 handler 中的方法与 `/user/{id}` 映射关联上。
 
 ## 1.4. Functional Endpoints
 
