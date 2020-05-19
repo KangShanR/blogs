@@ -23,7 +23,7 @@ java 中关键字 volatile 的使用 [reference](https://mp.weixin.qq.com/s/AE0o
     - 不保证原子性，
         - 保证原子性：使用 `synchronize`
         - 使用 `lock`
-        - 前两种太重，可使用 Atomic 包，其使用 CAS 循环实现原子操作。a
+        - 前两种太重，可使用 Atomic 包，其使用 CAS 循环实现原子操作。
 
 ## 1.1. Volatile in Double Check Singleton
 
