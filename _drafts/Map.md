@@ -14,17 +14,18 @@ description: java 集合框架中的 Map
 - Map接口下有的实现集合类有：
     - HashMap，用到了哈希码的算法，以便快速查找一个键；
     - TreeMap，其键按序存放
-    - HashTable，是Dictionary的子类，与HashMap类似；
+    - HashTable，是 Dictionary 的子类，与 HashMap 类似；
 
 ## HashMap
 
-- HashMap 中，其 hash 算法是在引用 Object 的 hash 方法后再对进行了额外的位运算： 
+- HashMap 中，其 hash 算法是在引用 Object 的 hash 方法后再对进行了额外的位运算：
 
 ```java
+
 static final int hash(Object key) {
     int h;
     return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
 }
 ```
 
-- 如此做法，
+- 如此做法：将高 16 位的 hashCode 与 hashCode 低 16 位进行 XOR (异或) 位运算。这样能保证结果高 16 位为 0 ，而低 16 位还不明白是如何保证 hashCode 不会冲突的。

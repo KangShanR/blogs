@@ -14,5 +14,6 @@
         "MD003": { "style": "atx" },
         "MD007": { "indent": 4 },
         "no-hard-tabs": false
-    }
+    },
+    "maven.view": "flat"
 }
