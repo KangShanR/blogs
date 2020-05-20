@@ -1,9 +1,9 @@
 ---
-title: java集合框架之HashMap
+title: java 集合框架之 Map
 date: 2017-04-13 15:02:43
 categories: programming
-tags: [programming,java]
-description: java集合框架中的HashMap
+tags: [programming,java, HashMap]
+description: java 集合框架中的 Map
 ---
 
 # Map
@@ -15,4 +15,16 @@ description: java集合框架中的HashMap
     - HashMap，用到了哈希码的算法，以便快速查找一个键；
     - TreeMap，其键按序存放
     - HashTable，是Dictionary的子类，与HashMap类似；
-  
+
+## HashMap
+
+- HashMap 中，其 hash 算法是在引用 Object 的 hash 方法后再对进行了额外的位运算： 
+
+```java
+static final int hash(Object key) {
+    int h;
+    return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+}
+```
+
+- 如此做法，
