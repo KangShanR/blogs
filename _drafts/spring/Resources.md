@@ -9,12 +9,12 @@ tags: [Resource]
 <!-- TOC -->
 
 - [1. Resources in Spring](#1-resources-in-spring)
-  - [1.1. 资源分类（内置的 Resource 接口实现）](#11-%e8%b5%84%e6%ba%90%e5%88%86%e7%b1%bb%e5%86%85%e7%bd%ae%e7%9a%84-resource-%e6%8e%a5%e5%8f%a3%e5%ae%9e%e7%8e%b0)
+  - [1.1. 资源分类（内置的 Resource 接口实现）](#11-资源分类内置的-resource-接口实现)
   - [1.2. ResourceLoader](#12-resourceloader)
   - [1.3. Application Contexts and Resource Paths](#13-application-contexts-and-resource-paths)
     - [1.3.1. Constructing a Application Contexts](#131-constructing-a-application-contexts)
-      - [1.3.1.1. 创建 ClassPathXmlApplicationContext 实例快捷方式](#1311-%e5%88%9b%e5%bb%ba-classpathxmlapplicationcontext-%e5%ae%9e%e4%be%8b%e5%bf%ab%e6%8d%b7%e6%96%b9%e5%bc%8f)
-  - [1.4. 占位符](#14-%e5%8d%a0%e4%bd%8d%e7%ac%a6)
+      - [1.3.1.1. 创建 ClassPathXmlApplicationContext 实例快捷方式](#1311-创建-classpathxmlapplicationcontext-实例快捷方式)
+  - [1.4. 占位符](#14-占位符)
 
 <!-- /TOC -->
 

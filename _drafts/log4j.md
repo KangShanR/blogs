@@ -10,12 +10,13 @@ keywords: log4j
 <!-- TOC -->
 
 - [1. log4j](#1-log4j)
-  - [1.1. 单独地给某类记录日志](#11-%e5%8d%95%e7%8b%ac%e5%9c%b0%e7%bb%99%e6%9f%90%e7%b1%bb%e8%ae%b0%e5%bd%95%e6%97%a5%e5%bf%97)
-  - [1.2. 日志输出格式](#12-%e6%97%a5%e5%bf%97%e8%be%93%e5%87%ba%e6%a0%bc%e5%bc%8f)
+  - [1.1. 单独地给某类记录日志](#11-单独地给某类记录日志)
+  - [1.2. 日志输出格式](#12-日志输出格式)
     - [1.2.1. conversion character](#121-conversion-character)
 
 <!-- /TOC -->
 [reference](http://logging.apache.org/log4j/1.2/manual.html)
+[reference](https://mp.weixin.qq.com/s/vrzUHShgekkvZi1yrmbbxg)
 
 ## 1.1. 单独地给某类记录日志
 
