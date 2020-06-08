@@ -4,6 +4,13 @@
             "type": "java",
             "name": "CodeLens (Launch) - Test",
             "request": "launch",
+            "mainClass": "_drafts.invokedynamic.Test",
+            "projectName": "blogs_24f26544"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Test",
+            "request": "launch",
             "mainClass": "invokedynamic.Test",
             "projectName": "blogs_bd9076c8"
         },
