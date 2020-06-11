@@ -7,7 +7,7 @@ date: "2019-06-11 11:25"
 
 ## 电枪状态
 
-```
+```java
     public static final int                         IDLE                                =1;                     //空闲
     public static final int                         LINKED                              =2;                     //已连接
     public static final int                         CHARGING                            =3;                     //充电中
@@ -22,10 +22,7 @@ FAT = 测试人员用的测试环境 Feature acceptance testing
 UAT = 预发环境 user acceptance testing
 PRO = 线上环境 product
 
-
-
 "{"evcsId":"1234740","chargHeaderId":"123474001","orderId":"1906146716009500","needCurrenct":-359.1,"needVoltage":0.8,"batteryType":1,"batteryGroupVoltage":2200.0,"batteryGroupChargeVoltage":18.0,"batteryGroupChargeCurrent":20.0,"batteryGroupChargePower":342.0,"batteryMaxTemperature":-25,"batterySerialId":0,"batteryChargeVoltage":10.2,"batteryChargeCurrent":10.2,"realBatteryMaxTemperature":69,"realBatteryMinTemperature":68,"singleMaxVoltage":0.0,"singleMaxVoltageSerialId":0,"outputVoltage":10.2,"outputCurrent":10.2,"soc":19.0,"initialSoc":17.0,"extension":{}}"
-
 
   "evcsId": "1235048",
   "chargHeaderId": "123504802",
@@ -55,31 +52,9 @@ PRO = 线上环境 product
   }
 }
 
-## commond
+## redis 查询命令
 
-D:\projects\evcs\压测\
-java -Devcs.sim.rpc.server.host=10.28.16.68 -Devcs.sim.client.mac=D89C673E7D41 -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
-java -Devcs.sim.rpc.server.host=10.28.16.68 -Devcs.sim.client.mac=D89C673E7D42 -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
-java -Devcs.sim.rpc.server.host=10.28.16.68 -Devcs.sim.client.mac=D89C673E7D43 -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
-java -Devcs.sim.rpc.server.host=10.28.16.68 -Devcs.sim.client.mac=D89C673E7D44 -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
-java -Devcs.sim.rpc.server.host=10.28.16.68 -Devcs.sim.client.mac=D89C673E7D45 -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
-
-- 模拟器启动命令：siteId: 1 siteName:蚂蚁园区充电站 309 （开发环境）
-java -Devcs.sim.rpc.server.host=10.28.32.205 -Devcs.sim.client.mac=075BCD15FFFF -jar evcs-sim-standard-gui-1.4.9-SNAPSHOT.jar
-java -Devcs.sim.rpc.server.host=10.28.18.85 -Devcs.sim.client.mac=075BCD15FFFF -jar D:/projects/evcsevcs-sim-standard-gui-1.4.5-SNAPSHOT.jar
-
-- siteId: 1 siteName:蚂蚁园区充电站 309 （test 环境）
-java -Devcs.sim.rpc.server.host=10.28.6.50 -Devcs.sim.client.mac=075BCD15FFFF -jar evcs-sim-jiedian-gui-1.7.2-SNAPSHOT.jar
-- 连接测试环境日志信息机器 查看日志
-  - path       /home/admin/logs/java/snxia/snxia-api/2019-03-12
-  - host 10.28.6.50  port 22  loginname loguser   password log123
-  - commond ```tailf [error-log.log]```
-  - cd commod ```cd admin/logs/java/snxia/snxia-api/```
-
-
-## redis 查询命令：
-
--  查询电枪
+- 查询电枪
 HEXISTS EVCS:EP:HEAD_STATIONS headHardwareCode
 HGET EVCS:EP:HEAD_STATIONS 201
 - 查询电桩登录信息
@@ -88,12 +63,3 @@ hget EVCS:EP:AUTH stationId
 hget EVCS:EP:ACCOUNTING id
 - 查询 BMS 数据
 hget EVCS:EP:BMS billingId
-
-
-
-1907295063729801
-1907295280129801
-
-
-1907295540529801
-1907295540529801
