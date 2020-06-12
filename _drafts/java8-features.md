@@ -1,7 +1,6 @@
 ---
 layout: "post"
-title: "java8"
-tag: ["java8"]
+tag: [java8]
 date: "2018-09-26 18:50"
 ---
 
@@ -10,11 +9,11 @@ date: "2018-09-26 18:50"
 
 - [1. java8 new features](#1-java8-new-features)
   - [1.1. stream](#11-stream)
-  - [1.2. 对 stream 进行以下操作会将流关闭而不能再进行利用](#12-%e5%af%b9-stream-%e8%bf%9b%e8%a1%8c%e4%bb%a5%e4%b8%8b%e6%93%8d%e4%bd%9c%e4%bc%9a%e5%b0%86%e6%b5%81%e5%85%b3%e9%97%ad%e8%80%8c%e4%b8%8d%e8%83%bd%e5%86%8d%e8%bf%9b%e8%a1%8c%e5%88%a9%e7%94%a8)
+  - [1.2. 对 stream 进行以下操作会将流关闭而不能再进行利用](#12-对-stream-进行以下操作会将流关闭而不能再进行利用)
   - [1.3. method](#13-method)
     - [1.3.1. peek(Consumer())](#131-peekconsumer)
   - [1.4. java8 time](#14-java8-time)
-    - [1.4.1. java8 中的各个新增的类](#141-java8-%e4%b8%ad%e7%9a%84%e5%90%84%e4%b8%aa%e6%96%b0%e5%a2%9e%e7%9a%84%e7%b1%bb)
+    - [1.4.1. java8 中的各个新增的类](#141-java8-中的各个新增的类)
 
 <!-- /TOC -->
 
