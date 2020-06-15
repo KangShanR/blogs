@@ -10,9 +10,9 @@ keywords: log4j
 <!-- TOC -->
 
 - [1. log4j](#1-log4j)
-  - [1.1. 单独地给某类记录日志](#11-单独地给某类记录日志)
-  - [1.2. 日志输出格式](#12-日志输出格式)
-    - [1.2.1. conversion character](#121-conversion-character)
+    - [1.1. 单独地给某类记录日志](#11-单独地给某类记录日志)
+    - [1.2. 日志输出格式](#12-日志输出格式)
+        - [1.2.1. conversion character](#121-conversion-character)
 
 <!-- /TOC -->
 [reference](http://logging.apache.org/log4j/1.2/manual.html)
