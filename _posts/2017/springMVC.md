@@ -10,26 +10,21 @@ categories: programming
 <!-- TOC -->
 
 - [1. SpringMVC](#1-springmvc)
-	- [1.1. 核心对象](#11-%e6%a0%b8%e5%bf%83%e5%af%b9%e8%b1%a1)
-		- [1.1.1. springMVC 中的处理器](#111-springmvc-%e4%b8%ad%e7%9a%84%e5%a4%84%e7%90%86%e5%99%a8)
-	- [1.2. 使用代码代替 xml 配置文件](#12-%e4%bd%bf%e7%94%a8%e4%bb%a3%e7%a0%81%e4%bb%a3%e6%9b%bf-xml-%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6)
-		- [1.2.1. LocalResolver 区域解析器](#121-localresolver-%e5%8c%ba%e5%9f%9f%e8%a7%a3%e6%9e%90%e5%99%a8)
-		- [1.2.2. 多部件解析器 MultipartResolver](#122-%e5%a4%9a%e9%83%a8%e4%bb%b6%e8%a7%a3%e6%9e%90%e5%99%a8-multipartresolver)
-		- [1.2.3. json 数据交互](#123-json-%e6%95%b0%e6%8d%ae%e4%ba%a4%e4%ba%92)
-		- [1.2.4. xml 数据交互](#124-xml-%e6%95%b0%e6%8d%ae%e4%ba%a4%e4%ba%92)
-		- [1.2.5. 数据校验](#125-%e6%95%b0%e6%8d%ae%e6%a0%a1%e9%aa%8c)
-		- [1.2.6. Restful 架构](#126-restful-%e6%9e%b6%e6%9e%84)
+	- [1.1. 核心对象](#11-核心对象)
+		- [1.2.4. xml 数据交互](#124-xml-数据交互)
+		- [1.2.5. 数据校验](#125-数据校验)
+		- [1.2.6. Restful 架构](#126-restful-架构)
 	- [1.3. configuration based on java codes](#13-configuration-based-on-java-codes)
 		- [1.3.1. ant style](#131-ant-style)
 		- [1.3.2. RequestMapping](#132-requestmapping)
 			- [1.3.2.1. URI Pattern](#1321-uri-pattern)
-			- [1.3.2.2. 自定义注解](#1322-%e8%87%aa%e5%ae%9a%e4%b9%89%e6%b3%a8%e8%a7%a3)
+			- [1.3.2.2. 自定义注解](#1322-自定义注解)
 			- [1.3.2.3. Explicit Registrations](#1323-explicit-registrations)
 	- [1.4. Functional Endpoints](#14-functional-endpoints)
 	- [1.5. Annotated Controllers](#15-annotated-controllers)
 		- [1.5.1. DataBidder](#151-databidder)
 		- [1.5.2. Exceptions](#152-exceptions)
-			- [1.5.2.1. 异常处理器链 Chain of Exceptions](#1521-%e5%bc%82%e5%b8%b8%e5%a4%84%e7%90%86%e5%99%a8%e9%93%be-chain-of-exceptions)
+			- [1.5.2.1. 异常处理器链 Chain of Exceptions](#1521-异常处理器链-chain-of-exceptions)
 	- [1.6.](#16)
 
 <!-- /TOC -->
@@ -343,12 +338,12 @@ Spring MVC中的异常处理器 HandlerExceptionResolver 的实现：
 
 1. SimpleMappingExceptionResolver 可指定异常类名与错误页面的映射，用于浏览器应用
 2. DefaultHandlerExceptionResolver 通过 Spring MVC 处理异常，并将异常与状态码映射。`ResponseEntityExceptionHandler` and REST API exceptions
-3. ResponseStatusExceptionResolver 通过注解 `@ResponseStatus` 处理异常。根据注解值映射其到生意人 HTTP 状态码
+3. ResponseStatusExceptionResolver 通过注解 `@ResponseStatus` 处理异常。根据注解值映射其到相应 HTTP 状态码
 4. ExceptionHandlerExceptionResolver 通过调用 Controller 或 ControllerAdvice 中的 `@ExceptionHandler` 方法处理异常。
 
 #### 1.5.2.1. 异常处理器链 Chain of Exceptions
 
-1. 形成异常处理器链直接 delare 多个异常处理器 bean 即可，指定其 `order` 值，越高的 order 值，执行处理得越晚。
+1. 形成异常处理器链直接 declare 多个异常处理器 bean 即可，指定其 `order` 值，越高的 order 值，执行处理得越晚。
 2. 异常处理器返回数据规约：
     1. 使用 ModelAndView 指定错误页面
     2. 如果处理器已经将异常处理，返回一个空的 ModelAndView
