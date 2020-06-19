@@ -11,6 +11,7 @@ categories: programming
 
 - [1. SpringMVC](#1-springmvc)
 	- [1.1. 核心对象](#11-核心对象)
+		- [JsonConvert2HttpMessage](#jsonconvert2httpmessage)
 		- [1.2.4. xml 数据交互](#124-xml-数据交互)
 		- [1.2.5. 数据校验](#125-数据校验)
 		- [1.2.6. Restful 架构](#126-restful-架构)
@@ -223,6 +224,12 @@ categories: programming
     - 用于将请求的字符串使用 converter 转换成 json/xml 等格式并绑定到 controller 参数上去
 - @ResponseBody
     - 用于将 controller 返回的结果 使用 converter 转换成 json/xml 格式直接 response 给浏览器
+
+### JsonConvert2HttpMessage
+
+在 spring mvc 中将请求与响应数据转换成 Http 所需要的对象需要使用到序列化与反序列化。其中使用时 mvc 中的配置 configureMessageConverters 方法。在使用时有一个问题，当使用 Jackson2ObjectMapperBuilder 来build 一个 JsonMapper 时，其本身会在 class path 中去寻找所需要的 Module ，并将项目中存在的  module 注册到 builder 中默认的 objectMapper 中。如果此时再手动在 builder 上注册  module 会出现重复的 module 如 JavaTimeModule objectMapper 默认 feature (MapperFeature.IGNORE_DUPLICATE_MODULE_REGISTRATIONS) 会忽略掉重复的 module 注册，因此手动在 builder 注册的重复 module 会失效，包括手动添加的 module 的各种属性。比如，指定 java8.javaTimeModule 中的 LocalDateTime 反序列化/序列化格式为 "YYYY-MM-dd HH:mm:ss"(其默认为 "YYYY-MM-ddTHH:mm:ss")，将会无效。
+
+- 解决办法：直接在 builder 中手动注册 LocalDateTime 序列化与反序列化器格式，而不在 builder 中注册相应的 module。这样处理的结果是，builder 默认会注册 JavaTimeModule 到其 ObjectMapper ，但也会注册一个 SimpleModule 到 ObjectMapper ，同时 simple 的权限更高，在序列化时会优先使用 simpleModule。
 
 ### 1.2.4. xml 数据交互
 
