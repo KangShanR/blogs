@@ -39,3 +39,12 @@ date: "2018-12-04 10:24"
 - 映射器的配置是配置 sql 语句 xml 文件，使用 `<mapper resource="mappings/user.xml">` 将其配置 mybatis 资源中去，自动将 此 xml 的命名空间的 interface 映射到 mybatis 中去。
 - 如果出现有的只用注解在 interface 上将 sql 语句写出来，这种使用 `<mapper class="classpath"` 将其注册到 mybatis 中去。
 - 批量的这种可以使用 `<mapper package="packagepath"` 这样就容易造成 interface 与第一种注册方法相重复注册的情况。所以如果想使用包名批量注册要注意是否会引起重复将 interface 注册。
+- 可以为任意 java 模型设置别名，而在使用时就可以直接使用别名而不用写见冗长全限定名了。`alias`
+- 定义 sql 代码片段时，可以使用 `${alia1}.id,${alia2}.name` 占位符，在 `<include>` 引用时确定点位符值：`<include refid=''><property name=alia1 value = user/></include>`
+
+#### resultMap
+
+在使用查询语句中，id 元素在嵌套结果映射中扮演着非常重要的角色。你应该总是指定一个或多个可以唯一标识结果的属性。 虽然，即使不指定这个属性，MyBatis 仍然可以工作，但是会产生严重的性能问题。
+
+- resultMap 可以作为其他 resultMap 中的子元素 `<association>` 的子属性，而实现在多处重用 resultMap 作为子元素。
+- `columnPrefix` 列名前缀，可以实现在一个 resultMap 中重用另一个 resultMap 作为两个不同的 association 。比如，一个领域模型中，博客拥有一个原作者，一个协同作者。此时同一个作者的字段完全一致，但在一个博客查询中有两个不同的字段来标识。此查询中将两个不同的作者的 column 查询出来并命名不同的前缀，如：`a.author_name as author_name,c.author_name as co_author_name` ，这时在 resultMap 中映射为：`<association property="author" resultMap="authorResult" /> <association property="coAuthor" resultMap="authorResult" columnPrefix="co_"`
