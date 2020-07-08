@@ -1,5 +1,4 @@
 ---
-title: Hash
 date: 2017-04-13 15:02:43
 categories: programming
 tags: [programming,java, HashMap]
@@ -20,7 +19,7 @@ Hash 算法应用在 Java 集合框架。其中 HashTable 基本实现数据结�
     - TreeMap，其键按序存放
     - HashTable，是 Dictionary 的子类，与 HashMap 类似；
 
-### HashMap
+## HashMap
 
 [reference](https://www.jianshu.com/p/c658df4f4c77)
 

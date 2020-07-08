@@ -1,7 +1,7 @@
 ---
 layout: "post"
-title: "Apollo-configuration-center"
 date: "2018-10-31 17:15"
+tag: "Apollo"
 ---
 
 # Apollo configuration center
@@ -30,3 +30,15 @@ date: "2018-10-31 17:15"
 `./build.sh` 脚本会将会依次打包 apollo-configservice, apollo-adminservice, apollo-portal
 
 注：由于ApolloConfigDB在每个环境都有部署，所以对不同环境的 config-service 和 admin-service 需要使用不同的数据库连接信息打不同的包， **portal只需要打一次包即可**
+
+## Apollo 配置中心设计
+
+[reference](https://github.com/ctripcorp/apollo/wiki/Apollo%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E8%AE%BE%E8%AE%A1)
+
+### 与spring 集成
+
+spring 中若其配置文件 application.properties 对同一个key 有多个 value 的配置，将会取用第一个生效，所以在集成 apollo 时，其实现是在 spring 启动时只需要将其 application.properties 文件前面追加各个拉取的配置信息，从而达到覆盖原有的配置文件。
+
+### 灰度发布
+
+> 可以实现将部分配置发布于部分 ip ，观察确认程序正常运行后再切换到全量发布于所有服务机器。
