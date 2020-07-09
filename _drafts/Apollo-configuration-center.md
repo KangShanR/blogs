@@ -42,3 +42,11 @@ spring 中若其配置文件 application.properties 对同一个key 有多个 va
 ### 灰度发布
 
 > 可以实现将部分配置发布于部分 ip ，观察确认程序正常运行后再切换到全量发布于所有服务机器。
+
+## namespace
+
+> 在 apollo 中使用 namespace 实现共用配置
+
+namespace 有三种类型：public private inheritance。顾名思义，public 可以为外部应用所用，而 private 只能为自己应用所用，而 inheritance 可以实现继承其他 public namespace 中配置并覆盖其中不同的配置。
+
+所以可以利用 inheritance 特性实现设置公有 namespace 再配以不同的继承 namespace 差异化定制配置。
