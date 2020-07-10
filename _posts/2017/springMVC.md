@@ -1,5 +1,4 @@
 ---
-title: springMVC的理解与认识
 date: 2016-08-20 13:29:17
 tags: [java,framework]
 categories: programming
@@ -10,23 +9,34 @@ categories: programming
 <!-- TOC -->
 
 - [1. SpringMVC](#1-springmvc)
-	- [1.1. 核心对象](#11-核心对象)
-		- [JsonConvert2HttpMessage](#jsonconvert2httpmessage)
-		- [1.2.4. xml 数据交互](#124-xml-数据交互)
-		- [1.2.5. 数据校验](#125-数据校验)
-		- [1.2.6. Restful 架构](#126-restful-架构)
-	- [1.3. configuration based on java codes](#13-configuration-based-on-java-codes)
-		- [1.3.1. ant style](#131-ant-style)
-		- [1.3.2. RequestMapping](#132-requestmapping)
-			- [1.3.2.1. URI Pattern](#1321-uri-pattern)
-			- [1.3.2.2. 自定义注解](#1322-自定义注解)
-			- [1.3.2.3. Explicit Registrations](#1323-explicit-registrations)
-	- [1.4. Functional Endpoints](#14-functional-endpoints)
-	- [1.5. Annotated Controllers](#15-annotated-controllers)
-		- [1.5.1. DataBidder](#151-databidder)
-		- [1.5.2. Exceptions](#152-exceptions)
-			- [1.5.2.1. 异常处理器链 Chain of Exceptions](#1521-异常处理器链-chain-of-exceptions)
-	- [1.6.](#16)
+    - [1.1. 核心对象](#11-%E6%A0%B8%E5%BF%83%E5%AF%B9%E8%B1%A1)
+        - [1.1.1. springMVC 中的处理器](#111-springmvc-%E4%B8%AD%E7%9A%84%E5%A4%84%E7%90%86%E5%99%A8)
+    - [1.2. 使用代码代替 xml 配置文件](#12-%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%A0%81%E4%BB%A3%E6%9B%BF-xml-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)
+        - [1.2.1. LocalResolver 区域解析器](#121-localresolver-%E5%8C%BA%E5%9F%9F%E8%A7%A3%E6%9E%90%E5%99%A8)
+        - [1.2.2. 多部件解析器 MultipartResolver](#122-%E5%A4%9A%E9%83%A8%E4%BB%B6%E8%A7%A3%E6%9E%90%E5%99%A8-multipartresolver)
+        - [1.2.3. json 数据交互](#123-json-%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92)
+        - [1.2.4. JsonConvert2HttpMessage](#124-jsonconvert2httpmessage)
+        - [1.2.5. xml 数据交互](#125-xml-%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92)
+        - [1.2.6. 数据校验](#126-%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C)
+        - [1.2.7. Restful 架构](#127-restful-%E6%9E%B6%E6%9E%84)
+    - [1.3. configuration based on java codes](#13-configuration-based-on-java-codes)
+        - [1.3.1. ant style](#131-ant-style)
+        - [1.3.2. RequestMapping](#132-requestmapping)
+            - [1.3.2.1. URI Pattern](#1321-uri-pattern)
+            - [1.3.2.2. 自定义注解](#1322-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3)
+            - [1.3.2.3. Explicit Registrations](#1323-explicit-registrations)
+    - [1.4. Functional Endpoints](#14-functional-endpoints)
+    - [1.5. Annotated Controllers](#15-annotated-controllers)
+        - [1.5.1. DataBidder](#151-databidder)
+        - [1.5.2. Exceptions](#152-exceptions)
+            - [1.5.2.1. 异常处理器链 Chain of Exceptions](#1521-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8%E9%93%BE-chain-of-exceptions)
+    - [1.6. Asynchronous Requests](#16-asynchronous-requests)
+        - [1.6.1. Processing](#161-processing)
+            - [1.6.1.1. Compared to WebFlux](#1611-compared-to-webflux)
+        - [1.6.2. Http Streaming](#162-http-streaming)
+            - [1.6.2.1. Objects](#1621-objects)
+            - [1.6.2.2. Raw Data](#1622-raw-data)
+        - [1.6.3. Configuration](#163-configuration)
 
 <!-- /TOC -->
 
@@ -368,4 +378,50 @@ Spring MVC中的异常处理器 HandlerExceptionResolver 的实现：
 
 3. Spring MVC 自动注册内置的异常处理器处理的异常包括：Spring MVC 异常、`@ResponseStatus` 注解的异常、`@ExceptionHandler` 注解的方法处理。可自定义异常处理器列表替换内置的处理器。
 
-## 1.6.  
+## 1.6.  Asynchronous Requests
+
+> 异步请求
+
+### Processing
+
+> 异步请求的处理
+
+1. ServletRequest 可以通过 `request.startAsync()` 切换入异步模式。异步模式开启，主要的效果是 Servlet 与 Filter 可退出，同时 response 保持打开至处理完成。
+2. `request.startAsync()` 方法返回 AsyncContext，可以使用此对象进行更细致地控制异步处理。
+3. 异步处理完成后，DispatcherServlet 将接收处理结果继续处理 response 。
+
+#### Compared to WebFlux
+
+1. Spring WebFlux 不仅不需要构建在 Servlet API 之上，而且不需要异步 request ，因为其就是为异步请求而生。异步处理已设计在其框架之中，天生支持所有阶段的请求处理。
+
+### Http Streaming
+
+> [流式响应 Http 请求](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-ann-async-http-streaming)
+
+#### Objects
+
+1. 使用 ResponseBodyEmitter 让返回一个 value 可以生产对象流，每个对象都将被 HttpMessageConverter 序列化被写进 response 对象。
+2. 也可以将 ResponseBodyEmitter 写入一个 ResponseBody 中，实现自定义 header 与 status 。
+3. 当 Emitter 出现 I/O 异常，如：Client 离开。应用不需要清理连接，不需要调用 emitter.complete() / emitter.completeWithError()。Servlet Container 会自动初始化一个 AsyncListener 错误通知，Spring MVC 来完成 completeWithError 的调用。整个请求将执行一个最终的 Async 分发到应用，期间 Spring MVC 将使用配置异常处理器完成此次请求。
+
+#### Raw Data
+
+> 有时需要直接返回不经过 message conversion 的生肉数据到响应输出流，比如：文件下载，这时可以使用 `StreamingResponseBody` 作为返回数据类型。
+
+### Configuration
+
+> 异步请求的配置 [referece](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-ann-async-configuration)
+
+异步请求属性必须在 servlet container 级别配置。
+
+1. 在servlet container 配置：1. Filter 和 Servlet 定义处需要将标识 asyncSupport 设置为 true。此外 Filter Mapping 需要定义为处理 DispatchType 为 `ASYNC`。
+   1. java 配置中，如果使用的是 `AbstractAnnotationConfigDispatcherServletInitializer` 初始化 Servlet Container ，以上配置是自动完成的。
+   2. web.xml 配置，you can add `<async-supported>true</async-supported>` to the DispatcherServlet and to Filter declarations and add `<dispatcher>ASYNC</dispatcher>` to filter mappings.
+2. Spring MVC 配置
+   1. Java 配置，在 WebMvcConfigurer 中使用 configureAsyncSupport 回调
+   2. XML namespace: Use the `<async-support>` element under `<mvc:annotation-driven>`
+   3. 此外还可以配置：
+      1. 异步请求的默认超时值，如果不配置将取决于 Servlet Container
+      2. AsyncTaskExecutor ，用以执行异步请求，响应类型 REACTIVE TYPE  streaming 流执行从 controller 方法返回的 callable 实例。默认此配置是 `SimpleAsyncTaskExecutor`。
+      3. `DeferredResultProcessingInterceptor` 实现与 `CallableProcessingInterceptor` 实现。
+      4. DeferredResult 与 ResponseBodyEmitter 可以单独设置其超时值，Callable 可以通过 `WebAsyncTask` 设置。

@@ -1,5 +1,4 @@
 ---
-title: Spring Test
 date: 2020-04-21 12:08:38
 tags: [java,spring,test]
 categories: programming

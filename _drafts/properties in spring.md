@@ -1,6 +1,5 @@
 ---
 layout: "post"
-title: "properties in spring"
 date: "2018-12-03 15:05"
 ---
 
@@ -11,19 +10,20 @@ date: "2018-12-03 15:05"
 - 在 xml 文件中引入 properties ： `<context:property-placeholder location="classpath:foo.properties" />`
 - 在配置 bean java 文件中可以使用注解将其配置：
 
-  ```
-  @Configuation
+```java
+  @Configuration
   @PropertySource("classpath:foo.properties")
   public class PropertiesWithJavaConfig{
     //...
   }
-  ```
-    - 另外 一个更有用的注解方法：
+```
 
-  ```
-  @PropertySource({
-    "classpath:persistence-${envTarget:mysql}.properties"})
-  ```
+    - 另外一个更有用的注解方法：
+
+```java
+@PropertySource({
+  "classpath:persistence-${envTarget:mysql}.properties"})
+```
 
   **note**:
     - [参考](http://www.cnblogs.com/jycboy/p/7349139.html)

@@ -60,8 +60,6 @@ On shutdown of a bean factory, the following lifecycle methods apply:
 
 ### 1.1.2. ApplicationContext
 
-
-
 ## 1.2. Core 模块
 
 - bean 标签：
@@ -161,8 +159,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao{
     public void saveUser(User user){
         this.getHibernateTemplate().persist(user);//使用父类方法get到Template,并调用其persist方法将user存入
     }
-}
-    public int getCount(){    //查询记录条数
+    public int getCount(){   //查询记录条数
         Number num = (Number)this.getSession(true).createQuery("select count (*) from User).uniqueResult();
         return n.intValue();
     }
@@ -352,3 +349,14 @@ public void setConfigLocations(Resource... configLocations) {
 
 - `@Configuration` 用以配置 spring 组件的注解，其文档有详细说明大部分的注解使用。
 - 使用 `@ContextConfiguration(locations={classpath*:xxx})` 时， `classpath*:` 表示可以从 jar 包里拿配置文件
+
+## rap 在项目开发中的使用
+
+> date: "2017-12-05 19:08"
+
+使用 rap 来定义接口数据，这样方便前端开发人员与我们后端开发在各个接口请求上一致，更方便开发。
+
+### 问题
+
+- mock 的使用中： `@mock=true` 在各个参数后面表示默认的数据格式样式吗？
+    - 时间类型/枚举类型等其他的数据选择什么类型？string？
