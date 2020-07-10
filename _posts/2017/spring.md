@@ -1,5 +1,4 @@
 ---
-title: spring 框架的学习
 date: 2017-08-15 12:14:38
 tags: [framework,java,spring]
 categories: programming
@@ -11,14 +10,17 @@ description: spring 框架的学习与理解
   - [1.1. ioc](#11-ioc)
     - [1.1.1. BeanFactory](#111-beanfactory)
     - [1.1.2. ApplicationContext](#112-applicationcontext)
-  - [1.2. Core 模块](#12-core-%e6%a8%a1%e5%9d%97)
-  - [1.3. AOP 模块](#13-aop-%e6%a8%a1%e5%9d%97)
-  - [1.4. ORM 模块](#14-orm-%e6%a8%a1%e5%9d%97)
-    - [1.4.1. 实体类](#141-%e5%ae%9e%e4%bd%93%e7%b1%bb)
-      - [1.4.1.1. 配置集成Hibernate](#1411-%e9%85%8d%e7%bd%ae%e9%9b%86%e6%88%90hibernate)
-    - [1.4.2. Hibernate的事务管理](#142-hibernate%e7%9a%84%e4%ba%8b%e5%8a%a1%e7%ae%a1%e7%90%86)
-    - [1.4.3. spring的bean.xml配置文件的理解](#143-spring%e7%9a%84beanxml%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%9a%84%e7%90%86%e8%a7%a3)
+  - [1.2. Core 模块](#12-core-模块)
+  - [1.3. AOP 模块](#13-aop-模块)
+  - [1.4. ORM 模块](#14-orm-模块)
+    - [1.4.1. 实体类](#141-实体类)
+      - [1.4.1.1. 配置集成Hibernate](#1411-配置集成hibernate)
+    - [1.4.2. Hibernate的事务管理](#142-hibernate的事务管理)
+    - [1.4.3. spring的bean.xml配置文件的理解](#143-spring的beanxml配置文件的理解)
   - [1.5. source codes](#15-source-codes)
+  - [rap 在项目开发中的使用](#rap-在项目开发中的使用)
+    - [问题](#问题)
+  - [properties in springmvc](#properties-in-springmvc)
 
 <!-- /TOC -->
 
@@ -360,3 +362,39 @@ public void setConfigLocations(Resource... configLocations) {
 
 - mock 的使用中： `@mock=true` 在各个参数后面表示默认的数据格式样式吗？
     - 时间类型/枚举类型等其他的数据选择什么类型？string？
+
+## properties in springmvc
+
+> date: "2018-12-03 15:05" [参考文档](https://www.baeldung.com/properties-with-spring)
+
+- 在 xml 文件中引入 properties ： `<context:property-placeholder location="classpath:foo.properties" />`
+- 在配置 bean java 文件中可以使用注解将其配置：
+
+```java
+  @Configuration
+  @PropertySource("classpath:foo.properties")
+  public class PropertiesWithJavaConfig{
+    //...
+  }
+```
+
+    - 另外一个更有用的注解方法：
+
+```java
+@PropertySource({
+  "classpath:persistence-${envTarget:mysql}.properties"})
+```
+
+  **note**:
+    - [参考](http://www.cnblogs.com/jycboy/p/7349139.html)
+    - classpath 是指被编译过后的 src 中所有的文件（包括：java、xml、properties）都放在的 WEB-INFO/classes 的文件夹。
+    - `**/` 表示 任意目录。`**/mysql*.properties` 就表示任意目录下的以 `mysql` 开关的 properties 文件
+
+- 在 java 配置文件中插入一个 property 值使用标签 `@Value` ： `@Value("${jdbc.url:defaultUrl}")` ， `:` 后面跟的是默认值。
+- 在 xml 配置文件中插入一个 property 值
+
+  ```xml
+  <bean id="dataSource">
+    <property name="url" value="${jdbc.url}" />
+  </bean>
+

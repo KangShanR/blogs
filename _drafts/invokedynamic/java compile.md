@@ -19,6 +19,7 @@ where options insclude:
 
 - `-cp` = `-classpath` 用以指定字节码路径。如果运行命令路径不在工程 class 根路径（idea 会将编译后的 class 文件放在 target/classes 文件下），那么此参数必须指定，否则会报出 “Error: Could not find or load main class”。
 - `-D<name>=<value>` set a system property
+- 打包 spring boot 后运行时一直`Could not find or load main class jar` ，重新打包后才发现运行命令参数少了个 `-`，正确的为 `java -jar boot.jar`
 
 - 终端打印环境变量：windows `echo %CLASSPATH%`; linux `echo $CLASSPATH`
     - 如果环境变量存在将打印出来，如果不存在将打印出命令。
