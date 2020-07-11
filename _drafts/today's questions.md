@@ -1,5 +1,4 @@
 ---
-title: 每天的问题与更新的答案
 date: 2017-09-01 13:04:38
 categories: programming
 tags: [java,programming]
@@ -8,6 +7,8 @@ description: 在学习过程中遇到的问题与自己的思考过程，答案�
 ---
 
 # 今日问题
+
+> 每天的问题与更新的答案
 
 - 9/1/2017 6:00:51 PM
     - 在实现同步代码块时，`synchronized()`这个`()`中的对象应该放入什么对象？
