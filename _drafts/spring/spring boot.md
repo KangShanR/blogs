@@ -29,6 +29,8 @@ description: spring boot
 
 [reference](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#getting-started-first-application-dependencies)
 
+[build spring boot on maven](https://docs.spring.io/spring-boot/docs/2.3.2.BUILD-SNAPSHOT/maven-plugin/reference/html/)
+
 对于一个工程来说依赖各个 jar 包，而 java 并没有提供一个标准的方式去加载内嵌的 jar ，因此不能发布一个独立的程序包。
 
 为此，很多开发者的解决方案是创建一个 'uber' jar，所谓 uber jar 是指将应用所有的依赖的 class 文件整合成一个单独的包。这样做的问题在于：1、 难以查看依赖库；2、不同 jar 包中要是存在同名的 class 就会出现问题。
