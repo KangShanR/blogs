@@ -75,6 +75,10 @@ public class Change{
 - 如果是属性被此注解标注，则此属性就将这个 bean 注入到容器中，不用写此属性的 getter() 与 setter() 方法，在 bean.xml 配置中也不用写此属性的 `<property>` 标签了；
 - 如果方法或构造函数被 @Autowired 注解，则此方法参数中的 bean 就会自动被查找装入到这个方法中；
 
+- 注解的解析器是 {@link AutowiredAnnotationBeanPostProcessor}
+- 可以使用此注解对构造器、方法、变量进入注入 bean 依赖。在构造器上，只能有一个构造器上此注解的 required 属性是 true。使用此注解后，方法参数中的 bean 将自动从 spring contaner 中查找并注入。
+    - 当多个构造器上是 not required 时，选择策略是：容器中能满足最多的构造参数的构造器会被选择，当只有一个构造器时，可以省略 `@AutoWired`
+
 ## 注解 @ResponseBody
 
 此注解标明这个方法返回不经过视图解析器处理，直接将处理信息写成字节流返回给浏览器，成为 json 对象写到浏览器页面中。

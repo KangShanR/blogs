@@ -66,3 +66,25 @@ spring boot 使用了不同的方式达到直接使用内嵌包。
 用以指定当前运行环境，可以 maven 打包时也可以设置针对环境打包。
 
 获取当前活跃的 profile ，参考 `6. Get Active Profiles`
+
+## Structing Code
+
+[reference](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#using-boot-structuring-your-code)
+
+### Locating the Main Application Class
+
+- 在根目录添加 Application.class 主类放在根目录上，使用 `@SpringBootApplication` 注解在主类上。此注解也隐匿地定义了某些特定项目的基础查找包 `base search package` 。_如果在root package 定义多个 application.class 打包发布时会认定哪个为项目入口呢？_亲测结果：`spring-boot-maven-plugin:2.3.1.RELEASE:repackage failed: Unable to find a single main class from the following candidates` 打包插件将报出不能找到唯一的主类异常
+- 若不使用 `@SpringBootApplication` 注解，可以使用 `@EnableAutoConfiguration` `@ComponentScan` 两个注解实现相同功能
+
+### Auto-configuration
+
+> 自动配置
+
+- 使用 `@EnableAutoConfiguration` 后，spring boot 会检测 classpath 所有的内容进行自动添加配置。
+- 可以在运行时加上 --debug 进入 debug 模式查看自动配置了哪些东西。
+- 应该逐渐用特定的配置代替自动配置。
+- 若 spring boot 自动配置了不需要的配置，可以在 `@SpringBootApplication` 或 `@EnableAutoConfiguration` 添加排除 exclude ，若排除的类不在 classpath 中可以指定其全限定名到 `excludename`。也可以添加配置 `spring.autoconfigure.exclude` 指定自动配置排除配置。
+
+### Spring Beans and Dependency Injection
+
+- spring 中的 bean 注入：使用构造器注入 `private final Dependency d;` 
