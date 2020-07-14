@@ -87,4 +87,18 @@ spring boot 使用了不同的方式达到直接使用内嵌包。
 
 ### Spring Beans and Dependency Injection
 
-- spring 中的 bean 注入：使用构造器注入 `private final Dependency d;` 
+- spring 中的 bean 注入：使用构造器注入 `private final Dependency d;` 使用 final 修辞字段让其不能被修改。
+
+### Using the @SpringBootApplication Annotation
+
+[reference](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#using-boot-spring-beans-and-dependency-injection)
+
+@SpringBootApplication 注解有三个特性，分别对应三个注解：
+
+1. @EnableAutoConfiguration
+2. @ComponentScan
+3. @Configuration
+
+@SpringBootApplication 提供别名以实现定义以上前两个注解的功能。
+
+
