@@ -101,4 +101,11 @@ spring boot 使用了不同的方式达到直接使用内嵌包。
 
 @SpringBootApplication 提供别名以实现定义以上前两个注解的功能。
 
+## Developer Tools
 
+[reference](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#using-boot-devtools)
+
+添加 spring-boot-devtools 依赖，实现热启动。其实现原理是固有的jar包代码使用一个固定的 classloader，而开发变动的代码使用另一个classloader，当发生变动时，重启一个 classloader 加载新的编译的代码。所以热启动相对冷启动要快些，因为其不用加载旧的不变的依赖的jar包中的代码。
+
+- 使用 trigger-file 触发项目重启。`spring.devtools.restart.trigger-file=.reloadtrigger` 手动更新了 trigger 文件才会触发更新，如果使用了Ultimate Edition IDEA 可以点击 relauch 触发重启。
+- 
