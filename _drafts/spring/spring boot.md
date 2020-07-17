@@ -110,3 +110,9 @@ spring boot 使用了不同的方式达到直接使用内嵌包。
 - 使用 trigger-file 触发项目重启。`spring.devtools.restart.trigger-file=<.reloadtrigger>` 手动更新了 trigger 文件才会触发更新。trigger 文件可以自定义在 classpath 中任意地方，而配置文件指定配置文件不需要全限定名，更新代码后只需要修改保存一下trigger文件即可触发reload。
 - 如果使用了Ultimate Edition IDEA 可以点击 relauch 触发重启。
 - 生产模式下devtool 自动关闭，如果项目启动通过 java -jar 运行一个包或从一个特定的 classloader 中开始，devtools 将自动识别在生产模式中。如果应用在窗口中开启需要排除 devtools 或者直接添加系统参数 `-Dspring.devtools.restart.enabled=false`。
+
+## Application
+
+### Application Event and Lisener
+
+Application Event 发布后父子 Context 中的注册的lisener 都会监听到，为了区别来自哪里，可以将 Context 注入对比。如果是个 bean 直接使用 @Autowired 注入，如果 lisener 不是 bean 需要实现 ContextAware 接口注入。
