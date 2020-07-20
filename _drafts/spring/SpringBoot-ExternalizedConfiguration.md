@@ -7,7 +7,33 @@ description: spring boot 外部配置的应用
 
 # Externalized Configuration
 
+[spring boot 外部配置](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-external-config)
+
 > 外部配置
+
+一个应用，其通常添加外部配置的方式：properties file, yml files, environment variables, 命令行参数扩展配置。配置属性可以通过 `@Value` 直接被注入到 bean 中，通过 `Environment` 抽象直接访问，也可以通过 `@ConfigurationProperties` 绑定到结构对象上。
+
+Spring Boot 加载 `PropertySource` 有明确的顺序，以保证正确覆盖配置值。其**配置优先级**从高到低依次为：
+
+1. 当 devtool 在激活状态时， `$HOME/.config/spring-boot` 中的 devtool 全局配置
+2. `@TestPropertySource` 注解的 test 配置
+3. `@SpringBootTest` 注解与局部应用 test 注解上的 `Properties` 属性
+4. 命令行参数
+5. 内嵌于环境变量或系统属性的行内 JSON `SPRING_APPLICATION_JSON` 属性
+6. `ServletConfig` 初始化参数
+7. `ServletContext` 初始化参数
+8. `java:comp/env` JNDI 属性
+9. `System.getProperties()` Java 系统属性
+10. 操作系统环境变量 OS environment variables
+11. `random.*` 中的随机属性值 `RandomValuePropertySource`
+12. 包外的特定 profile 属性文件 `application-{profile}.properties` 与 YAML 变体
+13. 包内特定 profile 属性文件 `application-{profile}.properties` 或 YAML 变体
+14. 包外应用属性文件 `application.properties` 和 YAML 变体
+15. 包内应用配置文件  `application.properties` 和 YAML 变体
+16. `@PorpertySource` 注解于 configuration 类上标注的属性文件。需要注意的是，这种配置在 application refreshed 前不会被加载到 `Environment` 中去，因此如果使用这种方式添加诸如 `logging.*` `spring.main.*` 配置是无效的，因为在 context refreshed 前，这些配置已经被读取了。
+17. 通过 `SpringApplication.setDefaultProperties()` 设置的默认属性。
+
+Spring Boot 在加载配置时支持通配路径，在外部指定不同路径下的同名配置文件时使用通配路径就会很方便。**通配路径必须包含且仅包含一个 `*` ，并且当以文件夹结尾时以 `/` 结尾，以文件为查找对象时以 `/<filename>` 结尾**。查找出的位置以文件路径的字母顺序排序。
 
 ## Type-safe Configuration Properties
 
