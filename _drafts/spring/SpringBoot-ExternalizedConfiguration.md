@@ -30,14 +30,14 @@ Spring Boot 加载 `PropertySource` 有明确的顺序，以保证正确覆盖�
 13. 包内特定 profile 属性文件 `application-{profile}.properties` 或 YAML 变体
 14. 包外应用属性文件 `application.properties` 和 YAML 变体
 15. 包内应用配置文件  `application.properties` 和 YAML 变体
-16. `@PorpertySource` 注解于 configuration 类上标注的属性文件。需要注意的是，这种配置在 application refreshed 前不会被加载到 `Environment` 中去，因此如果使用这种方式添加诸如 `logging.*` `spring.main.*` 配置是无效的，因为在 context refreshed 前，这些配置已经被读取了。
+16. `@PropertySource` 注解于 configuration 类上标注的属性文件。需要注意的是，这种配置在 application refreshed 前不会被加载到 `Environment` 中去，因此如果使用这种方式添加诸如 `logging.*` `spring.main.*` 配置是无效的，因为在 context refreshed 前，这些配置已经被读取了。
 17. 通过 `SpringApplication.setDefaultProperties()` 设置的默认属性。
 
 Spring Boot 在加载配置时支持通配路径，在外部指定不同路径下的同名配置文件时使用通配路径就会很方便。**通配路径必须包含且仅包含一个 `*` ，并且当以文件夹结尾时以 `/` 结尾，以文件为查找对象时以 `/<filename>` 结尾**。查找出的位置以文件路径的字母顺序排序。
 
 ## Configuring Random Values
 
-配置随机值随机注入一个 integer/long/uuid/string : 
+配置随机值随机注入一个 integer/long/uuid/string :
 
 ```properties
 my.secret=${random.value}
@@ -54,7 +54,7 @@ my.number.in.range=${random.int[1024,65536]}
 
 [访问命令行参数](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-external-config)
 
-默认情况下命令行参数在 Spring 配置中有最高优先级别。在启动命令行中以 `--` 开始指定命令行参数。如果需要禁用命令行参数加入到系统 `Environment` 中，可以 `SpringApplication.setAddCommondLineProperties(false)`。
+默认情况下命令行参数在 Spring 配置中有最高优先级别。在启动命令行中以 `--` 开始指定命令行参数。如果需要禁用命令行参数加入到系统 `Environment` 中，可以 `SpringApplication.setAddCommandLineProperties(false)`。
 
 ## Application Property Files
 
@@ -84,8 +84,8 @@ my.number.in.range=${random.int[1024,65536]}
 - 在类上添加注解 `@ConstructorBinding`
 - 内嵌的属性 POJO 也会使用构造器绑定方式绑定配置属性。
 - 默认值可使用 `@DefaultValue("default")` 注解添加在属性上，当 binder 找不到相关的配置就会强制将默认值添加到指定属性上
-- 默认情况下，如果没有为属性配置值，对象属性将为 null 。如果需要返回一个非 null POJO，可以指定一个空的 `@DefauleValue` 在其上。
-- 使用构造器绑定，**需要添加 `@EnableConfigurationPropertis` 或配置属性扫描**。常规 Spring Bean 创建机制创建的 Bean （@Component @Bean @Import）上并不能通过此构建器绑定属性。
+- 默认情况下，如果没有为属性配置值，对象属性将为 null 。如果需要返回一个非 null POJO，可以指定一个空的 `@DefaultValue` 在其上。
+- 使用构造器绑定，**需要添加 `@EnableConfigurationProperties` 或配置属性扫描**。常规 Spring Bean 创建机制创建的 Bean （@Component @Bean @Import）上并不能通过此构建器绑定属性。
 - 如果绑定的 Class 有多个 Constructor ，可直接将 `@ConstructorBinding` 注解在需要的构造器上。
 
 ### Enable @ConfigurationProperties-annotated Types
@@ -95,13 +95,13 @@ my.number.in.range=${random.int[1024,65536]}
 - Spring Boot 提供了绑定配置到类的机制也提供注册其为 Bean 的机制。可以一个类一个类地配置也可像组件扫描一样配置属性扫描。
 - 如果需要部分扫描到配置属性，可以在 `@EnableConfigurationProperties` 指定 type.class ，任意 `@Configuration` 组件是添加此属性。
 - 添加 `@ConfigurationPropertiesScan` 注解在 Application 上会自动扫描包内所有的配置属性 Bean，注解上可添加包。
-- 当 Bean 注册到容器中后，这个 bean 有一个便名 `<prefix>-<fqn>` ，`<prefix>` 是在 `@ConfigurationPropertis(prefix="")` 上指定的前缀， `<fqn>` 指其全限定名。如果没有指定 prefix ，只有全限定名会为此 bean 所用。_这他妈有啥用？_
+- 当 Bean 注册到容器中后，这个 bean 有一个便名 `<prefix>-<fqn>` ，`<prefix>` 是在 `@ConfigurationProperties(prefix="")` 上指定的前缀， `<fqn>` 指其全限定名。如果没有指定 prefix ，只有全限定名会为此 bean 所用。_这他妈有啥用？_
 
 ### Using @ConfigurationProperties-annotated Types
 
 [使用自动配置属性 Bean](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-external-config-java-bean-binding)
 
-在组件 Bean 直接无注解注入 `private final ConfigedData configedData;`
+在组件 Bean 直接无注解注入 `private final ConfiguredData configuredData;`
 
 ### Third-party Configuration
 
@@ -109,15 +109,15 @@ my.number.in.range=${random.int[1024,65536]}
 
 - 直接在注入第三方 Bean 方法定义处加上 `@ConfigurationProperties` 注解，将自动将同名配置注入到 Bean 属性中。
 
-### Ralaxed Binding
+### Relaxed Binding
 
 > 松绑定
 
-Spring Boot 松绑定 Environment 属性到 @ConfigurationProperties bean 中，所以不需要精确匹配 Environment 属性名与 bean 属性名。常见的例子是使用 dash-seperated 或大小写环境属性 context-path 绑定到 contextPath，PORT绑定到 port。
+Spring Boot 松绑定 Environment 属性到 @ConfigurationProperties bean 中，所以不需要精确匹配 Environment 属性名与 bean 属性名。常见的例子是使用 dash-separated 或大小写环境属性 context-path 绑定到 contextPath，PORT绑定到 port。
 
-使用 `@ConfigurationProperties(prefix="project.data")` 注解在有名为 `firstName` 属性的 bean 上（prefix 的值必须为 Kabab Case 写法），那么在配置文件中可以使用：
+使用 `@ConfigurationProperties(prefix="project.data")` 注解在有名为 `firstName` 属性的 bean 上（prefix 的值必须为 Kebab Case 写法），那么在配置文件中可以使用：
 
-1. `project.data.first-name`: Kabab Case （小写，单词分隔使用 `-`，看起来像羊肉串，所以叫 Kabab Case），推荐在 `.properties` 或 `.yml` 中使用
+1. `project.data.first-name`: Kebab Case （小写，单词分隔使用 `-`，看起来像羊肉串，所以叫 Kebab Case），推荐在 `.properties` 或 `.yml` 中使用
 2. `project.data.firstName` : standard camel case syntax 标准驼峰语法
 3. `project.data.first_name` : underscore notation，下划线符号，在 `.properties` `.yml` 中一种可选的写法
 4. `PROJECT_DATA_FIRSTNAME` : upper case format，推荐在系统环境变量中使用。
@@ -158,7 +158,7 @@ Spring Boot 内置转换器可以将对多个类型数据进行转换，使用 `
 - 验证内嵌的属性，其相应的字段需要添加 `@Valid` 注解
 - 自定义 Spring Validator 通过添加一个名为 `configurationPropertiesValidator` bean 定义静态方法实现，之所以要为 静态的 ，因为 configurationProperties validator 在应用生命周期很早阶段就需要实例化并使用，为避免与外部 `@Configuration` 类耦合而需要过早地将外部组件类实例化引起的错误，所以需要将此 validator bean 方法定义为静态的。
 
-### @ConfiguraitonProperties vs. @Value
+### @ConfigurationProperties vs. @Value
 
 [reference](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-external-config-validation)
 
