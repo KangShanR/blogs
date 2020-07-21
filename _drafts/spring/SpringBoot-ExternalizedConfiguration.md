@@ -75,6 +75,20 @@ my.number.in.range=${random.int[1024,65536]}
 
 `spring.config.additional-location` 用以指定额外的配置路径，其优先级大于默认的路径
 
+## Profile-specific Properties
+
+通过 `spring.profiles.active` 变量激活当前应用的配置文件。profile 配置文件规约其名为 `application-{profile}.properties` ，当没有指定 profile 时， Environment 自动使用 `default` 作为 profile 环境配置，`application-default.properties` 中的属性将被加载。
+
+与标准的 `application.properties` 配置文件一样，profile 配置文件将从指定位置加载，同时不管所打包的 jar 包内还是包内，profile-specific file 配置覆盖 non-specific ones。If several profiles are specified, a last-wins strategy applies.如果指定多个，后者覆盖前者。
+
+如果在 `spring.config.location` 中指定了配置文件，那么此文件在 profile-specific variant 匹配中就不再考虑了。换句话说，如果需要使用 profile-specific 策略匹配配置文件，就不要在 `spring.config.location` 中添加相关的文件，最好其中只指定 directories 不指定文件。
+
+## Placeholders in Properties
+
+在使用配置文件中 `application.properties` 配置的值时会通过存在的 `Environment` 过滤，所以，可以在配置中使用占位符 `${}` 引用先前定义好的配置（如：系统属性）。
+
+
+
 ## Type-safe Configuration Properties
 
 > [类型安全配置属性](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-external-config-java-bean-binding)
