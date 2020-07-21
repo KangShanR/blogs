@@ -35,6 +35,31 @@ Spring Boot 加载 `PropertySource` 有明确的顺序，以保证正确覆盖�
 
 Spring Boot 在加载配置时支持通配路径，在外部指定不同路径下的同名配置文件时使用通配路径就会很方便。**通配路径必须包含且仅包含一个 `*` ，并且当以文件夹结尾时以 `/` 结尾，以文件为查找对象时以 `/<filename>` 结尾**。查找出的位置以文件路径的字母顺序排序。
 
+## Configuring Random Values
+
+配置随机值随机注入一个 integer/long/uuid/string : 
+
+```properties
+my.secret=${random.value}
+my.number=${random.int}
+my.bignumber=${random.long}
+my.uuid=${random.uuid}
+my.number.less.than.ten=${random.int(10)}
+my.number.in.range=${random.int[1024,65536]}
+```
+
+随机配置语法 `${random.int*}`是 `OPEN value (,max) CLOSE` `OPEN` 与 `CLOSE` 指代任意符号用以将最大值与最小值包起来，`value` 与 `max` 是 integer 。如果提供 `max`，`value` 就指最小值，`max` 指最大值（不包含）。
+
+## Accessing Command Line Properties
+
+[访问命令行参数](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-external-config)
+
+默认情况下命令行参数在 Spring 配置中有最高优先级别。在启动命令行中以 `--` 开始指定命令行参数。如果需要禁用命令行参数加入到系统 `Environment` 中，可以 `SpringApplication.setAddCommondLineProperties(false)`。
+
+## Application Property Files
+
+
+
 ## Type-safe Configuration Properties
 
 > [类型安全配置属性](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-external-config-java-bean-binding)
