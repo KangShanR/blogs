@@ -58,7 +58,22 @@ my.number.in.range=${random.int[1024,65536]}
 
 ## Application Property Files
 
+[应用配置文件](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-external-config-application-property-files)
 
+`SpringApplication` 将不同位置的配置文件 `application.properties` 或 `.yaml` 数据加载到 `Environment` 中，不同位置加载优先级为：
+
+1. 当前路径子路径 `/config`
+2. 当前路径 The current directory
+3. classpath `/config` 包
+4. classpath 根
+
+高优先级配置会覆盖低优先级配置。
+
+如果需要修改配置文件，可以指定环境属性 `spring.config.name` 指定另一个配置文件，同时可指定 `spring.config.location` 多个配置文件路径（可为逗号 `,` 分隔的多个文件夹路径或文件路径，排列越靠后优先级越高）。这两个环境属性在很早期需要用以加载文件，所以必需以环境属性的方式（An OS Environment Variable, a system property, a command-line argument）指定。
+
+当 `spring.config.location` 指定文件夹路径时，需要以 `/` 结尾，在运行时将在其后追加 `spring.config.name` 中分离出的文件名与 profile-specific file name 。当 location 指定了全文件名时，直接使用此文件名，但不支持 profile-specific variant，并被 profile-specific 属性覆盖。
+
+`spring.config.additional-location` 用以指定额外的配置路径，其优先级大于默认的路径
 
 ## Type-safe Configuration Properties
 
