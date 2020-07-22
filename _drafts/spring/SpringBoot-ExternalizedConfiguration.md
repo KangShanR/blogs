@@ -87,7 +87,46 @@ my.number.in.range=${random.int[1024,65536]}
 
 在使用配置文件中 `application.properties` 配置的值时会通过存在的 `Environment` 过滤，所以，可以在配置中使用占位符 `${}` 引用先前定义好的配置（如：系统属性）。
 
+## Customize the Environment or ApplicationContext Before It Starts
 
+[在应用启动前自定义配置上下文](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#howto-customize-the-environment-or-application-context)
+
+SpringApplication 可以使用 `ApplicationListeners` 和 `ApplicationContextInitializers` 用于自定义应用上下文或环境数据。Spring Boot 从 `META-INF/spring.factories` 加载这些自定义配置数据用于内部。注册自定义的方式有：
+
+1. `SpringApplication` 的程序方法： `addListeners` `addInitializers`
+2. 显式地在应用中添加配置： `context.initializer.classes` `context.listener.classes`
+3. 添加 `META-INF/spring.factories` 并打包成 jar 文件作为依赖库使用。
+
+SpringApplication 发送特定的 `ApplicationEvents` 到监听器 listeners (有些事件在上下文创建之前就发送)并注册 `ApplicationContext` 发送的事件的监听器。
+
+通过使用 `EnvironmentPostProcessor` 实现在应用上下文 refreshed 前自定义 `Environment` 。每个实现需要注册到 `META-INF/spring.factories`
+
+```properties
+org.springframework.boot.env.EnvironmentPostProcessor=com.example.YourEnvironmentPostProcessor
+```
+
+使用 `@PropertySource` 注解在 `@SpringBootApplication` 上可以方便地实现加载自定义数据到 `Environment` 中，但其加载时机需要在应用上下文 be refreshed 才能加载到 Environment ，这对于某些配置如 `logging.*` `spring.main.*` 来说太迟了，不能满足其早期使用的要求。
+
+## Using YAML Instead of Properties
+
+[使用YAML](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-external-config-yaml)
+
+SnakeYAML 在 classpath 中时，SpringApplication 自动处理 yaml 配置文件，如果使用 `spring-boot-starter` 自动引入 `SnakeYAML` 依赖。
+
+Spring 有两个加载 YAML 的类。`YamlPropertiesFactoryBean` 将 yaml 加载为 properties ，`YamlMapFactoryBean` 将 yaml 加载为 map。
+
+Yaml 可以将多个 profile 文件写入一个，但不推荐如此使用。当外部配置指定 `profile.active=dev` 时，其要考虑此 yaml 文件的名，如果为 application-dev.yaml ，文件中指定了 `!test` 也不会被识别。如下
+
+```yaml
+server:
+  port: 8000
+---
+spring:
+  profiles: "!test"
+  security:
+    user:
+      password: "secret"
+```
 
 ## Type-safe Configuration Properties
 
