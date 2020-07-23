@@ -53,7 +53,7 @@ spring boot 使用了不同的方式达到直接使用内嵌包。
 </build>
 ```
 
-## how to serias
+## how to series
 
 [spring boot HOWTO 系列](https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto-properties-and-configuration)
 
@@ -67,7 +67,7 @@ spring boot 使用了不同的方式达到直接使用内嵌包。
 
 获取当前活跃的 profile ，参考 `6. Get Active Profiles`
 
-## Structing Code
+## Structuring Code
 
 [reference](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#using-boot-structuring-your-code)
 
