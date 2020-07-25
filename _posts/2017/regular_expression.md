@@ -84,7 +84,7 @@ description:
 
 |元字符|描述|
 |:---------:|:---------------|
-|`(pattern)`|匹配 pattern 并获取这一匹配。所获取的匹配可以从产生的 Matches 集合得到，在 VBScript 中使用 SubMatches 集合，在 JScript 中则使用 $0…$9 属性。要匹配圆括号字符，请使用 `\(` 或 `\)`。|
+|`(pattern)`|匹配 pattern 并获取这一匹配。所获取的匹配可以从产生的 Matches 集合得到，在 VBScript 中使用 SubMatches 集合，在 JScript 中则使用 **`[$1,$9]`** 属性（$0 将越界，不能匹配，会将 pattern 外的都引入）。要匹配圆括号字符，请使用 `\(` 或 `\)`。|
 |`(?:pattern)`|获取匹配，匹配 pattern 获取匹配结果。这在使用或字符 `|` 来组合一个模式的各个部分时很有用。例如`industr(?:y|ies)`就是一个比 `industry|industries` 更简略的表达式。
 |`(?=pattern)`|非获取匹配，正向肯定预查，在任何匹配 pattern 的字符串开始处匹配查找字符串，**该匹配不需要获取供以后使用**。例如，`Windows(?=95|98|NT|2000)` 能匹配 `Windows2000`中的“Windows”，但不能匹配“Windows3.1”中的 `Windows` 。预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始。*不懂这一句*
 |`(?<=pattern)`|非获取匹配，反向肯定预查，与正向肯定预查类似，只是方向相反。例如: `(?<=95|98|NT|2000)Windows` 能匹配 “2000Windows” 中的 “Windows” ，但不能匹配 “3.1Windows” 中的 “Windows” 。
