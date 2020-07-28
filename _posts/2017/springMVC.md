@@ -128,7 +128,6 @@ categories: programming
 			<!-- 后缀 -->
 			<property name="suffix" value=".jsp"/>
 		</bean>
-
   	```
 
 - 如果 springMVC 没有配置视图解析器，如果 接口返回的 字符串（如： "hello"）给的是相对路径（‘jsp’），那么 spring 会把当前路径给配上去（如果 当前的 controller 的 uri 是 “/v1/say” ，那么这时返回的视图 uri 就是 "/v1/say/hello"），这个时候返回的视图就会在 当前的 controller 中去找 hello 方法接口，产生问题。如果返回的字符串是绝对路径（如： "/WEB-INF/jsp/hello.jsp"），那么spring 就会在服务器的此绝对路径里去找这个 jsp 文件并返回给客户端。
@@ -204,7 +203,7 @@ categories: programming
 
 > 在前后端分离的项目中，特别是存在为移动端提供的接口都应该使用 json 数据的格式对前端提供接口。
 
-渲染 view 是 mappingJakson2JsonView
+渲染 view 是 mappingJackson2JsonView
 
 - 实际使用的是 `MappingJackson2HttpMessageConverter`
 - 添加在 DispatcherServlet 的适配器中的 messageConverters 中：
