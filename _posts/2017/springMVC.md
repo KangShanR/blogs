@@ -9,34 +9,29 @@ categories: programming
 <!-- TOC -->
 
 - [1. SpringMVC](#1-springmvc)
-    - [1.1. 核心对象](#11-%E6%A0%B8%E5%BF%83%E5%AF%B9%E8%B1%A1)
-        - [1.1.1. springMVC 中的处理器](#111-springmvc-%E4%B8%AD%E7%9A%84%E5%A4%84%E7%90%86%E5%99%A8)
-    - [1.2. 使用代码代替 xml 配置文件](#12-%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%A0%81%E4%BB%A3%E6%9B%BF-xml-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)
-        - [1.2.1. LocalResolver 区域解析器](#121-localresolver-%E5%8C%BA%E5%9F%9F%E8%A7%A3%E6%9E%90%E5%99%A8)
-        - [1.2.2. 多部件解析器 MultipartResolver](#122-%E5%A4%9A%E9%83%A8%E4%BB%B6%E8%A7%A3%E6%9E%90%E5%99%A8-multipartresolver)
-        - [1.2.3. json 数据交互](#123-json-%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92)
-        - [1.2.4. JsonConvert2HttpMessage](#124-jsonconvert2httpmessage)
-        - [1.2.5. xml 数据交互](#125-xml-%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92)
-        - [1.2.6. 数据校验](#126-%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C)
-        - [1.2.7. Restful 架构](#127-restful-%E6%9E%B6%E6%9E%84)
-    - [1.3. configuration based on java codes](#13-configuration-based-on-java-codes)
-        - [1.3.1. ant style](#131-ant-style)
-        - [1.3.2. RequestMapping](#132-requestmapping)
-            - [1.3.2.1. URI Pattern](#1321-uri-pattern)
-            - [1.3.2.2. 自定义注解](#1322-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3)
-            - [1.3.2.3. Explicit Registrations](#1323-explicit-registrations)
-    - [1.4. Functional Endpoints](#14-functional-endpoints)
-    - [1.5. Annotated Controllers](#15-annotated-controllers)
-        - [1.5.1. DataBidder](#151-databidder)
-        - [1.5.2. Exceptions](#152-exceptions)
-            - [1.5.2.1. 异常处理器链 Chain of Exceptions](#1521-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8%E9%93%BE-chain-of-exceptions)
-    - [1.6. Asynchronous Requests](#16-asynchronous-requests)
-        - [1.6.1. Processing](#161-processing)
-            - [1.6.1.1. Compared to WebFlux](#1611-compared-to-webflux)
-        - [1.6.2. Http Streaming](#162-http-streaming)
-            - [1.6.2.1. Objects](#1621-objects)
-            - [1.6.2.2. Raw Data](#1622-raw-data)
-        - [1.6.3. Configuration](#163-configuration)
+	- [1.1. 核心对象](#11-核心对象)
+		- [JsonConvert2HttpMessage](#jsonconvert2httpmessage)
+		- [1.2.4. xml 数据交互](#124-xml-数据交互)
+		- [1.2.5. 数据校验](#125-数据校验)
+		- [1.2.6. Restful 架构](#126-restful-架构)
+	- [1.3. configuration based on java codes](#13-configuration-based-on-java-codes)
+		- [1.3.1. ant style](#131-ant-style)
+		- [1.3.2. RequestMapping](#132-requestmapping)
+			- [1.3.2.1. URI Pattern](#1321-uri-pattern)
+			- [1.3.2.2. 自定义注解](#1322-自定义注解)
+			- [1.3.2.3. Explicit Registrations](#1323-explicit-registrations)
+	- [1.4. Functional Endpoints](#14-functional-endpoints)
+	- [1.5. Annotated Controllers](#15-annotated-controllers)
+		- [1.5.1. DataBidder](#151-databidder)
+		- [1.5.2. Exceptions](#152-exceptions)
+			- [1.5.2.1. 异常处理器链 Chain of Exceptions](#1521-异常处理器链-chain-of-exceptions)
+	- [1.6.  Asynchronous Requests](#16-asynchronous-requests)
+		- [Processing](#processing)
+			- [Compared to WebFlux](#compared-to-webflux)
+		- [Http Streaming](#http-streaming)
+			- [Objects](#objects)
+			- [Raw Data](#raw-data)
+		- [Configuration](#configuration)
 
 <!-- /TOC -->
 
@@ -312,7 +307,7 @@ URI 路径样式与通配符
 
 #### 1.3.2.2. 自定义注解
 
-_Spring MVC also supports custom request-mapping attributes with custom request-matching logic. This is a more advanced option that requires subclassing RequestMappingHandlerMapping and overriding the getCustomMethodCondition method, where you can check the custom attribute and return your own RequestCondition._
+_Spring MVC also supports custom request-mapping attributes with custom request-matching logic. This is a more advanced option that requires subclass RequestMappingHandlerMapping and overriding the getCustomMethodCondition method, where you can check the custom attribute and return your own RequestCondition._
 
 #### 1.3.2.3. Explicit Registrations
 
@@ -321,7 +316,7 @@ _Spring MVC also supports custom request-mapping attributes with custom request-
 除使用注解进行注册外，可以直接使用代码实现更灵活的 RequestMapping 注册。
 
 ```java
-@Autowired
+@AutoWired
 public void setHandlerMapping(RequestMappingHandlerMapping mapping, UserHandler handler)
 		throws NoSuchMethodException {
 	RequestMappingInfo info = RequestMappingInfo
@@ -374,7 +369,7 @@ Spring MVC中的异常处理器 HandlerExceptionResolver 的实现：
 		</error-page>
 		```
 
-        2. servlet container 同时会作一个 ERROR 分发到配置的 URL ，于是就交给了 DispatherServlet，如果有 Controller 对此 URL 处理，将映射到此 Contrller 进行处理。剩下的就交给 Controller ，可能指定一个 model ，也可能响应一个 JSON。
+        2. servlet container 同时会作一个 ERROR 分发到配置的 URL ，于是就交给了 DispatcherServlet，如果有 Controller 对此 URL 处理，将映射到此 Controller 进行处理。剩下的就交给 Controller ，可能指定一个 model ，也可能响应一个 JSON。
 
 3. Spring MVC 自动注册内置的异常处理器处理的异常包括：Spring MVC 异常、`@ResponseStatus` 注解的异常、`@ExceptionHandler` 注解的方法处理。可自定义异常处理器列表替换内置的处理器。
 
@@ -410,7 +405,7 @@ Spring MVC中的异常处理器 HandlerExceptionResolver 的实现：
 
 ### Configuration
 
-> 异步请求的配置 [referece](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-ann-async-configuration)
+> 异步请求的配置 [reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-ann-async-configuration)
 
 异步请求属性必须在 servlet container 级别配置。
 
