@@ -192,3 +192,15 @@ Spring Boot 内置转换器可以将对多个类型数据进行转换，使用 `
 - `@Value` 是容器核心特性，不提供类似类型安全的特性，支持部分 spring 松绑定，不支持 元数据，但比 `@ConfigurationProperties` 多支持 SpEL 表达式。
 - 如果同一个组件定义了多个配置属性，推荐使用 `@ConfigurationProperties` 在bean 类上，这样可以做结构化类型安全的bean 用以注入到 bean 中。
 - 如果需要使用 `@Value` ，推荐引用属性名通过其标准形式 Kebab-Case using only lowercase letters 。这样做可以让 Spring Boot 使用与 `@ConfigurationProperties` 松绑定相同的逻辑。如：使用 `@Value("{demo.first-name}")` ，那么配置文件中的 `demo.firstName` 与 `demo.first-name`与系统环境变量 `DEMO_FIRSTNAME` 都会被当作有效配置（优先级此处不作讨论）。而如果使用 `@Value("{demo.firstName}")` 只有配置文件中的 `demo.firstName` 会被识别到。
+
+## Environment
+
+> spring 中的环境属性 org.springframework.core.env.Environment。
+
+此接口用于当前应用在运行时的环境，应用环境的两个关键模型是 `profiles` 与 `properties`。与 property 相关的访问方法定义于其父接口 `PropertyResolver` 。PropertyResolver 定义了很多可以直接将 String convert 2 T 的方法。
+
+要实现操作应用的 Environment ，能过 `ConfigurableEnvironment` 实现。//TODO
+
+`profile` 是特定命名的一组的 bean definition，只有在指定 profile 是激活状态才能将这组 bean 注册于容器。
+
+ApplicationContext 中的 bean 都可以通过 EnvironmentAware 接口或注入 `@Inject Environment` 获取应用配置数据。 通常情况下，大多数应用级别的 bean 不需要直接与 Environment 交互获取配置数据，可以直接使用属性占位符配置器（PropertySourcesPlaceholderConfigurer） `${}` 获取属性配置值。PropertySourcesPlaceholderConfigurer 是 EnvironmentAware ，并从 Spring 3.1 开始只要配置 `<context:property-placeholder/>` ，就默认注册。
