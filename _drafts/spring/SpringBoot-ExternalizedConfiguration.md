@@ -204,3 +204,17 @@ Spring Boot 内置转换器可以将对多个类型数据进行转换，使用 `
 `profile` 是特定命名的一组的 bean definition，只有在指定 profile 是激活状态才能将这组 bean 注册于容器。
 
 ApplicationContext 中的 bean 都可以通过 EnvironmentAware 接口或注入 `@Inject Environment` 获取应用配置数据。 通常情况下，大多数应用级别的 bean 不需要直接与 Environment 交互获取配置数据，可以直接使用属性占位符配置器（PropertySourcesPlaceholderConfigurer） `${}` 获取属性配置值。PropertySourcesPlaceholderConfigurer 是 EnvironmentAware ，并从 Spring 3.1 开始只要配置 `<context:property-placeholder/>` ，就默认注册。
+
+### AbstractEnvironment
+
+基本的环境变量，实现了接口 `ConfigurableEnvironment` 。其内部定义了基本的应用环境属性：忽略系统环境变量 `IGNORE_GETENV_PROPERTY_NAME` 默认为 false， 激活状态配置 `ACTIVE_PROFILES_PROPERTY_NAME` ，默认配置 `DEFAULT_PROFILES_PROPERTY_NAME` ，默认配置名 `RESERVED_DEFAULT_PROFILE_NAME` 。
+
+### StandardEnvironment
+
+继承自 AbstractEnvironment ，在其基础上添加了系统变量 `SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME` 与环境变量 `SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME`。系统变量优先级更高，其初始化过程中先添加系统变量再添加环境变量在配置数据最末（环境变量可在同一个系统中跨服务共用，而系统变量是针对一个 JVM 而设置）。
+
+### StandardServletEnvironment
+
+StandardServletEnvironment 基于 Servlet 的 web 应用 Environment 实现，继承自 StandardEnvironment 。每个基于 Servlet 的 web 应用 ApplicationContext 都会默认初始化一个实例。此环境会在 StandardEnvironment 的基础上依次（决定了配置变量的优先级从高到低）添加变量： servlet Config 属性 `SERVLET_CONTEXT_PROPERTY_SOURCE_NAME`，servlet context 属性 `SERVLET_CONFIG_PROPERTY_SOURCE_NAME` ，JNDI 属性 `JNDI_PROPERTY_SOURCE_NAME` 。
+
+
