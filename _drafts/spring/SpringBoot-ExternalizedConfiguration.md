@@ -217,4 +217,16 @@ ApplicationContext 中的 bean 都可以通过 EnvironmentAware 接口或注入 
 
 StandardServletEnvironment 基于 Servlet 的 web 应用 Environment 实现，继承自 StandardEnvironment 。每个基于 Servlet 的 web 应用 ApplicationContext 都会默认初始化一个实例。此环境会在 StandardEnvironment 的基础上依次（决定了配置变量的优先级从高到低）添加变量： servlet Config 属性 `SERVLET_CONTEXT_PROPERTY_SOURCE_NAME`，servlet context 属性 `SERVLET_CONFIG_PROPERTY_SOURCE_NAME` ，JNDI 属性 `JNDI_PROPERTY_SOURCE_NAME` 。
 
+## PropertySourcePlaceHolderConfigurer
 
+使用此配置器解析 ApplicationContext 中的所有的 BeanDefinition 中的占位符（默认格式 `${value}`）。其实现了 `BeanFactoryPostProcessor` ，在 ApplicationContext 初始化阶段，会自动扫描所有的 BeanDefinition 并将所有使用占位符的地方都使用配置数据值进行替换。以此来实现占位符引入配置到 bean 中。
+
+### @Value
+
+用于字段或方法参数上的注解，用以表明其默认值。典型应用于表达式驱动依赖注入，也支持处理器方法参数的动态方案，如 Spring MVC。
+
+`@Value` 注解的实际的处理是通过 `AutowiredAnnotationBeanPostProcessor` 实现，这就意味着不能使用此注解用于 BeanFactoryPostProcessor 与 BeanPostProcessor。
+
+#### AutowiredAnnotationBeanPostProcessor
+
+一个 BeanPostProcessor 。//todo
