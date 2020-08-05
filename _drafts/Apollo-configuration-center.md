@@ -50,3 +50,7 @@ spring 中若其配置文件 application.properties 对同一个key 有多个 va
 namespace 有三种类型：public private inheritance。顾名思义，public 可以为外部应用所用，而 private 只能为自己应用所用，而 inheritance 可以实现继承其他 public namespace 中配置并覆盖其中不同的配置。
 
 所以可以利用 inheritance 特性实现设置公有 namespace 再配以不同的继承 namespace 差异化定制配置。
+
+## 利用 Apollo 配置实现动态配置定时任务 cron 表达式
+
+理论上，只需要在 Spring 启动阶段将定义任务注入到指定容器里，在应用运行期间监听相关的配置，发生变化则将容器中的任务实时更新即可。
