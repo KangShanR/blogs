@@ -8,4 +8,4 @@ tag: "Google-Guice"
 
 [Guice Wiki](https://github.com/google/guice/wiki/GettingStarted)
 
-独立于 Spring 的依赖注入
+独立于 Spring 的依赖注入。

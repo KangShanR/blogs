@@ -54,3 +54,13 @@ namespace 有三种类型：public private inheritance。顾名思义，public �
 ## 利用 Apollo 配置实现动态配置定时任务 cron 表达式
 
 理论上，只需要在 Spring 启动阶段将定义任务注入到指定容器里，在应用运行期间监听相关的配置，发生变化则将容器中的任务实时更新即可。
+
+## Apollo 实现原理
+
+大致流程：从 @EnableApolloConfig 注解开始，为兼容老版本 Spring 不能 Import BeanDefinitionPostProcessor 使用 `ImportBeanDefinitionRegistrar` 将各个核心处理器注入到 Spring 容器。其中这些处理器在 Spring 启动阶段，将所有使用点位符注解 `@Value` 的 bean 都统一构造一个 SpringValue 对象（其中写入了 bean/(method|field)/key/ 数据）写入一个 map 容器中 `com.ctrip.framework.apollo.spring.property.SpringValueRegistry#registry`。此后每次更新都对此容器中数据进行更新。
+
+**问题** ：每次更新 Apollo 配置后，其取到了相应的数据后，只是更新的了 SpringValue 值，而其 Spring Bean 是怎么做到实时更新属性值的？直接容器 refresh 不现实。
+
+answer: 在每个 SpringValue 更新时，其所做的工作除更新一个 value  值外，还会调用此 SpringValue 中的 bean 的 Method 或 Field.set(bean, newVal) 。这一步所做的事就是将新的值放在其所在的 bean 中的 Field 或 Method 中去。`com.ctrip.framework.apollo.spring.property.SpringValue#update`
+
+`AutoUpdateConfigChangeListener` 中 `com.ctrip.framework.apollo.spring.property.AutoUpdateConfigChangeListener#shouldTriggerAutoUpdate` 方法(line 85)判定逻辑也没有看明白，为什么会出现 Environment 中的值与新的配置值相等时会是触发更新的结果？
