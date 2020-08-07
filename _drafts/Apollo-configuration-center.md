@@ -57,7 +57,7 @@ namespace 有三种类型：public private inheritance。顾名思义，public �
 
 ## Apollo 实现原理
 
-大致流程：从 @EnableApolloConfig 注解开始，为兼容老版本 Spring 不能 Import BeanDefinitionPostProcessor 使用 `ImportBeanDefinitionRegistrar` 将各个核心处理器注入到 Spring 容器。其中这些处理器在 Spring 启动阶段，将所有使用点位符注解 `@Value` 的 bean 都统一构造一个 SpringValue 对象（其中写入了 bean/(method|field)/key/ 数据）写入一个 map 容器中 `com.ctrip.framework.apollo.spring.property.SpringValueRegistry#registry`。此后每次更新都对此容器中数据进行更新。
+大致流程：从 @EnableApolloConfig 注解开始 BeanDefinitionPostProcessor 使用 `ImportBeanDefinitionRegistrar` 将各个核心处理器注入到 Spring 容器(不明白为什么不直接使用 `@Import/ImportSelector`)。其中这些处理器在 Spring 启动阶段，将所有使用点位符注解 `@Value` 的 bean 都统一构造一个 SpringValue 对象（其中写入了 bean/(method|field)/key/ 数据）写入一个 map 容器中 `com.ctrip.framework.apollo.spring.property.SpringValueRegistry#registry`。此后每次更新都对此容器中数据进行更新。
 
 **问题** ：每次更新 Apollo 配置后，其取到了相应的数据后，只是更新的了 SpringValue 值，而其 Spring Bean 是怎么做到实时更新属性值的？直接容器 refresh 不现实。
 
