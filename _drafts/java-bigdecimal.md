@@ -28,5 +28,4 @@ DOWN 模式 与 FLOOR 模式的区别则同理可得。
 
 - compare
     - 在使用中，从数据库取出来的  数据 其 stringCache 为四位小数 比如： 0 就会被记为 0.0000 ，这个时候如果使用 BigDecimal.ZERO 与 取出来的数据 `0` 进行 equals 方法比较，返回结果就是 false 。如果要实现值的正常比较，就应该使用 BigDecimal.compare() 方法 根据其返回 int 数据来进行判断比较。
-- _已不推荐使用此种取小数位数方式，推荐使用 `java.math.RoundingMode`_
-  
+- _已不推荐使用此种取小数位数方式，推荐使用 `java.math.RoundingMode`_  
