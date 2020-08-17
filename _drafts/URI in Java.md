@@ -91,6 +91,55 @@ URL 不负责编码与解码，所以其不识别转义后的 URL 与转义前�
 - 空格 space US-ASCII coded character 20 hexadecimal
 - 分隔符 delims "<" | ">" | "#" | "%" | <"> 网关代理用于分隔符 "{" | "}" | "|" | "\" | "^" | "[" | "]" | "`"
 
-## URI 句法部件
+## URI 句法部件 （URI Syntactic Components）
 
-URI 语法主要取决于 scheme ，一般来讲，绝对 URI 的写法： `<scheme>:<scheme-specific-part>`。
+URI 语法主要取决于 scheme ，一般来讲，绝对 URI 的写法： `<scheme>:<scheme-specific-part>`。使用的 scheme 后跟 `;` 再跟上一个意义解释取决于 scheme 的 String。
+
+URI 语法并不要求 scheme-specific-part 部分有任何通用结构，也不需要有一般性规则。但其子集会遵循在命名空间代表层级关系的通用语法，该请求由四个主要组件组成： `<scheme>://<authority><path>?<query>`。除了 scheme ，其他每一个组件都非必须。例如：有些 URI scheme 不允许 authority 组件，而其他的不使用 `<query>` 组件。
+
+`absoluteURI   = scheme ":" ( hier_part | opaque_part )`
+
+本质上层级 URI 使用 slash `/` 分隔。某些文件系统同样使用 `/` 构成文件名层级，所以这两者类似，但这不表明 URI 资源就是一个文件或 URI 映射到一个文件系统路径名。
+
+> hier_part     = ( net_path | abs_path ) [ "?" query ]
+
+> net_path      = "//" authority [ abs_path ]
+
+> abs_path      = "/"  path_segments
+
+URI 不使用 `/` 分隔层级的话，将被通用 URI 解析器识别为不透明 'opaque'；
+
+opaque_part   = uric_no_slash *uric
+
+uric_no_slash = unreserved | escaped | ";" | "?" | ":" | "@" |"&" | "=" | "+" | "$" | ","
+
+使用 `<path>` 表示 `<abs_path>` 与 `<opaque_part>` 结构，因为对于任一给定的 URI 它们相互排斥，且能被编译成单一组件。
+
+### Scheme 组件
+
+如有多种方式访问资源一样，URI 也可以有多种形式的 scheme 来识别资源。URI 由保留字符分隔的组件序列组成，其中第一个组件定义了剩余的 URI 字串的语义。
+
+Scheme 由小写字母、数字、plus `+`/period `.`/hyphen `-` 所构成，且只能以 小字字母开头，大写字母将被自动转为小写字母。`scheme = alpha *( alpha | digit | "+" | "-" | "." )`。相对 URI 从 base URI 继承而来，不以 scheme 开头。
+
+### Path 组件
+
+```
+path          = [ abs_path | opaque_part ]
+
+path_segments = segment *( "/" segment )
+segment       = *pchar *( ";" param )
+param         = *pchar
+
+pchar         = unreserved | escaped |":" | "@" | "&" | "=" | "+" | "$" | ","
+```
+
+一个路径组件可由多个 segment 组成，segment 由 `/` 分隔。一个 segment 中，`/`,`?`,`=`,`;` 为保留字符。同时可由多个参数构成，参数之间使用 `;` 分隔。
+
+### Query 组件
+
+>    The query component is a string of information to be interpreted by the resource.
+> 
+> query         = *uric
+> 
+> Within a query component, the characters ";", "/", "?", ":", "@", "&", "=", "+", ",", and "$" are reserved.
+
