@@ -272,7 +272,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao{
 </bean>
 ```
 
-- Note:*这儿配置spring的sessionFactory属性就会把Hibernatek r sessionFactory属性覆盖；*
+- Note:*这儿配置spring的sessionFactory属性就会把 Hibernate sessionFactory属性覆盖；*
 - configLocations属性：*将指定路径的配置文件都加载进去，相应的LocalSessionFactoryBean中的的此属性的setter方法的参数为可变参数:*
 
 ```java

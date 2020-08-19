@@ -142,4 +142,3 @@ pchar         = unreserved | escaped |":" | "@" | "&" | "=" | "+" | "$" | ","
 > query         = *uric
 > 
 > Within a query component, the characters ";", "/", "?", ":", "@", "&", "=", "+", ",", and "$" are reserved.
-

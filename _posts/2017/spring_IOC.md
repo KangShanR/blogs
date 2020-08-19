@@ -1,9 +1,7 @@
 ---
-title: spring反转控制的思想
 date: 2017-09-15 12:14:38
 tags: [framework,java]
 categories: programming
-
 ---
 
 # 1. Spring IoC
@@ -11,29 +9,30 @@ categories: programming
 <!-- TOC -->
 
 - [1. Spring IoC](#1-spring-ioc)
-  - [1.1. 反向控制（Inverse of Control)](#11-%e5%8f%8d%e5%90%91%e6%8e%a7%e5%88%b6inverse-of-control)
-    - [1.1.1. 举例](#111-%e4%b8%be%e4%be%8b)
+  - [1.1. 反向控制（Inverse of Control)](#11-反向控制inverse-of-control)
+    - [1.1.1. 举例](#111-举例)
   - [1.2. Container Configuration](#12-container-configuration)
     - [1.2.1. java based container configuration](#121-java-based-container-configuration)
-      - [1.2.1.1. AnnotationConfigApplicationContext 初始化 IoC 容器](#1211-annotationconfigapplicationcontext-%e5%88%9d%e5%a7%8b%e5%8c%96-ioc-%e5%ae%b9%e5%99%a8)
+      - [1.2.1.1. AnnotationConfigApplicationContext 初始化 IoC 容器](#1211-annotationconfigapplicationcontext-初始化-ioc-容器)
       - [1.2.1.2. ComponentScan](#1212-componentscan)
       - [1.2.1.3. AnnotationConfigWebApplicationContext](#1213-annotationconfigwebapplicationcontext)
+      - [Fine-tuning Annotation-based Autowiring with Qualifiers](#fine-tuning-annotation-based-autowiring-with-qualifiers)
   - [1.3. Container Extension points](#13-container-extension-points)
-    - [1.3.1. 自定义 BeanPostProcessor](#131-%e8%87%aa%e5%ae%9a%e4%b9%89-beanpostprocessor)
-    - [1.3.2. 自定义 BeanFactoryPostProcessor](#132-%e8%87%aa%e5%ae%9a%e4%b9%89-beanfactorypostprocessor)
-    - [1.3.3. 通过 FactoryBean 自定义初始化逻辑](#133-%e9%80%9a%e8%bf%87-factorybean-%e8%87%aa%e5%ae%9a%e4%b9%89%e5%88%9d%e5%a7%8b%e5%8c%96%e9%80%bb%e8%be%91)
-  - [1.4. ApplicationContext 额外功能](#14-applicationcontext-%e9%a2%9d%e5%a4%96%e5%8a%9f%e8%83%bd)
-    - [1.4.1. 使用 MessageResource 做国际化](#141-%e4%bd%bf%e7%94%a8-messageresource-%e5%81%9a%e5%9b%bd%e9%99%85%e5%8c%96)
-    - [1.4.2. 标准事件与自定义事件](#142-%e6%a0%87%e5%87%86%e4%ba%8b%e4%bb%b6%e4%b8%8e%e8%87%aa%e5%ae%9a%e4%b9%89%e4%ba%8b%e4%bb%b6)
-      - [1.4.2.1. 内置的事件](#1421-%e5%86%85%e7%bd%ae%e7%9a%84%e4%ba%8b%e4%bb%b6)
-      - [1.4.2.2. 监听器实现](#1422-%e7%9b%91%e5%90%ac%e5%99%a8%e5%ae%9e%e7%8e%b0)
-    - [1.4.3. Web 应用中实例化 ApplicationContext](#143-web-%e5%ba%94%e7%94%a8%e4%b8%ad%e5%ae%9e%e4%be%8b%e5%8c%96-applicationcontext)
-    - [1.4.4. 发布一个 Spring ApplicationContext 为 Java EE RAR 文件](#144-%e5%8f%91%e5%b8%83%e4%b8%80%e4%b8%aa-spring-applicationcontext-%e4%b8%ba-java-ee-rar-%e6%96%87%e4%bb%b6)
+    - [1.3.1. 自定义 BeanPostProcessor](#131-自定义-beanpostprocessor)
+    - [1.3.2. 自定义 BeanFactoryPostProcessor](#132-自定义-beanfactorypostprocessor)
+    - [1.3.3. 通过 FactoryBean 自定义初始化逻辑](#133-通过-factorybean-自定义初始化逻辑)
+  - [1.4. ApplicationContext 额外功能](#14-applicationcontext-额外功能)
+    - [1.4.1. 使用 MessageResource 做国际化](#141-使用-messageresource-做国际化)
+    - [1.4.2. 标准事件与自定义事件](#142-标准事件与自定义事件)
+      - [1.4.2.1. 内置的事件](#1421-内置的事件)
+      - [1.4.2.2. 监听器实现](#1422-监听器实现)
+    - [1.4.3. Web 应用中实例化 ApplicationContext](#143-web-应用中实例化-applicationcontext)
+    - [1.4.4. 发布一个 Spring ApplicationContext 为 Java EE RAR 文件](#144-发布一个-spring-applicationcontext-为-java-ee-rar-文件)
   - [1.5. Environment Abstraction](#15-environment-abstraction)
-    - [1.5.1. 使用 @Profile 注解 bean](#151-%e4%bd%bf%e7%94%a8-profile-%e6%b3%a8%e8%a7%a3-bean)
-    - [1.5.2. 激活项目 Profile](#152-%e6%bf%80%e6%b4%bb%e9%a1%b9%e7%9b%ae-profile)
+    - [1.5.1. 使用 @Profile 注解 bean](#151-使用-profile-注解-bean)
+    - [1.5.2. 激活项目 Profile](#152-激活项目-profile)
     - [1.5.3. PropertySource Abstraction](#153-propertysource-abstraction)
-    - [1.5.4. 使用 @PropertySource](#154-%e4%bd%bf%e7%94%a8-propertysource)
+    - [1.5.4. 使用 @PropertySource](#154-使用-propertysource)
     - [1.5.5. Placeholder Resolution in Statement](#155-placeholder-resolution-in-statement)
   - [1.6. BeanFactory](#16-beanfactory)
 
@@ -112,6 +111,20 @@ ioc 容器配置。传统配置方法是使用 xml 配置文件实现。
 
 - AnnotationConfigWebApplicationContext 是 AnnotationConfigApplicationContext 的变体，用于初始化 springmvc 容器。
 - 可用于注册 Spring Servlet lisener `ContextLoaderListener`、spring MVC DispatherServlet 等等。
+
+#### Fine-tuning Annotation-based Autowiring with Qualifiers
+
+[reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-autowired-annotation-primary)
+
+微调 bean 注入。使用注解 `@Qualifier` 在bean 定义与bean 注入处添加数据用以鉴别 bean 。
+
+- bean 定义处可以不使用 `@Qualifier` ，注入处会自动使用 beanName 。
+- `@AutoWired` 注入的策略是先使用 Type 匹配，匹配到多个时会使用 `@Qualifier` 指定的 value 匹配。
+- `@Resource` 注解注入匹配策略只使用其唯一名 unique name，type 定义与其无关。
+- 如果 bean 定义为一个集合，数组或 Map，使用 `@Resource` 可直接匹配其 beanName 得到此集合。
+- 通过 `@AutoWired` 注入时有多个 bean Type 匹配，此时可以添加 `@Qualifier` 数据获取。
+- `@AutoWired` 自注入（截止到 Spring 4.3），在这种场景自注入的 self-bean 优先级最低，不能为 Primary 。
+- 在同一个 Configuration 类 @Bean 方法中注入自身是解决自引用的问题更高效。
 
 ## 1.3. Container Extension points
 
