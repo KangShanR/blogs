@@ -8,7 +8,6 @@ description: spring test 的应用
 # 1. Spring Test
 
 [reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#testing-introduction)
-<!-- TOC -->
 
 - [1. Spring Test](#1-spring-test)
   - [1.1. 指定测试上下文 Spring TestContext Framework](#11-指定测试上下文-spring-testcontext-framework)
