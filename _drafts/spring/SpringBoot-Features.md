@@ -22,3 +22,29 @@ Spring Profiles 提供隔离配置的功能，可以做到不同环境生效不�
 使用 SpringBoot Test 相对于 Spring更为方便一些。如果使用 Junit5 只需要一个注解 `@SpringBootTest`
 
 - 可以使用服务端测试，也可以使用客户端测试。
+
+## logging
+
+[reference](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-logging)
+
+- 使用配置 logging.file.name 与 logging.file.path 指定日志文件名与路径，如果不指定文件名仅打印到控制台，如果不指定文件路径将写文件在当前路径。
+
+### logging level
+
+- 指定日志级别 `logging.level.<logger-name>=<level>` logger 指日志器，可以是类或包
+- 可以在环境变量中添加参数指定日志级别 `LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB=DEBUG` ，但这不指定类的日志器，因为环境变量中会将所有大写转换成小写。使用 SPRING_APPLICATION_JSON 变量（在命令行参数、系统变量、命令行参数中添加 Json）实现。
+
+### Log Groups
+
+- 直接定义多个类或包到同一个组 `logging.level.tomcat=org.apache.catalina,org.apache.coyote` ，再直接指定组的日志级别 `logging.level.tomcat=DEBUG`
+- Spring Boot 预定义了日志组 sql 与 web
+
+### Custom Log Configuration
+
+[reference](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-logback-extensions)
+
+在系统变量中指定日志系统 `org.springframework.boot.logging.LoggingSystem` ，此值必须是 LoggingSystem 的实现类全限定名。同时此属性只能在系统属性中指定，因为日志开头在 ApplicationContext 初始化完成前就会使用日志系统。
+
+- LoggingSystem 实现有三种：Logback/Log4j2/JavaUtilLogging ，其中 Logback 功能最全。
+- 通过配置文件或 Environment 属性 `logging.config` 可以自定义日志系统
+
