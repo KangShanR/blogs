@@ -48,3 +48,13 @@ Spring Profiles 提供隔离配置的功能，可以做到不同环境生效不�
 - LoggingSystem 实现有三种：Logback/Log4j2/JavaUtilLogging ，其中 Logback 功能最全。
 - 通过配置文件或 Environment 属性 `logging.config` 可以自定义日志系统
 
+## JSON
+
+[reference](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-json)
+
+Spring Boot 整合了三种 JSON 映射库：
+
+1. Gson，SpringBoot 自动配置为 bean 并可以通过 spring.gson.* 配置多个属性，更详细地控制可以通过 GsonBuilderCustomizer bean 实现。
+2. Jackson，Spring 偏好并默认的。当 Jackson 在 classpath 中时， 一个 ObjectMapper bean 会自动注入，并可自定义多个配置属性。
+3. JSON-B
+
