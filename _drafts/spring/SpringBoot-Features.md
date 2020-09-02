@@ -58,3 +58,12 @@ Spring Boot 整合了三种 JSON 映射库：
 2. Jackson，Spring 偏好并默认的。当 Jackson 在 classpath 中时， 一个 ObjectMapper bean 会自动注入，并可自定义多个配置属性。
 3. JSON-B
 
+## Developing Web Applications
+
+[reference](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-developing-web-applications)
+
+### The Spring Web MVC Framework
+
+#### Custom JSON Serializers and Deserializers
+
+@JsonComponent 注解添加 jackson 序列化反序列化器到容器中。
