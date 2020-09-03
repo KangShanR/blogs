@@ -1,14 +1,14 @@
 ---
 layout: "post"
-title: "mysql"
+tag: "mysql"
 date: "2018-11-01 10:13"
 ---
 
-## mysql server & client
+# mysql server & client
 
 > mysql 部署 server 及 client 请求
 
-### mysql server
+## mysql server
 
 > mysql server 的部署及请求[参考](http://www.cnblogs.com/QingXiaxu/p/7987302.html)
 
@@ -30,7 +30,7 @@ localhost 的 testing 尝试：
             - 关闭服务：`mysqladmin -uroot shutdown`
 - 查看当前 mysql server 连接情况命令： `show processlist` 将会看到当前 mysql server 连接的各个 client 的 ip/port/status/user/db 等
 
-### mysql client operate
+## mysql client operate
 
 > 在 mysql 控制台操作数据库
 
@@ -223,3 +223,10 @@ mysql 的事务
     - SERIALIAZABLE，串行事务，性能最低三者都不允许
 - Oracle 不支持脏读，默认使用 READ COMMITED，支持 READ COMMITED/SERIALIZABLE
 - MySQL 标准定义的默认事务隔离级别是 REPEATABLE READ
+
+## 分类
+
+[reference](https://dev.mysql.com/doc/refman/8.0/en/glossary.html#glos_data_warehouse)
+
+OLTP: Online Transaction Process 多写类类型
+data warehouse 多读少写类型
