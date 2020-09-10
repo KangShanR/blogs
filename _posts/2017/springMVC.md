@@ -291,6 +291,7 @@ springmvc 中可以直接使用 Hibernate 的一个校验框架：hibernate-vali
 	```
 
 - HTTP HEAD,OPTIONS 请求，自动转换请求到 GET 上，也可配置多个请求方式在同一个 URL 上
+- 所有 handler 请求响应的方法都会映射成一个 RequestMappingInfo ，其中包括了所有的 headers/consumes/produces, etc.，再将所有的方法注册到 org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping#registerMapping 中（容器 HashMap）。此 Mapping 实现 InitializeBean 会自动在 Spring 中实现并在其 afterPropertiesSet 方法中进行注册 handler method 方法。
 
 #### 1.3.2.1. URI Pattern
 
