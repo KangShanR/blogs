@@ -10,14 +10,15 @@ description: Spring Boot SpringApplication
 <!-- TOC -->
 
 - [1. SpringApplication](#1-springapplication)
-    - [1.1. Application Availability](#11-application-availability)
-        - [1.1.1. Liveness State](#111-liveness-state)
-        - [1.1.2. Readiness State](#112-readiness-state)
-        - [1.1.3. Managing the Application Availability State](#113-managing-the-application-availability-state)
-    - [1.2. Application Events and Listeners](#12-application-events-and-listeners)
-    - [1.3. Web Environment](#13-web-environment)
-    - [1.4. Accessing Application Arguments](#14-accessing-application-arguments)
-    - [1.5. Using the ApplicationRunner and CommandLineRunner](#15-using-the-applicationrunner-and-commandlinerunner)
+  - [1.1. Application Availability](#11-application-availability)
+    - [1.1.1. Liveness State](#111-liveness-state)
+    - [1.1.2. Readiness State](#112-readiness-state)
+    - [1.1.3. Managing the Application Availability State](#113-managing-the-application-availability-state)
+  - [1.2. Application Events and Listeners](#12-application-events-and-listeners)
+  - [1.3. Web Environment](#13-web-environment)
+  - [1.4. Accessing Application Arguments](#14-accessing-application-arguments)
+  - [Using the ApplicationRunner and CommandLineRunner](#using-the-applicationrunner-and-commandlinerunner)
+  - [初始化流程](#初始化流程)
 
 <!-- /TOC -->
 [SpringBoot Features](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-spring-application)
@@ -150,3 +151,16 @@ Spring Boot 也注册了一个与 Environment 关联的 `CommandLinePropertySour
 [使用应用、命令行Runner](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-web-environment)
 
 如果需要在 SpringApplication 启动后执行某些代码，可以实现 `ApplicationRunner` 或 `CommandLineRunner` 接口，这两个接口都提供一个 `run(ApplicationArguments)` 方法定义，其实现都是在 `SpringApplication.run(...)` 方法完成之前调用。如果有多个 Runner 需要执行，可以在 Runner 上添加 `Order` 接口或 `@Order` 注解用以指定顺序。
+
+## 初始化流程
+
+> spring boot 在初始化中把大量工作做了。
+
+1. 加载 environment 数据
+2. 创建 context
+3. context refresh
+   1. 其中对入口类进行数据扫描，工作在 `org.springframework.context.annotation.ConfigurationClassParser#doProcessConfigurationClass`，大量调用 ConfigurationClassParser 进行数据解析。
+   2. org.springframework.context.annotation.ConfigurationClassParser#doProcessConfigurationClass 该解析器方法处理所有的 configuration 配置类数据，包括各注解 @Component @ComponentScan @PropertiesSource @Import @ImportSource @Bean 内嵌类、父类、接口默认方法 数据
+   3. `org.springframework.context.support.PostProcessorRegistrationDelegate#invokeBeanFactoryPostProcessors(org.springframework.beans.factory.config.ConfigurableListableBeanFactory, java.util.List<org.springframework.beans.factory.config.BeanFactoryPostProcessor>)` 调用 beanFactoryPostProcessor ，其就包括了将所有的 component 中的 beanDefinition 注册到容器 BeanDefinitionRegistry 中，也包括调用所有的 BeanPostProcessor .
+   4. 注册 BeanFactoryProcessor 时从 BeanDefinitionRegistry 获取其 BeanDefinition 进行初始化 bean 。
+   5. org.springframework.beans.factory.support.CglibSubclassingInstantiationStrategy.CglibSubclassCreator#createEnhancedSubclass 使用CGLIB 动态代理生成 bean 子类
