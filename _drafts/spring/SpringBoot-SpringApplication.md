@@ -163,4 +163,4 @@ Spring Boot 也注册了一个与 Environment 关联的 `CommandLinePropertySour
    2. org.springframework.context.annotation.ConfigurationClassParser#doProcessConfigurationClass 该解析器方法处理所有的 configuration 配置类数据，包括各注解 @Component @ComponentScan @PropertiesSource @Import @ImportSource @Bean 内嵌类、父类、接口默认方法 数据
    3. `org.springframework.context.support.PostProcessorRegistrationDelegate#invokeBeanFactoryPostProcessors(org.springframework.beans.factory.config.ConfigurableListableBeanFactory, java.util.List<org.springframework.beans.factory.config.BeanFactoryPostProcessor>)` 调用 beanFactoryPostProcessor ，其就包括了将所有的 component 中的 beanDefinition 注册到容器 BeanDefinitionRegistry 中，也包括调用所有的 BeanPostProcessor .
    4. 注册 BeanFactoryProcessor 时从 BeanDefinitionRegistry 获取其 BeanDefinition 进行初始化 bean 。
-   5. org.springframework.beans.factory.support.CglibSubclassingInstantiationStrategy.CglibSubclassCreator#createEnhancedSubclass 使用CGLIB 动态代理生成 bean 子类
+   5. org.springframework.beans.factory.support.CglibSubclassingInstantiationStrategy.CglibSubclassCreator#createEnhancedSubclass 使用 CGLIB 动态代理生成 bean 子类
