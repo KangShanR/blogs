@@ -110,3 +110,14 @@ spring boot 使用了不同的方式达到直接使用内嵌包。
 - 使用 trigger-file 触发项目重启。`spring.devtools.restart.trigger-file=<.reloadtrigger>` 手动更新了 trigger 文件才会触发更新。trigger 文件可以自定义在 classpath 中任意地方，而配置文件指定配置文件不需要全限定名，更新代码后只需要修改保存一下trigger文件即可触发reload。
 - 如果使用了Ultimate Edition IDEA 可以点击 relauch 触发重启。
 - 生产模式下devtool 自动关闭，如果项目启动通过 java -jar 运行一个包或从一个特定的 classloader 中开始，devtools 将自动识别在生产模式中。如果应用在窗口中开启需要排除 devtools 或者直接添加系统参数 `-Dspring.devtools.restart.enabled=false`。
+
+## Source Code
+
+Spring Boot 源码
+
+### 单例 bean 注册器中 org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
+
+- dependentBeanMap 注释 `Map between dependent bean names: bean name to Set of dependent bean names.` 表示 bean 与依赖此 bean 的映射 map 。
+- dependenciesForBeanMap `Map between depending bean names: bean name to Set of bean names for the bean's dependencies.` 表示 bean 与 此 bean 依赖的 bean 的映射关系集合。
+    - 上述结论来自方法 org.springframework.beans.factory.support.DefaultSingletonBeanRegistry#registerDependentBean 及其注释说明。同时可以从自动装配方法 org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory#autowireByType line:1511 推导：解析本bean 自动装配的依赖 autowiredBeanNames 出后，在注册处调用方法 line:1516 参数是本 bean 依赖 autowiredBeanName 为第一个参数，而本 beanName 是第二个参数（这时的依赖关系是： 本bean 依赖 autowiredBean）。再看此 registerDependentBean 方法，其执行是将第一个参数 beanName（此时就是本 bean 的依赖bean） 放入了 dependenciesForBeanMap 而 本 beanName 作为 了第二个参数 放入了 dependentBeanMap 。
+- CGLIB 策略生成子类创建 bean: org.springframework.beans.factory.support.CglibSubclassingInstantiationStrategy.CglibSubclassCreator#createEnhancedSubclass
