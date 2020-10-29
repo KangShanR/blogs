@@ -1,3 +1,10 @@
+---
+date: 2020-5-12 18:52:00
+categories: programming
+tags: [programming, linux, OS]
+description: linux
+---
+
 # linux
 
 desktop virtual machine: root 123456
