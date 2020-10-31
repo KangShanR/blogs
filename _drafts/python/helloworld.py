@@ -29,4 +29,6 @@ print(1/3)
 # show the Zen of Python
 import this
 
+name = input('What is your name?\n')
+print ('Hi, %s.' % name)
 
