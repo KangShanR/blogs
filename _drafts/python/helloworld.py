@@ -29,6 +29,11 @@ print(1/3)
 # show the Zen of Python
 import this
 
+def greet(name):
+    print("Hi,", name,".How's the wether?")
+
+# interact in terminate
 name = input('What is your name?\n')
+greet(name)
 print ('Hi, %s.' % name)
 
