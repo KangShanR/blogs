@@ -36,3 +36,13 @@ date: "2017-11-30 11:30"
 1. 驾驶员安全教育签到表由系统打印出最新的车辆和驾驶员的绑定关系。现在让他们手动签字。
 2. 驾驶员奖励记录去掉，奖励金额改成奖励形式。
 3. 从业奖惩情况从企业处罚和交通处罚拉过来，也可以额外添加。另外还可以从GPS报表中拉到驾驶员的超速记录等来自动增加驾驶员的惩罚记录。一天超速100次，就记录一条记录，填上日期，原因（GPS报警100次）奖惩记录（），奖励部门。前期可以通过导入。
+
+增加额度
+https://pwpd-public-test.oss-cn-shenzhen.aliyuncs.com/template/%E5%91%98%E5%B7%A5%E5%A2%9E%E5%8A%A0%E9%A2%9D%E5%BA%A6%E6%A8%A1%E6%9D%BF.xlsx
+
+
+消除额度
+https://pwpd-public-test.oss-cn-shenzhen.aliyuncs.com/template/%E5%91%98%E5%B7%A5%E6%89%B9%E9%87%8F%E6%B8%85%E9%99%A4%E9%A2%9D%E5%BA%A6%E6%A8%A1%E6%9D%BF.xlsx
+
+导入员工
+https://pwpd-public-test.oss-cn-shenzhen.aliyuncs.com/template/%E6%89%B9%E9%87%8F%E5%AF%BC%E5%85%A5%E5%91%98%E5%B7%A5%E6%A8%A1%E6%9D%BF.xls
