@@ -7,14 +7,7 @@ tags: [generic,java]
 
 # 1. java Type
 
-<!-- TOC -->
-
-- [1. java Type](#1-java-type)
-  - [1.1. java generic](#11-java-generic)
-    - [1.1.1. 范型通配符](#111-%e8%8c%83%e5%9e%8b%e9%80%9a%e9%85%8d%e7%ac%a6)
-      - [1.1.1.1. PECS 原则](#1111-pecs-%e5%8e%9f%e5%88%99)
-
-<!-- /TOC -->
+<!-- TOC -->autoauto1. [1. java Type](#1-java-type)auto    1. [1.1. java generic](#11-java-generic)auto        1. [1.1.1. 范型通配符](#111-范型通配符)auto            1. [1.1.1.1. PECS 原则](#1111-pecs-原则)autoauto<!-- /TOC -->
 
 > java 中使用的范型相关的 Type。在反序列化时，对于范型相关的类需要使用到的 Type 。mc
 
