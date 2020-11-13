@@ -29,7 +29,7 @@ desktop virtual machine: root 123456
 问题：March 12 2020 在虚拟机上 linux 设置自动启动 mysql 后，在使用 `service mysql stop` 命令出现错误：“ERROR! MySQL server PID file could not be found”。最后使用 stackoverflow 上方法解决：[stackoverflow](https://stackoverflow.com/questions/41616251/error-mysql-server-pid-file-could-not-be-found-in-osx-sierra)
 
 1. `ps -ef | grep mysql --color` 查找出正在运行的 mysql 进程；
-2. `kill -9 PID` 杀死掉这些进程；
+2. `kill -9 PID` 杀掉进程；
 3. 再使用 `service mysql start` 启动 mysql ，后面再使用 `service mysql stop` 正常停止 mysql。
 
 ## redis
@@ -91,7 +91,7 @@ desktop virtual machine: root 123456
 - `|` 管道命令，一般与 grep 联用，在上一个结果中进行操作下一个命令
 - `vim [file]` 或者 `vi [file]` 命令
     - 进入到文件 vi 编辑状态后，有三种状态：
-        - commond mode 命令模式，此模式下按 `:` 进入底行模式， `i`/`a`/`o` 进入到插入模式
+        - command mode 命令模式，此模式下按 `:` 进入底行模式， `i`/`a`/`o` 进入到插入模式
             - `i` 在光标前插入 `shift + i` 在光标所在行前插入
             - `a` 在光标后插入， `shift + a` 在光标所在行最后插入
             - `o` 在光标所在行下一行插入新行， `shift + o` 在光标所在行前一行插入新行
@@ -106,9 +106,15 @@ desktop virtual machine: root 123456
     - delete
         - `dd`删除光标所在行
         - `ndd` 删除 n 行
-- `grep [parameter] [regular expression] {file}` Global Regular expression print 过滤搜索特定字符。
+- `grep [parameter] [regular expression] {file}` Global Regular expression print 过滤搜索特定字符。匹配到的结果是行，rgep 可以多个，file 也可多个，也可用 * 匹配当前路径所有文件
     - `-i` 或 `-ignore-case` 忽略大小写
-    - `--color=auto` ：可以将找到的关键词部分加上颜色的显示喔！
+    - `--color[=auto|=never|=always]` ：可以将找到的关键词部分加上颜色的显示
+    - `-A2` after 显示匹配行+其后2行
+    - `-B` before
+    - `-C` 前后都有
+    - c 统计行数
+    - r recursive 递归查找包括子路径文件
+    - l line 显示行号
 
 ### 系统命令
 
