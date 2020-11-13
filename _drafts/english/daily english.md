@@ -17,3 +17,8 @@
 ## May 11th 2020
 
 - besides vs except: **Except** serves the purpose of **exclusion** while **besides** serves that of **inclusion**. The whole class is going, except John. Besides the class, Mary is also going. Sometimes they have the exact same meaning.
+
+## Nov 13th 2020
+
+- cheat sheet 小抄
+- handy 称手的

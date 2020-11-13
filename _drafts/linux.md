@@ -115,6 +115,7 @@ desktop virtual machine: root 123456
     - c 统计行数
     - r recursive 递归查找包括子路径文件
     - n number of line 显示行号
+    - E extend 扩展 rege
 
 ### 系统命令
 
