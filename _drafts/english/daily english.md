@@ -22,3 +22,8 @@
 
 - cheat sheet 小抄
 - handy 称手的
+
+## Nov 15th 2020
+
+- pencil pusher 办公室小职员
+- 
