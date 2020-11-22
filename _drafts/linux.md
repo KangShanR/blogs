@@ -89,23 +89,47 @@ desktop virtual machine: root 123456
 ### 文档编辑
 
 - `|` 管道命令，一般与 grep 联用，在上一个结果中进行操作下一个命令
-- `vim [file]` 或者 `vi [file]` 命令
+- [`vim [file]` 或者 `vi [file]` 命令](https://vim.rtorr.com/)
     - 进入到文件 vi 编辑状态后，有三种状态：
         - command mode 命令模式，此模式下按 `:` 进入底行模式， `i`/`a`/`o` 进入到插入模式
             - `i` 在光标前插入 `shift + i` 在光标所在行前插入
             - `a` 在光标后插入， `shift + a` 在光标所在行最后插入
             - `o` 在光标所在行下一行插入新行， `shift + o` 在光标所在行前一行插入新行
+            - i - Insert at cursor (goes into insert mode)
+            - a - Write after cursor (goes into insert mode)
+            - A - Write at the end of line (goes into insert mode)
+            - ESC - Terminate insert mode
+            - u - Undo last change
+            - U - Undo all changes to the entire line
+            - o - Open a new line (goes into insert mode)
+            - dd - Delete line
+            - 3dd - Delete 3 lines.
+            - D - Delete contents of line after the cursor
+            - C - Delete contents of a line after the cursor and insert new text. Press ESC key to end insertion.
+            - dw - Delete word
+            - 4dw - Delete 4 words
+            - cw - Change word
+            - x - Delete character at the cursor
+            - r - Replace character
+            - R - Overwrite characters from cursor onward
+            - s - Substitute one character under cursor continue to insert
+            - S - Substitute entire line and begin to insert at the beginning of the line
+            - ~ - Change case of individual character
         - last line mode 底行模式， w write, q quit 退出到编辑模式, ! force
         - insert mode 插入模式，esc 退出到底行模式
     - copy & paste
-        - `yy` 单行复制
-        - `nyy` n 行复制
+        - `yy` 单行复制 yank current line
+        - `y$` 复制光标到行尾 yank to end of the current line from cursor
+        - `yw` 复制从光标处到词尾 yank from cursor to end of the current word
+        - `nyy` n 行复制 
         - `p` 在光标处粘贴
         - `gg` 到文本第一行
         - `shift + gg` 到文本最后一行
     - delete
         - `dd`删除光标所在行
         - `ndd` 删除 n 行
+    - `u` undo
+    - ctrl + `r` redo
 - `grep [parameter] [regular expression] {file}` Global Regular expression print 过滤搜索特定字符。匹配到的结果是行，rgep 可以多个，file 也可多个，也可用 * 匹配当前路径所有文件
     - `-i` 或 `-ignore-case` 忽略大小写
     - `--color[=auto|=never|=always]` ：可以将找到的关键词部分加上颜色的显示
