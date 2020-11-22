@@ -89,7 +89,7 @@ desktop virtual machine: root 123456
 ### 文档编辑
 
 - `|` 管道命令，一般与 grep 联用，在上一个结果中进行操作下一个命令
-- [`vim [file]` 或者 `vi [file]` 命令](https://vim.rtorr.com/)
+- [`vim [file]` 或者 `vi [file]` 命令](https://vim.rtorr.com/) [cheat sheet](https://spin.atomicobject.com/2016/04/19/vim-commands-cheat-sheet/)
     - 进入到文件 vi 编辑状态后，有三种状态：
         - command mode 命令模式，此模式下按 `:` 进入底行模式， `i`/`a`/`o` 进入到插入模式
             - `i` 在光标前插入 `shift + i` 在光标所在行前插入
@@ -114,15 +114,16 @@ desktop virtual machine: root 123456
             - R - Overwrite characters from cursor onward
             - s - Substitute one character under cursor continue to insert
             - S - Substitute entire line and begin to insert at the beginning of the line
-            - ~ - Change case of individual character
+            - `~` Change case of individual character, 前面加上数字将实现指定数量个字符的大小写切换
         - last line mode 底行模式， w write, q quit 退出到编辑模式, ! force
         - insert mode 插入模式，esc 退出到底行模式
     - copy & paste
         - `yy` 单行复制 yank current line
         - `y$` 复制光标到行尾 yank to end of the current line from cursor
-        - `yw` 复制从光标处到词尾 yank from cursor to end of the current word
+        - `yw` 复制从光标处到 token 尾 yank from cursor to end of the current word
+        - `yW` 从光标处复制到 word 尾
         - `nyy` n 行复制 
-        - `p` 在光标处粘贴
+        - `p`/`P` 在光标后/前粘贴
         - `gg` 到文本第一行
         - `shift + gg` 到文本最后一行
     - delete
@@ -130,6 +131,16 @@ desktop virtual machine: root 123456
         - `ndd` 删除 n 行
     - `u` undo
     - ctrl + `r` redo
+    - Movement
+        - h j k l 左下上右四个方向移动 cursor 在前加上数字可实现多个字符的跳动
+        - b w B W 向 back forward 方向移动整个 token/word ，在其前数字指定移动数量
+        - ^ $ 移动光标到行首尾
+        - ctrl + u/d 向上下翻页up/down ，cursor 跟着一起翻页
+        - *<line-number>*G 跳到指定行
+        - H M L 跳到页面上中下 High Middle Low
+        - `*` `#` 下一个与当前 cursor 所在 token 相同的 token ，前面加上数字指定跳跃数量
+        - `n` `N` 重复上一次命令结果往上/下找
+        - `''` 两次 `'` ，跳回上一次输入此命令的行首。相当于对特殊行进行一次记录，但只能记录一个历史，感觉没啥用。
 - `grep [parameter] [regular expression] {file}` Global Regular expression print 过滤搜索特定字符。匹配到的结果是行，rgep 可以多个，file 也可多个，也可用 * 匹配当前路径所有文件
     - `-i` 或 `-ignore-case` 忽略大小写
     - `--color[=auto|=never|=always]` ：可以将找到的关键词部分加上颜色的显示
@@ -140,6 +151,13 @@ desktop virtual machine: root 123456
     - r recursive 递归查找包括子路径文件
     - n number of line 显示行号
     - E extend 扩展 rege
+- 命令行中使用命令
+    - `ctrl + e` 移动到行尾 end
+    - `ctrl + a` 移动到行 首
+    - `ctrl + w` 删除光标前一个 token
+    - `esc + d` 删除光标后一个 token
+    - `ESC + f` 向前移动一个 token
+    - `esc + b` 向后移动一个 token
 
 ### 系统命令
 
@@ -148,6 +166,16 @@ desktop virtual machine: root 123456
     - `-f` 显示UID, PPIP, C, STIME 栏位
 - `kill [parameter] [process]`
     - `-9 pid` 强制终止
+
+- sudo superuser do
+    - sudo [command] 给普通用户命令加上超级用户权限
+- 没有安装 systemmd(systemctl) 命令，使用 service {servicename} {start|stop|restart} 代替
+
+### firewall 防火墙
+
+[reference](https://blog.csdn.net/u011846257/article/details/54707864)
+
+添加 iptables 规则时需要将其添加成 REJECT 所有其他的端口之前，否则将无效。
 
 ### 备份压缩
 
