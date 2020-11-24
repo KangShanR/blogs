@@ -208,30 +208,3 @@ evcs.h5.url:
 生产环境
 [{"key":"billing_record","url":"https://h5.snxia.com/#/chargeEnd?billingId="},{"key":"billing_detail","url":"https://h5.snxia.com/#/costCountDetail?billingId="}]
 ```
-
-
-
-
-
-## mysql 改动
-
-- permission_charge_item permission_value 不能默认为 0
-- permission_charge code 请允许为 空
-- 字典表加数据：充电权限项类型 soc/head
-
-
-- tag 表
-  - 修改字长
-ALTER TABLE `ev_tag`
-MODIFY COLUMN `tag_name`  varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标签名称' AFTER `id`,
-MODIFY COLUMN `tag_code`  varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '标签code' AFTER `modified_time`;
-  - 添加老数据
-INSERT INTO `ev_tag` (`tag_code`, `tag_name`) VALUES ('OPENING', '对外开放');
-INSERT INTO `ev_tag` (`tag_code`, `tag_name`) VALUES ('FREE_CAR_WASH', '免费洗车');
-INSERT INTO `ev_tag` (`tag_code`, `tag_name`) VALUES ('CATERING', '餐饮');
-INSERT INTO `ev_tag` (`tag_code`, `tag_name`) VALUES ('EXCLUSIVE_USE', '专用');
-INSERT INTO `ev_tag` (`tag_code`, `tag_name`) VALUES ('SUPERMARKET', '超市');
-INSERT INTO `ev_tag` (`tag_code`, `tag_name`) VALUES ('LOUNGE', '休息室');
-INSERT INTO `ev_tag` (`tag_code`, `tag_name`) VALUES ('VEHICLE_REPAIRING', '汽修');
-INSERT INTO `ev_tag` (`tag_code`, `tag_name`) VALUES ('PARKING_OPENING', '对外停车');
-INSERT INTO `ev_tag` (`tag_code`, `tag_name`) VALUES ('ENTERTAINMENT', '娱乐');

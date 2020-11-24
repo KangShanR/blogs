@@ -62,7 +62,9 @@ desktop virtual machine: root 123456
 
 ### 文件管理
 
-- `cat {文件}` catenate ? 显示文件所有内容
+- `cat [OPTION]... [FILE]...` concatenate 将文件输出级联到另一个文件或终端
+    - `cat > {file}` 指定到同一个文件
+- `lsb_release [OPTION]` 查看系统发布版本
 - `more {file}`  分页显示文件内容
     - enter 向下显示一行（默认1行，可定义）
     - 空格/ctrl+F 显示下一页
@@ -170,6 +172,8 @@ desktop virtual machine: root 123456
 - sudo superuser do
     - sudo [command] 给普通用户命令加上超级用户权限
 - 没有安装 systemmd(systemctl) 命令，使用 service {servicename} {start|stop|restart} 代替
+- `uname` unix name 查看系统版本信息
+- 
 
 ### firewall 防火墙
 
