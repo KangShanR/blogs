@@ -124,7 +124,7 @@ desktop virtual machine: root 123456
         - `y$` 复制光标到行尾 yank to end of the current line from cursor
         - `yw` 复制从光标处到 token 尾 yank from cursor to end of the current word
         - `yW` 从光标处复制到 word 尾
-        - `nyy` n 行复制 
+        - `nyy` n 行复制
         - `p`/`P` 在光标后/前粘贴
         - `gg` 到文本第一行
         - `shift + gg` 到文本最后一行
