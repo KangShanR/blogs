@@ -285,4 +285,10 @@ command lind : `rpm [parameter] [软件]
     - 使用 `wget` 下载 `＊.deb` 包，或直接在其官方网站上手动下载其提供的 linux 版本包；
     - [安装](https://help.ubuntu.com/kubuntu/desktopguide/zh_CN/manual-install.html)。可直接在右击 .deb 文件选择 Kubuntu Package Menu -> install。也可以使用 dpkg 命令安装。卸载时使用 apt-get remove 包名。
 
+### 使用
 
+- [在 Ubuntu 中使用 U 盘](https://blog.csdn.net/a999wt/article/details/8227154)
+    - 需要将 U 盘挂载（ `mount` 命令）到系统中，一般使用 /mnt 目录挂载
+    - 挂载后在 /mnt 目录中就可以看到 U 盘内容了。此处有个坑是如果挂载前已经进入 /mnt 目录，挂载后是看不到 U 盘内容的，需要重新进入目录才能看到。
+    - 操作完 U 盘内容后使得命令 `umount` 命令卸载 U 盘。
+        - 卸载 U 盘可能会出现 device is busy 的提示，等一会儿就自动卸载。
