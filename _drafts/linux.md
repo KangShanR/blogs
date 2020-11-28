@@ -284,6 +284,9 @@ command lind : `rpm [parameter] [软件]
 - ubuntu 中安装软件包使用 dpkg 命令，一般流程：
     - 使用 `wget` 下载 `＊.deb` 包，或直接在其官方网站上手动下载其提供的 linux 版本包；
     - [安装](https://help.ubuntu.com/kubuntu/desktopguide/zh_CN/manual-install.html)。可直接在右击 .deb 文件选择 Kubuntu Package Menu -> install。也可以使用 dpkg 命令安装。卸载时使用 apt-get remove 包名。
+- [禁用启动时显卡加载参数](https://itectec.com/ubuntu/ubuntu-what-do-the-nomodeset-quiet-and-splash-kernel-parameters-mean/)
+    - `nomodeset` 添加此参数指令会让 kernel 不加载显卡驱动使用 BIOS 模式也并非一定要 X server 被加载。
+    - `quiet splash` 使用静默状态的启动，否则任何消息会打断 splash 桌面
 
 ### 使用
 
