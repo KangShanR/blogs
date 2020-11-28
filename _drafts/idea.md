@@ -46,3 +46,19 @@ date: 2020-11-28 18:41:00
 - **f２／shift＋f２**　跳往下／上一个高亮的语法错误
 - **alt+shift+up/down** 在错误信息与result　间跳跃
 - ctrl+h 查看当前类层级 hierarche
+
+## questions
+
+### Ｕbuntu　IDEA 中添加jdk路径
+
+[reference](https://blog.csdn.net/stpeace/article/details/79411223)
+
+1. `which java` 找出　java　命令链接
+2. `ls -l` 找出链接指向的资源链接
+3. 重复　２　命令找到　java　程序的所在，相应的目录就是　jdk　目录
+
+### 在　Ubuntu 中找不到 jdk
+
+[reference](https://stackoverflow.com/questions/30116439/selected-directory-is-not-a-valid-home-for-jdk-intellij-idea-on-ubuntu)
+
+1. 之前只安装了 jre ，再安装一遍 jdk 即可
