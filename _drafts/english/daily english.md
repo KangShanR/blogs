@@ -26,4 +26,7 @@
 ## Nov 15th 2020
 
 - pencil pusher 办公室小职员
-- 
+
+## Nov 29th 2020
+
+- gesture : a movement of a part of the body, expecially a hand or the head, to express an idea or meaning.
