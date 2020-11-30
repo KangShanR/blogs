@@ -138,6 +138,13 @@ desktop virtual machine: root 123456
         - b w B W 向 back forward 方向移动整个 token/word ，在其前数字指定移动数量
         - ^ $ 移动光标到行首尾
         - ctrl + u/d 向上下翻页up/down ，cursor 跟着一起翻页
+        - 整页翻页 ctrl-f ctrl-b
+            - f 就是forward b就是backward
+            - 翻半页 ctrl-d ctrl-u d=down u=up
+            - 滚一行ctrl-e ctrl-y
+            - zz 让光标所在的行居屏幕中央
+            - zt 让光标所在的行居屏幕最上一行 t=top
+            - zb 让光标所在的行居屏幕最下一行 b=bottom
         - *<line-number>*G 跳到指定行
         - H M L 跳到页面上中下 High Middle Low
         - `*` `#` 下一个与当前 cursor 所在 token 相同的 token ，前面加上数字指定跳跃数量
@@ -173,7 +180,6 @@ desktop virtual machine: root 123456
     - sudo [command] 给普通用户命令加上超级用户权限
 - 没有安装 systemmd(systemctl) 命令，使用 service {servicename} {start|stop|restart} 代替
 - `uname` unix name 查看系统版本信息
-- 
 
 ### firewall 防火墙
 
