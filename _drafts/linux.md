@@ -152,7 +152,7 @@ desktop virtual machine: root 123456
     - c 统计行数
     - r recursive 递归查找包括子路径文件
     - n number of line 显示行号
-    - E extend 扩展 rege
+    - E extend 扩展 regexp
 - 命令行中使用命令
     - `ctrl + e` 移动到行尾 end
     - `ctrl + a` 移动到行 首
@@ -239,7 +239,7 @@ windows 操作系统中相关命令行。
 
 ### rpm
 
-> resources package manager 资源包管理器，其相应的包文件后缀为 `.rpm` 在 red hat/Fedora/SUSE 系列使用此包管理，而在 Dibian/Ubuntu 系列使用 `dpkg` 命令，其包文件后缀为 `.deb` 。
+> resources package manager 资源包管理器，其相应的包文件后缀为 `.rpm` 在 red hat/Fedora/SUSE 系列使用此包管理，而在 Debian/Ubuntu 系列使用 `dpkg` 命令，其包文件后缀为 `.deb` 。
 
 command lind : `rpm [parameter] [软件]
 
@@ -247,7 +247,7 @@ command lind : `rpm [parameter] [软件]
 
 1. 下载软件包的 rpm 文件，再使用 rpm 命令安装仓库
 2. 安装后，可以使用 yum-util 的 yum-config-manager 管理包，也可以直接进入 /etc/yum.repos.d/{software}.repo 文件查看管理软件包数据
-3. 使用 yum intall {software} 安装软件，安装时会自动根据其 repo 仓库配置文件安装指定的软件版本
+3. 使用 yum install {software} 安装软件，安装时会自动根据其 repo 仓库配置文件安装指定的软件版本
 
 - `-v` verbose 显示指令执行过程
 - `-h` 或 `--hash` 套件安装时显示列出指令
