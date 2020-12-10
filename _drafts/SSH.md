@@ -27,3 +27,11 @@ identityFile = {生成的私钥文件}
 3. ssh -i {private key file} user@host 测试登录
 
 配合 config 文件直接使用命令 `ssh {host}` 登录
+
+## questions
+
+### 授权失败次数过多而被拒绝连接
+
+> 使用 ssh ＋ config 连接远程主机时出现 *Received disconnect from x.x.x.x port 22:2: Too many authentication failures*
+> [referrence](https://www.tecmint.com/fix-ssh-too-many-authentication-failures-error/)
+> 参考文章解释原因是因为多个 identityFile 被用于发起连接，而多个连接失败被远程主机拒绝。疑问在于我在本地的 config 文件中指定各个 host 所使用的 identityFile 为什么 ssh client 同样会用一个个地尝试。而非要加上 identitiesFileOnly=true 配置参数才能指定到特定的 identityFile 。
