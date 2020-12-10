@@ -189,7 +189,7 @@ desktop virtual machine: root 123456
 
 ### 备份压缩
 
-- `tar`
+- `tar`[difference between .gz and .tar](https://www.quora.com/What-is-the-difference-between-tar-gz-zip-and-tar-gz-in-Linux#:~:text=gz%20is%20a%20single%20file,an%20arbitrary%20number%20of%20filed.)
     - `-c` create 创建压缩
     - `-x` extract 解压
     - `-z` 使用 gzip 压缩
