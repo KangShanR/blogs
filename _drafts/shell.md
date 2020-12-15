@@ -56,3 +56,23 @@ description: linux shell script
 - `-z` zero 检测字串其长度是否为 ０  `[ -z $a ]`
 - `-n` not-zero 字串长度不为 0 `[ -n $a ]`
 - str 检测字串是否为 empty `[ $a ]`
+
+### File Test Operators
+
+检测关联到文件的变量属性。假如一个变量 `file` 关联到一个 test 文件，大小100bytes，有 read/write/execute 权限。其相关命令如下：
+
+- `-b file` check if file is a block special file. `[ -b $file ]` false
+- `-c file` check if file is a character special file. `[ -c $file ]` false
+- `-d file` check if file is a directory. `[ -d $file ]` false
+- `-f file` check if file is an ordinal file as opposed to a directory or special file. `[ -f $file ]` is true
+- `-e file` check if file exists. `[ -e $file ]` is true
+- `-r`/`-w`/`-x` check if file is readable/writable/executable.
+
+## Decision Making
+
+[reference](https://www.tutorialspoint.com/unix/unix-decision-making.htm)
+
+shell 中两种类似 switch case 的分支语句：
+
+1. if...elif...else...fi
+2. case...esac
