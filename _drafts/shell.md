@@ -7,7 +7,7 @@ description: linux shell script
 
 # Shell
 
-> [Shell scripts in Unix](https://www.tutorialspoint.com/unix/unix-using-variables.htm)
+> Shell 是一个可以执行命令／程序／shell 脚本的环境，提供了访问 Unix 系统的接口。其根据输入执行程序，执行完成后将结果展示出来。 [Shell](https://www.tutorialspoint.com/unix/unix-what-is-shell.htm)
 
 ## variable
 
@@ -167,6 +167,8 @@ NOTE: *file descriptor（fd） 在 Unix 中使用非负整数表示，其中 0 �
 - shell 文件调用需要使用 `. shell_file`
 - shell 文件后缀可以不用写，一样的效果
 - shell 文件头指定 shell  执行 bash 类型也可不写，让系统默认的 shell 执行即可
+- `echo $PATH` 可以看到系统全局变量，其中一般包括了 ~/bin ，所以要以在此文件路径中添加自己想要的全局 shell ，而实现任何地方不添加绝对路径前缀调用此 shell 。
+- `$HOME` 调用当前用户目录，在 shell 中使用 ～ 不会生效。
 
 ## Alias
 
