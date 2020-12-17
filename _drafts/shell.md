@@ -100,7 +100,7 @@ shell 中两种类似 switch case 的分支语句：
 
 ### Command Substitution
 
-`command` 使用 backquote 将命令包围起来，命令执行结果将返回。eg: echo "today is `date`"
+`command` 使用 back quote 将命令包围起来，命令执行结果将返回。eg: echo "today is `date`"
 
 ### Variable Substitution
 
@@ -113,3 +113,56 @@ shell 中两种类似 switch case 的分支语句：
 - `${var:=word}` 转义 var 并将 word 赋值给 var。
 - `${var:?message}` 如果 var 未设置或为 null ，message 将打印到 standard error。用以检测变量 var 是否正确设置。
 - `${var:+word}` 如果 var 已设置，work 将转义给 var ，但 var 不会改变。
+
+## Quoting Mechanisms
+
+> [引用机制](https://www.tutorialspoint.com/unix/unix-quoting-mechanisms.htm)
+
+### Meta Characters
+
+> Unix 元字符在 shell 中有特殊含义，所以在命令中如果要使用其为普通字串，需要在其前加上转义符号 backslash `\`。 Unix 中的元字符包括：
+
+```shell
+* ? [ ] ' " \ $ ; & ( ) | ^ < > new-line space tab
+```
+
+`?` 代表任何一个字符，而 `*` 代表任意多个字符。
+
+### quoting
+
+> 引用方式有四种
+
+1. 单引号引用 `'`，特殊符号会将全部的元字符给转义为字面量。当需要输出单引号时，此时可以使用 backslash 将其转义输出。
+2. 双引号引用 `"`，大部分特殊符号被双引号引用有将丢失其特殊意义，但有例外：$ ` \$ \' \" \\
+3. backslash `\`, 所有特殊变量在 backslash 后都将丢失其特殊意义
+4. back quote `, 被 back quote 包围的任何字符都将会被当作命令执行。
+
+## IO Redirection
+
+> IO 重定向
+
+重定向的命令有：
+
+1. `pgm > file` 重定向到输出文件
+2. `pgm >> file` 将输出追加到指定文件
+3. `pgm < file` 程序从文件读取输入
+4. `n > file` 将 n fd 的流输出重定向到文件 file
+5. `n >> file` 将 fd n 的流输出重定向追加到文件 file
+6. `n >& m` 合并 fd n 流与 fd m 流输出
+7. `n <& m` 合并输入流 fd n 与 fd m
+8. `<< tag`  Standard input comes from here through next tag at the start of line
+9. `|` 管道，将前一个程序／应用的输出发送到下一个
+
+NOTE: *file descriptor（fd） 在 Unix 中使用非负整数表示，其中 0 表示标准输入 STDIN，1 表示标准输出 STDOUT，2 表示错误输出 STDERR*
+在 Unix 系统中每个非守护进程都有以上三个 IO 流，进程通过 kernel 访问文件 file table / inode table。
+
+## Functions
+
+> Unix shell function
+
+- 定义 function 其语法是：在方法名后跟上 `function_name () {}`，传递参数直接在命令行中添加，在方法中调用参数使用 `$n`
+- 返回数据使用关键字 `return`
+- `exit` 会终结整个 shell 执行，而不是 function 。
+- `$?` 获取上一次命令返回值 `ret=$?`，此值只是一个整数代表结果，不能返回字符及其他
+
+
