@@ -177,3 +177,46 @@ NOTE: *file descriptor（fd） 在 Unix 中使用非负整数表示，其中 0 �
 - 使用命令 `alias command='command arguments'` 给命令添加别名，从而缩小写常用参数的工作。eg: `alias grep='grep -iE --color=auto'`，可以实现使用 grep 命令自动添加两个参数
 - 如果要永久实现别名生效可以将命令添加到 ~/.bashrc 文件中并执行此文件
 - 解除别名设置使用命令 `unalias name`
+
+## 添加机器命令别名与进入日志脚本
+
+```shell
+#!/bin/bash
+D=`date +%F`
+
+echo "today: $D"
+echo "AUGUMENTS: $@"
+PT="/smapp/servers/snxia-api-app/logs/$D/"
+echo "path: $PT"
+LOG_TYPE=""
+
+alias grep='grep -iE --color'
+
+if [ $# -eq 0 ]
+then
+    echo "No arguments"
+    cd $PT
+else
+    get_log_type $2
+    if [ $1 = "v" ]
+    then
+        echo "vim ..."
+        vim "$PT/$LOG_TYPE"
+    fi
+fi
+
+
+get_log_type () {
+    echo "arguments: $*"
+    if [ $1 = "e" ]
+    then
+        LOG_TYPE="error-log.log"
+    elif [ $1 = "i" ]
+    then
+        LGO_TYPE="info-log.log"
+    else [ $1 = "w" ]
+        LOG_TYPE="warn-log.log"
+    fi
+}
+
+```
