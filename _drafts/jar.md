@@ -18,3 +18,9 @@ java archive
 - 可在命令行中添加 classpath 的参数，指定 classpath 引用外部 jar 包，也可以在 manifest 文件中指定多个 classpath 。
 - 可以直接在 jre 中添加扩展。path：jre/lib/ext
 - 若有多个 jre，可以在用户目录中指定让多个 jre 使用同一个 jar 包：usr/java/packages/lib/ext
+
+## Java command line
+
+- `-` 标准选项 standard option
+- `-X` 非标准选项 non-standard option
+- `-XX` 高级选项 advanced option

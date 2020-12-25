@@ -17,7 +17,7 @@ date: 2020-11-28 18:41:00
 - ctrl+shift+space smart type completion 自动获取可供补全选择的类或其他。**按两次有奇效。**
     - 在自动补全选中后可以使用 enter 或 tab 来选中，不同之处：**｀tab｀** 可以直接覆盖后面的原有内容。
     - 当指定了类型数据　```String s =(```，直接使用此键可生成表达式？
-    - 在　new　后面使用　smart　type　comletion
+    - 在　new　后面使用　smart　type　completion
 - ctrl+k commit 新加的代码，unstaged 也会在供选项中
 - ctrl+o 快速覆盖其类方法 override；ctrl+l 快速实现基类／接口方法 implements
 - 查看类所实现的接口的方法：光标定位在接口上后按 ctrl+shift+f7，也可定位在 throws 语句上再按此键定位到相应抛出异常的语句。
@@ -45,11 +45,11 @@ date: 2020-11-28 18:41:00
 - **ctrl＋shift+f7** 在当前文件中高亮　caret　所在变量使用处，f３／shift＋f３　跳向下／上一个
 - **f２／shift＋f２**　跳往下／上一个高亮的语法错误
 - **alt+shift+up/down** 在错误信息与result　间跳跃
-- ctrl+h 查看当前类层级 hierarche
+- ctrl+h 查看当前类层级 hierache
 
 ## questions
 
-### Ｕbuntu　IDEA 中添加jdk路径
+### Ubuntu IDEA 中添加jdk路径
 
 [reference](https://blog.csdn.net/stpeace/article/details/79411223)
 
