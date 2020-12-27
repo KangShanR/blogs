@@ -19,8 +19,11 @@ java archive
 - 可以直接在 jre 中添加扩展。path：jre/lib/ext
 - 若有多个 jre，可以在用户目录中指定让多个 jre 使用同一个 jar 包：usr/java/packages/lib/ext
 
-## Java command line
+## `java` command line
+
+> `java` 命令行在启动一个 java 进程时至关重要。其中关系到设置 jvm 的各项参数，项目启动的配置参数等等。
 
 - `-` 标准选项 standard option
 - `-X` 非标准选项 non-standard option
 - `-XX` 高级选项 advanced option
+- `-D<name>=<value>` 设置系统属性
