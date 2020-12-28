@@ -45,7 +45,7 @@ date: 2020-11-28 18:41:00
 - **ctrl＋shift+f7** 在当前文件中高亮　caret　所在变量使用处，f３／shift＋f３　跳向下／上一个
 - **f２／shift＋f２**　跳往下／上一个高亮的语法错误
 - **alt+shift+up/down** 在错误信息与result　间跳跃
-- ctrl+h 查看当前类层级 hierache
+- ctrl+h 查看当前类层级 hierarchy
 
 ## questions
 
