@@ -1,6 +1,5 @@
 ---
 layout: "post"
-title: "eventbus"
 date: "2019-03-22 18:53"
 ---
 
@@ -31,6 +30,7 @@ public onEventPosted(MyEvent event){
     log.info(event.getMyEventMessage());
 }
 ```
+
   1. subscriber 需要注册与注销到 eventbus 中才能收到事件发布
 
 3. 事件发布：
@@ -44,13 +44,13 @@ Eventbus.getDefault().post(new MyEvent("eventMessage"));
 > 订阅者线程模式，确定订阅者收到事件的线程模式
 
 1. ThreadMode.POSTING
-  1. `this is default ThreadMode`;
-  2. `Subscribers will be called in the same thread posting the event.`
-  2. 发布线程 相同线程的 订阅者会收到事件(完全避免了线程切换，最小开销)
-  3. 事件同步发布，而订阅者会异步调用在事件发布后（不适用于项目 umeng 消息推送）
-  4. 此种模式下的事件处理需要即时反馈以避免阻塞事件发布线程
+    1. `this is default ThreadMode`;
+    2. `Subscribers will be called in the same thread posting the event.`
+    3. 发布线程 相同线程的 订阅者会收到事件(完全避免了线程切换，最小开销)
+    4. 事件同步发布，而订阅者会异步调用在事件发布后（不适用于项目 umeng 消息推送）
+    5. 此种模式下的事件处理需要即时反馈以避免阻塞事件发布线程
 2. ThreadMode.MAIN
-  1. 与 POSTING 模式类似
+    1. 与 POSTING 模式类似
 3. ThreadMode.MAIN_ORDERED
 4. ThreadMode.BACKGROUND
 5. ThreadMode.ASYNC
