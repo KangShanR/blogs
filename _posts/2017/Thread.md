@@ -9,6 +9,13 @@ description: java thread
 
 > java thread
 
+## join
+
+- join(long timeout) 方法将循环调用 wait(long timeout) 方法，直到该线程(thisThread)死亡。也就是说，当前线程（执行 thisThread.join() 方法的线程)）会加入到该线程的等待区以获取该线程 monitor 。一般来讲，很少有与当前线程一起竞争该线程的锁，也就是会出现循环地获取到 thisThread 的锁，直到 timeout。
+- 当 timeout = 0 时，将一直等待 thisThread ，直到 thisThread 死亡。
+- 当 thisTread 死亡时，将调用其 notifyAll() 方法，将所有等待区的线程唤醒。
+- *整个过程就像，当前线程加入到 thisThread 的生命周期里一样，所以此方法命名为 join 是有一定道理的。*
+
 ## Object
 
 > 与线程生命周期相关的锁方法
