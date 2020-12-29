@@ -50,6 +50,6 @@ description: java thread
     - x.clone().equals(x) 非必需
 - 按惯例：返回的对象需要通过调用 super.clone() 实现，如果一个类及其所有父类（除 Object 外）遵循了这个规则，`x.clone().getClass() == x.getClass()` 就会成立。
 - 按惯例，对象调用 clone() 方法返回的对象必须与对象保持独立。为实现这种独立，需要在调用 super.clone() 后对某些字段进行修改（Object.clone() 方法只是浅拷贝）。也就是说对一个可变对象的 copy 由两部分组成：对象内部**深度结构**的 clone 与用这些被 copy 的引用替换内部对象的引用。
-- 如果对象未实现 Clonable 接口，将抛出 CloneNotSupportedException 。所有的数组都认为其实现了 Clonable 接口。一个数组类型 T[] 在调用 clone() 方法后返回 T[] ，T 可以是任何引用或基本类型。
+- 如果对象未实现 Cloneable 接口，将抛出 CloneNotSupportedException 。所有的数组都认为其实现了 Cloneable 接口。一个数组类型 T[] 在调用 clone() 方法后返回 T[] ，T 可以是任何引用或基本类型。
     - 否则 clone() 将返回该 class 的一个新实例，并且该实例使用原对象相应的字段内容初始化所有的字段。也就是说该方法只是**浅拷贝**。
-- Object 本身并未实现 Clonable 接口，所有直接调用 Object 对象的 clone() 方法将 throw 出运行时异常。
+- Object 本身并未实现 Cloneable 接口，所有直接调用 Object 对象的 clone() 方法将 throw 出运行时异常。
