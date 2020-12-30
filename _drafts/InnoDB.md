@@ -17,6 +17,41 @@ date: "2020-12-29 15:58"
 > [CSDN](https://www.cnblogs.com/fengzheng/p/12557762.html)
 
 - 在并发写同一行数据时，如果 where 条件字段没有加索引，innodb 会对所有行加行锁，再对条件进行筛选，不符合条件的行再释放锁。一锁一放损耗极大，所以建议适当添加索引。
+- 在可重复读隔离级别下，InnoDB 加间隙锁可以防止幻读，同理，如果没有索引将会把所在行之外所有列都加上间隙锁，而导致范围外的行也需要阻塞到当前锁释放才能插入。
+- 意向锁是表锁，只用来表示该表有没行正被锁住，而以免有行被锁住时想要加表锁修改表结构，需要每行查询是否有行锁。
+
+### Consistent Read
+
+> [一致性读](https://dev.mysql.com/doc/refman/8.0/en/glossary.html#glos_consistent_read)
+
+- 在事务中使用一致性读可以避免并发，在读已提交和可重复读隔离级别中，默认是使用一致性读的。
+
+## Multi-Versioning
+
+> [多版本](https://dev.mysql.com/doc/refman/8.0/en/innodb-multi-versioning.html)
+
+- 覆盖索引 cover-index 在查询的字段都在索引结构中，而不需要通过回表查询主键
+    - 普通二级索引就是一种覆盖索引，其除索引字段外还包括了主键。
+    - 当二级索引记录被标记为删除或被其他事务更新，覆盖索引技术不能被应用。
+
+## InnoDB Locking
+
+> [锁](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html)
+
+### 意向锁
+
+表级锁，用以标明此表中有数据正被锁。
+
+### 间隙锁
+
+- 间隙锁是纯抑制性的，排它锁与共享锁在 gap-lock 这儿没有区别，同时，同一个 gap 可以有多个 gap-lock，只用来抑制其他事务在间隙插入新的数据。
+- 在读已提交隔离级别下，间隙锁对查询、索引扫描无效，仅对外键约束、重复键检查有效。
+
+### 记录锁
+
+record_lock
+
+用于锁住单行数据。
 
 ## 事务隔离级别
 
