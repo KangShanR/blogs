@@ -41,6 +41,7 @@ date: "2018-12-04 10:24"
 - 批量的这种可以使用 `<mapper package="packagepath"` 这样就容易造成 interface 与第一种注册方法相重复注册的情况。所以如果想使用包名批量注册要注意是否会引起重复将 interface 注册。
 - 可以为任意 java 模型设置别名，而在使用时就可以直接使用别名而不用写见冗长全限定名了。`alias`
 - 定义 sql 代码片段时，可以使用 `${alia1}.id,${alia2}.name` 占位符，在 `<include>` 引用时确定点位符值：`<include refid=''><property name=alia1 value = user/></include>`
+- 直接在映射器方法参数中添加 RowBounds　即添加了分页参数。
 
 #### resultMap
 
@@ -86,6 +87,7 @@ date: "2018-12-04 10:24"
 > mapper 查询时，使用 Map 作为参数进行条件映射有诸多方便之处：
 > 可以加上很多的 `<where>` 语句配上 `<if test="list != null and list.size > 0 ">` 可以在 Service 层去配自己想要的查询条件，结合使用方便很多。
 > 而且，如上示例，在 Map 参数中，使用列表作为参数，同样可以在查询语句中进行列表（是否为空、列表长度）判定。
+> **需要被淘汰的 sql 写法，更好的 sql 写法是使用 [Java API](https://mybatis.org/mybatis-3/zh/java-api.html  )**
 
  **具体使用中，可以参照下面查询语句：**
 
