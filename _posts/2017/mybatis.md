@@ -1,13 +1,13 @@
 ---
-title: Mybatis框架的应用与理解
 date: 2017-08-31 13:12:34
 categories: programming
 tags: [java,programming]
 description: 
 ---
-# mybatis框架的使用与理解
 
-## Mybatis与JDBC
+# mybatis 框架的使用与理解
+
+## Mybatis 与 JDBC
 
 **概述：**
 
@@ -23,7 +23,7 @@ description:
 		5. 处理结果集
 		6. 关闭数据库（释放资源）
 		7. 异常处理
-	1. 可以看到在整个流程中的**JDBC功能实现的缺陷**：
+	2. 可以看到在整个流程中的**JDBC功能实现的缺陷**：
 		1. jdbc的硬编码不方便维护，需要不停地连接、释放数据库资源；
 		2. 参数绑定在硬编码中，查询条件不定，修改语句也不方便；
 	3. 所以，就有了MyBatis存在的必要；
@@ -32,7 +32,7 @@ description:
 
 ----------
 
-### MyBatis的实现 ###
+### MyBatis的实现
 
 **在一个工程中要使用MyBatis框架：**
 
@@ -143,7 +143,7 @@ mappers中的配置文件：
 	</select>
 	<!-- 添加用户数据 -->
 	<insert id="saveUserInfo" parameterType="User">
-		<!-- 使用selectkey返回插入数据的id -->
+		<!-- 使用 selectkey 返回插入数据的id -->
 		<selectKey keyColumn="id" keyProperty="id" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -169,7 +169,7 @@ mappers中的配置文件：
 
 - **`#{}`与`${}`的区别**：
 - `#{}`
-    - 表示占位符号，相当于实现了JDBC中的paparedStatement占位符的作用，也就实现了防止sql注入；
+    - 表示占位符号，相当于实现了JDBC中的 preparedStatement 占位符的作用，也就实现了防止sql注入；
     - 同时实现了java类型与jdbc类型转换，可以接收简单类型值与pojo属性值；
     - 如果传输单个简单类型值，｛｝中可以是value或其它名称；
 - `${}`
@@ -244,11 +244,11 @@ public void before(){
 **分类：**
 
 - Mybatis的缓存分为两种：
-    - **一级缓存**：其作用域是同一个Sqlsession，这也就意味着当这个SqlSession被提交(Commited)后，这个缓存也不复存在。Mybatis默认是开启一级缓存的；
+    - **一级缓存**：其作用域是同一个Sqlsession，这也就意味着当这个SqlSession被提交(Committed)后，这个缓存也不复存在。Mybatis默认是开启一级缓存的；
     - **二级缓存**：Mybatis默认不开启二级缓存，要开启二级缓存需要在setting全局参数中设置。
         - 作用域是以namespace来划分的，同一个命名空间的mapper查询数据存放在同一个区域，mapper动态代理中不同的mapper也就意味着不同的namespace，因此也可以说二级缓存区域是根据mapper划分的；
         - 同样，一个Sqlsession在执行insert、delete、update等操作commit提交后，会清空缓存区域；
-        - 二级缓存需要将查询结果映射的pojo对象实现`java.io.Serializable`接口，实现序列化的反序列化操作。如果存在父类，其都要实现这个接口；
+        - 二级缓存需要将查询结果映射的 pojo 对象实现`java.io.Serializable`接口，实现序列化的反序列化操作。如果存在父类，其都要实现这个接口；
 
 ## Mapper动态代理的原理
 
