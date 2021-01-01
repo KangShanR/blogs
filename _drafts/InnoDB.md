@@ -40,11 +40,13 @@ date: "2020-12-29 15:58"
 
 ### 意向锁
 
+> Intention lock，分为排他意向锁 IX 与共享意向锁 IS。
+
 表级锁，用以标明此表中有数据正被锁。
 
 ### 记录锁
 
-record_lock
+> record_lock
 
 用于锁住单行数据。
 
@@ -77,7 +79,7 @@ Gap-Lock
 2. READ COMMITTED 读已提交，事务提交后才去读。事务在执行每一条查询前都会查询结果放到事务的视图中，可以防止脏读，不能防止不可重复读与幻读
    1. 一致性非锁读(consistent non-locking reads,　普通查询)　事务内所有的 set get 都会写入到快照中，而读取到所有已经提交的数据。
    2. 锁读（locking reads, select ... for update/lock in share mode）/update/delete, InnoDB 只会锁索引记录，而不会在数据行前添加 gap-lock ，允许添加新数据行在锁行前（幻读）。这种隔离级别下 gap-lock 只会对外键约束检查与重复　key　检查生效。
-   3. 数据库属性 `innodb_locks_unsafe_for_binlog`　（简称　locks_unsafe） 与 READ COMMITTED 效果一致，其区别在于：
+   3. 数据库属性 `innodb_locks_unsafe_for_binlog`　（以下简称　locks_unsafe） 与 READ COMMITTED 效果一致，其区别在于：
       1. lock_unsafe 是全局配置，而　READ COMMITTED 可以设置到 session　级别
       2. lock_unsafe　只能数据库启动时设置，而 READ COMMITTED 可以在数据库服务器运行中设置。
 3. REPEATABLE READ 可重复读，事务在执行语句之初就去读取需要查询的数据并放在视图中，在事务提交之前保存之前都不更新此视图（**新插入的数据还是会再读取到视图中**）。所以这样可以防止不可重复读，不能防止幻读。
