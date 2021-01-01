@@ -180,6 +180,14 @@ desktop virtual machine: root 123456
     - sudo [command] 给普通用户命令加上超级用户权限
 - 没有安装 systemmd(systemctl) 命令，使用 service {servicename} {start|stop|restart} 代替
 - `uname` unix name 查看系统版本信息
+- `source <filename> [arguments]` 在当前 shell 中读取并执行文件中的命令, $PATH 中的变量会被用来查询在文件中指定的目录.如果参数 arguments 提供了,会被用来当作 shell 执行的位置参数(参数顺序被指定可以在 shell 中的使用 `$n` 获取).\
+- `export [-fn] [name=[value] ...]` `export -p` 给 shell 设置变量
+    - 将每个 name 变量自动导入到后续执行的命令的环境中, value 使用前需要对其赋值.
+    - 命令选项
+        - -f 引用到某个 shell function
+        - -n 从 name 中移除导出属性 *?*
+        - -p 显示所有被导入的变量与函数
+        - `--` 关闭选项处理 *?*
 
 ### firewall 防火墙
 
@@ -189,10 +197,13 @@ desktop virtual machine: root 123456
 
 ### 备份压缩
 
-- `tar`[difference between .gz and .tar](https://www.quora.com/What-is-the-difference-between-tar-gz-zip-and-tar-gz-in-Linux#:~:text=gz%20is%20a%20single%20file,an%20arbitrary%20number%20of%20filed.)
+> [difference between .gz and .tar](https://www.quora.com/What-is-the-difference-between-tar-gz-zip-and-tar-gz-in-Linux#:~:text=gz%20is%20a%20single%20file,an%20arbitrary%20number%20of%20filed.)
+
+- `.gz` 文件是使用 gzip 压缩过的文件后缀，而 tar 只是用于将多个文件进行打包并不包含压缩。
+- `tar`
     - `-c` create 创建归档
     - `-x` extract 解档
-    - `-z` 使用 gzip 压缩
+    - `-z` 使用 **gzip** 压缩
     - `-v` verbose 显示压缩的文件
     - `-f` file 是否使用档名
 
@@ -230,9 +241,9 @@ windows 操作系统中相关命令行。
 
 - 刷新 dns 数据命令：
 
-  ```sh
-  ipconfig/flushdns
-  ```
+```sh
+ipconfig/flushdns
+```
 
 - 查看电脑网络端口使用情况，类似于在 linux 中使用 `ps` 命令
     - `netstat -ano` 命令行命令可以看到各个进程 pid 与 address 占用情况
