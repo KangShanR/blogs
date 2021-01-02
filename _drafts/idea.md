@@ -47,6 +47,10 @@ date: 2020-11-28 18:41:00
 - **alt+shift+up/down** 在错误信息与result　间跳跃
 - ctrl+h 查看当前类层级 hierarchy
 
+## 配置
+
+> 找到 idea 的配置文件,可以为其添加 jvm 参数的配置. 64bit 系统其配置文件为 idea64.vmoptions. Linux 系统在目录 .config 中,而 windows 系统在其安装目录中有,用户目录就应该有.
+
 ## questions
 
 ### Ubuntu IDEA 中添加jdk路径

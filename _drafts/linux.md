@@ -180,14 +180,28 @@ desktop virtual machine: root 123456
     - sudo [command] 给普通用户命令加上超级用户权限
 - 没有安装 systemmd(systemctl) 命令，使用 service {servicename} {start|stop|restart} 代替
 - `uname` unix name 查看系统版本信息
-- `source <filename> [arguments]` 在当前 shell 中读取并执行文件中的命令, $PATH 中的变量会被用来查询在文件中指定的目录.如果参数 arguments 提供了,会被用来当作 shell 执行的位置参数(参数顺序被指定可以在 shell 中的使用 `$n` 获取).\
-- `export [-fn] [name=[value] ...]` `export -p` 给 shell 设置变量
+- `update-alternatives [options] command` 管理系统可选项命令,建立命令的符号链接
+    - 当安装多个命令版本时,使用此命令配置各命令的优先级或管理其默认项,在安装 jdk 时需要配合环境变量配置设置系统 java 命令.
+    - `update-alternatives --install link name path priority [--slave link name path] ...` 可以将命令(path)生成符号链接(name)添加到环境变量目录(link) eg: `update-alternatives --install /usr/bin/java java /usr/local/java/jdk-8/bin/java 1`
+    - `--config` 交互配置命令,如果需要在命令使用配置,使用 `--set`
+
+### 环境变量设置
+
+> [reference](https://askubuntu.com/questions/58814/how-do-i-add-environment-variables)
+> [环境变量设置](https://help.ubuntu.com/community/EnvironmentVariables)
+
+- 设置当前 shell 变量 : `name=value` 此语法设置的变量只在当前 shell 中有效,同时 **不能被当前 shell 启动的进程所读取到**.
+- 设置当前 shell 变量并对当前 shell 环境启动的进程生效:`export [-fn] [name=[value] ...]` `export -p` 给 shell 设置变量.变量域只在当前 shell ,从当前 shell 启动的进程都能读到此变量,而其他 shell 打开的进程不能读取到.
     - 将每个 name 变量自动导入到后续执行的命令的环境中, value 使用前需要对其赋值.
     - 命令选项
         - -f 引用到某个 shell function
         - -n 从 name 中移除导出属性 *?*
         - -p 显示所有被导入的变量与函数
         - `--` 关闭选项处理 *?*
+- 永久地对所有 bush sessions 功能添加变量: 将变量设置行添加到 `$HOME/.bashrc` 或者 .profile .bash_login 中,三者更推荐 .profile ,其他两个都只是在 shell 执行中会有效,对桌面应用无效.
+- 系统范围内(所有用户进程)永久添加变量: 添加到 /etc/environment, `sudo -H gedit /etc/environment`. 格式: `VARNAME="value"`.或者在 /etc/profile.d/ 中添加脚本,脚本中使用 export 添加环境变量.此目录中的脚本都会在所有用户所有 shell 执行前先执行.
+    - 需要重新登录当前用户才能对当前用户生效.
+- `source <filename> [arguments]` 在当前 shell 中读取并执行文件中的命令, $PATH 中的变量会被用来查询在文件中指定的目录.如果参数 arguments 提供了,会被用来当作 shell 执行的位置参数(参数顺序被指定可以在 shell 中的使用 $n 获取). source 命令快捷方式: `.` .
 
 ### firewall 防火墙
 
