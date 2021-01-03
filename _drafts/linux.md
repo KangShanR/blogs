@@ -225,6 +225,9 @@ desktop virtual machine: root 123456
 
 - `reboot` 重启 CentOS
 - `halt` 关机 CentOS
+- debian
+    - reboot
+    - shutdown
 
 ### 文件权限
 
