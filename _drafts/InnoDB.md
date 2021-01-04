@@ -61,7 +61,40 @@ Gap-Lock
 
 > 后键锁，是一个 record-lock 与 gap-lock 的组合。
 
-- record-lock 用以锁住索引所在行数据，而 gap-lock 锁住当前行前的间隙，以防止前面部分插入新的数据。*在可重复读的隔离级别下，用以防止幻读。由此可推断 InnoDB 索引 B+ tree 中叶子节点中的数据排列界限是左开右闭的，只有这样才做到只使用左界加间隙锁就可以防止幻读。同时插入已存在的数据时是从左边插入的。*
+- record-lock 用以锁住索引所在行数据，而 gap-lock 锁住当前行前的间隙，以防止前面部分插入新的数据。
+- 默认情况下,InoDB 在可重复读的隔离级别下查询与索引扫描会使用 Next-Key lock 防止幻读。*由此可推断 InnoDB 索引 B+ tree 中叶子节点中的数据排列界限是左开右闭的，只有这样才做到只使用左界加间隙锁就可以防止幻读。同时插入已存在的数据时是从左边插入的。*
+- 假设某索引包括值: 10,11,13,20 .那么在此索引上可能被 next-key lock 锁住的区间就包括:(负无穷大, 10] (10,12] (11,13] (13,20] (20,正无穷大) 4个区间
+    - 对于任何一个区间, next-key lock 会用一个 record-lock 锁住其右界值,同时在右界值到左界(不包含)的区间加上 gap-lock 防止插入新值.
+    - 对于最后一个区间, InnoDB 会使用一个伪最大值 supremum (大于此索引中任何一个值), 这个 supremum 并不真实存在于索引中,所以对于最后一个区间只使用了 gap-lock.
+
+### Insert intention locks
+
+> 插入意向锁, 用在插入操作中插入行前设置的一种间隙锁. 此锁用来标识插入同一个索引间隙的多个事务之间如果不插入在同一个位置,那么事务之间无需等待彼此.eg:假设现有索引值 4 与 7 ,另有两个事务尝试各自插入 5 与 6 .**插入意向锁的获取优先于插入行的排他锁获取**,但彼此不阻塞因为各行并不冲突.
+
+对于包含一个索引值有 90 和 102 的表,client A 先在 id > 100 的索引记录上添加了排他锁,这个排他锁包含了 (90, 102] 的 gap-lock 
+
+```sql
+mysql> CREATE TABLE child (id int(11) NOT NULL, PRIMARY KEY(id)) ENGINE=InnoDB;
+mysql> INSERT INTO child (id) values (90),(102);
+
+mysql> START TRANSACTION;
+mysql> SELECT * FROM child WHERE id > 100 FOR UPDATE;
+```
+
+client B 执行:
+
+```sql
+mysql> START TRANSACTION;
+mysql> INSERT INTO child (id) VALUES (101);
+```
+
+client B 在间隙中插入新数据,这个事务将会拿到 insert-intention-lock 同时等待获取排他锁.
+
+### Auto-inc Locks
+
+> 自增锁,事务在插入包含自增列 AUTO_INCREMENT 的表数据时所持有的表级锁.在最简单的场景,如果一个事务在往表中插入数据,其他插入数据的事务必须等待,以保证前事务能获取到连续的主键值.
+
+innodb_autoinc_lock_mode 配置控制自增锁的算法.此配置值用以在自增值的有序性与插入操作的并发性上平衡.
 
 ## 事务隔离级别
 
