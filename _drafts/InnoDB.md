@@ -132,7 +132,15 @@ client B 在间隙中插入新数据,这个事务将会拿到 insert-intention-l
 
 innodb_autoinc_lock_mode 配置控制自增锁的算法.此配置值用以在自增值的有序性与插入操作的并发性上平衡.
 
-## 事务隔离级别
+## InnoDB Transaction Model
+
+> [InnoDB 事务模型](https://dev.mysql.com/doc/refman/8.0/en/innodb-transaction-model.html)
+>
+> InnoDB 事务模型的目标是联合数据库多视图属性与传统的多阶段锁。InnoDB 类似 Oracle ，其执行锁到行级别，同时默认执行查询不加锁并保持一致性读。InnoDB 锁数据存储空间效率高，不随锁数量增加而剧增。锁表全行也不用担心 InnoDB 内存耗尽。
+
+### 事务隔离级别
+
+> Transactions Isolation Levels, 事务隔离级别是多个事务在同一时间执行查询、修改时，微调性能、可用性、一致性、数据复用性的平衡手段。
 
 事务三种隐患
 
@@ -144,16 +152,19 @@ innodb_autoinc_lock_mode 配置控制自增锁的算法.此配置值用以在自
 
 可以设置全局，也可以设置到 session ，设置后开启新的 session 即可生效。
 
-1. READ UNCOMMITTED 读未提交，事务未提交就可以读到数据更新，不能阻止以上三种任何隐患，直接读取事务中修改后的值，没有视图概念。
-2. READ COMMITTED 读已提交，事务提交后才去读。事务在执行每一条查询前都会查询结果放到事务的视图中，可以防止脏读，不能防止不可重复读与幻读
-   1. 一致性非锁读(consistent non-locking reads,　普通查询)　事务内所有的 set get 都会写入到快照中，而读取到所有已经提交的数据。
-   2. 锁读（locking reads, select ... for update/lock in share mode）/update/delete, InnoDB 只会锁索引记录，而不会在数据行前添加 gap-lock ，允许添加新数据行在锁行前（幻读）。这种隔离级别下 gap-lock 只会对外键约束检查与重复　key　检查生效。
-   3. 数据库属性 `innodb_locks_unsafe_for_binlog`　（以下简称　locks_unsafe） 与 READ COMMITTED 效果一致，其区别在于：
-      1. lock_unsafe 是全局配置，而　READ COMMITTED 可以设置到 session　级别
-      2. lock_unsafe　只能数据库启动时设置，而 READ COMMITTED 可以在数据库服务器运行中设置。
-3. REPEATABLE READ 可重复读，事务在执行语句之初就去读取需要查询的数据并放在视图中，在事务提交之前保存之前都不更新此视图（**新插入的数据还是会再读取到视图中**）。所以这样可以防止不可重复读，不能防止幻读。
+1. REPEATABLE READ 可重复读，事务在执行语句之初就去读取需要查询的数据并放在视图中，在事务提交之前保存之前都不更新此视图（**新插入的数据还是会再读取到视图中**）。所以这样可以防止不可重复读，不能防止幻读。
    1. 对于一致性非锁读（普通查询），同一事务内会保持一致性，第一次读数据会产生快照。（如果查询条件不一样呢？会再查询出新的快照出来还是会对后面新查询进行优化先在已有快照里匹配呢？）
    2. 对于锁读（select ... for update/lock in share mode）/update/delete 语句，加锁的情况取决于查询条件：
       1. 唯一索引作为唯一查询条件进行查询：InnoDB 只会锁住查询到的唯一记录，不会添加 gap-lock
-      2. 对于其他查询: InnoDB 会锁住扫描到的范围内所有索引记录，同时会在其前加上 next-key-lock 以阻止其他事务在其前间隙插入新的记录（幻读）。
+      2. 对于其他查询: InnoDB 会锁住扫描到的范围内所有索引记录，同时会在其前加上 next-key-lock 或 gap－lock 以阻止其他事务在其间隙插入新的记录（幻读）。
+2. READ COMMITTED 读已提交，事务提交后才去读。事务在执行每一条查询前都会查询结果放到事务的视图中，可以防止脏读，不能防止不可重复读与幻读
+   1. 一致性非锁读(consistent non-locking reads,　普通查询)　事务内所有的 sets and reads 都在其快照中。
+   2. 锁读（locking reads, select ... for update/lock in share mode）/update/delete, InnoDB 只会锁索引记录，而不会在数据行前添加 gap-lock ，因而允许了添加新数据行在锁行前（幻读）。这种隔离级别下 gap-lock 只会对外键约束检查与重复　key　检查生效。
+      1. 此隔离级别下 gap－lock 关闭，只有基于行的二进制日志被支持。在 READ COMMITTED 隔离下，且 binlog_format=MIXED ，服务器自动使用基于行的日志 。
+   3. 使用 READ COMMITTED 隔离级别两个额外效果：
+      1. 对于 UPDATE／DELETE 语句，InnoDB 只对更新、删除的行加锁。对于未匹配的行的 record－lock 在 MYSQL 计算出 where 条件后即释放。这可以降低死锁发生的概率。
+   4. 数据库属性 `innodb_locks_unsafe_for_binlog`　（以下简称　locks_unsafe） 与 READ COMMITTED 效果一致，其区别在于：
+      1. lock_unsafe 是全局配置，而　READ COMMITTED 可以设置到 session　级别;
+      2. lock_unsafe 只能数据库启动时设置，而 READ COMMITTED 可以在数据库服务器运行中设置。
+3. READ UNCOMMITTED 读未提交，事务未提交就可以读到数据更新，不能阻止以上三种任何隐患，直接读取事务中修改后的值，没有视图概念。
 4. SERIALIZABLE 串行化，事务之间排队执行，防止一切隐患。
