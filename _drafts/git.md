@@ -38,7 +38,7 @@ date: "2018-10-19 11:06"
 - `git remote show <origin>` 查看远程分支与本地分支的跟踪状态
 - `git remote set-head origin master` # 设置远程仓库的HEAD指向master分支也可以命令设置跟踪远程库和本地库
 - `git remote add <origin> <git@github.com:robbin/robbin_site.git>`  **设置远程仓库地址与本地仓库链接**
-- `git branch <--set-upstream-to> <master> <origin>/<master>` **将本地 master 分支与远程 master 分支关联**
+- `git branch <--set-upstream-to> <origin>/<master>` **将本地当前分支与远程 master 分支关联**
 - `git branch <--unset-upstream-to> <master> <origin>/<master>` **将本地 master 分支与远程 master 分支解绑**
 - `git branch <--track> <master> <origin>/<master>` **将本地 master 分支与远程 master 分支关联** 新创建分支时使用 `--track` 与远程分支连接
 - `git branch -r -d <origin>/<branch_name>` 删除远程分支的跟踪信息
@@ -68,6 +68,7 @@ date: "2018-10-19 11:06"
 - `git br -r` # 查看远程分支
 - `git br <new_branch>` # 创建新的分支
 - `git br -v` # 查看各个分支最后提交信息
+- `git branch -vv` # 查看各个分支与远程分支跟踪信息
 - `git br --merged` # 查看已经被合并到当前分支的分支
 - `git br --no-merged` # 查看尚未被合并到当前分支的分支
 - `git br -d <branch>` # 删除某个本地分支
@@ -141,6 +142,6 @@ date: "2018-10-19 11:06"
 3. 先将一个 gitee(随便哪个都可，反之后续则反) 远程库 clone 到本地；
 4. 在本地库增加远程机：`git remote add <origin2> <git@github.com:robbin/robbin_site.git>`，注意增加第二个远程主机时命名不要与前面自动生成的 origin 重复。仓库 url 在见面上 copy 即可。
 5. fetch 新远程主机数据：`git fetch <origin2>`;
-6. 将本地分支 master（其他亦可）与 github 上分支关联：`git branch <--set-upstream-to> <master> <origin2>/<master>` 。至此，已经本地库也与两个远程库关联成功。前面使用过程中此步骤出现 `fatal : branch orgin2/master not exist`，换用被废弃的指令 `--set-upstream` 成功，不知道为什么？
+6. 将本地分支 master（其他亦可）与 github 上分支关联：`git branch <--set-upstream-to> <master> <origin2>/<master>` 。至此，已经本地库也与两个远程库关联成功。前面使用过程中此步骤出现 `fatal : branch origin2/master not exist`，换用被废弃的指令 `--set-upstream` 成功，不知道为什么？
 7. 将新远程库代码 pull 到本地 merge：`git pull <origin2> <master>`；、
 8. 再次 push 时可加上远程主机名与分支名以区分：`git push origin master`
