@@ -92,3 +92,113 @@ date: "2021-1-6 13:52:00"
 ## Locking Reads
 
 [reference](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking-reads.html)
+
+如果你在同一个事务中查询并插入修改数据,常规的 SELECT 语句并不能提供足够的防御.其他事务能够修改或删除你查询到的数据.InnoDB 提供两种类型锁读 locking-read 以增强这类防御:
+
+- SELECT ... FOR SHARE
+    - 在读取到的行上设置一个共享模式的锁.其他 session 可以读取这些行,但不能修改,直到你的事务提交.如果查询的这些行被其他事务修改并未提交,查询将等待到这些事务结束而获取到最新的值.
+
+        > **Note**
+        >
+        > `SELECT ... FOR SHARE` 是 `SELECT ... LOCK IN SHARE MODE` 的替换版本,但 `LOCK IN SHARE MODE` 保留了向后兼容性,两者相等.然后 `FOR SHARE` 支持 `OF table_name`, `NOWAIT`, `SKIP LOCKED` 选项.
+
+    - 在 mysql 版本 8.0.22 之前, SELECT ... FOR SHARE 需要 `select` 权限与 DELETE/LOCK TABLES/UPDATE 权限之一.在 8.0.22 版本只需要 SELECT 权限.
+    - MYSQL 8.0.22 , SELECT ... FOR SHARE 在 grant tables 上不再获取读锁.
+- SELECT ... FOR UPDATE:
+    - 对于查询到的索引记录,将锁住行和与其相关的索引项,与对这些行执行 UPDATE 语句一样.其他事务将被阻塞,这些事务可能是执行 `SELECT ... FOR SHARE`/更新这些行/某些隔离级别下的读取数据.一致性读将忽略在其视图中数据上的任何锁.(老版本记录不能被锁,对数据记录在内存备份应用 undo_log 重构能得到老版本数据.)
+    - `SELECT ... FOR UPDATE` 需要 SELECT 权限加至少一个 `DELETE` `LOCK TABLES` `UPDATE` 权限.
+- 这些子句主要在处理树状或图状结构数据时有用,要么单表要么跨表.You traverse edges or tree branches from one place to another, while reserving the right to come back and change any of these “pointer” values.
+- 所有 SELECT FOR UPDATE 与 SELECT FOR SHARE 查询的锁都在事务提交或回滚时释放.
+
+    > **Note**
+    >
+    > 锁读(locking read) 只有在 autocommit=0 时才能实现(要么使用 `START TRANSACTION`, 要么设置 `autocommit=0`)
+
+- 外部语句中的锁读子句不会对子查询语句的数据行生效. eg:
+
+    ```sql
+    SELECT * FROM t1 WHERE c1 = (SELECT c1 FROM t2) FOR UPDATE;
+    ```
+    - 子查询需要单独加自己的锁读子句. eg:
+
+        ```sql
+        SELECT * FROM t1 WHERE c1 = (SELECT c1 FROM t2 FOR UPDATE) FOR UPDATE;
+        ```
+### Locking Read Examples
+
+> 假设你想在表 child 中插入一条新数据,并保证子表数据在父表 parent 表中有相应的行.你的应用代码能保证以下操作相对完整.
+
+- 首先,使用一致性读取 parent 表中数据以验证其数据是存在的,但还现在插入新数据到 child 表并不安全.因为其他 session 可以在查询 parent 表与插入 child 表两次操作之间将所查询到的数据删除掉.为避免此问题需要执行 SELECT ... FOR SHARE :
+    
+    ```sql
+    SELECT * FROM parent WHERE NAME = 'Jones' FOR SHARE;
+    ```
+
+    - 使用 FOR SHARE 查询语句将等待其他修改 parent 数据的事务执行完,在此之后读取到 parent 数据后将加锁对后来的删除修改操作阻塞到当前事务在 child 表中添加数据完成.
+- 另一个场景: child_codes 表中有个 counter 整数计数字段用以指定 child 表中的 id .这时就算是使用 FOR SHARE 查询此字段一样会有问题.因为多个事务会读取到相同的 counter 值,使用相同的值作为 id 插入到 child 表会触发 duplicate-key error,同时当这些事务更新 counter 字段时至少有一个会以死锁收场(多个事务去更新 counter 字段但因为都执行 FOR SHARE 查询而进入等待彼此释放锁.*业务开发中得慎用 SELECT ... FOR SHARE ,因为只要在事务中先查询再更改,只要有并发就很大可能死锁*).
+    - SELECT ... FOR UPDATE  将读取最新可得的数据,并在读到的行上加上排他锁.因此其回锁类似 UPDATE 语句.使用此类锁读即可解决上述问题:
+
+        ```sql
+        SELECT counter_field FROM child_codes FOR UPDATE;
+        UPDATE child_codes SET counter_field = counter_field + 1;
+        ```
+    
+    - 上述场景在 MYSQL 中可以通过单次访问表实现生成唯一 id:
+
+        ```sql
+        UPDATE child_codes SET counter_field = LAST_INSERT_ID(counter_field + 1);
+        SELECT LAST_INSERT_ID();
+        ```
+
+        - 其中 SELECT 语句仅仅是获取当前连接的 id 信息,不访问任何表.
+
+### Locking Read Concurrency with NOWAIT and SKIP LOCKED
+
+> 使用 SELECT ... FOR UPDATE / SELECT FOR SHARE 在查询被其他事务锁住的行时必须等待到这些事务释放锁,这类规则在你想查询请求快速结束与可以接受被锁的查询目标不被返回到结果集的场景中是不恰当的.为满足以上两种场景,可以在 SELECT FOR UPDATE / SELECT FOR SHARE 中添加选项: NOWAIT / SKIP LOCKED。
+
+- NOWAIT，不等待被锁住的行，直接返回失败。
+- SKIP LOCKED,跳过被锁住的行，返回的结果集中不包括被锁住的行。
+
+    > Note
+    >
+    > 使用 SKIP LOCKED 返回数据不能保证一致性。因此对于一般的事务不适用，但在多 session 访问类队列的表时可以用来避开锁的概念。
+
+- NOWAIT 与 SKIP LOCKED 都只应用在行级锁上。
+- NOWAIT 与 SKIP LOCKED 语句对于基于复制的语句并不安全。
+- EXAMPLE：
+
+    ```sql
+    # Session 1: 查询并锁住 2
+
+    mysql> CREATE TABLE t (i INT, PRIMARY KEY (i)) ENGINE = InnoDB;
+
+    mysql> INSERT INTO t (i) VALUES(1),(2),(3);
+
+    mysql> START TRANSACTION;
+
+    mysql> SELECT * FROM t WHERE i = 2 FOR UPDATE;
+    +---+
+    | i |
+    +---+
+    | 2 |
+    +---+
+
+    # Session 2: NOWAIT 并发查询使用 而直接返回错误
+
+    mysql> START TRANSACTION;
+
+    mysql> SELECT * FROM t WHERE i = 2 FOR UPDATE NOWAIT;
+    ERROR 3572 (HY000): Do not wait for lock.
+
+    # Session 3: SKIP LOCKED 并发查询路过 2
+
+    mysql> START TRANSACTION;
+
+    mysql> SELECT * FROM t FOR UPDATE SKIP LOCKED;
+    +---+
+    | i |
+    +---+
+    | 1 |
+    | 3 |
+    +---+
+    ```
