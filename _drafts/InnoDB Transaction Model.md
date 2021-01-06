@@ -88,3 +88,7 @@ date: "2021-1-6 13:52:00"
 - 对子查询如：`INSERT INTO ... SELECT` `UPDATE ... (SELECT)` `CREATE TABLE ... SELECT` 并未指定加锁（for update / for share）:
     - InnoDB 默认对这引起语句使用更严格的锁且 `SELECT` 部分使用 READ COMMITTED （在相同事务内，一致性读 sets gets 都针对其自有快照）。
     - 执行非锁读的场景，设置事务隔离级别为 READ COMMITTED / READ UNCOMMITTED 以避免对所选表中数据行加锁。
+
+## Locking Reads
+
+[reference](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking-reads.html)
