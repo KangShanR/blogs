@@ -5,7 +5,7 @@ date: 2020-11-28 18:41:00
 
 # idea
 
-> Jetbrains IEAD cheat sheet
+> IDEA cheat sheet
 > 使用了 github 账户登录了 Intellij IDEA
 
 ## shortcuts ＆ cheat sheet

@@ -156,6 +156,12 @@ shell 中两种类似 switch case 的分支语句：
 NOTE: *file descriptor（fd） 在 Unix 中使用非负整数表示，其中 0 表示标准输入 STDIN，1 表示标准输出 STDOUT，2 表示错误输出 STDERR*
 在 Unix 系统中每个非守护进程都有以上三个 IO 流，进程通过 kernel 访问文件 file table / inode table。
 
+在脚本中实现交互
+
+1. 使用重定向
+2. 使用管道
+3. 使用 expect （需要安装此功能）
+
 ## Functions
 
 > Unix shell function
@@ -220,3 +226,13 @@ get_log_type () {
 }
 
 ```
+
+## Questions
+
+### Shell 脚本中 cd 命令不生效
+
+再现：在 l 脚本中写了 cd 命令，再放在 PATH 中，在 terminal 直接调用这个脚本 `l` ，发现当前目录还是原目录并未进入到脚本中指定的目录。
+
+原因：在接 terminal 调用脚本，是在当前 shell 环境中执行另外一个进程，进程结束就返回了原 shell 。
+
+解决：使用 `source` 或 `.` 命令在当前 shell 中执行脚本，而不是直接调用脚本。

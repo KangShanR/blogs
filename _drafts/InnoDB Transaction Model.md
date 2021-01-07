@@ -102,7 +102,7 @@ date: "2021-1-6 13:52:00"
         >
         > `SELECT ... FOR SHARE` 是 `SELECT ... LOCK IN SHARE MODE` 的替换版本,但 `LOCK IN SHARE MODE` 保留了向后兼容性,两者相等.然后 `FOR SHARE` 支持 `OF table_name`, `NOWAIT`, `SKIP LOCKED` 选项.
 
-    - 在 mysql 版本 8.0.22 之前, SELECT ... FOR SHARE 需要 `select` 权限与 DELETE/LOCK TABLES/UPDATE 权限之一.在 8.0.22 版本只需要 SELECT 权限.
+    - 在 mysql 版本 8.0.22 之前, SELECT ... FOR SHARE 需要 `select` 权限与 DELETE/LOCK TABLES/UPDATE 权限之一.在 8.0.22 版本只需要 SELECT 权限.且在 8.0 前都语法是：`SELECT ... LOCK IN SHARE MODE`
     - MYSQL 8.0.22 , SELECT ... FOR SHARE 在 grant tables 上不再获取读锁.
 - SELECT ... FOR UPDATE:
     - 对于查询到的索引记录,将锁住行和与其相关的索引项,与对这些行执行 UPDATE 语句一样.其他事务将被阻塞,这些事务可能是执行 `SELECT ... FOR SHARE`/更新这些行/某些隔离级别下的读取数据.一致性读将忽略在其视图中数据上的任何锁.(老版本记录不能被锁,对数据记录在内存备份应用 undo_log 重构能得到老版本数据.)
@@ -119,17 +119,19 @@ date: "2021-1-6 13:52:00"
     ```sql
     SELECT * FROM t1 WHERE c1 = (SELECT c1 FROM t2) FOR UPDATE;
     ```
+
     - 子查询需要单独加自己的锁读子句. eg:
 
         ```sql
         SELECT * FROM t1 WHERE c1 = (SELECT c1 FROM t2 FOR UPDATE) FOR UPDATE;
         ```
+
 ### Locking Read Examples
 
 > 假设你想在表 child 中插入一条新数据,并保证子表数据在父表 parent 表中有相应的行.你的应用代码能保证以下操作相对完整.
 
 - 首先,使用一致性读取 parent 表中数据以验证其数据是存在的,但还现在插入新数据到 child 表并不安全.因为其他 session 可以在查询 parent 表与插入 child 表两次操作之间将所查询到的数据删除掉.为避免此问题需要执行 SELECT ... FOR SHARE :
-    
+
     ```sql
     SELECT * FROM parent WHERE NAME = 'Jones' FOR SHARE;
     ```
@@ -142,7 +144,7 @@ date: "2021-1-6 13:52:00"
         SELECT counter_field FROM child_codes FOR UPDATE;
         UPDATE child_codes SET counter_field = counter_field + 1;
         ```
-    
+
     - 上述场景在 MYSQL 中可以通过单次访问表实现生成唯一 id:
 
         ```sql
@@ -154,6 +156,8 @@ date: "2021-1-6 13:52:00"
 
 ### Locking Read Concurrency with NOWAIT and SKIP LOCKED
 
+> MYSQL 8.0 版本才开始有此选项。
+>
 > 使用 SELECT ... FOR UPDATE / SELECT FOR SHARE 在查询被其他事务锁住的行时必须等待到这些事务释放锁,这类规则在你想查询请求快速结束与可以接受被锁的查询目标不被返回到结果集的场景中是不恰当的.为满足以上两种场景,可以在 SELECT FOR UPDATE / SELECT FOR SHARE 中添加选项: NOWAIT / SKIP LOCKED。
 
 - NOWAIT，不等待被锁住的行，直接返回失败。
