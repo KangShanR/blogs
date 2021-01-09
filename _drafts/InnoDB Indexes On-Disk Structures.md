@@ -29,4 +29,12 @@ date: "2021-1-7 10:4:00"
 
 ## The Physical Structure of an InnoDB Index
 
+> [reference](https://dev.mysql.com/doc/refman/5.7/en/innodb-physical-structure.html)
 
+> 除空间索引使用 R-tree 数据结构索引多维度数据外，InnoDB 都使用 B-tree 数据结构。两种类型索引记录都存储在树的叶子页，叶子页默认大小是 16KB 。
+
+- 当 InnoDB 插入新记录到聚簇索引中时， InnoDB 会尝试为后来的插入或更新保留 1/16 的页空间。如果 InnoDB 插入新记录是顺序的，索引记录页是到 15/16 就当作已满，如果新记录是无序插入的，索引记录面到 1/2~15/16 就满。
+- InnoDB 在创建与重建 B-tree 索引执行批量加载。这是一种创建顺序索引的方法。顺序索引创建每个 B-tree 页的空间占比的配置项是 `innodb_fill_factor` （设置为 100 时，聚簇索引页保留 1/16 的剩余空间），剩下的空间留给索引增长。顺序索引创建不支持空间索引的创建。
+- 如果 InnoDB 的空间占用率低于了 `MERGE_THRESHOLD` (可以设置，也应用于空间索引，默认 50%),InnoDB 会尝试重构 B-tree 索引以释放这个页。
+- InnoDB 的索引页大小可以通过配置项 `innodb_page_size`　设置，配置优先于 MYSQL 实例的初始化，一旦设置需要重新初始化实例才能修改。配置支持的值包括：64KB,32KB,16KB(default),8KB,4KB。
+- 一个 MYSQL 实例使用了一个特定的 page_size 后，不能使用另一个使用不同 page_size 的实例的数据文件与日志文件。（数据文件与日志文件也就是说可以共用）
