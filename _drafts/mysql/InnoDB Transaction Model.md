@@ -137,7 +137,7 @@ date: "2021-1-6 13:52:00"
     ```
 
     - 使用 FOR SHARE 查询语句将等待其他修改 parent 数据的事务执行完,在此之后读取到 parent 数据后将加锁对后来的删除修改操作阻塞到当前事务在 child 表中添加数据完成.
-- 另一个场景: child_codes 表中有个 counter 整数计数字段用以指定 child 表中的 id .这时就算是使用 FOR SHARE 查询此字段一样会有问题.因为多个事务会读取到相同的 counter 值,使用相同的值作为 id 插入到 child 表会触发 duplicate-key error,同时当这些事务更新 counter 字段时至少有一个会以死锁收场(多个事务去更新 counter 字段但因为都执行 FOR SHARE 查询而进入等待彼此释放锁.*业务开发中得慎用 SELECT ... FOR SHARE ,因为只要在事务中先查询再更改,只要有并发就很大可能死锁*).
+- 另一个场景: child_codes 表中有个 counter 整数计数字段用以指定 child 表中的 id .这时就算是使用 FOR SHARE 查询此字段一样会有问题.因为多个事务会读取到相同的 counter 值,使用相同的值作为 id 插入到 child 表会触发 duplicate-key error,同时当这些事务更新 counter 字段时至少有一个会以死锁收场(多个事务去更新 counter 字段但因为都执行 FOR SHARE 查询而进入等待彼此释放锁.*业务开发中如果需要先读取再更新就不能使用 SELECT ... FOR SHARE ,因为只要在事务中先查询再更改,只要并发就会出现多个 session 都获取到 s-lock 然后再等待对方释放这个 s-lock 以执行更新语句，这就产生死锁*).
     - SELECT ... FOR UPDATE  将读取最新可得的数据,并在读到的行上加上排他锁.因此其回锁类似 UPDATE 语句.使用此类锁读即可解决上述问题:
 
         ```sql
