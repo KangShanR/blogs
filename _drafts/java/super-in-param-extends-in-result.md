@@ -1,6 +1,6 @@
 ---
 layout: "post"
-title: "super in param&extends in result"
+description: "super in param&extends in result"
 date: "2018-09-28 15:52"
 ---
 

@@ -1,6 +1,5 @@
 ---
 layout: "post"
-title: "bit operation"
 date: "2020-5-14 18:58"
 ---
 

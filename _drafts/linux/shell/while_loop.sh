@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 echo "number of current shell: $$"
 echo "What's your name?"
 NAME = "NOTHING"

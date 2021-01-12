@@ -71,4 +71,3 @@ date: "2021-1-7 10:4:00"
     ```
 
     - session1 获取到 x-lock ，而 session2，session3 执行时发生 duplicate-key error 并请求 s-lock 。当 session1 committed 释放锁，session２,session3 获取到 s-lock 进入到死锁状态，因为对方持有 s-lock 而都不能获取到需要的 x-lock 。
-
