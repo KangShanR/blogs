@@ -44,7 +44,7 @@ try restarting transaction`，同时，另外的 client 的锁请求得到响应
 
 当 innodb_table_locks = 1 且 autocommit = 0 时， InnoDB 对表锁有感知，并且 InnoDB 之上的 MYSQL 层也感知行级锁。否则，InnoDB 不能对 MYSQL `LOCK TABLES` 语句加的表锁或 InnoDB 之外的存储引擎设置的锁进行死锁检测。这些场景下可以用设置系统变量 `innodb_lock_wait_timeout` 来解决。
 
-如果 InnoDB 监听的 LASTED DETECTED DEADLOCK 输出包含 “TOO DEEP OR LONG SEARCH IN THE LOCK TABLE WAITS-FOR GRAPH, WE WILL ROLL BACK FOLLOWING TRANSACTION,” 的信息，这表明 wait-for list 上等待的事务数量超过了限制数量 200　。事务数量超过 200 的等待列表被当作死锁，并且尝试检查等待列表的事务是回滚过的。同样，如果等待列表上事务必须加超过 1000000 的锁也会产生这个错误。
+如果 InnoDB 监听的 LASTED DETECTED DEADLOCK 输出包含 “TOO DEEP OR LONG SEARCH IN THE LOCK TABLE WAITS-FOR GRAPH, WE WILL ROLL BACK FOLLOWING TRANSACTION,” 的信息，这表明 wait-for list 上等待的事务数量超过了限制数量 200　。当等待列表事务数量超过 200 时直接当作死锁发生，并且尝试检查等待列表的事务是回滚过的。同样，如果等待列表上事务所拥有的加锁线程必须加超过 1000000 个锁也会产生这个错误。
 
 ### Disabling Deadlock Detection
 
