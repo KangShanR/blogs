@@ -133,3 +133,14 @@ client B 在间隙中插入新数据,这个事务将会拿到 insert-intention-l
 > 自增锁,事务在插入包含自增列 AUTO_INCREMENT 的表数据时所持有的表级锁.在最简单的场景,如果一个事务在往表中插入数据,其他插入数据的事务必须等待,以保证前事务能获取到连续的主键值.
 
 innodb_autoinc_lock_mode 配置控制自增锁的算法.此配置值用以在自增值的有序性与插入操作的并发性上平衡.
+
+```sql
+CREATE PROCEDURE reTry(IN count INT, OUT res INT)
+BEGIN
+  DECLARE v1 INT DEFAULT 0;
+  WHILE v1 < count DO
+    UPDATE test SET value = value + 1;
+    set v1 = v1 + 1;
+  END WHILE;
+END;
+```
