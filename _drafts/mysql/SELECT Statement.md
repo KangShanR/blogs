@@ -25,6 +25,7 @@ date: "2021-1-15 14:53:00"
 
 - USING 语法：在 LEFT JOIN 语句中，与 `ON` 作用类似，但 USING 不用指定 l.id = r.id，是直接要求两个表字段名一致而直接指定多表共有的字段值一致就 JOIN 成功。eg：`SELECT * FROM left_table LEFT JOIN right_table USING(id);` = `SELECT * FROM left_table LEFT JOIN right_table ON left_table.id = right_table.id;`
 - `USING(join_column_list)` 子句将多个列放入参数中，这样要求多表都有这些列名存在。
-- `NATURAL [LEFT] JOIN`
+- `NATURAL [LEFT] JOIN` 等同于使用 `INNER JOIN` 或 `LEFT JOIN` 并使用 `USING` 子句指定两表同名的列在其中。
+- `RIGHT JOIN` 与 `left join` 工作原理类似，但为保持代码跨库端口化，推荐使用 `left join`。
 - [PARTITION](https://dev.mysql.com/doc/refman/5.7/en/partitioning-selection.html)在写DDL时将表分片，指定范围内为一片，查询时可以直接查询片内数据。（不知道这样是否可以将索引单片内查询而提高查询效率？）
 
