@@ -172,7 +172,8 @@ desktop virtual machine: root 123456
     - `-f` 显示UID, PPIP, C, STIME 栏位
 - `kill [parameter] [process]`
     - `-9 pid` 强制终止
-
+- `lscpu` 查看 cpu 信息
+- `dpkg --print-architecture` [查看指令集](https://unix.stackexchange.com/questions/180726/easy-command-line-method-to-determine-specific-arm-architecture-string)
 - sudo superuser do
     - sudo [command] 给普通用户命令加上超级用户权限
 - 没有安装 systemmd(systemctl) 命令，使用 service {servicename} {start|stop|restart} 代替
