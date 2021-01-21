@@ -22,6 +22,7 @@ conn.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) Appl
 
 ## scala
 
+```scala
 package info.youqian.akkatcpecho.crawler
 
 import java.net.{HttpURLConnection, URL}
@@ -62,3 +63,4 @@ object CMain {
     conn.addRequestProperty("User-Agent", UserAgents(0))
   }
 }
+```
