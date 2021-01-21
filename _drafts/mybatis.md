@@ -137,3 +137,9 @@ date: "2018-12-04 10:24"
     </if>
 </select>
 ```
+
+## 使用 mybatis 测试事务提交
+
+- 直接在 mapper 中添加事务提交 `start transaction;`，不在执行语句末添加 `commit;`
+    - 很快执行完，断点执行到事务后语句，但在数据库中使用 `SELECT * FROM information_schema.INNODB_TRX;` 查询到事务带到测试方法线程跑完。
+    - 如果加上 `commit;`
