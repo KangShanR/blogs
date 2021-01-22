@@ -2,10 +2,12 @@
 date: 2020-12-28 12:01:00
 tags: [java,programming]
 categories: programming
-description: java thread
+description: Java Thread & Java Object
 ---
 
-# Thread
+# Java Thread & Java Object
+
+## Thread
 
 > java thread
 
@@ -15,6 +17,20 @@ description: java thread
 - 当 timeout = 0 时，将一直等待 thisThread ，直到 thisThread 死亡。
 - 当 thisTread 死亡时，将调用其 notifyAll() 方法，将所有等待区的线程唤醒。
 - *整个过程就像，当前线程加入到 thisThread 的生命周期里一样，所以此方法命名为 join 是有一定道理的。*
+
+## interrupt
+
+> public void interrupt();
+
+JDK doc:
+
+- 中断线程方法，Java 规范并不保证会立即中断响应，可能会是在处理完特定任务到达某个中断点再中断。对于被中断的线程来说，会被立即设置中断状态。
+- 除非线程是中断自己，否则 checkAccess() 方法会被调用以检查是否允许访问（如果中断自己则检查始终会通过），这可能会导致抛出 SecurityException
+- 如果线程正被 Object 的 wait 系列方法、Thread 的 join,sleep 系列方法所阻塞，其中断状态会被 interrupt 清除并收到一个 InterruptedException 。
+- 如果线程正在 InterruptibleChannel 上进行 I/O 操作而被阻塞，此 channel 将被关闭，同时线程被设置为中断状态并收到 ClosedByInterruptException　。
+- 如果线程正阻塞在 java.nio.channels.Selector 线程将被设置中断状态，并立即从 selection 操作中返回，可能会返回一个非零值，与调用 selector.wakeup 类似。
+- 除前面说到的三种情形之外，线程都会被设置中断状态。
+- 中断线程无实时响应效果。
 
 ## Object
 
