@@ -32,6 +32,10 @@ JDK doc:
 - 除前面说到的三种情形之外，线程都会被设置中断状态。
 - 中断线程无实时响应效果。
 
+### tips
+
+- [当前线程并不能捕获到其他线程的异常](https://stackoverflow.com/questions/6546193/how-to-catch-an-exception-from-a-thread)。如果需要对异步线程异常控制，使用 Future 或 Thread.UncaughtExceptionHandler；
+
 ## Object
 
 > 与线程生命周期相关的锁方法
