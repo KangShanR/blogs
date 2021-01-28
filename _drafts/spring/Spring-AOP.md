@@ -5,9 +5,9 @@ date: "2018-11-26 10:50"
 ---
 <!-- TOC -->
 
-- [1. aop 面向切面](#1-aop-%e9%9d%a2%e5%90%91%e5%88%87%e9%9d%a2)
+- [1. aop 面向切面](#1-aop-面向切面)
   - [1.1. AOP Concepts](#11-aop-concepts)
-  - [1.2. aop 实现分为两类](#12-aop-%e5%ae%9e%e7%8e%b0%e5%88%86%e4%b8%ba%e4%b8%a4%e7%b1%bb)
+  - [1.2. aop 实现分为两类](#12-aop-实现分为两类)
   - [1.3. spring aop](#13-spring-aop)
     - [1.3.1. AOP Proxies](#131-aop-proxies)
   - [1.4. @AspectJ Support](#14-aspectj-support)
@@ -15,12 +15,13 @@ date: "2018-11-26 10:50"
     - [1.4.2. Declaring an Aspect](#142-declaring-an-aspect)
     - [1.4.3. Declaring a Pointcut](#143-declaring-a-pointcut)
       - [1.4.3.1. Supported Pointcut Designators](#1431-supported-pointcut-designators)
-        - [1.4.3.1.1. Spring AOP 与 AspectJ 不同之处](#14311-spring-aop-%e4%b8%8e-aspectj-%e4%b8%8d%e5%90%8c%e4%b9%8b%e5%a4%84)
+        - [1.4.3.1.1. Spring AOP 与 AspectJ 不同之处](#14311-spring-aop-与-aspectj-不同之处)
         - [1.4.3.1.2. Notes](#14312-notes)
       - [1.4.3.2. Combining Pointcut Expressions](#1432-combining-pointcut-expressions)
       - [1.4.3.3. Examples](#1433-examples)
       - [1.4.3.4. optimize](#1434-optimize)
     - [1.4.4. Declaring Advice](#144-declaring-advice)
+      - [Advice Parameters](#advice-parameters)
 
 <!-- /TOC -->
 
@@ -169,7 +170,7 @@ private void tradingOperation() {}
 - 除 ret-type-pattern (返回类型字段) /name-pattern/param-pattern 外，其他字段都是可选的。
 - returning-type-pattern 指定 join points 匹配的返回类型，`*` 表示任何类型都匹配。全限定名的类型只匹配返回类型为指定类型的方法。
 - name-pattern 匹配方法名，可以使用 `*` 通配所有或部分方法名，如果定义了 declaring-type-pattern（指定定义方法所在类），在其后追加一个 `.` 与 name-pattern 组件连用。
-- param-pattern 相对复杂一些。`()` 表示匹配无参数的方法，`(..)` 表示匹配任意数量参数的方法，`(*)` 表示匹配含一个任何类型的参数，`(*,String)` 表示匹配有两个参数的方法，其中第一个参数为任何类型，第二个参数为 String 。[reference](https://www.eclipse.org/aspectj/doc/released/progguide/semantics-pointcuts.html)
+- param-pattern 相对复杂一些。`()` 表示匹配无参数的方法，`(..)` 表示匹配任意数量参数的方法，`(*)` 表示匹配含一个任何类型的参数，`(*,String)` 表示匹配有两个参数的方法，其中第一个参数为任何类型，第二个参数为 String 。[Spring Reference](https://docs.spring.io/spring-framework/docs/5.2.5.RELEASE/spring-framework-reference/core.html#aop-pointcuts-designators)[AspectJ reference](https://www.eclipse.org/aspectj/doc/released/progguide/semantics-pointcuts.html)
 - `execution(param)` 模式下的匹配与 `args()` 模式匹配的不同：execution 模式下表示一个方法在签名处定义的参数为指定类型，而 args() 模式表示在方法在运行时被传递的参数为指定类型。
 
 #### 1.4.3.4. optimize
@@ -192,7 +193,41 @@ notes:
 
 ### 1.4.4. Declaring Advice
 
-Advice 与一个 pointcut expression 相关联，并在此 pointcut 匹配的方法执行 before/after/around 切点执行。这个 pointcut expression 要么是一个被命名的 pointcut 简单引用，要么是一个相应位置的 pointcut expression。
+[reference](https://docs.spring.io/spring-framework/docs/5.2.5.RELEASE/spring-framework-reference/core.html#aop-pointcuts-designators)
 
-- After Returning Advice :  一个正常执行完成的方法执行增强。使用注解 `@AfterReturning(returning="retVal")` 。可以指定方法执行的返回值为 Advice 方法的参数。指定属性 `returning` 的值与 Advice 定义的参数名要保持一致，同时 `returning` 语句也对 join points 进行约束，其方法执行与此处的类型需要一致。使用此类型的 Advice 返回的引用不可能完全不同。
-- After Throwing Advice : 抛出异常的方法执行的增强。可以使用 `throwing=` 与其异常参数类型配合限制异常的匹配。
+Advice 与一个 pointcut expression 相关联，并在此 pointcut 匹配的方法执行 before/after/around 切点执行。这个 pointcut expression 要么是一个被命名的 pointcut 简单引用（_直接写 pointcut 的方法名即可_），要么是一个 advice 相应位置的 pointcut expression(_直接用这种写法不就不用再单独写 pointcut 了吗？_)。
+
+- Before Advice: `@Before("com.xyz.myapp.SystemArchitecture.dataAccessOperation()")`
+- After Returning Advice :  一个正常执行完成的方法执行增强。使用注解 `@AfterReturning(returning="retVal")` ，可以指定方法执行的返回值为 Advice 方法的参数。指定属性 `returning` 的值与 Advice 定义的参数名要保持一致，同时 `returning` 语句也会和 advice 方法中指定的参数类型对 join points 进行约束，其方法执行与此处 advice 方法参数的类型需要匹配。
+    - 需要注意的是：使用此类型的 Advice 返回的引用不可能完全与原来的引用无关。
+- After Throwing Advice : 抛出异常的方法执行的增强。可以使用 `throwing=` 与其异常参数类型配合限制异常的匹配。同样，advice 方法参数名要与 throwing 的值一致，且参数类型也会对 pointcuts 进行约束。
+
+    ```java
+    @Aspect
+    public class AfterThrowingExample {
+        @AfterThrowing(
+            pointcut="com.xyz.myapp.SystemArchitecture.dataAccessOperation()",
+            throwing="ex")
+        public void doRecoveryActions(DataAccessException ex) {
+            // ...
+        }
+    }
+    ```
+
+- After Advice: 在切点正常、异常执行完后进行增强。
+- Around Advice: 在切点周围进行增强，可以在方法执行前后进行工作，用于在需要在方法执行前后在线程安全内分享状态。切记使用最小形式的 advice 满足需求，能使用 Before advice 就不要用 Around advice。
+    - 使用 @Around 注解声明，第一个参数必须是 ProceedingJoinPoint，调用其 proceed() 方法就是执行切点的方法，此方法可以传参数 Object[] ，数组中的值被用于方法执行时的参数。
+    - Advice 的参数 JoinPoint 的 proceed() 是否执行、执行任何次数都合法。
+
+#### Advice Parameters
+
+[reference](https://docs.spring.io/spring-framework/docs/5.2.5.RELEASE/spring-framework-reference/core.html#aop-advice-after-throwing)
+
+- Access current JoinPoint ，任何增强方法都可以添加第一个参数 JoinPoint，ProceedingJoinPoint 是其子类。可以从 JoinPoint 调用方法获取 args/this proxy/target object/signature/toString
+- 传递参数给 Advice 。使用 `args()` 传递参数到 advice ，可以将其写在 Pointcut 中再在 Advice 中引用 pointcut，也可以直接在 pointcut expression 中添加 args 子句。
+- Advice Parameters and Generics。范型参数在 advice 中的使用，直接在 advice 中指定类型，同样会约束 pointcut。
+    - 直接在参数中指定范型类型。
+    - 如果参数是 Collection<T> ，只能指定为 Collection<?>，再手动检查其类型。
+- Determining Argument Names。指定 Advice 参数名，使用 `argNames=`,默认第一个参数 JoinPoint 不用显式指定出来。
+
+
