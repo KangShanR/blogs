@@ -371,26 +371,6 @@ Note: BeanNameAware 回调执行是在 bean 基础属性配置好之后，在初
 - `parent=beanId` 指定当前 bean definition 继承目标 bean 。被继承的 bean 可以是抽象的。
 - 抽象的 bean definition 不能被初始化。ApplicationContext 默认会预初始化所有的 singleton，因此所有想被当作模版用 parent bean definition 在指定了class 后一定要指定其为 abstract=true，否则 application context 会对其进行初始化。
 
-## 1.7. Container Extend Points
-
-[Container Extend Points](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-extension)
-
-spring 提供两种后处理器：
-
-1. bean 后处理器 对容器中的 bean 进行后处理 加强
-    1. bean 后处理器是一种特殊的 bean 无需 id 属性，不对外提供服务对 容器内其他 bean 进行后处理，其他的 bean 创建成功后，对 bean 进行近一步的增强处理。
-    2. bean 后处理器必须实现 BeanPostProcessor 接口。该接口有两个方法：
-        1. Object postProcessBeforeInitialization(Object bean, String beanName)
-        2. Object postProcessAfterInitialization(Object bean, String beanName)
-            1. 这两个方法的参数：bean 是即将进行后处理的 bean ， beanName 是这个 bean 在容器中配置的 id
-            2. before 方法用于 bean 初始化（调用 afterPropertiesSet; 调用 init-method 指定的方法）之前， after 方法用于 bean 初始化之后。
-    3. 如果使用 BeanFactory 作为 spring 容器，必须手动注册 bean 后处理器，必须获取 bean 后处理器实例
-2. 容器后处理器 对 ioc 容器进行加强处理，增加其功能
-    1. 负责处理容器本身，用于增加容器功能
-    2. 容器后处理器必须实现 BeanFactoryPostProcessor 接口，其中方法：
-        1. postProcessBeanFactory(ConfigurableListableBeanFactory BeanFactory)
-    3. 同样，如果 使用 BeanFactory 作为容器，必须手动调用容器后处理器来处理 BeanFactory 容器。
-
 ## 1.8. spring bean 零配置支持
 
 > spring 零配置是指通过**注解**来实现 beans.xml 中配置 spring bean 容器的功能
