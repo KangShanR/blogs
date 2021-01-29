@@ -110,7 +110,7 @@ ioc 容器配置。传统配置方法是使用 xml 配置文件实现。
 #### 1.2.1.3. AnnotationConfigWebApplicationContext
 
 - AnnotationConfigWebApplicationContext 是 AnnotationConfigApplicationContext 的变体，用于初始化 springmvc 容器。
-- 可用于注册 Spring Servlet lisener `ContextLoaderListener`、spring MVC DispatherServlet 等等。
+- 可用于注册 Spring Servlet listener `ContextLoaderListener`、spring MVC DispatcherServlet 等等。
 
 #### Fine-tuning Annotation-based Autowiring with Qualifiers
 

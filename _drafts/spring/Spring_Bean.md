@@ -11,41 +11,42 @@ categories: programming
 <!-- TOC -->
 
 - [1. Spring Bean](#1-spring-bean)
-  - [1.1. 知识点](#11-%e7%9f%a5%e8%af%86%e7%82%b9)
-  - [1.2. spring bean 的自动装配](#12-spring-bean-%e7%9a%84%e8%87%aa%e5%8a%a8%e8%a3%85%e9%85%8d)
-  - [1.3. 创建 bean 的方式](#13-%e5%88%9b%e5%bb%ba-bean-%e7%9a%84%e6%96%b9%e5%bc%8f)
+  - [1.1. 知识点](#11-知识点)
+  - [1.2. spring bean 的自动装配](#12-spring-bean-的自动装配)
+  - [1.3. 创建 bean 的方式](#13-创建-bean-的方式)
   - [1.4. Bean Scope](#14-bean-scope)
     - [1.4.1. Web application bean scope](#141-web-application-bean-scope)
-    - [1.4.2. 协调作用域不同的 bean](#142-%e5%8d%8f%e8%b0%83%e4%bd%9c%e7%94%a8%e5%9f%9f%e4%b8%8d%e5%90%8c%e7%9a%84-bean)
+    - [1.4.2. 协调作用域不同的 bean](#142-协调作用域不同的-bean)
   - [1.5. Dependencies](#15-dependencies)
     - [1.5.1. Dependency injection](#151-dependency-injection)
       - [1.5.1.1. constructor injection](#1511-constructor-injection)
       - [1.5.1.2. setter injection](#1512-setter-injection)
-      - [1.5.1.3. 依赖解析](#1513-%e4%be%9d%e8%b5%96%e8%a7%a3%e6%9e%90)
-        - [1.5.1.3.1. 循环依赖](#15131-%e5%be%aa%e7%8e%af%e4%be%9d%e8%b5%96)
-        - [1.5.1.3.2. spring 依赖加载特性](#15132-spring-%e4%be%9d%e8%b5%96%e5%8a%a0%e8%bd%bd%e7%89%b9%e6%80%a7)
+      - [1.5.1.3. 依赖解析](#1513-依赖解析)
+        - [1.5.1.3.1. 循环依赖](#15131-循环依赖)
+        - [1.5.1.3.2. spring 依赖加载特性](#15132-spring-依赖加载特性)
     - [1.5.2. Depends On](#152-depends-on)
     - [1.5.3. lazy-initialized beans](#153-lazy-initialized-beans)
     - [1.5.4. AutoWiring Collaborators](#154-autowiring-collaborators)
-      - [1.5.4.1. 使用自动装配的不足](#1541-%e4%bd%bf%e7%94%a8%e8%87%aa%e5%8a%a8%e8%a3%85%e9%85%8d%e7%9a%84%e4%b8%8d%e8%b6%b3)
-  - [1.6. 自定义 bean 特性](#16-%e8%87%aa%e5%ae%9a%e4%b9%89-bean-%e7%89%b9%e6%80%a7)
-    - [1.6.1. 指定回调方法](#161-%e6%8c%87%e5%ae%9a%e5%9b%9e%e8%b0%83%e6%96%b9%e6%b3%95)
+      - [1.5.4.1. 使用自动装配的不足](#1541-使用自动装配的不足)
+  - [1.6. 自定义 bean 特性](#16-自定义-bean-特性)
+    - [1.6.1. 指定回调方法](#161-指定回调方法)
     - [1.6.2. Shutting Down the Spring IoC Container Gracefully in Non-Web Applications](#162-shutting-down-the-spring-ioc-container-gracefully-in-non-web-applications)
     - [1.6.3. ApplicationContextAware and BeanNameAware](#163-applicationcontextaware-and-beannameaware)
       - [1.6.3.1. ApplicationContextAware](#1631-applicationcontextaware)
       - [1.6.3.2. BeanNameAware](#1632-beannameaware)
-  - [1.7. spring 后处理器](#17-spring-%e5%90%8e%e5%a4%84%e7%90%86%e5%99%a8)
-  - [1.8. spring bean 零配置支持](#18-spring-bean-%e9%9b%b6%e9%85%8d%e7%bd%ae%e6%94%af%e6%8c%81)
-    - [1.8.1. 自动装配与精确装配 spring 4.0](#181-%e8%87%aa%e5%8a%a8%e8%a3%85%e9%85%8d%e4%b8%8e%e7%b2%be%e7%a1%ae%e8%a3%85%e9%85%8d-spring-40)
-      - [1.8.1.1. 自动装配微调](#1811-%e8%87%aa%e5%8a%a8%e8%a3%85%e9%85%8d%e5%be%ae%e8%b0%83)
-    - [1.8.2. @Resource 匹配](#182-resource-%e5%8c%b9%e9%85%8d)
-    - [1.8.3. @Value 注入配置数据](#183-value-%e6%b3%a8%e5%85%a5%e9%85%8d%e7%bd%ae%e6%95%b0%e6%8d%ae)
-    - [1.8.4. 使用注解来定制 bean 方法成员的生命周期](#184-%e4%bd%bf%e7%94%a8%e6%b3%a8%e8%a7%a3%e6%9d%a5%e5%ae%9a%e5%88%b6-bean-%e6%96%b9%e6%b3%95%e6%88%90%e5%91%98%e7%9a%84%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f)
+  - [Bean Definition Inheritance](#bean-definition-inheritance)
+  - [1.7. Container Extend Points](#17-container-extend-points)
+  - [1.8. spring bean 零配置支持](#18-spring-bean-零配置支持)
+    - [1.8.1. 自动装配与精确装配 spring 4.0](#181-自动装配与精确装配-spring-40)
+      - [1.8.1.1. 自动装配微调](#1811-自动装配微调)
+    - [1.8.2. @Resource 匹配](#182-resource-匹配)
+    - [1.8.3. @Value 注入配置数据](#183-value-注入配置数据)
+    - [1.8.4. 使用注解来定制 bean 方法成员的生命周期](#184-使用注解来定制-bean-方法成员的生命周期)
   - [1.9. Classpath Scanning and Managed Components](#19-classpath-scanning-and-managed-components)
-    - [1.9.1. 自动检测 class 并注册 Bean Definition](#191-%e8%87%aa%e5%8a%a8%e6%a3%80%e6%b5%8b-class-%e5%b9%b6%e6%b3%a8%e5%86%8c-bean-definition)
+    - [1.9.1. 自动检测 class 并注册 Bean Definition](#191-自动检测-class-并注册-bean-definition)
     - [1.9.2. Class Scanning Filter](#192-class-scanning-filter)
-      - [1.9.2.1. Filter 类型](#1921-filter-%e7%b1%bb%e5%9e%8b)
-  - [1.10. spring 容器中的 bean 实现不同方法](#110-spring-%e5%ae%b9%e5%99%a8%e4%b8%ad%e7%9a%84-bean-%e5%ae%9e%e7%8e%b0%e4%b8%8d%e5%90%8c%e6%96%b9%e6%b3%95)
+      - [1.9.2.1. Filter 类型](#1921-filter-类型)
+  - [1.10. spring 容器中的 bean 实现不同方法](#110-spring-容器中的-bean-实现不同方法)
     - [1.10.1. @Bean Annotation](#1101-bean-annotation)
   - [1.11. Naming Bean](#111-naming-bean)
     - [1.11.1. Aliasing Bean](#1111-aliasing-bean)
@@ -312,7 +313,9 @@ bean 之间相互 constructor 依赖。beanA 依赖了 beanB ，同时 beanB 依
 2. 自定义的 `init()` `close()` 方法；
 3. 使用 `@PostConstruct` `@PreDestroy` 注解在方法上。
 
-当 bean 有多个生命周期回调时，回调都将被执行，其顺序是 : 3 -> 1 -> 2
+当 bean 有多个生命周期回调且方法不一样时，回调都将被执行，其顺序是 : 3 -> 1 -> 2
+
+**Note:** 回调方法执行是在当前对象的依赖都准备好之后，但在代理、拦截器这些机制应用之前，所以 init() 前置回调如果需要访问代理、拦截器之类是做不到的。
 
 ### 1.6.2. Shutting Down the Spring IoC Container Gracefully in Non-Web Applications
 
@@ -338,6 +341,8 @@ public final class Boot {
 
 ### 1.6.3. ApplicationContextAware and BeanNameAware
 
+[reference](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-lifecycle-processor)
+
 #### 1.6.3.1. ApplicationContextAware
 
 实现 ApplicationContextAware 接口获取 ApplicationContext 。以获得操纵 ApplicationContext 的方法。但这样会让业务代码与 Spring 耦合。
@@ -354,7 +359,21 @@ public interface BeanNameAware {
 }
 ```
 
-## 1.7. spring 后处理器
+Note: BeanNameAware 回调执行是在 bean 基础属性配置好之后，在初始化回调 自定义 init 方法/afterPropertiesSet/InitializingBean 执行之前。
+
+## Bean Definition Inheritance
+
+[reference](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-child-bean-definitions)
+
+> Bean Definition 继承
+
+- xml bean 配置中添加 abstract=true　属性就指定此 bean definition 为抽象，抽象的可以不指定 class
+- `parent=beanId` 指定当前 bean definition 继承目标 bean 。被继承的 bean 可以是抽象的。
+- 抽象的 bean definition 不能被初始化。ApplicationContext 默认会预初始化所有的 singleton，因此所有想被当作模版用 parent bean definition 在指定了class 后一定要指定其为 abstract=true，否则 application context 会对其进行初始化。
+
+## 1.7. Container Extend Points
+
+[Container Extend Points](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-extension)
 
 spring 提供两种后处理器：
 
