@@ -31,6 +31,7 @@ description: spring 框架的学习与理解
 - 通过 DI(dependency injection) 依赖注入，实现 IoC(Inverse of Control) 反转控制，将所有的 bean 注入 IoC 容器。
 - ioc 等于 di
 - IoC 的实现：将容器在装配 bean 时，先通过其构造器或工厂生产一个实例后，再根据其配置去构造 bean 的各个依赖。这与传统的实例生成方法相反，所以叫反转控制。
+- [启动步骤](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#application-startup-steps)
 
 ## 1.1. ioc
 
@@ -397,4 +398,3 @@ public void setConfigLocations(Resource... configLocations) {
   <bean id="dataSource">
     <property name="url" value="${jdbc.url}" />
   </bean>
-
