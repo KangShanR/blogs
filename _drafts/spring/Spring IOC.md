@@ -140,6 +140,20 @@ ioc 容器配置。传统配置方法是使用 xml 配置文件实现。
 - ApplicationContext 自动检测 BeanPostProcessor 实现并注册到容器中，并在随后的 bean creation 中调用。
 - 指定 lazy-init 属性对这两类处理器无效，因为如果其中没有其他 bean 引用 processor 不会初始化。
 
+Note:
+
+**Programmatically registering BeanPostProcessor instances**
+
+- ApplicationContext 自动检测注册 BeanPostProcessor 外，还可以通过 ConfigurableBeanFactory.addBeanPostProcess() 手动注册。
+- 手动注册将忽略 processor 的 order 属性，直接使用手动注册的顺序作为 process() 的顺序。同时手动注册的优先于 ApplicationContext 自动检测注册的 processor。
+
+**BeanPostProcessor instances and AOP auto-proxying**
+
+- 容器对实现 BeanPostProcessor 的类专门处理。所有的 BeanPostProcessor 的实例与 bean 直接引用都在 ApplicationContext 启动时初始化，作为其启动阶段之一。
+- 所有的 BeanPostProcessor 实例都有序注册并都在后来相应的阶段处理容器中的 Bean。
+- 因为 Spring AOP 自动代理实现本身就是一个 BeanPostProcessor ，对于 BeanPostProcessor 实例，不管是其本身还是其直接依赖的 bean 都是自动代理的对象，所以不要对其编织切面。这于这类错误添加切面的 bean ，会出现日志信息：`Bean someBean is not eligible for getting processed by all BeanPostProcessor interfaces (for example: not eligible for auto-proxying)`。
+- 当在 BeanPostProcessor 使用 `@AutoWired`（自动装配） 或 `@Resource`(此类装配策略可能会退化为自动装配)装配了其他 Bean 。Spring 会在类型匹配查找时访问到不需要的 Bean 。所以需要让这些 Bean 对自动代理或其他类型的 Bean Post-Processing 失效。比如：有一个被 @Resource 注解的依赖，字段或 setter 名不能与一个与 bean 声明的名匹配且没有名字属性被使用，Spring 将访问与其他 type 相匹配的 bean 。
+
 ### 1.3.2. 自定义 BeanFactoryPostProcessor
 
 [BeanFactoryPostProcessor](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-extension)
