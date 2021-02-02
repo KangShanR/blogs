@@ -35,7 +35,6 @@ categories: programming
       - [1.6.3.1. ApplicationContextAware](#1631-applicationcontextaware)
       - [1.6.3.2. BeanNameAware](#1632-beannameaware)
   - [Bean Definition Inheritance](#bean-definition-inheritance)
-  - [1.7. Container Extend Points](#17-container-extend-points)
   - [1.8. spring bean 零配置支持](#18-spring-bean-零配置支持)
     - [1.8.1. 自动装配与精确装配 spring 4.0](#181-自动装配与精确装配-spring-40)
       - [1.8.1.1. 自动装配微调](#1811-自动装配微调)
@@ -379,7 +378,7 @@ Note: BeanNameAware 回调执行是在 bean 基础属性配置好之后，在初
 - 使用注解完成配置相对于 xml 配置更为精简，但也与源码耦合，修改配置需要重新编译。通常同一个项目中混合使用两种配置方式。
 - xml 配置中兼容注解配置，使用 `<context:annotation-config/>`
     - 此配置隐匿地注册了很多 post-processor 包括： `AutowiredAnnotationBeanPostProcessor, CommonAnnotationBeanPostProcessor, PersistenceAnnotationBeanPostProcessor, and the aforementioned RequiredAnnotationBeanPostProcessor`
-    - 此配置只查询同一级别的应用上下文的注解，所以如果只是在 DispatherServlet 的 `WebApplicationContext` 配置，那么就只会扫描到 Controller 而不会扫描到 Service 的注解。
+    - 此配置只查询同一级别的应用上下文的注解，所以如果只是在 DispatcherServlet 的 `WebApplicationContext` 配置，那么就只会扫描到 Controller 而不会扫描到 Service 的注解。
 
 ### 1.8.1. 自动装配与精确装配 spring 4.0
 
