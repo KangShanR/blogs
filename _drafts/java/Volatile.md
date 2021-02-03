@@ -1,5 +1,4 @@
 ---
-title: java volatile
 date: 2020-04-21 12:08:38
 tags: [java,volatile]
 categories: programming
@@ -49,7 +48,7 @@ public static Singleton getInstance() {
 ```
 
 - 当 `int = new Instance()` 这一行代码并非原子性，其指定分为 3 个 :
-    - a. memorry = allocate() 分配内存；
-    - b. ctorInstanc(memory) 初始化对象；
+    - a. memory = allocate() 分配内存；
+    - b. ctorInstance(memory) 初始化对象；
     - c. ins=memory 设置 ins 指向刚分配的地址。
 - a -> b -> c 三条指令可能会被重排 a -> c -> b 的顺序。在双检锁的案例中，当线程1走到 c 时，其他线程走到第一层检查 ins 是否为空时，会得到 false 的结果，因为此时 ins 已指向了一个内存地址，而线程1 此时还未为其初始化，而出现 bug 。
