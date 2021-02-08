@@ -34,3 +34,9 @@
 - [ ] java8 functional programming
     - [ ] Stream parallel
     - [ ] @FunctionalInterface features
+- [ ] JVM
+    - [ ] Data area
+        - [ ] Jvm Stack
+        - [ ] Heap
+        - [ ] Method area
+- [ ] [Java IO](https://tech.meituan.com/2016/11/04/nio.html)
