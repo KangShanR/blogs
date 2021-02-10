@@ -44,11 +44,13 @@ JDK doc:
 
 > 据 Object 文档翻译
 
+- 调用此方法的前提是线程先对该对象的 monitor 加锁，notify 方法也是一样。
+- 调用此方法的线程会先释放该对象的 monitor ，再进入到对象 monitor wait-sets。
 - wait(long timeout) 方法让当前线程进入等待，直到有其他的线程调用对象的 notify()/notifyAll() 方法或者指定的时间流逝。
 - 当前线程必须拥有对象的监视器 monitor 。
 - 此该当让当前线程进入到对象的等待区，并放弃针对此对象的所有同步声明。线程 scheduling purpose 被废弃并进入到到冬眠阶段直到以下四个事件发生为止：
     - 其他线程调用对象的 notify() 方法，并且本线程刚好被选中苏醒。
-    - 其他线程调用对象的 notifyAll() 方法。
+    - 其他线程调用对象的 notifyAll() 方
     - 其他线程调用本线程的 {@link Thread#interrupt()} 方法打断本线程等待阻塞。
     - 指定的等待超时时间 timeout 已到，或多或少。如果 timeout 为 0 ，那么超时设置将不生效，只能让其他线程来 notify 。
 - wait() 方法只会让线程进入到指定对象的等待区，在等待该对象时也可以持有其他对象的同步锁。
