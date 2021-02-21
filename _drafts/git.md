@@ -81,10 +81,16 @@ date: "2018-10-19 11:06"
 - `git checkout --track origin/branch` # 跟踪某个远程分支创建相应的本地分支（使用此命令跟踪远程分支前，需要确定是否已抓取远程分支的更新 `git remote show origin`，如果没有抓取，使用 `git fetch origin` 命令抓取）
 - `git checkout -b <local_branch> origin/<remote_branch>` # 基于远程分支创建本地分支，功能同上
 
+### git checkout
+
+- 可以使用 `git checkout --help` 查看完整的文档
+- checkout 可以让 HEAD 关联到某一次 commit 或 tag 上,默认其关系在当前的 brach 上.
+- 当使用  git checkout -b <branch_name> HEAD 会相应地切换到新分支上,而直接使用 git branch <branch_name> 只会创建新分支而 HEAD 处于分离状态.
+
 ### 分支合并 merge 和 rebase
 
 - `git merge <branch>` # 将branch分支合并到当前分支
-- `git merge origin/master --no-ff` # 不要 Fast-Foward 合并，这样可以生成merge提交
+- `git merge origin/master --no-ff` # 不要 Fast-Forward 合并，这样可以生成merge提交
 - `git rebase master <branch>` # 将master rebase到branch，相当于： `git co <branch> && git rebase master && git co master && git merge <branch>`
 
 ### Git补丁管理(方便在多台机器上开发同步时用)
