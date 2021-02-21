@@ -1,7 +1,7 @@
 ---
 title: socket
 date: 2020-03-15 09:04:38
-categories: programing
+categories: programming
 tags: [protocol, socket]
 description: 附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面
 ---

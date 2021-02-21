@@ -1,6 +1,6 @@
 ---
 date: 2020-10-21 23:52:00
-categories: programing
+categories: programming
 tags: [guigarage, java, GUI]
 description: java 中写 GUI 的包
 ---
