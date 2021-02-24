@@ -1,7 +1,9 @@
 ---
+layout: "post"
+title: Volatile
 date: 2020-12-28 12:01:00
 tags: [java,programming]
-categories: programming
+categories: Java
 description: Java Thread & Java Object
 ---
 
@@ -9,7 +11,7 @@ description: Java Thread & Java Object
 
 ## Thread
 
-> java thread
+> java thread<!--more-->
 
 ## join
 

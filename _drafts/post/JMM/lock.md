@@ -1,13 +1,14 @@
 ---
+layout: "post"
+title: Lock in Java
 date: 2020-06-11 16:21:38
-categories: java
+categories: Java
 tags: [lock,concurrent]
-keywords: lock
 ---
 
 # Lock in Java
 
-java 并发编程中的 lock.
+java 并发编程中的 lock.<!--more-->
 
 [reference](java.util.concurrent.locks.Lock)
 

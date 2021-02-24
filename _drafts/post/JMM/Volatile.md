@@ -1,20 +1,17 @@
 ---
+layout: "post"
+title: Volatile
 date: 2020-04-21 12:08:38
 tags: [java,volatile]
-categories: programming
+categories: Java
 description: java keyword `volatile`
 ---
 
 # 1. Java Volatile
 
-<!-- TOC -->
+<!-- TOC -->autoauto1. [1. Java Volatile](#1-java-volatile)auto    1. [1.1. Volatile in Double Check Singleton](#11-volatile-in-double-check-singleton)autoauto<!-- /TOC -->
 
-- [1. Java Volatile](#1-java-volatile)
-  - [1.1. Volatile in Double Check Singleton](#11-volatile-in-double-check-singleton)
-
-<!-- /TOC -->
-
-java 中关键字 volatile 的使用 [reference](https://mp.weixin.qq.com/s/AE0oeKiCU_aetfkW9Qk0cg)
+java 中关键字 volatile 的使用 [reference](https://mp.weixin.qq.com/s/AE0oeKiCU_aetfkW9Qk0cg)<!--more-->
 
 - volatile 的做法：
     - 使用内存屏障让前后的指令重排（为提升效率，而在编译运行期对指令进行重排）都不干扰所修辞的变量；

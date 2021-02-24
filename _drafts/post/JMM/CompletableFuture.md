@@ -1,7 +1,8 @@
 ---
-layout: "draft"
+layout: "post"
 title: Java Concurrent
 date: "2018-09-28 13:26"
+categories: Java
 tag: [java, concurrent]
 ---
 

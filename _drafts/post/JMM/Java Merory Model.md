@@ -1,3 +1,11 @@
+---
+layout: "post"
+title: Java Memory Model
+categories: Java
+date: "2020-12-28 13:26"
+tag: [java, concurrent, JMM]
+---
+
 # Java Memory Model
 
 [reference](http://www.cs.umd.edu/~pugh/java/memoryModel/)
@@ -8,7 +16,7 @@
 
 ### How does synchronization do?
 
-- Synchronization 同步存在多方面含义。最为人所知的是恒定排他性：一旦某个线程获取到 monitor ，monitor 上的同步意味着一个线程进入了 monitor 所保护的同步块，在此线程退出此同步块前没有其他线程能够再进入。
+- Synchronization 同步存在多方面含义。最为人所知的是恒定排他性：一旦某个线程获取到 monitor ，monitor 上的同步意味着一个线程进入了 monitor 所保护的同步块，在此线程退出此同步块前没有其他线程能够再进入。<!--more-->
 - 同步同时保证一个线程在进入同步块前与中的写对于其他在相同 monitor 的线程保持可预测的可见性。当退出同步块，会释放 monitor ，这会将缓存中的数据 flush 到主存中，让此线程的写对其他线程可见。在进入同步块前，我们需要获取 monitor ，这带来的内存效应是将处理器 processor 的缓存置为无效，这样变量就必须从主存中重载。这样我们看到的效果就是前一次释放的所有写都可见。
 - 讨论缓存时并不意味问题只发生在多核心机器中，单核心机器中轻易地产生重排序。比如：编译器不可能在在获取前或释放后移动代码。我们在讨论获取与释放缓存时是省了很多可能的效果。
 - **新 JMM 语义创建了内存操作（read field, write field, lock, unlock）与其他线程的操作（start, join）的局部顺序，在此语义下，一些操作 happens-before 其他操作。当一个操作 happens-before 另一个操作，第一个操作保证排在第二个操作前，且对于第二个操作来说，第一个的所有操作对第二个可见。**其中规则包括：

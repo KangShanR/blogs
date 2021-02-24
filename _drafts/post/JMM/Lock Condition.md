@@ -1,11 +1,15 @@
 ---
+layout: "post"
+title: Condition
 date: 2021-02-05 12:08:38
 tags: [java] 
-categories: programming
+categories: Java
 description: Lock Condition
 ---
 
 # Condition
+
+> Java 新式锁所用以判定条件接口<!--more-->
 
 ## Translation
 
