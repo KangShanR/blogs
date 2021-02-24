@@ -1,4 +1,6 @@
 ---
+title: How to Minimize and Handle Deadlocks
+layout: post
 tag: [mysql, InnoDB, Deadlock]
 categories: programming
 description: How to Minimize and Handle Deadlocks?

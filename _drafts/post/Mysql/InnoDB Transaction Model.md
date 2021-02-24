@@ -1,4 +1,6 @@
 ---
+title: InnoDB Transaction Model
+layout: post
 tag: [mysql, InnoDB, commit]
 categories: programming
 description: The InnoDB transactions' commit & rollback

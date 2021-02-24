@@ -1,4 +1,6 @@
 ---
+title: InnoDB
+layout: post
 tag: [mysql, InnoDB, InnoDB Locking]
 categories: programming
 description: The InnoDB Glossary

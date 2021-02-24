@@ -1,4 +1,6 @@
 ---
+title: Phantom Rows
+layout: post
 tag: [mysql, InnoDB, Lock]
 categories: programming
 description: Phantom rows && prevention

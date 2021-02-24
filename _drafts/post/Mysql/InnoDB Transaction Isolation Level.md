@@ -1,4 +1,6 @@
 ---
+title: InnoDB Transaction Isolation Level
+layout: post
 tag: [mysql, InnoDB]
 categories: programming
 description: The InnoDB Glory

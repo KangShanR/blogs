@@ -1,11 +1,13 @@
 ---
+title: InnoDB Indexes On-Disk Structures
+layout: post
 tag: [mysql, InnoDB, index]
 categories: programming
 description: The On-disk structures of Index in the InnoDB
 date: "2021-1-7 10:4:00"
 ---
 
-# InnoDB Indexes On-disk structures
+# InnoDB Indexes On-Disk Structures
 
 ## Clustered and Secondary Indexes
 

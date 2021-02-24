@@ -1,8 +1,10 @@
 ---
+title: Locks set by different SQL
+layout: post
 tag: [mysql, InnoDB, lock, SQL]
 categories: programming
 description: Locks set by different SQL in the InnoDB
-date: "2021-1-7 10:4:00"
+date: "2021-1-7 10:04:00"
 ---
 
 # Locks set by different SQL in the InnoDB
@@ -32,7 +34,7 @@ date: "2021-1-7 10:4:00"
 - 如果发生 duplicate-key error，会在 duplicate-key 记录请求上安排一个 s-lock (在请求插入的事务上安排，将请求一个 s-lock)。如果另有一个 session 已经有了 x-lock，而另外多个 session 请求插入同一行将产生死锁。
 
 #### examples
-        
+
     ```sql
     -- create table t1
     CREATE TABLE t1 (i INT, PRIMARY KEY (i)) ENGINE = InnoDB;

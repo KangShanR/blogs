@@ -1,4 +1,6 @@
 ---
+title: Mysql Overview
+layout: post
 layout: "post"
 tag: "mysql"
 date: "2018-11-01 10:13"

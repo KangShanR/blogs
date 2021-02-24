@@ -1,10 +1,14 @@
 ---
+title: SELECT in Mysql
+layout: post
 tag: [mysql, InnoDB]
 categories: programming
 description: SELECT statements in Mysql
 date: "2021-1-15 14:53:00"
 ---
 # SELECT
+
+> mysql 中查询语句
 
 ## Join Clause
 
@@ -28,4 +32,3 @@ date: "2021-1-15 14:53:00"
 - `NATURAL [LEFT] JOIN` 等同于使用 `INNER JOIN` 或 `LEFT JOIN` 并使用 `USING` 子句指定两表同名的列在其中。
 - `RIGHT JOIN` 与 `left join` 工作原理类似，但为保持代码跨库端口化，推荐使用 `left join`。
 - [PARTITION](https://dev.mysql.com/doc/refman/5.7/en/partitioning-selection.html)在写DDL时将表分片，指定范围内为一片，查询时可以直接查询片内数据。（不知道这样是否可以将索引单片内查询而提高查询效率？）
-

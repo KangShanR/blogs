@@ -1,4 +1,6 @@
 ---
+title: Deadlocks in InnoDB
+layout: post
 tag: [mysql, InnoDB, Deadlock]
 categories: programming
 description: Deadlock in InnoDB
