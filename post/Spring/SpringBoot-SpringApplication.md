@@ -3,7 +3,7 @@ title: SpringApplication
 layout: post
 date: 2020-07-22 19:45:00
 tags: [Java,SpringBoot]
-categories: SpringBoot
+categories: [SpringBoot]
 description: Spring Boot SpringApplication
 ---
 
