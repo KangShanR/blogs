@@ -1,11 +1,14 @@
 ---
 layout: "post"
+title: Java specification overview
 date: "2020-11-03 22:32:00"
 tags: [shadowing, java, IO]
+categories: Java
 ---
+
 # java overview
 
-关于 java 的概述。[官方文档](https://docs.oracle.com/javaee/6/firstcup/doc/gkhoy.html)
+关于 java 的概述文档翻译。[官方文档](https://docs.oracle.com/javaee/6/firstcup/doc/gkhoy.html)
 
 ## java platform
 

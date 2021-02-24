@@ -1,6 +1,7 @@
 ---
+title: Key Words in Java
 date: 2020-10-12 18:52:00
-categories: programming
+categories: Java
 tags: [programming,java, HashMap]
 description: key words
 ---
@@ -10,6 +11,9 @@ description: key words
 ## transient【瞬时】
 
 用以序列化、反序列化时所排除的变量，在进行序列化、反序列化时 transient 修辞的变量将不被序列化、反序列化。
+
+- 与 final 连用，final 修辞字段值会直接被序列化，因此 transient 修辞 final 字段无效
+- 与 static 连用，static 字段非对象所拥有，所以 transient 修辞的 static 字段无效。
 
 ## volatile
 
@@ -33,5 +37,3 @@ JVM 与 CPU 为提升性能而允许指令重排。*使用指令重排可以将�
 ### volatile happen-before 原则
 
 为保证指令重排不对 volatile 可见性干预，volatile 有 Happens-Before 原则。
-
-

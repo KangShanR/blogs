@@ -1,4 +1,5 @@
 ---
+title: Java Jar
 date: 2020-10-20 11:02:00
 categories: java
 tags: [java, jar, package, jvm]

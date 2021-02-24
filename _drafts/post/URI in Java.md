@@ -1,7 +1,9 @@
 ---
+title: URI in Java
+layout: post
 date: 2020-08-13 11:14:00
 tags: [framework,java,URI]
-categories: programming
+categories: Java
 description: java URI class
 ---
 
