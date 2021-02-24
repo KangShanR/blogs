@@ -18,7 +18,7 @@ java 范型 [reference](https://blog.csdn.net/weixin_30662109/article/details/98
 
 - 静态方法要实现范型，要在返回结果前加上范型标识 `<T, R> void generic()`
 - 使用无参的范型方法要在使用时确定范型类型在方法前加上范型参数：`builder.<String, Integer>build()`。否则，编译器只会当范型类型为 Object。
-- 范型构造器的使用与无参范型构造的实现：通过上一条即可实现。
+- 范型构造器的使用与无参范型构造的实现：通过上一条即可实现。<!--more-->
 
 ### 1.1.1. 范型通配符
 

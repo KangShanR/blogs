@@ -2,7 +2,7 @@
 title: Phantom Rows
 layout: post
 tag: [mysql, InnoDB, Lock]
-categories: programming
+categories: Mysql
 description: Phantom rows && prevention
 date: "2021-1-12 21:12:00"
 ---
@@ -11,7 +11,7 @@ date: "2021-1-12 21:12:00"
 
 > [reference](https://dev.mysql.com/doc/refman/5.7/en/innodb-next-key-locking.html)
 >
-> 在一个事务中执行相同的查询得到不同的数据谓之为*幻读*。比如：在一个 SELECT 两次执行中，第二次查询到一行第一次查询时没有行。这一行就叫*幻读行*。
+> 在一个事务中执行相同的查询得到不同的数据谓之为*幻读*。比如：在一个 SELECT 两次执行中，第二次查询到一行第一次查询时没有行。这一行就叫*幻读行*。<!--more-->
 
 假如表 child 中定义了索引行 id，现在需要读取 id 大于100并加锁以在后面更新一些行，其 sql 语句：`SELECT * FROM child WHERE id > 100 FOR UPDATE;`
 

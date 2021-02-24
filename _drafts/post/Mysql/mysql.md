@@ -1,9 +1,9 @@
 ---
 title: Mysql Overview
-layout: post
 layout: "post"
 tag: "mysql"
 date: "2018-11-01 10:13"
+categories: Mysql
 ---
 
 # mysql server & client
@@ -12,7 +12,7 @@ date: "2018-11-01 10:13"
 
 ## mysql server
 
-> mysql server 的部署及请求[参考](http://www.cnblogs.com/QingXiaxu/p/7987302.html)
+> mysql server 的部署及请求[参考](http://www.cnblogs.com/QingXiaxu/p/7987302.html)<!--more-->
 
 localhost 的 testing 尝试：
 

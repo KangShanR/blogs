@@ -1,8 +1,8 @@
 ---
 title: Spring Validating, Data Binding and Type Conversion
 date: 2020-04-15 12:14:38
-tags: [validating,data binding,type conversion,java,spring]
-categories: programming
+tags: [validating,data binding,type conversion,Java,Spring]
+categories: Spring
 description: spring 中的数据验证、绑定与类型转换
 ---
 
@@ -37,7 +37,7 @@ description: spring 中的数据验证、绑定与类型转换
 
 [spring reference](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#validation)
 
-Spring 中的 数据验证、数据绑定、类型转换。
+Spring 中的 数据验证、数据绑定、类型转换。<!--more-->
 
 ## 1.1. Validation on Spring's Validator Interface
 

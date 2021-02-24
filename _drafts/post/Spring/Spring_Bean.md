@@ -1,9 +1,9 @@
 ---
-title: spring bean的理解
+layout: post
+title: Spring bean
 date: 2017-08-23 02:04:38
-tags: [framework,java,programming]
-categories: programming
-
+tags: [Spring, Java]
+categories: Spring
 ---
 
 # 1. Spring Bean

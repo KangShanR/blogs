@@ -2,7 +2,7 @@
 title: InnoDB Transaction Isolation Level
 layout: post
 tag: [mysql, InnoDB]
-categories: programming
+categories: Mysql
 description: The InnoDB Glory
 date: "2021-1-6 10:59:00"
 ---
@@ -11,7 +11,7 @@ date: "2021-1-6 10:59:00"
 
 > [InnoDB 事务模型](https://dev.mysql.com/doc/refman/8.0/en/innodb-transaction-model.html)
 >
-> InnoDB 事务模型的目标是联合数据库多视图属性与传统的多阶段锁。InnoDB 类似 Oracle ，其执行锁到行级别，同时默认执行查询不加锁并保持一致性读。InnoDB 锁数据存储空间效率高，不随锁数量增加而剧增。锁表全行也不用担心 InnoDB 内存耗尽。
+> InnoDB 事务模型的目标是联合数据库多视图属性与传统的多阶段锁。InnoDB 类似 Oracle ，其执行锁到行级别，同时默认执行查询不加锁并保持一致性读。InnoDB 锁数据存储空间效率高，不随锁数量增加而剧增。锁表全行也不用担心 InnoDB 内存耗尽。<!--more-->
 >
 > [InnoDB 隔离级别](https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-isolation-levels.html)
 >

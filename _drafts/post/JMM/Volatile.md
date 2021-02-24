@@ -9,8 +9,6 @@ description: java keyword `volatile`
 
 # 1. Java Volatile
 
-<!-- TOC -->autoauto1. [1. Java Volatile](#1-java-volatile)auto    1. [1.1. Volatile in Double Check Singleton](#11-volatile-in-double-check-singleton)autoauto<!-- /TOC -->
-
 java 中关键字 volatile 的使用 [reference](https://mp.weixin.qq.com/s/AE0oeKiCU_aetfkW9Qk0cg)<!--more-->
 
 - volatile 的做法：

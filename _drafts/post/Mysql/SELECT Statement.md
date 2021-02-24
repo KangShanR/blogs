@@ -2,7 +2,7 @@
 title: SELECT in Mysql
 layout: post
 tag: [mysql, InnoDB]
-categories: programming
+categories: Mysql
 description: SELECT statements in Mysql
 date: "2021-1-15 14:53:00"
 ---
@@ -14,7 +14,7 @@ date: "2021-1-15 14:53:00"
 
 [reference](https://dev.mysql.com/doc/refman/5.7/en/join.html)
 
-- 在 MYSQL 中，`JOIN`, `CROSS JOIN` 与 `INNER JOIN` 在语法是等同的，彼此之间可以相互替换。但在标准 sql 中它们有所区别，inner join 使用 on 子句，而 cross join 使用其他的。
+- 在 MYSQL 中，`JOIN`, `CROSS JOIN` 与 `INNER JOIN` 在语法是等同的，彼此之间可以相互替换。但在标准 sql 中它们有所区别，inner join 使用 on 子句，而 cross join 使用其他的。<!--more-->
 - 表引用 table_reference 可使用别名：`tbl_name as alias_name` 或 `tbl_name alias_name`。
 - table_subquery 也叫派生表或子查询，这样的一个子查询必须有一个结果集表名：`SELECT * FROM (SELECT 1, 2, 3) AS t1;`
 - 单次 join 最多引用 61 张表，这其中包括派生表和外部查询块的 FROM 子句视图。

@@ -1,8 +1,17 @@
+---
+title: Shell
+layout: post
+date: 2020-12-10 18:01:00
+categories: Linux
+tags: [programming, linux, shell]
+description: linux command line
+---
+
 # 命令行
 
 ## vim 编辑器命令行
 
-> 以下命令是在编辑整个文件时（未进入到文件编辑内部时）进行行操作。
+> 以下命令是在编辑整个文件时（未进入到文件编辑内部时）进行行操作。<!--more-->
 
 **note:**
 - 行编辑时， backspace 只会让光标向前行动，不能删除前一个字符

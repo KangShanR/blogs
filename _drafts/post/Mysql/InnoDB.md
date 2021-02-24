@@ -2,7 +2,7 @@
 title: InnoDB
 layout: post
 tag: [mysql, InnoDB, InnoDB Locking]
-categories: programming
+categories: Mysql
 description: The InnoDB Glossary
 date: "2020-12-29 15:58:00"
 ---
@@ -25,7 +25,7 @@ date: "2020-12-29 15:58:00"
 
 - 在并发写同一行数据时，如果 where 条件字段没有加索引，innoDB 会对所有行加行锁，再对条件进行筛选，不符合条件的行再释放锁。一锁一放损耗极大，所以建议适当添加索引。
 - 在可重复读隔离级别下，InnoDB 加间隙锁可以防止幻读，同理，如果没有索引将会把所在行之外所有列都加上间隙锁，而导致范围外的行也需要阻塞到当前锁释放才能插入。
-- 意向锁是表锁，只用来表示该表有没行正被锁住，而以免有行被锁住时想要加表锁修改表结构，需要每行查询是否有行锁。
+- 意向锁是表锁，只用来表示该表有没行正被锁住，而以免有行被锁住时想要加表锁修改表结构，需要每行查询是否有行锁。<!--more-->
 
 ### Consistent Read
 

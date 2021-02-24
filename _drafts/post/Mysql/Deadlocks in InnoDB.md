@@ -2,7 +2,7 @@
 title: Deadlocks in InnoDB
 layout: post
 tag: [mysql, InnoDB, Deadlock]
-categories: programming
+categories: Mysql
 description: Deadlock in InnoDB
 date: "2021-1-12 22:31:00"
 ---
@@ -11,7 +11,7 @@ date: "2021-1-12 22:31:00"
 
 > [reference](https://dev.mysql.com/doc/refman/5.7/en/innodb-deadlocks.html)
 
-当不同的事务因为持有其他事务需要的锁不能继续处理时的场景叫死锁。因为事务之间在等待对方的资源释放，但又不释放自己所持有的资源。
+当不同的事务因为持有其他事务需要的锁不能继续处理时的场景叫死锁。因为事务之间在等待对方的资源释放，但又不释放自己所持有的资源。<!--more-->
 
 当多个事务通过语句 `SELECT ... FOR UPDATE` 或 `UPDATE` 对多张表中的行加锁，但加锁顺序不一致时会产生死锁。
 

@@ -9,7 +9,7 @@ description: hash function && hash table
 
 # Hash
 
-Hash 算法应用在 Java 集合框架。其中 HashTable 基本实现数据结构的 HashTable 。HashMap 的底层有 HashTable 同时也有红黑树。HashSet 的内部就是一个HashMap 。
+Hash 算法应用在 Java 集合框架。其中 HashTable 基本实现数据结构的 HashTable 。HashMap 的底层有 HashTable 同时也有红黑树。HashSet 的内部就是一个HashMap 。<!--more-->
 
 ## Map
 

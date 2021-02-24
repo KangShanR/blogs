@@ -1,4 +1,6 @@
 ---
+title: Hash
+layout: Shell
 date: 2020-12-10 18:01:00
 categories: programming
 tags: [programming, linux, shell]
@@ -7,7 +9,7 @@ description: linux shell script
 
 # Shell
 
-> Shell 是一个可以执行命令／程序／shell 脚本的环境，提供了访问 Unix 系统的接口。其根据输入执行程序，执行完成后将结果展示出来。 [Shell](https://www.tutorialspoint.com/unix/unix-what-is-shell.htm)
+> Shell 是一个可以执行命令／程序／shell 脚本的环境，提供了访问 Unix 系统的接口。其根据输入执行程序，执行完成后将结果展示出来。 [Shell](https://www.tutorialspoint.com/unix/unix-what-is-shell.htm)<!--more-->
 
 ## variable
 

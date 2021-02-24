@@ -1,7 +1,9 @@
 ---
 layout: "post"
-tags: programming, Spring, AOP
+title: "AOP"
+tags: [Spring, AOP]
 date: "2018-11-26 10:50"
+categories: AOP
 ---
 
 # AOP
@@ -27,7 +29,7 @@ date: "2018-11-26 10:50"
 <!-- /TOC -->
 
 > aop aspect oriented programming 。面向切面编程，常用于具有横切性质的系统级服务，如：事务管理、安全检查、缓存、对象池管理。
-> **需要说明的是** aop 是一种编程思想，并不仅限于 java 更不仅限于 spring 。但这儿主要针对 java spring aop 进行讨论。纵向重复代码在横向上抽取。
+> **需要说明的是** aop 是一种编程思想，并不仅限于 java 更不仅限于 spring 。但这儿主要针对 java spring aop 进行讨论。纵向重复代码在横向上抽取。<!--more-->
 
 AspectJ 是基于 java 语言的 aop 框架，提供了强大的 aop 功能，其他众多的 aop 框架都借鉴了其思想。包括两个部分：
 

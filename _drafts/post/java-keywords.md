@@ -13,7 +13,7 @@ description: key words
 用以序列化、反序列化时所排除的变量，在进行序列化、反序列化时 transient 修辞的变量将不被序列化、反序列化。
 
 - 与 final 连用，final 修辞字段值会直接被序列化，因此 transient 修辞 final 字段无效
-- 与 static 连用，static 字段非对象所拥有，所以 transient 修辞的 static 字段无效。
+- 与 static 连用，static 字段非对象所拥有，所以 transient 修辞的 static 字段无效。<!--more-->
 
 ## volatile
 

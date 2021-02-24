@@ -1,7 +1,9 @@
 ---
+layout: post
+title: "Spring IoC"
 date: 2017-09-15 12:14:38
-tags: [framework,java]
-categories: programming
+tags: [Spring, Java]
+categories: Spring
 ---
 
 # 1. Spring IoC
@@ -38,7 +40,7 @@ categories: programming
 
 <!-- /TOC -->
 
-> Spring 说到底就是一个轻量级的容器，让它来负责各个实例的生产、管理、维护，而这些实例的参数与依赖关系都交由 spring 的配置文件来设置；
+> Spring 说到底就是一个轻量级的容器，让它来负责各个实例的生产、管理、维护，而这些实例的参数与依赖关系都交由 spring 的配置文件来设置；<!--more-->
 
 <!--more-->
 

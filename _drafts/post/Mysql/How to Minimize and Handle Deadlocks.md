@@ -2,7 +2,7 @@
 title: How to Minimize and Handle Deadlocks
 layout: post
 tag: [mysql, InnoDB, Deadlock]
-categories: programming
+categories: Mysql
 description: How to Minimize and Handle Deadlocks?
 date: "2021-1-13 22:6:00"
 ---
@@ -13,7 +13,7 @@ date: "2021-1-13 22:6:00"
 >
 > 死锁最小化建立在[死锁检测](./Deadlocks%20in%20InnoDB.md)之上。
 
-死锁是事务型中经典问题，如果出现死锁的频率不高不是一个危险的问题。通常来讲，需要在应用中为死锁场景下事务重试做好准备。
+死锁是事务型中经典问题，如果出现死锁的频率不高不是一个危险的问题。通常来讲，需要在应用中为死锁场景下事务重试做好准备。<!--more-->
 
 InnoDB 自动使用行级锁。可能仅仅是在插入修改单行就出现死锁，这是因为这些操作并非真正的原子操作，它们会自动地在插入或修改的 index record（可能多个）上设置锁。（设置锁并非直接加锁，而是先请求锁，获得锁后再持有锁。）
 

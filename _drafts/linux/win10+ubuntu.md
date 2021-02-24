@@ -1,10 +1,12 @@
 ---
-categories: programming
+layout: "post"
+title: System Installation
+categories: Linux
 date: "2017-11-09 10:52"
-tag: miniprogram
+tag: [Windows10, Ubuntu, OS]
 ---
 
-# windows10 & Ubuntu
+# Windows10 & Ubuntu
 
 > win10 + ubuntu 双系统安装与使用
 

@@ -10,7 +10,7 @@ description: java jar
 
 java archive
 
-- 使用 jdk 自带工具 javac 编译 java 文件成 class 字节码，再用打包命令 `java jar cfmv jar-name manifest-file class-files`
+- 使用 jdk 自带工具 javac 编译 java 文件成 class 字节码，再用打包命令 `java jar cfmv jar-name manifest-file class-files`<!--more-->
 
 ## installed extensions
 

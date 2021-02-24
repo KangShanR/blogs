@@ -2,7 +2,7 @@
 title: InnoDB Transaction Model
 layout: post
 tag: [mysql, InnoDB, commit]
-categories: programming
+categories: Mysql
 description: The InnoDB transactions' commit & rollback
 date: "2021-1-6 13:52:00"
 ---
@@ -17,7 +17,7 @@ date: "2021-1-6 13:52:00"
 
 [reference](https://dev.mysql.com/doc/refman/8.0/en/innodb-autocommit-commit-rollback.html)
 
-> 在 InnoDB 中所有用户的活动都在事务之中，如果 autocommit＝ON 每个 SQL 语句都会形成一个自有的事务。默认情况下 Ｍysql 开启一个session都会在每个连接都会设置autocommit＝on，MYSQL 只要语句没有返回错误都会提交。
+> 在 InnoDB 中所有用户的活动都在事务之中，如果 autocommit＝ON 每个 SQL 语句都会形成一个自有的事务。默认情况下 Ｍysql 开启一个session都会在每个连接都会设置autocommit＝on，MYSQL 只要语句没有返回错误都会提交。<!--more-->
 
 - 一个 session 可以在 autocommit=on 时在同一个事务中执行多个语句，只要显示地以 `START TRANSACTION` 或者 `BEGIN` 开始并以 `COMMIT`/`ROLLBACK` 结束语句。
 - 如果 autocommit=0 , session 也设置了 autocommit=0 ，那么这个 session 总会有一个事务处于打开状态。`COMMIT` `ROLLBACK` 语句会结束当前事务并开始一个新的事务。

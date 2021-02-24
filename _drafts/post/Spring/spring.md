@@ -1,32 +1,34 @@
 ---
+title: Spring
+layout: post
 date: 2017-08-15 12:14:38
-tags: [framework,java,spring]
-categories: programming
+tags: [java,spring]
+categories: Spring
 description: spring 框架的学习与理解
 ---
 <!-- TOC -->
 
 - [1. spring](#1-spring)
-  - [1.1. ioc](#11-ioc)
-    - [1.1.1. BeanFactory](#111-beanfactory)
-    - [1.1.2. ApplicationContext](#112-applicationcontext)
-  - [1.2. Core 模块](#12-core-模块)
-  - [1.3. AOP 模块](#13-aop-模块)
-  - [1.4. ORM 模块](#14-orm-模块)
-    - [1.4.1. 实体类](#141-实体类)
-      - [1.4.1.1. 配置集成Hibernate](#1411-配置集成hibernate)
-    - [1.4.2. Hibernate的事务管理](#142-hibernate的事务管理)
-    - [1.4.3. spring的bean.xml配置文件的理解](#143-spring的beanxml配置文件的理解)
-  - [1.5. source codes](#15-source-codes)
-  - [rap 在项目开发中的使用](#rap-在项目开发中的使用)
-    - [问题](#问题)
-  - [properties in springmvc](#properties-in-springmvc)
+    - [1.1. ioc](#11-ioc)
+        - [1.1.1. BeanFactory](#111-beanfactory)
+        - [1.1.2. ApplicationContext](#112-applicationcontext)
+    - [1.2. Core 模块](#12-core-%E6%A8%A1%E5%9D%97)
+    - [1.3. AOP 模块](#13-aop-%E6%A8%A1%E5%9D%97)
+    - [1.4. ORM 模块](#14-orm-%E6%A8%A1%E5%9D%97)
+        - [1.4.1. 实体类](#141-%E5%AE%9E%E4%BD%93%E7%B1%BB)
+            - [1.4.1.1. 配置集成Hibernate](#1411-%E9%85%8D%E7%BD%AE%E9%9B%86%E6%88%90hibernate)
+        - [1.4.2. Hibernate的事务管理](#142-hibernate%E7%9A%84%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86)
+        - [1.4.3. spring的bean.xml配置文件的理解](#143-spring%E7%9A%84beanxml%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E7%90%86%E8%A7%A3)
+    - [1.5. source codes](#15-source-codes)
+    - [1.6. rap 在项目开发中的使用](#16-rap-%E5%9C%A8%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8)
+        - [1.6.1. 问题](#161-%E9%97%AE%E9%A2%98)
+    - [1.7. properties in springmvc](#17-properties-in-springmvc)
 
 <!-- /TOC -->
 
 # 1. spring
 
-> spring 配置 beans 的底层原理就在于通过封装好的解析 xml 类，将 xml 文件中配置好的 bean 实例出一个对象来，再通过配置实现 bean 之间的相互引用，而实现将要用到的 bean （实用类）实例化并使用；
+> spring 配置 beans 的底层原理就在于通过封装好的解析 xml 类，将 xml 文件中配置好的 bean 实例出一个对象来，再通过配置实现 bean 之间的相互引用，而实现将要用到的 bean （实用类）实例化并使用；<!--more-->
 
 - 通过 DI(dependency injection) 依赖注入，实现 IoC(Inverse of Control) 反转控制，将所有的 bean 注入 IoC 容器。
 - ioc 等于 di

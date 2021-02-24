@@ -1,7 +1,9 @@
 ---
+title: SpringApplication
+layout: post
 date: 2020-07-22 19:45:00
-tags: [java,SpringBoot]
-categories: programming
+tags: [Java,SpringBoot]
+categories: SpringBoot
 description: Spring Boot SpringApplication
 ---
 
@@ -10,15 +12,15 @@ description: Spring Boot SpringApplication
 <!-- TOC -->
 
 - [1. SpringApplication](#1-springapplication)
-  - [1.1. Application Availability](#11-application-availability)
-    - [1.1.1. Liveness State](#111-liveness-state)
-    - [1.1.2. Readiness State](#112-readiness-state)
-    - [1.1.3. Managing the Application Availability State](#113-managing-the-application-availability-state)
-  - [1.2. Application Events and Listeners](#12-application-events-and-listeners)
-  - [1.3. Web Environment](#13-web-environment)
-  - [1.4. Accessing Application Arguments](#14-accessing-application-arguments)
-  - [Using the ApplicationRunner and CommandLineRunner](#using-the-applicationrunner-and-commandlinerunner)
-  - [初始化流程](#初始化流程)
+    - [1.1. Application Availability](#11-application-availability)
+        - [1.1.1. Liveness State](#111-liveness-state)
+        - [1.1.2. Readiness State](#112-readiness-state)
+        - [1.1.3. Managing the Application Availability State](#113-managing-the-application-availability-state)
+    - [1.2. Application Events and Listeners](#12-application-events-and-listeners)
+    - [1.3. Web Environment](#13-web-environment)
+    - [1.4. Accessing Application Arguments](#14-accessing-application-arguments)
+    - [1.5. Using the ApplicationRunner and CommandLineRunner](#15-using-the-applicationrunner-and-commandlinerunner)
+    - [1.6. 初始化流程](#16-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B)
 
 <!-- /TOC -->
 [SpringBoot Features](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-spring-application)
@@ -27,7 +29,7 @@ description: Spring Boot SpringApplication
 
 [系统可用性](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-application-availability)
 
-可以通过注入 `ApplicationAvailability` 接口到 bean 中以获取应用可用性状态。
+可以通过注入 `ApplicationAvailability` 接口到 bean 中以获取应用可用性状态。<!--more-->
 
 ### 1.1.1. Liveness State
 

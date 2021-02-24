@@ -2,7 +2,7 @@
 title: InnoDB Indexes On-Disk Structures
 layout: post
 tag: [mysql, InnoDB, index]
-categories: programming
+categories: Mysql
 description: The On-disk structures of Index in the InnoDB
 date: "2021-1-7 10:4:00"
 ---
@@ -13,7 +13,7 @@ date: "2021-1-7 10:4:00"
 
 > [reference](https://dev.mysql.com/doc/refman/5.7/en/innodb-index-types.html)
 >
-> InnoDB 中每张都有聚簇索引用以存储行数据。一般来讲，聚簇索引等于主键。为获取更好的查询修改性能， 需要了解使用聚簇索引优化每张表的常用查询与 DML 操作。
+> InnoDB 中每张都有聚簇索引用以存储行数据。一般来讲，聚簇索引等于主键。为获取更好的查询修改性能， 需要了解使用聚簇索引优化每张表的常用查询与 DML 操作。<!--more-->
 
 - 当为表定义一个主键 PRIMARY KEY，InnoDB 会使用主键作为聚簇索引。为创建的每张表定义主键，如果没有逻辑上唯一并非空的列（或多个列），创建一个自增列，其值是自动填充的。
 - 如果没有定义主键，Mysql会设置第一个唯一索引列（其key非空），InnoDB 以此列为聚簇索引。

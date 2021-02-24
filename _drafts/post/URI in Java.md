@@ -7,13 +7,28 @@ categories: Java
 description: java URI class
 ---
 
-# URI in Java
+# 1. URI in Java
+<!-- TOC -->
 
+- [1. URI in Java](#1-uri-in-java)
+    - [1.1. URI 分类](#11-uri-%E5%88%86%E7%B1%BB)
+    - [1.2. URL](#12-url)
+    - [1.3. URI 文档翻译](#13-uri-%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91)
+        - [1.3.1. 保留字符](#131-%E4%BF%9D%E7%95%99%E5%AD%97%E7%AC%A6)
+        - [1.3.2. 非保留字符](#132-%E9%9D%9E%E4%BF%9D%E7%95%99%E5%AD%97%E7%AC%A6)
+        - [1.3.3. 转义编码](#133-%E8%BD%AC%E4%B9%89%E7%BC%96%E7%A0%81)
+        - [1.3.4. 被排除的 ASCII 字符](#134-%E8%A2%AB%E6%8E%92%E9%99%A4%E7%9A%84-ascii-%E5%AD%97%E7%AC%A6)
+    - [1.4. URI 句法部件 （URI Syntactic Components）](#14-uri-%E5%8F%A5%E6%B3%95%E9%83%A8%E4%BB%B6-uri-syntactic-components)
+        - [1.4.1. Scheme 组件](#141-scheme-%E7%BB%84%E4%BB%B6)
+        - [1.4.2. Path 组件](#142-path-%E7%BB%84%E4%BB%B6)
+        - [1.4.3. Query 组件](#143-query-%E7%BB%84%E4%BB%B6)
+
+<!-- /TOC -->
 URI syntax and components [URI 语法](https://www.ietf.org/rfc/rfc2396.txt)
 
-At the highest level a URI reference (hereinafter simply "URI") in string form has the syntax `[scheme:]scheme-specific-part[#fragment]`
+At the highest level a URI reference (hereinafter simply "URI") in string form has the syntax `[scheme:]scheme-specific-part[#fragment]`<!--more-->
 
-## URI 分类
+## 1.1. URI 分类
 
 - opaque 模糊类：不以 slash character `/` 开头，不需要进一步解析。eg：
     - mailto:java-net@java.sun.com
@@ -45,7 +60,7 @@ Describes the components of a URI:scheme,scheme-specific-part,authority,user-inf
 |query|String|
 |fragment|String|
 
-## URL
+## 1.2. URL
 
 URL: Uniform Resource Locator.
 
@@ -53,7 +68,7 @@ URL 与 URI 之间相互转换，使用方法： `URL.toURI()` 与 `URI.toURL()`
 
 URL 不负责编码与解码，所以其不识别转义后的 URL 与转义前的 RUL。URL 的 HTML 形式的解码可使用 URLEncoder 与 URLDecoder 。
 
-## URI 文档翻译
+## 1.3. URI 文档翻译
 
 [original doc](https://www.ietf.org/rfc/rfc2396.txt)
 
@@ -66,13 +81,13 @@ URL 不负责编码与解码，所以其不识别转义后的 URL 与转义前�
 > The second convention is a BNF-like grammar, used to define the formal URI syntax.  The grammar is that of [RFC822], except that "|" is used to designate alternatives.  Briefly, rules are separated from definitions by an equal "=", indentation is used to continue a rule definition over more than one line, literals are quoted with "", parentheses "(" and ")" are used to group elements, optional elements are enclosed in "[" and "]" brackets, and elements may be preceded with <n>* to designate n or more repetitions of the following element; n defaults to 0.
 > Unlike many specifications that use a BNF-like grammar to define the bytes (octets) allowed by a protocol, the URI grammar is defined in terms of characters.  Each literal in the grammar corresponds to the character it represents, rather than to the octet encoding of that character in any particular coded character set.  How a URI is represented in terms of bits and bytes on the wire is dependent upon the character encoding of the protocol used to transport it, or the charset of the document which contains it.
 
-### 保留字符
+### 1.3.1. 保留字符
 
 > reserved    = ";" | "/" | "?" | ":" | "@" | "&" | "=" | "+" |"$" | ","
 
 如果使用了这些保留字符在 URI 中，需要转义。这些保留字符可以出现在 URI 中但不能出现在特定的 URI 组件中。一般来讲，如果 URI 语义改变或保留字符被转义为 US-ASCII 码所替换，字符就将被保留。
 
-### 非保留字符
+### 1.3.2. 非保留字符
 
 大小写字母数字与标点符号
 
@@ -81,19 +96,19 @@ URL 不负责编码与解码，所以其不识别转义后的 URL 与转义前�
 
 在 URI 中都为非保留字符，非保留字符被转义后仍保留原语义。但最好不要转义除非上下文只接受转义 URI。
 
-### 转义编码
+### 1.3.3. 转义编码
 
 转义后的八进制符是由三个字符组成：`%` 加上两个十六进制字符。eg: `%20` 表示 ASCII 码 32 space。
 
 是否转义取决于转义算法，一般只需要将保留字符转义，而非保留字符可不转义。
 
-### 被排除的 ASCII 字符
+### 1.3.4. 被排除的 ASCII 字符
 
 - 控制符 US-ASCII coded characters 00-1F, 7F hexadecimal
 - 空格 space US-ASCII coded character 20 hexadecimal
 - 分隔符 delims "<" | ">" | "#" | "%" | <"> 网关代理用于分隔符 "{" | "}" | "|" | "\" | "^" | "[" | "]" | "`"
 
-## URI 句法部件 （URI Syntactic Components）
+## 1.4. URI 句法部件 （URI Syntactic Components）
 
 URI 语法主要取决于 scheme ，一般来讲，绝对 URI 的写法： `<scheme>:<scheme-specific-part>`。使用的 scheme 后跟 `;` 再跟上一个意义解释取决于 scheme 的 String。
 
@@ -117,13 +132,13 @@ uric_no_slash = unreserved | escaped | ";" | "?" | ":" | "@" |"&" | "=" | "+" | 
 
 使用 `<path>` 表示 `<abs_path>` 与 `<opaque_part>` 结构，因为对于任一给定的 URI 它们相互排斥，且能被编译成单一组件。
 
-### Scheme 组件
+### 1.4.1. Scheme 组件
 
 如有多种方式访问资源一样，URI 也可以有多种形式的 scheme 来识别资源。URI 由保留字符分隔的组件序列组成，其中第一个组件定义了剩余的 URI 字串的语义。
 
 Scheme 由小写字母、数字、plus `+`/period `.`/hyphen `-` 所构成，且只能以 小字字母开头，大写字母将被自动转为小写字母。`scheme = alpha *( alpha | digit | "+" | "-" | "." )`。相对 URI 从 base URI 继承而来，不以 scheme 开头。
 
-### Path 组件
+### 1.4.2. Path 组件
 
 ```
 path          = [ abs_path | opaque_part ]
@@ -137,7 +152,7 @@ pchar         = unreserved | escaped |":" | "@" | "&" | "=" | "+" | "$" | ","
 
 一个路径组件可由多个 segment 组成，segment 由 `/` 分隔。一个 segment 中，`/`,`?`,`=`,`;` 为保留字符。同时可由多个参数构成，参数之间使用 `;` 分隔。
 
-### Query 组件
+### 1.4.3. Query 组件
 
 >    The query component is a string of information to be interpreted by the resource.
 > 

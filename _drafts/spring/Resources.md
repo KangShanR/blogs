@@ -1,8 +1,9 @@
 ---
+layout: post
 title: "Resources in Spring"
 date: "2020-4-15 14:48"
-categories: programming
-tags: [Resource]
+categories: Spring
+tags: [Resource, Spring]
 ---
 
 # 1. Resources in Spring

@@ -2,7 +2,7 @@
 title: Locks set by different SQL
 layout: post
 tag: [mysql, InnoDB, lock, SQL]
-categories: programming
+categories: Mysql
 description: Locks set by different SQL in the InnoDB
 date: "2021-1-7 10:04:00"
 ---
@@ -11,7 +11,7 @@ date: "2021-1-7 10:04:00"
 
 > [reference](https://dev.mysql.com/doc/refman/8.0/en/innodb-locks-set.html)
 >
-> 对于一个　locking－read、UPDATE、DELETE 的处理过程中通常只对被扫描到的索引记录加锁，不管 where 条件中其他条件所排除的行。InnoDB 不记忆具体 WHERE 条件，只记忆被扫描的索引范围。所加之锁一般为 next－key lock ，除对表记录行加锁外还在其前加上 gap－lock 。gap－lock 可被显示地禁用造成 next-key lock 失效，另外事务隔离级别也会影响锁。
+> 对于一个　locking－read、UPDATE、DELETE 的处理过程中通常只对被扫描到的索引记录加锁，不管 where 条件中其他条件所排除的行。InnoDB 不记忆具体 WHERE 条件，只记忆被扫描的索引范围。所加之锁一般为 next－key lock ，除对表记录行加锁外还在其前加上 gap－lock 。gap－lock 可被显示地禁用造成 next-key lock 失效，另外事务隔离级别也会影响锁。<!--more-->
 
 - 如果二级索引在查询中被使用且不设置 record_lock ，InnoDB 将会查出聚簇索引并把锁加在上面。
 - 如果语句中没有合适的索引，MYSQL 处理语句时必须扫描全表，表中每行数据将被锁住，这就意味着其他用户的插入与更新都会被阻塞。所以恰当的索引对于查询性能举足轻重。

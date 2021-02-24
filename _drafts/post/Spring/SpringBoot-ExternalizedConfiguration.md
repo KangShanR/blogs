@@ -1,7 +1,8 @@
 ---
+title: SpringBoot Externalized Configuration
 date: 2020-07-19 23:48:38
-tags: [java,SpringBoot,configuration]
-categories: programming
+tags: [Java,SpringBoot,Configuration, Spring]
+categories: SpringBoot
 description: spring boot 外部配置的应用
 ---
 
@@ -11,7 +12,7 @@ description: spring boot 外部配置的应用
 
 > 外部配置
 
-一个应用，其通常添加外部配置的方式：properties file, yml files, environment variables, 命令行参数扩展配置。配置属性可以通过 `@Value` 直接被注入到 bean 中，通过 `Environment` 抽象直接访问，也可以通过 `@ConfigurationProperties` 绑定到结构对象上。
+一个应用，其通常添加外部配置的方式：properties file, yml files, environment variables, 命令行参数扩展配置。配置属性可以通过 `@Value` 直接被注入到 bean 中，通过 `Environment` 抽象直接访问，也可以通过 `@ConfigurationProperties` 绑定到结构对象上。<!--more-->
 
 Spring Boot 加载 `PropertySource` 有明确的顺序，以保证正确覆盖配置值。其**配置优先级**从高到低依次为：
 
