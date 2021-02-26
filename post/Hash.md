@@ -71,5 +71,5 @@ static final int hash(Object key) {
 
 ## .3. HashTable 与 HashMap 的区别
 
-- 底层基本与 HashMap 一致，初始都是使用 HashTable 算法，使用链表来解决 Hash Collision 。但 HashMap 更高明的算法在于，其中链表长度超过阈值 8 就链表会转为红黑树，这也避免了整个 HashTable 退化成一个 链表。
+- 底层基本与 HashMap 一致，初始都是使用 HashTable 算法，使用链表来解决 Hash Collision 。但 HashMap 更高明的算法在于，其中链表长度超过阈值 8 就链表会转为红黑树，这也避免了整个 HashTable 退化成一个链表。
 - HashTable 为同步的，可以保证一定的线程安全。
